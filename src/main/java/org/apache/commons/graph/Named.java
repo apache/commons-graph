@@ -24,8 +24,10 @@ package org.apache.commons.graph;
  */
 public interface Named
 {
+
     /**
      * Gets the name attribute of the Named object
      */
     String getName();
+
 }
