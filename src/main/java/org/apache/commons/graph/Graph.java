@@ -38,7 +38,7 @@ public interface Graph<V extends Vertex, E extends Edge>
      *
      * @return the total set of Edges in the graph.
      */
-    Set<V> getEdges();
+    Set<E> getEdges();
 
     /**
      * Returns all edges which touch this vertex.
@@ -52,6 +52,6 @@ public interface Graph<V extends Vertex, E extends Edge>
      *
      * @return the set of {@link Vertex} on this Edge.
      */
-    Set<E> getVertices(Edge e);
+    Set<V> getVertices(Edge e);
 
 }
