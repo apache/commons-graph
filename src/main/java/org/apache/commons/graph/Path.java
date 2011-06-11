@@ -27,6 +27,7 @@ import java.util.List;
  */
 public interface Path
 {
+
     /**
      * Returns the start of the path.
      */
