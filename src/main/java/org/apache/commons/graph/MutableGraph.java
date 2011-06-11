@@ -31,37 +31,37 @@ public interface MutableGraph<V extends Vertex, E extends Edge>
     /**
      * Adds a feature to the Vertex attribute of the MutableGraph object
      */
-    void addVertex(V v)
+    void addVertex( V v )
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    void removeVertex(V v)
+    void removeVertex( V v )
         throws GraphException;
 
     /**
      * Adds a feature to the Edge attribute of the MutableGraph object
      */
-    void addEdge(E e)
+    void addEdge( E e )
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    void removeEdge(E e)
+    void removeEdge( E e )
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    void connect(E e, V v)
+    void connect( E e, V v )
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    void disconnect(E e, V v)
+    void disconnect( E e, V v )
         throws GraphException;
 
 }
