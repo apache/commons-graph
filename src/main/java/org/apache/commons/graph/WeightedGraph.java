@@ -17,7 +17,9 @@ package org.apache.commons.graph;
  */
 
 /**
- * Description of the Interface
+ * A graph is a {@code WeightedGraph} if a number (weight) is assigned to each edge.
+ * Such weights might represent, for example, costs, lengths or capacities, etc. depending on the problem.
+ * The weight of the graph is the sum of the weights given to all edges.
  */
 public interface WeightedGraph<V extends Vertex, W extends Number, WE extends WeightedEdge<W>>
     extends Graph<V, WE>
