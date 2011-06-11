@@ -38,6 +38,7 @@ public interface DirectedGraph<V extends Vertex, E extends Edge>
     /**
      * Returns the set of {@link Edge}s which are inbound to the {@link Vertex}.
      *
+     * @param v the {@link Vertex} which inbound {@link Edge}s have to be returned
      * @return the set of {@link Edge}s which are inbound to the {@link Vertex}.
      */
     Set<E> getInbound( Vertex v );
@@ -45,6 +46,7 @@ public interface DirectedGraph<V extends Vertex, E extends Edge>
     /**
      * Returns the set of {@link Edge}s which lead away from the {@link Vertex}.
      *
+     * @param v the {@link Vertex} which outbound {@link Edge}s have to be returned
      * @return the set of {@link Edge}s which lead away from the {@link Vertex}.
      */
     Set<E> getOutbound( Vertex v );
@@ -52,6 +54,7 @@ public interface DirectedGraph<V extends Vertex, E extends Edge>
     /**
      * Returns the {@link Vertex} which originates the {@link Edge}.
      *
+     * @param e the {@link Edge} which has the returned {@link Vertex} as source.
      * @return the {@link Vertex} which originates the {@link Edge}.
      */
     Vertex getSource( Edge e );
@@ -59,6 +62,7 @@ public interface DirectedGraph<V extends Vertex, E extends Edge>
     /**
      * Returns the {@link Vertex} which terminates the {@link Edge}.
      *
+     * @param e the {@link Edge} which has the returned {@link Vertex} as target.
      * @return the {@link Vertex} which terminates the {@link Edge}.
      */
     Vertex getTarget( Edge e );
