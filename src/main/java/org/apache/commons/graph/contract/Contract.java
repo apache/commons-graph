@@ -26,8 +26,11 @@ import org.apache.commons.graph.Vertex;
 
 /**
  * Description of the Interface
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public interface Contract
+public interface Contract<V extends Vertex, E extends Edge>
 {
 
     /**
@@ -35,7 +38,7 @@ public interface Contract
      * the graph you should work off of. If an edge or vertex addition is
      * illegal to the contract, raise a GraphException with and explanation.
      */
-    void setImpl( DirectedGraph impl );
+    void setImpl( DirectedGraph<V, E> impl );
 
     /**
      * getInterface This returns the marker interface which is associated with

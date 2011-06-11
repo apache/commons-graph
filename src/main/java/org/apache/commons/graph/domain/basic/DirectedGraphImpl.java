@@ -54,7 +54,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
     private final Set<WE> edges = new HashSet<WE>();
 
-    private final List<Contract> contracts = new ArrayList<Contract>();
+    private final List<Contract<V, WE>> contracts = new ArrayList<Contract<V, WE>>();
 
     private final Map<V, Set<WE>> inbound = new HashMap<V, Set<WE>>(); // VERTEX X SET( EDGE )
 
@@ -108,7 +108,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
      * @param c
      * @throws GraphException
      */
-    public void addContract( Contract c )
+    public void addContract( Contract<V, WE> c )
         throws GraphException
     {
         c.setImpl( this );
@@ -121,7 +121,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
      *
      * @param c
      */
-    public void removeContract( Contract c )
+    public void removeContract( Contract<V, WE> c )
     {
         contracts.remove( c );
     }
@@ -257,7 +257,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     public void addVertex( V v )
         throws GraphException
     {
-        Iterator<Contract> conts = contracts.iterator();
+        Iterator<Contract<V, WE>> conts = contracts.iterator();
         while ( conts.hasNext() )
         {
             conts.next().addVertex( v );
@@ -290,7 +290,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     public void removeVertex( Vertex v )
         throws GraphException
     {
-        Iterator<Contract> conts = contracts.iterator();
+        Iterator<Contract<V, WE>> conts = contracts.iterator();
         while ( conts.hasNext() )
         {
             conts.next().removeVertex( v );
@@ -348,10 +348,10 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     public void addEdge( WE e, V start, V end )
         throws GraphException
     {
-        Iterator<Contract> conts = contracts.iterator();
+        Iterator<Contract<V, WE>> conts = contracts.iterator();
         while ( conts.hasNext() )
         {
-            Contract cont = conts.next();
+            Contract<V, WE> cont = conts.next();
 
             cont.addEdge( e, start, end );
         }
@@ -399,7 +399,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     public void removeEdge( WE e )
         throws GraphException
     {
-        Iterator<Contract> conts = contracts.iterator();
+        Iterator<Contract<V, WE>> conts = contracts.iterator();
         while ( conts.hasNext() )
         {
             conts.next().removeEdge( e );
