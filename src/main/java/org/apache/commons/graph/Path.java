@@ -31,30 +31,30 @@ public interface Path
     /**
      * Returns the start of the path.
      */
-    public Vertex getStart();
+    Vertex getStart();
 
     /**
      * Returns the end of the path.
      */
-    public Vertex getEnd();
+    Vertex getEnd();
 
     /**
      * getVertices() - This returns a list of Vertices, in order as they go from
      * Start to End. This includes the Start and End vertex, and will have one
      * more entry than the Edges list.
      */
-    public List<Vertex> getVertices();
+    List<Vertex> getVertices();
 
     /**
      * getEdges() - This returns a list of Edges which comprise the path. It
      * will have one less than the list of Vertices.
      */
-    public List<Edge> getEdges();
+    List<Edge> getEdges();
 
     /**
      * size() - This returns the size of the path in terms of number of
      * verticies it visits.
      */
-    public int size();
+    int size();
 
 }
