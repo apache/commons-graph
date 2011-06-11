@@ -25,6 +25,7 @@ import java.util.Set;
  */
 public interface Graph<V extends Vertex, E extends Edge>
 {
+
     /**
      * getVertices - Returns the total set of Vertices in the graph.
      */
@@ -46,5 +47,5 @@ public interface Graph<V extends Vertex, E extends Edge>
      * this Edge. (2 for normal edges, > 2 for HyperEdges.)
      */
     Set<E> getVertices(Edge e);
-}
 
+}
