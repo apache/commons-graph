@@ -192,6 +192,12 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         return new HashSet<WE>();
     }
 
+    /**
+     * TODO fillme
+     *
+     * @param e
+     * @param w
+     */
     public void setWeight( WE e, Number w )
     {
         if ( edgeWeights.containsKey( e ) )
@@ -202,6 +208,9 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         edgeWeights.put( e, w );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Number getWeight( WE e )
     {
         if ( edgeWeights.containsKey( e ) )
@@ -212,7 +221,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * {@inheritDoc}
      */
     public Object invoke( Object proxy, Method method, Object args[] )
         throws Throwable
