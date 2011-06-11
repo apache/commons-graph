@@ -22,7 +22,7 @@ package org.apache.commons.graph;
 import org.apache.commons.graph.exception.*;
 
 /**
- * Description of the Interface
+ * The {@code MutableGraph} is a graph that supports the addition and removal of edges.
  */
 public interface MutableGraph
      extends Graph
