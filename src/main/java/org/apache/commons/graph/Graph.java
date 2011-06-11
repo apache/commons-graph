@@ -23,28 +23,28 @@ import java.util.Set;
  * called {@link Edge}s or arcs, of certain entities called {@link Vertex} or node.
  * As in mathematics, an {@link Edge} {@code (x,y)} is said to point or go from {@code x} to {@code y}.
  */
-public interface Graph
+public interface Graph<V extends Vertex, E extends Edge>
 {
     /**
      * getVertices - Returns the total set of Vertices in the graph.
      */
-    Set getVertices();
+    Set<V> getVertices();
 
     /**
      * getEdges - Returns the total set of Edges in the graph.
      */
-    Set getEdges();
+    Set<V> getEdges();
 
     /**
      * getEdges( Vertex ) - This method will return all edges which touch this
      * vertex.
      */
-    Set getEdges(Vertex v);
+    Set<E> getEdges(Vertex v);
 
     /**
      * getVertices( Edge ) - This method will return the set of Verticies on
      * this Edge. (2 for normal edges, > 2 for HyperEdges.)
      */
-    Set getVertices(Edge e);
+    Set<E> getVertices(Edge e);
 }
 
