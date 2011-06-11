@@ -33,18 +33,18 @@ import org.apache.commons.graph.exception.*;
 /**
  * Description of the Class
  */
-public class UndirectedGraphImpl
-  implements UndirectedGraph, 
-	     WeightedGraph, 
-	     MutableGraph,
+public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
+  implements UndirectedGraph<V, WE>,
+	     WeightedGraph<V, WE>,
+	     MutableGraph<V, WE>,
 	     InvocationHandler
 {
-    private Set vertices = new HashSet();
-    private Set edges = new HashSet();
+    private Set<V> vertices = new HashSet<V>();
+    private Set<WE> edges = new HashSet<WE>();
 
-    private Map edgeVerts = new HashMap();// EDGE X SET( VERTS )
-    private Map vertEdges = new HashMap();// VERTEX X SET( EDGE )
-    private Map edgeWeights = new HashMap(); // EDGE X WEIGHT
+    private Map<WE, Set<V>> edgeVerts = new HashMap<WE, Set<V>>();// EDGE X SET( VERTS )
+    private Map<V, Set<WE>> vertEdges = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
+    private Map<WE, Number> edgeWeights = new HashMap<WE, Number>(); // EDGE X WEIGHT
 
     /**
      * Constructor for the UndirectedGraphImpl object
@@ -52,59 +52,71 @@ public class UndirectedGraphImpl
     public UndirectedGraphImpl() { }
 
     /**
-     * Adds a feature to the Vertex attribute of the UndirectedGraphImpl object
+     * {@inheritDoc}
      */
-    public void addVertex(Vertex v)
+    public void addVertex(V v)
         throws GraphException
     {
         vertices.add(v);
     }
 
-  public void removeVertex( Vertex v )
+    /**
+     * {@inheritDoc}
+     */
+  public void removeVertex( V v )
     throws GraphException
   {
     vertices.remove( v );
   }
 
-  public void removeEdge( Edge e ) 
+  /**
+   * {@inheritDoc}
+   */
+  public void removeEdge( WE e ) 
     throws GraphException
   {
     edges.remove( e );
   }
 
-  public void addEdge(Edge e) 
+  /**
+   * {@inheritDoc}
+   */
+  public void addEdge(WE e) 
     throws GraphException
   {
     edges.add( e );
   }
 
-  public void disconnect(Edge e, Vertex v) {
+  /**
+   * {@inheritDoc}
+   */
+  public void disconnect( WE e, V v ) {
     if (edgeVerts.containsKey( e )) {
-      ((Set) edgeVerts.get( e )).remove( v );
+      edgeVerts.get( e ).remove( v );
     }
 
     if (vertEdges.containsKey( v )) {
-      ((Set) vertEdges.get( v )).remove( e );
+      vertEdges.get( v ).remove( e );
     }
   }
 
-  public void connect( Edge e, Vertex v ) {
-    Set verts = null;
+  public void connect( WE e, V v ) {
+    Set<V> verts = null;
     if (!edgeVerts.containsKey( e )) {
-      verts = new HashSet();
+      verts = new HashSet<V>();
       edgeVerts.put( e, verts );
     } else {
-      verts = (Set) edgeVerts.get( e );
+      verts = edgeVerts.get( e );
     }
 
     verts.add( v );
 
-    Set edges = null;
+    Set<WE> edges = null;
     if (!vertEdges.containsKey( v )) {
-      edges = new HashSet();
+      edges = new HashSet<WE>();
       vertEdges.put( v, edges );
     } else {
-      edges = (Set) vertEdges.get( v );
+      edges = vertEdges.get( v );
     }
     
     edges.add( e );
@@ -114,78 +126,78 @@ public class UndirectedGraphImpl
     /**
      * Adds a feature to the Edge attribute of the UndirectedGraphImpl object
      */
-    public void addEdge(Edge e,
-                        Set vertices)
+    public void addEdge(WE e,
+                        Set<V> vertices)
         throws GraphException
     {
       addEdge( e );
       
-      Iterator verts = vertices.iterator();
+      Iterator<V> verts = vertices.iterator();
       while (verts.hasNext()) {
-	connect( e, (Vertex) verts.next() );
+	connect( e, verts.next() );
       }
     }
 
     // Interface Methods
     /**
-     * Gets the vertices attribute of the UndirectedGraphImpl object
+     * {@inheritDoc}
      */
-    public Set getVertices()
+    public Set<V> getVertices()
     {
         return new HashSet(vertices);
     }
 
     /**
-     * Gets the vertices attribute of the UndirectedGraphImpl object
+     * {@inheritDoc}
      */
-    public Set getVertices(Edge e)
+    public Set<V> getVertices(WE e)
     {
         if (edgeVerts.containsKey(e))
         {
-            return new HashSet((Set) edgeVerts.get(e));
+            return new HashSet(edgeVerts.get(e));
         }
         else
         {
-            return new HashSet();
+            return new HashSet<V>();
         }
     }
 
     /**
-     * Gets the edges attribute of the UndirectedGraphImpl object
+     * {@inheritDoc}
      */
-    public Set getEdges()
+    public Set<WE> getEdges()
     {
         return new HashSet(edges);
     }
 
     /**
-     * Gets the edges attribute of the UndirectedGraphImpl object
+     * {@inheritDoc}
      */
-    public Set getEdges(Vertex v)
+    public Set<WE> getEdges(V v)
     {
         if (vertEdges.containsKey(v))
         {
-            return new HashSet((Set) vertEdges.get(v));
+            return new HashSet(vertEdges.get(v));
         }
         else
         {
-            return new HashSet();
+            return new HashSet<WE>();
         }
     }
 
-  public void setWeight( Edge e, double w ) {
+  public void setWeight( WE e, Number w ) {
     if (edgeWeights.containsKey( e )) {
       edgeWeights.remove( e );
     }
 
-    edgeWeights.put( e, new Double( w ) );
+    edgeWeights.put( e, w );
   }
 
-  public double getWeight( Edge e ) {
+  public Number getWeight( WE e ) {
     if (edgeWeights.containsKey( e )) {
-      return ((Double) edgeWeights.get( e ) ).doubleValue();
+      return edgeWeights.get( e );
     } else {
-      return 1.0;
+      return 1;
     }
   }
 
