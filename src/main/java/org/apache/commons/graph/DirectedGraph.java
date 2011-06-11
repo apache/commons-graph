@@ -29,7 +29,7 @@ import java.util.Set;
  * @param <E> the Graph edges type
  */
 public interface DirectedGraph<V extends Vertex, E extends Edge>
-     extends Graph<V, E>
+    extends Graph<V, E>
 {
 
     /**
