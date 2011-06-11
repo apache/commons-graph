@@ -29,37 +29,51 @@ public interface MutableGraph<V extends Vertex, E extends Edge>
 {
 
     /**
-     * Adds a feature to the Vertex attribute of the MutableGraph object
+     * Adds a feature to the {@link Vertex} attribute of the {@code MutableGraph} object.
+     *
+     * @param v the {@link Vertex} has to be added in this {@code MutableGraph} instance.
      */
     void addVertex( V v )
         throws GraphException;
 
     /**
-     * Description of the Method
+     * Removes the {@link Vertex} from the {@code MutableGraph} object.
+     *
+     * @param v the {@link Vertex} has to be removed from this {@code MutableGraph} instance.
      */
     void removeVertex( V v )
         throws GraphException;
 
     /**
-     * Adds a feature to the Edge attribute of the MutableGraph object
+     * Adds a feature to the {@link Edge} attribute of the {@code MutableGraph} object
+     *
+     * @param e the {@link Edge} has to be added in this {@code MutableGraph} instance.
      */
     void addEdge( E e )
         throws GraphException;
 
     /**
-     * Description of the Method
+     * Removed the {@link Edge} from the {@code MutableGraph} object.
+     *
+     * @param e the {@link Edge} has to be removed from this {@code MutableGraph} instance.
      */
     void removeEdge( E e )
         throws GraphException;
 
     /**
-     * Description of the Method
+     * Creates a connection between the input {@link Edge} and {@link Vertex}.
+     *
+     * @param e the {@link Edge} has to be connected
+     * @param v the {@link Vertex} has to be connected
      */
     void connect( E e, V v )
         throws GraphException;
 
     /**
-     * Description of the Method
+     * Breaks a connection between the input {@link Edge} and {@link Vertex}.
+     *
+     * @param e the {@link Edge} has to be disconnected
+     * @param v the {@link Vertex} has to be disconnected
      */
     void disconnect( E e, V v )
         throws GraphException;
