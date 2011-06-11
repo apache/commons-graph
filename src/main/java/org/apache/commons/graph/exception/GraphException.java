@@ -41,7 +41,7 @@ public class GraphException extends RuntimeException
      *
      * @param msg
      */
-    public GraphException(String msg)
+    public GraphException( String msg )
     {
         super(msg);
     }
@@ -51,7 +51,7 @@ public class GraphException extends RuntimeException
      *
      * @param cause
      */
-    public GraphException(Throwable cause)
+    public GraphException( Throwable cause )
     {
         super( cause );
     }
