@@ -28,6 +28,9 @@ import java.io.PrintWriter;
 
 public class GraphException extends RuntimeException
 {
+
+    private static final long serialVersionUID = 6356965258279945475L;
+
     private Throwable cause = null;
 
     /**
