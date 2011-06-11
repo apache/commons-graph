@@ -49,21 +49,21 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 {
     private Vertex root = null;
 
-    private Set<V> vertices = new HashSet<V>();
+    private final Set<V> vertices = new HashSet<V>();
 
-    private Set<WE> edges = new HashSet<WE>();
+    private final Set<WE> edges = new HashSet<WE>();
 
-    private List<Contract> contracts = new ArrayList<Contract>();
+    private final List<Contract> contracts = new ArrayList<Contract>();
 
-    private Map<V, Set<WE>> inbound = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
+    private final Map<V, Set<WE>> inbound = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
 
-    private Map<V, Set<WE>> outbound = new HashMap<V, Set<WE>>();// - " " -
+    private final Map<V, Set<WE>> outbound = new HashMap<V, Set<WE>>();// - " " -
 
-    private Map<WE, V> edgeSource = new HashMap<WE, V>();// EDGE X VERTEX
+    private final Map<WE, V> edgeSource = new HashMap<WE, V>();// EDGE X VERTEX
 
-    private Map<WE, V> edgeTarget = new HashMap<WE, V>();// EDGE X TARGET
+    private final Map<WE, V> edgeTarget = new HashMap<WE, V>();// EDGE X TARGET
 
-    private Map<WE, Number> edgeWeights = new HashMap<WE, Number>();// EDGE X WEIGHT
+    private final Map<WE, Number> edgeWeights = new HashMap<WE, Number>();// EDGE X WEIGHT
 
     /**
      * Constructor for the DirectedGraphImpl object
