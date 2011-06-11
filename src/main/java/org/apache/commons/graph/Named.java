@@ -27,5 +27,5 @@ public interface Named
     /**
      * Gets the name attribute of the Named object
      */
-    public String getName();
+    String getName();
 }
