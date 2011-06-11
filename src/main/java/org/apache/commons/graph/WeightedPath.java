@@ -29,6 +29,6 @@ public interface WeightedPath
     /**
      * Gets the weight attribute of the WeightedPath object
      */
-    double getWeight();
+    Number getWeight();
 
 }
