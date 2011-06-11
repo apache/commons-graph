@@ -47,6 +47,7 @@ import org.apache.commons.graph.contract.Contract;
 public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>, MutableDirectedGraph<V, WE>, InvocationHandler
 {
+
     private V root = null;
 
     private final Set<V> vertices = new HashSet<V>();
@@ -55,13 +56,13 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
     private final List<Contract> contracts = new ArrayList<Contract>();
 
-    private final Map<V, Set<WE>> inbound = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
+    private final Map<V, Set<WE>> inbound = new HashMap<V, Set<WE>>(); // VERTEX X SET( EDGE )
 
-    private final Map<V, Set<WE>> outbound = new HashMap<V, Set<WE>>();// - " " -
+    private final Map<V, Set<WE>> outbound = new HashMap<V, Set<WE>>(); // VERTEX X SET( EDGE )
 
-    private final Map<WE, V> edgeSource = new HashMap<WE, V>();// EDGE X VERTEX
+    private final Map<WE, V> edgeSource = new HashMap<WE, V>(); // EDGE X VERTEX
 
-    private final Map<WE, V> edgeTarget = new HashMap<WE, V>();// EDGE X TARGET
+    private final Map<WE, V> edgeTarget = new HashMap<WE, V>(); // EDGE X TARGET
 
     private final Map<WE, Number> edgeWeights = new HashMap<WE, Number>();// EDGE X WEIGHT
 
@@ -94,8 +95,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
             if ( dg instanceof WeightedGraph )
             {
-                @SuppressWarnings( "unchecked" )
-                // it is a DirectedGraph<V, WE>
+                @SuppressWarnings( "unchecked" ) // it is a DirectedGraph<V, WE>
                 WeightedGraph<V, WE> weightedGraph = (WeightedGraph<V, WE>) dg;
                 setWeight( edge, weightedGraph.getWeight( edge ) );
             }
