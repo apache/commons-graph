@@ -75,7 +75,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
     /**
      * Constructor for the DirectedGraphImpl object
-     * 
+     *
      * @param dg
      */
     public DirectedGraphImpl( DirectedGraph<V, WE> dg )
@@ -103,7 +103,10 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Adds a feature to the Contract attribute of the DirectedGraphImpl object
+     * TODO fill me
+     *
+     * @param c
+     * @throws GraphException
      */
     public void addContract( Contract c )
         throws GraphException
@@ -114,7 +117,9 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * TODO fill me
+     *
+     * @param c
      */
     public void removeContract( Contract c )
     {
@@ -122,7 +127,10 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Sets the weight attribute of the DirectedGraphImpl object
+     * TODO fill me
+     *
+     * @param e
+     * @param value
      */
     public void setWeight( WE e, Number value )
     {
@@ -136,7 +144,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     // Interface Methods
     // Graph
     /**
-     * Gets the vertices attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Set<V> getVertices()
     {
@@ -144,7 +152,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the vertices attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Set<V> getVertices( WE e )
     {
@@ -163,7 +171,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the edges attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Set<WE> getEdges()
     {
@@ -171,7 +179,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the edges attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Set<WE> getEdges( V v )
     {
@@ -191,7 +199,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
     // Directed Graph
     /**
-     * Gets the source attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public V getSource( WE e )
     {
@@ -199,7 +207,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the target attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public V getTarget( WE e )
     {
@@ -207,7 +215,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the inbound attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Set<WE> getInbound( Vertex v )
     {
@@ -219,7 +227,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the outbound attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Set<WE> getOutbound( Vertex v )
     {
@@ -232,7 +240,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
     // MutableDirectedGraph
     /**
-     * Adds a feature to the VertexI attribute of the DirectedGraphImpl object
+     * TODO fill me
      */
     private void addVertexI( V v )
         throws GraphException
@@ -244,7 +252,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Adds a feature to the Vertex attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public void addVertex( V v )
         throws GraphException
@@ -258,7 +266,10 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * TODO fill me
+     *
+     * @param v
+     * @throws GraphException
      */
     private void removeVertexI( Vertex v )
         throws GraphException
@@ -274,7 +285,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * {@inheritDoc}
      */
     public void removeVertex( Vertex v )
         throws GraphException
@@ -289,7 +300,12 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Adds a feature to the EdgeI attribute of the DirectedGraphImpl object
+     * TODO fill me
+     *
+     * @param e
+     * @param start
+     * @param end
+     * @throws GraphException
      */
     private void addEdgeI( WE e, V start, V end )
         throws GraphException
@@ -327,7 +343,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Adds a feature to the Edge attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public void addEdge( WE e, V start, V end )
         throws GraphException
@@ -344,7 +360,10 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * TODO fill me
+     *
+     * @param e
+     * @throws GraphException
      */
     private void removeEdgeI( Edge e )
         throws GraphException
@@ -375,7 +394,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * {@inheritDoc}
      */
     public void removeEdge( WE e )
         throws GraphException
@@ -390,7 +409,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 
     // WeightedGraph
     /**
-     * Gets the weight attribute of the DirectedGraphImpl object
+     * {@inheritDoc}
      */
     public Number getWeight( WE e )
     {
@@ -402,7 +421,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Description of the Method
+     * {@inheritDoc}
      */
     public Object invoke( Object proxy, Method method, Object args[] )
         throws Throwable
