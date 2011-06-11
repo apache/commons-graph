@@ -30,7 +30,7 @@ public class GraphException
     private static final long serialVersionUID = 6356965258279945475L;
 
     /**
-     * Constructor for the GraphException object
+     * Constructs a new graph exception.
      */
     public GraphException()
     {
@@ -38,9 +38,9 @@ public class GraphException
     }
 
     /**
-     * Constructor for the GraphException object
+     * Constructs a new graph exception with the specified detail message.
      *
-     * @param msg
+     * @param msg the detail message.
      */
     public GraphException( String msg )
     {
@@ -48,9 +48,9 @@ public class GraphException
     }
 
     /**
-     * Constructor for the GraphException object
+     * Constructs a new runtime exception with the specified cause.
      *
-     * @param cause
+     * @param cause the cause
      */
     public GraphException( Throwable cause )
     {
