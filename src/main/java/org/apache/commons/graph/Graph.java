@@ -22,6 +22,9 @@ import java.util.Set;
  * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs,
  * called {@link Edge}s or arcs, of certain entities called {@link Vertex} or node.
  * As in mathematics, an {@link Edge} {@code (x,y)} is said to point or go from {@code x} to {@code y}.
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
 public interface Graph<V extends Vertex, E extends Edge>
 {
