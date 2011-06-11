@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
