@@ -19,7 +19,7 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import org.apache.commons.graph.exception.*;
+import org.apache.commons.graph.exception.GraphException;
 
 /**
  * The {@code MutableGraph} is a graph that supports the addition and removal of {@link Vertex} and {@link Edge}s.
