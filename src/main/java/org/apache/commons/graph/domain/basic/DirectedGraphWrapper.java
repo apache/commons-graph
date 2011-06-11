@@ -44,7 +44,7 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the inbound attribute of the DirectedGraphWrapper object
+     * {@inheritDoc}
      */
     public Set<E> getInbound(V v)
     {
@@ -52,7 +52,7 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the outbound attribute of the DirectedGraphWrapper object
+     * {@inheritDoc}
      */
     public Set<E> getOutbound(V v)
     {
@@ -60,7 +60,7 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the source attribute of the DirectedGraphWrapper object
+     * {@inheritDoc}
      */
     public V getSource(E e)
     {
@@ -68,7 +68,7 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the target attribute of the DirectedGraphWrapper object
+     * {@inheritDoc}
      */
     public V getTarget(E e)
     {
@@ -76,10 +76,3 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
     }
 
 }
-
-
-
-
-
-
-

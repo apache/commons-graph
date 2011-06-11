@@ -51,7 +51,7 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
 
     // Graph Implementation. . .
     /**
-     * Gets the vertices attribute of the GraphWrapper object
+     * {@inheritDoc}
      */
     public Set<V> getVertices()
     {
@@ -59,7 +59,7 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the edges attribute of the GraphWrapper object
+     * {@inheritDoc}
      */
     public Set<E> getEdges()
     {
@@ -67,7 +67,7 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the vertices attribute of the GraphWrapper object
+     * {@inheritDoc}
      */
     public Set<V> getVertices( E e )
     {
@@ -75,7 +75,7 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Gets the edges attribute of the GraphWrapper object
+     * {@inheritDoc}
      */
     public Set<E> getEdges( V v )
     {
