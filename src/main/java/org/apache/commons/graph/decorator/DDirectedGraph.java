@@ -43,11 +43,31 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
 
+    private static final Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
+
+    /**
+     * Description of the Method
+     */
+    public static <V extends Vertex, WE extends WeightedEdge> DDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
+    {
+        if ( graph instanceof DDirectedGraph )
+        {
+            return (DDirectedGraph<V, WE>) graph;
+        }
+
+        if ( decoratedGraphs.containsKey( graph ) )
+        {
+            return (DDirectedGraph<V, WE>) decoratedGraphs.get( graph );
+        }
+
+        DDirectedGraph<V, WE> RC = new DDirectedGraph<V, WE>( graph );
+        decoratedGraphs.put( graph, RC );
+        return RC;
+    }
+
     private final WeightedGraph<V, WE> weighted;
 
     private Map<WE, Number> weights = new HashMap<WE, Number>();// EDGE X DOUBLE
-
-    private static final Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
 
     private AllPairsShortestPath allPaths = null;
 
@@ -68,26 +88,6 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
         {
             weighted = null;
         }
-    }
-
-    /**
-     * Description of the Method
-     */
-    public static <V extends Vertex, WE extends WeightedEdge> DDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
-    {
-        if ( graph instanceof DDirectedGraph )
-        {
-            return (DDirectedGraph<V, WE>) graph;
-        }
-
-        if ( decoratedGraphs.containsKey( graph ) )
-        {
-            return (DDirectedGraph<V, WE>) decoratedGraphs.get( graph );
-        }
-
-        DDirectedGraph<V, WE> RC = new DDirectedGraph<V, WE>( graph );
-        decoratedGraphs.put( graph, RC );
-        return RC;
     }
 
     // WeightedGraph Implementation
