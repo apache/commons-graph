@@ -31,7 +31,7 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
     implements DirectedGraph<V, E>
 {
 
-    private DirectedGraph<V, E> impl;
+    private final DirectedGraph<V, E> impl;
 
     /**
      * Constructor for the DirectedGraphWrapper object
