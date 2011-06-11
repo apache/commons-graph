@@ -19,6 +19,8 @@ package org.apache.commons.graph.domain.basic;
  * under the License.
  */
 
+import static java.util.Collections.unmodifiableSet;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -155,7 +157,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
      */
     public Set<V> getVertices()
     {
-        return new HashSet( vertices );
+        return unmodifiableSet( vertices );
     }
 
     /**
@@ -165,7 +167,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     {
         if ( edgeVerts.containsKey( e ) )
         {
-            return new HashSet( edgeVerts.get( e ) );
+            return unmodifiableSet( edgeVerts.get( e ) );
         }
         else
         {
@@ -178,7 +180,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
      */
     public Set<WE> getEdges()
     {
-        return new HashSet( edges );
+        return unmodifiableSet( edges );
     }
 
     /**
@@ -188,7 +190,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     {
         if ( vertEdges.containsKey( v ) )
         {
-            return new HashSet( vertEdges.get( v ) );
+            return unmodifiableSet( vertEdges.get( v ) );
         }
         else
         {
