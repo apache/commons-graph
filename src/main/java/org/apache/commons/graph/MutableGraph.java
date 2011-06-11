@@ -30,36 +30,36 @@ public interface MutableGraph
     /**
      * Adds a feature to the Vertex attribute of the MutableGraph object
      */
-    public void addVertex(Vertex v)
+    void addVertex(Vertex v)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void removeVertex(Vertex v)
+    void removeVertex(Vertex v)
         throws GraphException;
 
     /**
      * Adds a feature to the Edge attribute of the MutableGraph object
      */
-    public void addEdge(Edge e)
+    void addEdge(Edge e)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void removeEdge(Edge e)
+    void removeEdge(Edge e)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void connect(Edge e, Vertex v)
+    void connect(Edge e, Vertex v)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void disconnect(Edge e, Vertex v)
+    void disconnect(Edge e, Vertex v)
         throws GraphException;
 }
