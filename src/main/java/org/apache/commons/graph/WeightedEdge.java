@@ -1,7 +1,7 @@
 package org.apache.commons.graph;
 
 /*
- * Copyright 2001,2004 The Apache Software Foundation.
+ * Copyright 2001-2011 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,13 @@ package org.apache.commons.graph;
 /**
  * Description of the Interface
  */
-public interface WeightedEdge
+public interface WeightedEdge<W extends Number>
      extends Edge
 {
+
     /**
      * Gets the weight attribute of the WeightedEdge object
      */
-    public double getWeight();
+    W getWeight();
+
 }
