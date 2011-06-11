@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="graph" href="http://commons.apache.org/graph/">
+
+  <title>Graph</title>
+  <logo href="/images/logo.gif">Graph</logo>
+
+  <body>
+    <menu name="Graph">
+    </menu>
+  </body>
+</project>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>21</version>
+  </parent>
+
+  <groupId>org.apache.commons</groupId>
+  <artifactId>commons-graph</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Apache Commons Graph</name>
+  <description>
+    The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
+  </description>
+  <url>http://commons.apache.org/sandbox/graph/</url>
+  <inceptionYear>2001</inceptionYear>
+
+  <developers>
+    <developer>
+      <name>David Dixon-Peugh</name>
+      <id>dpeugh</id>
+      <email>dpeugh AT mindspring DOT com</email>
+    </developer>
+    <developer>
+      <name>James Carman</name>
+      <id>jcarman</id>
+      <email>jcarman AT apache DOT org</email>
+    </developer>
+    <developer>
+      <name>Jason van Zyl</name>
+      <id>jvanzyl</id>
+      <email>jason AT zenplex DOT com</email>
+    </developer>
+    <developer>
+      <name>Oliver Heger</name>
+      <id>oheger</id>
+      <email>oheger AT apache DOT org</email>
+    </developer>
+    <developer>
+      <name>Simone Tripodi</name>
+      <id>simonetripodi</id>
+      <email>simonetripodi AT apache DOT org</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/sandbox/graph/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/sandbox/graph/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/sandbox/graph/trunk</url>
+  </scm>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/GRAPH</url>
+  </issueManagement>
+  <distributionManagement>
+    <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
+    <site>
+      <id>people.apache.org</id>
+      <name>Apache Commons Site</name>
+      <url>${commons.deployment.protocol}://people.apache.org/www/commons.apache.org/sandbox/graph</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+    <commons.componentid>graph</commons.componentid>
+    <commons.release.version>0.1</commons.release.version>
+    <commons.release.desc>(minimum JDK 1.5)</commons.release.desc>
+    <commons.release.2.version>2.1</commons.release.2.version>
+    <commons.release.2.desc>(minimum JDK 1.5)</commons.release.2.desc>
+    <commons.rc.version>RC1</commons.rc.version>
+    <commons.jira.id>DIGESTER</commons.jira.id>
+    <commons.jira.pid>12310471</commons.jira.pid>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>NOTICE.txt</include>
+          <include>LICENSE.txt</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>false</filtering>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>src/assembly/bin.xml</descriptor>
+            <descriptor>src/assembly/src.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>gnu</tarLongFileMode>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <issueLinkTemplate>%URL%/../%ISSUE%</issueLinkTemplate>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <report>jira-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <configLocation>config/maven_checks.xml</configLocation>
+          <headerLocation>config/maven-header.txt</headerLocation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+        <!--Use default rules-->
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <id>rc</id>
+      <distributionManagement>
+        <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
+        <site>
+          <id>apache.website</id>
+          <name>Apache Commons Release Candidate Staging Site</name>
+          <url>${commons.deployment.protocol}://people.apache.org/www/people.apache.org/builds/commons/${commons.componentid}/${commons.release.version}/${commons.rc.version}/site</url>
+        </site>
+      </distributionManagement>
+    </profile>
+  </profiles>
+</project>
