@@ -43,11 +43,11 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
 
-    private WeightedGraph<V, WE> weighted;
+    private final WeightedGraph<V, WE> weighted;
 
     private Map<WE, Number> weights = new HashMap<WE, Number>();// EDGE X DOUBLE
 
-    private static Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
+    private static final Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
 
     private AllPairsShortestPath allPaths = null;
 
@@ -63,6 +63,10 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
         if ( impl instanceof WeightedGraph )
         {
             weighted = (WeightedGraph<V, WE>) impl;
+        }
+        else
+        {
+            weighted = null;
         }
     }
 
