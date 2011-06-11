@@ -25,8 +25,8 @@ package org.apache.commons.graph;
  *
  * @param <W> the {@link Edge} weight.
  */
-public interface WeightedEdge<W extends Number>
-    extends Edge, Comparable<WeightedEdge<Number>>
+public interface WeightedEdge
+    extends Edge, Comparable<WeightedEdge>
 {
 
     /**
@@ -34,6 +34,6 @@ public interface WeightedEdge<W extends Number>
      *
      * @return the weight attribute of the WeightedEdge object
      */
-    W getWeight();
+    Number getWeight();
 
 }
