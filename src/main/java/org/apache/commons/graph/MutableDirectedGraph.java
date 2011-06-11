@@ -22,7 +22,8 @@ package org.apache.commons.graph;
 import org.apache.commons.graph.exception.GraphException;
 
 /**
- * Description of the Interface
+ * The {@code MutableDirectedGraph} is a directed graph that supports the addition and removal of
+ * {@link Vertex} and {@link Edge}s.
  */
 public interface MutableDirectedGraph<V extends Vertex, E extends Edge>
     extends DirectedGraph<V, E>
