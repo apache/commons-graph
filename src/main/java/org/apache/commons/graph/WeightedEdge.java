@@ -28,6 +28,8 @@ public interface WeightedEdge<W extends Number>
 
     /**
      * Gets the weight attribute of the WeightedEdge object
+     *
+     * @return the weight attribute of the WeightedEdge object
      */
     W getWeight();
 
