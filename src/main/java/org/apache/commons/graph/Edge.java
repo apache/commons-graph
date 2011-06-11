@@ -17,7 +17,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * Description of the Interface
+ * An Edge is the link that connect a pair of {@link Vertex}.
  */
 public interface Edge
 {
