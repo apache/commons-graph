@@ -24,32 +24,32 @@ import org.apache.commons.graph.exception.*;
 /**
  * Description of the Interface
  */
-public interface MutableDirectedGraph
-     extends DirectedGraph
+public interface MutableDirectedGraph<V extends Vertex, E extends Edge>
+     extends DirectedGraph<V, E>
 {
     /**
      * Adds a feature to the Vertex attribute of the MutableDirectedGraph object
      */
-    public void addVertex(Vertex v)
+    public void addVertex(V v)
         throws GraphException;
 
     /**
      * Adds a feature to the Edge attribute of the MutableDirectedGraph object
      */
-    public void addEdge(Edge e,
-                        Vertex source,
-                        Vertex target)
+    public void addEdge(E e,
+                        V source,
+                        V target)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void removeVertex(Vertex v)
+    public void removeVertex(V v)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void removeEdge(Edge e)
+    public void removeEdge(E e)
         throws GraphException;
 }
