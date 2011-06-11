@@ -30,6 +30,7 @@ import org.apache.commons.graph.*;
  * @param <E> the Graph edges type
  */
 public class GraphWrapper<V extends Vertex, E extends Edge>
+    implements Graph<V, E>
 {
 
     private final Graph<V, E> impl;
