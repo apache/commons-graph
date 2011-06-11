@@ -41,6 +41,10 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
      */
     public GraphWrapper( Graph<V, E> impl )
     {
+        if ( impl == null )
+        {
+            throw new IllegalArgumentException( "Wrapped Graph must be not null" );
+        }
         this.impl = impl;
     }
 
