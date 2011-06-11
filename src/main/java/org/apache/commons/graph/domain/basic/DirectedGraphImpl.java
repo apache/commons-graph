@@ -19,19 +19,25 @@ package org.apache.commons.graph.domain.basic;
  * under the License.
  */
 
-import java.lang.reflect.*;
-
-import java.util.Set;
-import java.util.Map;
-import java.util.List;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.apache.commons.graph.*;
-import org.apache.commons.graph.contract.*;
-import org.apache.commons.graph.exception.*;
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.MutableDirectedGraph;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.contract.Contract;
 
 /**
  * Description of the Class
