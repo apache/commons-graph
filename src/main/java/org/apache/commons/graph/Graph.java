@@ -15,16 +15,13 @@ package org.apache.commons.graph;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Graph This is the basic interface for a graph. G = { v, e }
- * getAdjacentVertices and getAdjacentEdges helps to define the behavior of
- * Edges.
- */
 
 import java.util.Set;
 
 /**
- * Description of the Interface
+ * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs,
+ * called {@link Edge}s or arcs, of certain entities called {@link Vertex} or node.
+ * As in mathematics, an {@link Edge} {@code (x,y)} is said to point or go from {@code x} to {@code y}.
  */
 public interface Graph
 {
