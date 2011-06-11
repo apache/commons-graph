@@ -29,25 +29,35 @@ public interface MutableDirectedGraph<V extends Vertex, E extends Edge>
 {
 
     /**
-     * Adds a feature to the Vertex attribute of the MutableDirectedGraph object
+     * Adds a feature to the {@link Vertex} attribute of the {@code MutableDirectedGraph} object.
+     *
+     * @param v the {@link Vertex} has to be added in this {@code MutableDirectedGraph} instance.
      */
     public void addVertex( V v )
         throws GraphException;
 
     /**
-     * Adds a feature to the Edge attribute of the MutableDirectedGraph object
+     * Adds a feature to the {@link Edge} attribute of the {@code MutableDirectedGraph} object.
+     *
+     * @param e the {@link Edge} has to be added to this {@code MutableDirectedGraph} object.
+     * @param source the input {@link Edge} source
+     * @param target the input {@link Edge} target
      */
     public void addEdge( E e, V source, V target )
         throws GraphException;
 
     /**
-     * Description of the Method
+     * Removes the {@link Vertex} from the {@code MutableGraph} object.
+     *
+     * @param v the {@link Vertex} has to be removed from this {@code MutableDirectedGraph} instance.
      */
     public void removeVertex( V v )
         throws GraphException;
 
     /**
-     * Description of the Method
+     * Adds a feature to the {@link Edge} attribute of the {@code MutableDirectedGraph} object
+     *
+     * @param e the {@link Edge} has to be added in this {@code MutableDirectedGraph} instance.
      */
     public void removeEdge( E e )
         throws GraphException;
