@@ -26,44 +26,27 @@ import org.apache.commons.graph.*;
 /**
  * Description of the Class
  */
-public class DirectedGraphWrapper
-     extends GraphWrapper
-     implements DirectedGraph
+public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
+     extends GraphWrapper<V, E>
+     implements DirectedGraph<V, E>
 {
-    private DirectedGraph impl = null;
+    private DirectedGraph<V, E> impl;
 
     /**
      * Constructor for the DirectedGraphWrapper object
      *
      * @param graph
      */
-    public DirectedGraphWrapper(DirectedGraph graph)
+    public DirectedGraphWrapper(DirectedGraph<V, E> graph)
     {
         super(graph);
         impl = graph;
     }
 
     /**
-     * Constructor for the DirectedGraphWrapper object
-     */
-    public DirectedGraphWrapper()
-    {
-        super();
-    }
-
-    /**
-     * Sets the dirGraph attribute of the DirectedGraphWrapper object
-     */
-    public void setDirGraph(DirectedGraph graph)
-    {
-        impl = graph;
-        setGraph(graph);
-    }
-
-    /**
      * Gets the inbound attribute of the DirectedGraphWrapper object
      */
-    public Set getInbound(Vertex v)
+    public Set<E> getInbound(V v)
     {
         return impl.getInbound(v);
     }
@@ -71,7 +54,7 @@ public class DirectedGraphWrapper
     /**
      * Gets the outbound attribute of the DirectedGraphWrapper object
      */
-    public Set getOutbound(Vertex v)
+    public Set<E> getOutbound(V v)
     {
         return impl.getOutbound(v);
     }
@@ -79,7 +62,7 @@ public class DirectedGraphWrapper
     /**
      * Gets the source attribute of the DirectedGraphWrapper object
      */
-    public Vertex getSource(Edge e)
+    public V getSource(E e)
     {
         return impl.getSource(e);
     }
@@ -87,7 +70,7 @@ public class DirectedGraphWrapper
     /**
      * Gets the target attribute of the DirectedGraphWrapper object
      */
-    public Vertex getTarget(Edge e)
+    public V getTarget(E e)
     {
         return impl.getTarget(e);
     }
