@@ -31,7 +31,7 @@ import org.apache.commons.graph.*;
  */
 public class GraphWrapper<V extends Vertex, E extends Edge>
 {
-    private Graph<V, E> impl = null;
+    private final Graph<V, E> impl;
 
     /**
      * Constructor for the GraphWrapper object
@@ -39,19 +39,6 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
      * @param impl
      */
     public GraphWrapper(Graph<V, E> impl)
-    {
-        this.impl = impl;
-    }
-
-    /**
-     * Constructor for the GraphWrapper object
-     */
-    public GraphWrapper() { }
-
-    /**
-     * Sets the graph attribute of the GraphWrapper object
-     */
-    public void setGraph(Graph<V, E> impl)
     {
         this.impl = impl;
     }
