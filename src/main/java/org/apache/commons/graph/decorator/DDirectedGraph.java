@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
@@ -43,7 +44,8 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
 
-    private static final Map DECORATED_GRAPHS = new HashMap();// DGRAPH X DDGRAPH
+    private static final Map<DirectedGraph<? extends Vertex, ? extends Edge>, DDirectedGraph<? extends Vertex, ? extends Edge>>
+    DECORATED_GRAPHS = new HashMap<DirectedGraph<? extends Vertex, ? extends Edge>, DDirectedGraph<? extends Vertex, ? extends Edge>>();// DGRAPH X DDGRAPH
 
     /**
      * Description of the Method
@@ -57,7 +59,9 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
 
         if ( DECORATED_GRAPHS.containsKey( graph ) )
         {
-            return (DDirectedGraph<V, WE>) DECORATED_GRAPHS.get( graph );
+            @SuppressWarnings( "unchecked" ) // driven by graph parameter type
+            DDirectedGraph<V, WE> decorated = (DDirectedGraph<V, WE>) DECORATED_GRAPHS.get( graph );
+            return decorated;
         }
 
         DDirectedGraph<V, WE> decorated = new DDirectedGraph<V, WE>( graph );
@@ -82,7 +86,9 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
 
         if ( impl instanceof WeightedGraph )
         {
-            weighted = (WeightedGraph<V, WE>) impl;
+            @SuppressWarnings( "unchecked" ) // impl is DirectedGraph<V, WE>
+            WeightedGraph<V, WE> tmp = (WeightedGraph<V, WE>) impl;
+            weighted = tmp;
         }
         else
         {
