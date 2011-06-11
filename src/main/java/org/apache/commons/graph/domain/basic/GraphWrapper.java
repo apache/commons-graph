@@ -31,6 +31,7 @@ import org.apache.commons.graph.*;
  */
 public class GraphWrapper<V extends Vertex, E extends Edge>
 {
+
     private final Graph<V, E> impl;
 
     /**
@@ -38,7 +39,7 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
      *
      * @param impl
      */
-    public GraphWrapper(Graph<V, E> impl)
+    public GraphWrapper( Graph<V, E> impl )
     {
         this.impl = impl;
     }
@@ -63,16 +64,17 @@ public class GraphWrapper<V extends Vertex, E extends Edge>
     /**
      * Gets the vertices attribute of the GraphWrapper object
      */
-    public Set<V> getVertices(E e)
+    public Set<V> getVertices( E e )
     {
-        return impl.getVertices(e);
+        return impl.getVertices( e );
     }
 
     /**
      * Gets the edges attribute of the GraphWrapper object
      */
-    public Set<E> getEdges(V v)
+    public Set<E> getEdges( V v )
     {
-        return impl.getEdges(v);
+        return impl.getEdges( v );
     }
+
 }
