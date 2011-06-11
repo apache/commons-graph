@@ -17,7 +17,10 @@ package org.apache.commons.graph;
  */
 
 /**
- * Description of the Interface
+ * A WeightedEdge is an {@link Edge} where a number (weight) is assigned to represent, for example,
+ * costs, lengths or capacities, etc. depending on the problem.
+ *
+ * @param <W> the {@link Edge} weight.
  */
 public interface WeightedEdge<W extends Number>
      extends Edge
