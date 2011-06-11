@@ -47,7 +47,7 @@ import org.apache.commons.graph.contract.Contract;
 public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>, MutableDirectedGraph<V, WE>, InvocationHandler
 {
-    private Vertex root = null;
+    private V root = null;
 
     private final Set<V> vertices = new HashSet<V>();
 
