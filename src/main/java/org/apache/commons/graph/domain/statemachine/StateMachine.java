@@ -8,7 +8,7 @@ import java.util.Set;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.MutableDirectedGraph;
 import org.apache.commons.graph.contract.Contract;
-import org.apache.commons.graph.decorator.DDirectedGraph;
+import org.apache.commons.graph.decorator.DecoratedDirectedGraph;
 import org.apache.commons.graph.factory.GraphFactory;
 
 /**
@@ -18,7 +18,7 @@ import org.apache.commons.graph.factory.GraphFactory;
  * of states and transitions which move between them.
  */
 public class StateMachine
-     extends DDirectedGraph
+     extends DecoratedDirectedGraph
 {
   private Map states = new HashMap();// NAME X STATE
   private Map transes = new HashMap();// NAME X TRANSITION

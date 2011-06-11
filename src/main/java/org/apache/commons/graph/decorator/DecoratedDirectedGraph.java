@@ -39,32 +39,32 @@ import org.apache.commons.graph.domain.basic.DirectedGraphWrapper;
 /**
  * Description of the Class
  */
-public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
+public class DecoratedDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     extends DirectedGraphWrapper<V, WE>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
 
-    private static final Map<DirectedGraph<? extends Vertex, ? extends Edge>, DDirectedGraph<? extends Vertex, ? extends Edge>>
-    DECORATED_GRAPHS = new HashMap<DirectedGraph<? extends Vertex, ? extends Edge>, DDirectedGraph<? extends Vertex, ? extends Edge>>();// DGRAPH X DDGRAPH
+    private static final Map<DirectedGraph<? extends Vertex, ? extends Edge>, DecoratedDirectedGraph<? extends Vertex, ? extends Edge>>
+    DECORATED_GRAPHS = new HashMap<DirectedGraph<? extends Vertex, ? extends Edge>, DecoratedDirectedGraph<? extends Vertex, ? extends Edge>>();// DGRAPH X DDGRAPH
 
     /**
      * Description of the Method
      */
-    public static <V extends Vertex, WE extends WeightedEdge> DDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> DecoratedDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
     {
-        if ( graph instanceof DDirectedGraph )
+        if ( graph instanceof DecoratedDirectedGraph )
         {
-            return (DDirectedGraph<V, WE>) graph;
+            return (DecoratedDirectedGraph<V, WE>) graph;
         }
 
         if ( DECORATED_GRAPHS.containsKey( graph ) )
         {
             @SuppressWarnings( "unchecked" ) // driven by graph parameter type
-            DDirectedGraph<V, WE> decorated = (DDirectedGraph<V, WE>) DECORATED_GRAPHS.get( graph );
+            DecoratedDirectedGraph<V, WE> decorated = (DecoratedDirectedGraph<V, WE>) DECORATED_GRAPHS.get( graph );
             return decorated;
         }
 
-        DDirectedGraph<V, WE> decorated = new DDirectedGraph<V, WE>( graph );
+        DecoratedDirectedGraph<V, WE> decorated = new DecoratedDirectedGraph<V, WE>( graph );
         DECORATED_GRAPHS.put( graph, decorated );
         return decorated;
     }
@@ -80,7 +80,7 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
      *
      * @param impl
      */
-    protected DDirectedGraph( DirectedGraph<V, WE> impl )
+    protected DecoratedDirectedGraph( DirectedGraph<V, WE> impl )
     {
         super( impl );
 

@@ -23,7 +23,7 @@ import org.apache.commons.graph.*;
 import org.apache.commons.graph.contract.*;
 import org.apache.commons.graph.exception.*;
 import org.apache.commons.graph.factory.GraphFactory;
-import org.apache.commons.graph.decorator.DDirectedGraph;
+import org.apache.commons.graph.decorator.DecoratedDirectedGraph;
 import org.apache.commons.graph.domain.dependency.exception.CircularDependencyException;
 
 import java.util.Collection;
@@ -36,7 +36,7 @@ import java.util.Map;
  * Description of the Class
  */
 public class DependencyGraph
-     extends DDirectedGraph
+     extends DecoratedDirectedGraph
   implements Acyclic
 {
     private GraphFactory factory = new GraphFactory();

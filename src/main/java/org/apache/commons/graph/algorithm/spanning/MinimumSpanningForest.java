@@ -44,7 +44,7 @@ public class MinimumSpanningForest
   private Map labels = new HashMap(); // VERTEX X LABEL
   private Set chords = new HashSet(); // Edges not in MSF.
   
-  private DDirectedGraph ddg = null;
+  private DecoratedDirectedGraph ddg = null;
 
   public class WeightedEdgeComparator
     implements Comparator

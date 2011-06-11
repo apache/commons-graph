@@ -29,10 +29,10 @@ import org.apache.commons.graph.decorator.*;
 /**
  * Description of the Class
  */
-public class AcyclicContract
-     implements Contract
+public class AcyclicContract<V extends Vertex, E extends Edge>
+     implements Contract<V, E>
 {
-    private DDirectedGraph graph = null;
+    private DecoratedDirectedGraph graph = null;
 
     /**
      * Description of the Class
@@ -42,22 +42,22 @@ public class AcyclicContract
     {
         private DFS dfs = null;
         private boolean isCyclic = false;
-        private DirectedGraph graph = null;
+        private DirectedGraph<V, E> graph = null;
 
         /**
          * Constructor for the CycleDetector object
          *
          * @param graph
          */
-        public CycleDetector(DirectedGraph graph)
+        public CycleDetector(DirectedGraph<V, E> graph)
         {
             this.dfs = new DFS();
             this.graph = graph;
-            Iterator verts = graph.getVertices().iterator();
+            Iterator<V> verts = graph.getVertices().iterator();
 
             if (verts.hasNext())
             {
-                dfs.visit(graph, (Vertex) verts.next(), this);
+                dfs.visit(graph, verts.next(), this);
             }
         }
 
@@ -114,15 +114,15 @@ public class AcyclicContract
     /**
      * Sets the impl attribute of the AcyclicContract object
      */
-    public void setImpl(DirectedGraph graph)
+    public void setImpl(DirectedGraph<V, E> graph)
     {
-        this.graph = DDirectedGraph.decorateGraph(graph);
+        this.graph = DecoratedDirectedGraph.decorateGraph(graph);
     }
 
     /**
      * Gets the interface attribute of the AcyclicContract object
      */
-    public Class getInterface()
+    public Class<?> getInterface()
     {
         return org.apache.commons.graph.contract.Acyclic.class;
     }

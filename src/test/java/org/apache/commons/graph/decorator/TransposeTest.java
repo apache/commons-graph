@@ -43,8 +43,8 @@ public class TransposeTest
     public void testParentTree()
         throws Throwable
     {
-        DDirectedGraph graph =
-            DDirectedGraph.decorateGraph(makeParentTree());
+        DecoratedDirectedGraph graph =
+            DecoratedDirectedGraph.decorateGraph(makeParentTree());
 
         DirectedGraph IUT = graph.transpose();
 
