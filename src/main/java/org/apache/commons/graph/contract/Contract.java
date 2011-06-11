@@ -29,12 +29,13 @@ import org.apache.commons.graph.Vertex;
  */
 public interface Contract
 {
+
     /**
      * The impl that gets passed in is read-only. This is the representation of
      * the graph you should work off of. If an edge or vertex addition is
      * illegal to the contract, raise a GraphException with and explanation.
      */
-    void setImpl(DirectedGraph impl);
+    void setImpl( DirectedGraph impl );
 
     /**
      * getInterface This returns the marker interface which is associated with
@@ -52,27 +53,25 @@ public interface Contract
     /**
      * Adds a feature to the Edge attribute of the Contract object
      */
-    void addEdge(Edge e,
-                        Vertex start,
-                        Vertex end)
+    void addEdge( Edge e, Vertex start, Vertex end )
         throws GraphException;
 
     /**
      * Adds a feature to the Vertex attribute of the Contract object
      */
-    void addVertex(Vertex v)
+    void addVertex( Vertex v )
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    void removeEdge(Edge e)
+    void removeEdge( Edge e )
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    void removeVertex(Vertex v)
+    void removeVertex( Vertex v )
         throws GraphException;
 
 }
