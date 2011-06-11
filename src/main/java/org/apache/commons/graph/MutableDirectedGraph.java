@@ -19,7 +19,7 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import org.apache.commons.graph.exception.*;
+import org.apache.commons.graph.exception.GraphException;
 
 /**
  * Description of the Interface
