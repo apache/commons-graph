@@ -289,7 +289,7 @@ public class DirectedGraphImpl
 
         if (e instanceof WeightedEdge)
         {
-            edgeWeights.put(e, new Double(((WeightedEdge) e).getWeight()));
+            edgeWeights.put(e, new Double(((WeightedEdge<Double>) e).getWeight()));
         }
         else
         {
