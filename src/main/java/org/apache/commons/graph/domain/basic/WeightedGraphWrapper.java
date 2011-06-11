@@ -56,10 +56,7 @@ public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
         {
             return weights.get( e );
         }
-        else
-        {
-            return 1.0;
-        }
+        return 1.0;
     }
 
     /**
