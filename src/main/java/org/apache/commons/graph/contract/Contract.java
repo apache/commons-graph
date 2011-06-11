@@ -34,25 +34,25 @@ public interface Contract
      * the graph you should work off of. If an edge or vertex addition is
      * illegal to the contract, raise a GraphException with and explanation.
      */
-    public void setImpl(DirectedGraph impl);
+    void setImpl(DirectedGraph impl);
 
     /**
      * getInterface This returns the marker interface which is associated with
      * the Contract. For instance, AcyclicContract will return AcyclicGraph
      * here.
      */
-    public Class getInterface();
+    Class getInterface();
 
     /**
      * verify - This verifies that the graph it is working on complies.
      */
-    public void verify()
+    void verify()
         throws GraphException;
 
     /**
      * Adds a feature to the Edge attribute of the Contract object
      */
-    public void addEdge(Edge e,
+    void addEdge(Edge e,
                         Vertex start,
                         Vertex end)
         throws GraphException;
@@ -60,19 +60,19 @@ public interface Contract
     /**
      * Adds a feature to the Vertex attribute of the Contract object
      */
-    public void addVertex(Vertex v)
+    void addVertex(Vertex v)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void removeEdge(Edge e)
+    void removeEdge(Edge e)
         throws GraphException;
 
     /**
      * Description of the Method
      */
-    public void removeVertex(Vertex v)
+    void removeVertex(Vertex v)
         throws GraphException;
 
 }
