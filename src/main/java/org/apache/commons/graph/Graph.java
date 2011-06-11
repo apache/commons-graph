@@ -45,13 +45,13 @@ public interface Graph<V extends Vertex, E extends Edge>
      *
      * @return all edges which touch this vertex.
      */
-    Set<E> getEdges(Vertex v);
+    Set<E> getEdges( Vertex v );
 
     /**
      * Return the set of {@link Vertex} on the input {@link Edge} (2 for normal edges, > 2 for HyperEdges)
      *
      * @return the set of {@link Vertex} on this Edge.
      */
-    Set<V> getVertices(Edge e);
+    Set<V> getVertices( Edge e );
 
 }
