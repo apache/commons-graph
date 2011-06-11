@@ -43,7 +43,7 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
 
-    private static final Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
+    private static final Map DECORATED_GRAPHS = new HashMap();// DGRAPH X DDGRAPH
 
     /**
      * Description of the Method
@@ -55,13 +55,13 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
             return (DDirectedGraph<V, WE>) graph;
         }
 
-        if ( decoratedGraphs.containsKey( graph ) )
+        if ( DECORATED_GRAPHS.containsKey( graph ) )
         {
-            return (DDirectedGraph<V, WE>) decoratedGraphs.get( graph );
+            return (DDirectedGraph<V, WE>) DECORATED_GRAPHS.get( graph );
         }
 
         DDirectedGraph<V, WE> decorated = new DDirectedGraph<V, WE>( graph );
-        decoratedGraphs.put( graph, decorated );
+        DECORATED_GRAPHS.put( graph, decorated );
         return decorated;
     }
 
