@@ -19,10 +19,11 @@ package org.apache.commons.graph;
 /**
  * Description of the Interface
  */
-public interface WeightedGraph extends Graph
+public interface WeightedGraph<V extends Vertex, W extends Number, WE extends WeightedEdge<W>>
+    extends Graph<V, WE>
 {
     /**
      * Gets the weight attribute of the WeightedGraph object
      */
-    public double getWeight(Edge e);
+    W getWeight(Edge e);
 }
