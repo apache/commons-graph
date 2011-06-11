@@ -34,7 +34,7 @@ public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
      extends GraphWrapper<V, WE>
      implements WeightedGraph<V, WE>
 {
-    private Map<WE, Number> weights = new HashMap<WE, Number>(); // EDGE X WEIGHT
+    private final Map<WE, Number> weights = new HashMap<WE, Number>(); // EDGE X WEIGHT
 
     /**
      * Constructor for the WeightedGraphWrapper object
