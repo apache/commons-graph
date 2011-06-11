@@ -215,7 +215,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         }
         else
         {
-            return new HashSet();
+            return new HashSet<WE>();
         }
     }
 
@@ -230,7 +230,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         }
         else
         {
-            return new HashSet();
+            return new HashSet<WE>();
         }
     }
 
