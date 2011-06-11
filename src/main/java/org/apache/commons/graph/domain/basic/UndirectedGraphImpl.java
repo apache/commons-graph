@@ -169,10 +169,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         {
             return unmodifiableSet( edgeVerts.get( e ) );
         }
-        else
-        {
-            return new HashSet<V>();
-        }
+        return new HashSet<V>();
     }
 
     /**
@@ -192,10 +189,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         {
             return unmodifiableSet( vertEdges.get( v ) );
         }
-        else
-        {
-            return new HashSet<WE>();
-        }
+        return new HashSet<WE>();
     }
 
     public void setWeight( WE e, Number w )
@@ -214,10 +208,7 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         {
             return edgeWeights.get( e );
         }
-        else
-        {
-            return 1;
-        }
+        return 1;
     }
 
     /**
