@@ -23,7 +23,7 @@ package org.apache.commons.graph;
  * @param <W> the {@link Edge} weight.
  */
 public interface WeightedEdge<W extends Number>
-     extends Edge
+    extends Edge
 {
 
     /**
