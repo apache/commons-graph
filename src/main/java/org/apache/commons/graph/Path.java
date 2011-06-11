@@ -24,32 +24,35 @@ import java.util.List;
 /**
  * A {@code Path} in a {@link Graph} is a sequence of {@link Vertex} such that from each of its vertices there is an
  * {@link Edge} to the next {@link Vertex} in the sequence.
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public interface Path
+public interface Path<V extends Vertex, E extends Edge>
 {
 
     /**
      * Returns the start of the path.
      */
-    Vertex getStart();
+    V getStart();
 
     /**
      * Returns the end of the path.
      */
-    Vertex getEnd();
+    V getEnd();
 
     /**
      * getVertices() - This returns a list of Vertices, in order as they go from
      * Start to End. This includes the Start and End vertex, and will have one
      * more entry than the Edges list.
      */
-    List<Vertex> getVertices();
+    List<V> getVertices();
 
     /**
      * getEdges() - This returns a list of Edges which comprise the path. It
      * will have one less than the list of Vertices.
      */
-    List<Edge> getEdges();
+    List<E> getEdges();
 
     /**
      * size() - This returns the size of the path in terms of number of

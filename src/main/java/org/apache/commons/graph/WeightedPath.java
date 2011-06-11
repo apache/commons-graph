@@ -21,9 +21,12 @@ package org.apache.commons.graph;
 
 /**
  * A {@code Path} where {@link Edge} are weighted.
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public interface WeightedPath
-    extends Path
+public interface WeightedPath<V extends Vertex, E extends Edge>
+    extends Path<V, E>
 {
 
     /**
