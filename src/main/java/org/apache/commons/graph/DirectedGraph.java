@@ -24,9 +24,12 @@ import java.util.Set;
  * {@code V} a set whose elements are called vertices or nodes, and
  * {@code E} a set of ordered pairs of vertices, called arcs, directed edges, or arrows.
  * </ul>
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public interface DirectedGraph
-     extends Graph
+public interface DirectedGraph<V extends Vertex, E extends Edge>
+     extends Graph<V, E>
 {
 
     /**
