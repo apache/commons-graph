@@ -25,17 +25,20 @@ import org.apache.commons.graph.*;
 
 /**
  * Description of the Class
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
-public class GraphWrapper
+public class GraphWrapper<V extends Vertex, E extends Edge>
 {
-    private Graph impl = null;
+    private Graph<V, E> impl = null;
 
     /**
      * Constructor for the GraphWrapper object
      *
      * @param impl
      */
-    public GraphWrapper(Graph impl)
+    public GraphWrapper(Graph<V, E> impl)
     {
         this.impl = impl;
     }
@@ -48,7 +51,7 @@ public class GraphWrapper
     /**
      * Sets the graph attribute of the GraphWrapper object
      */
-    public void setGraph(Graph impl)
+    public void setGraph(Graph<V, E> impl)
     {
         this.impl = impl;
     }
@@ -57,7 +60,7 @@ public class GraphWrapper
     /**
      * Gets the vertices attribute of the GraphWrapper object
      */
-    public Set getVertices()
+    public Set<V> getVertices()
     {
         return impl.getVertices();
     }
@@ -65,7 +68,7 @@ public class GraphWrapper
     /**
      * Gets the edges attribute of the GraphWrapper object
      */
-    public Set getEdges()
+    public Set<E> getEdges()
     {
         return impl.getEdges();
     }
@@ -73,7 +76,7 @@ public class GraphWrapper
     /**
      * Gets the vertices attribute of the GraphWrapper object
      */
-    public Set getVertices(Edge e)
+    public Set<V> getVertices(E e)
     {
         return impl.getVertices(e);
     }
@@ -81,7 +84,7 @@ public class GraphWrapper
     /**
      * Gets the edges attribute of the GraphWrapper object
      */
-    public Set getEdges(Vertex v)
+    public Set<E> getEdges(V v)
     {
         return impl.getEdges(v);
     }
