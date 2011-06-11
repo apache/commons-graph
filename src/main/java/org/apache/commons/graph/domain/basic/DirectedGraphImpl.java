@@ -213,10 +213,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         {
             return unmodifiableSet(inbound.get(v));
         }
-        else
-        {
-            return new HashSet<WE>();
-        }
+        return new HashSet<WE>();
     }
 
     /**
@@ -228,10 +225,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         {
             return unmodifiableSet(outbound.get(v));
         }
-        else
-        {
-            return new HashSet<WE>();
-        }
+        return new HashSet<WE>();
     }
 
 
@@ -406,10 +400,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
         {
             return edgeWeights.get(e);
         }
-        else
-        {
-            return 1.0;
-        }
+        return 1.0;
     }
 
     /**
