@@ -27,24 +27,30 @@ public interface Graph<V extends Vertex, E extends Edge>
 {
 
     /**
-     * getVertices - Returns the total set of Vertices in the graph.
+     * Returns the total set of Vertices in the graph.
+     *
+     * @return the total set of Vertices in the graph.
      */
     Set<V> getVertices();
 
     /**
-     * getEdges - Returns the total set of Edges in the graph.
+     * Returns the total set of Edges in the graph.
+     *
+     * @return the total set of Edges in the graph.
      */
     Set<V> getEdges();
 
     /**
-     * getEdges( Vertex ) - This method will return all edges which touch this
-     * vertex.
+     * Returns all edges which touch this vertex.
+     *
+     * @return all edges which touch this vertex.
      */
     Set<E> getEdges(Vertex v);
 
     /**
-     * getVertices( Edge ) - This method will return the set of Verticies on
-     * this Edge. (2 for normal edges, > 2 for HyperEdges.)
+     * Return the set of {@link Vertex} on the input {@link Edge} (2 for normal edges, > 2 for HyperEdges)
+     *
+     * @return the set of {@link Vertex} on this Edge.
      */
     Set<E> getVertices(Edge e);
 
