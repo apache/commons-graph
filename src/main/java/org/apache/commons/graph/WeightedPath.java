@@ -20,14 +20,16 @@ package org.apache.commons.graph;
  */
 
 /**
- * Description of the Interface
+ * A {@code Path} where {@link Edge} are weighted.
  */
 public interface WeightedPath
     extends Path
 {
 
     /**
-     * Gets the weight attribute of the WeightedPath object
+     * Gets the weight attribute of the {@code WeightedPath} object.
+     *
+     * @return the weight attribute of the {@code WeightedPath} object.
      */
     Number getWeight();
 
