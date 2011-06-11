@@ -48,13 +48,24 @@ public class GraphException
     }
 
     /**
-     * Constructs a new runtime exception with the specified cause.
+     * Constructs a new graph exception with the specified cause.
      *
      * @param cause the cause
      */
     public GraphException( Throwable cause )
     {
         super( cause );
+    }
+
+    /**
+     * Constructs a new graph exception with the specified detail message and cause.
+     *
+     * @param msg the detail message.
+     * @param cause the cause
+     */
+    public GraphException( String msg, Throwable cause )
+    {
+        super( msg, cause );
     }
 
 }
