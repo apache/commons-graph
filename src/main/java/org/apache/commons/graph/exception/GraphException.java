@@ -23,7 +23,8 @@ package org.apache.commons.graph.exception;
 /**
  * GraphException This is the superclass of all exceptions that can be thrown.
  */
-public class GraphException extends RuntimeException
+public class GraphException
+    extends RuntimeException
 {
 
     private static final long serialVersionUID = 6356965258279945475L;
