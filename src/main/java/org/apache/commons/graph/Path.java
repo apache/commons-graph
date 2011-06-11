@@ -22,7 +22,8 @@ package org.apache.commons.graph;
 import java.util.List;
 
 /**
- * Description of the Interface
+ * A {@code Path} in a {@link Graph} is a sequence of {@link Vertex} such that from each of its vertices there is an
+ * {@link Edge} to the next {@link Vertex} in the sequence.
  */
 public interface Path
 {
