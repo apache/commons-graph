@@ -28,6 +28,7 @@ import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.algorithm.path.AllPairsShortestPath;
@@ -38,51 +39,47 @@ import org.apache.commons.graph.domain.basic.DirectedGraphWrapper;
 /**
  * Description of the Class
  */
-public class DDirectedGraph
-     extends DirectedGraphWrapper
-     implements DirectedGraph,
-    WeightedGraph
+public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
+     extends DirectedGraphWrapper<V, WE>
+     implements DirectedGraph<V, WE>,
+    WeightedGraph<V, WE>
 {
-    private WeightedGraph weighted;
-    private Map weights = new HashMap();// EDGE X DOUBLE
+    private WeightedGraph<V, WE> weighted;
+    private Map<WE, Number> weights = new HashMap<WE, Number>();// EDGE X DOUBLE
     private static Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
     private AllPairsShortestPath allPaths = null;
-
-  protected DDirectedGraph() {
-    super();
-  }
 
     /**
      * Constructor for the DDirectedGraph object
      *
      * @param impl
      */
-    protected DDirectedGraph(DirectedGraph impl)
+    protected DDirectedGraph(DirectedGraph<V, WE> impl)
     {
         super(impl);
 
         if (impl instanceof WeightedGraph)
         {
-            weighted = (WeightedGraph) impl;
+            weighted = (WeightedGraph<V, WE>) impl;
         }
     }
 
     /**
      * Description of the Method
      */
-    public static DDirectedGraph decorateGraph(DirectedGraph graph)
+    public static <V extends Vertex, WE extends WeightedEdge> DDirectedGraph<V, WE> decorateGraph(DirectedGraph<V, WE> graph)
     {
         if (graph instanceof DDirectedGraph)
         {
-            return (DDirectedGraph) graph;
+            return (DDirectedGraph<V, WE>) graph;
         }
 
         if (decoratedGraphs.containsKey(graph))
         {
-            return (DDirectedGraph) decoratedGraphs.get(graph);
+            return (DDirectedGraph<V, WE>) decoratedGraphs.get(graph);
         }
 
-        DDirectedGraph RC = new DDirectedGraph(graph);
+        DDirectedGraph<V, WE> RC = new DDirectedGraph<V, WE>(graph);
         decoratedGraphs.put(graph, RC);
         return RC;
     }
@@ -91,7 +88,7 @@ public class DDirectedGraph
     /**
      * Gets the weight attribute of the DDirectedGraph object
      */
-    public double getWeight(Edge e)
+    public Number getWeight(WE e)
     {
         if (weighted != null)
         {
@@ -101,7 +98,7 @@ public class DDirectedGraph
         {
             if (weights.containsKey(e))
             {
-                return ((Double) weights.get(e)).doubleValue();
+                return weights.get(e);
             }
             else
             {
@@ -113,7 +110,7 @@ public class DDirectedGraph
     /**
      * Sets the weight attribute of the DDirectedGraph object
      */
-    public void setWeight(Edge e, double value)
+    public void setWeight(WE e, Number value)
         throws GraphException
     {
         if (weighted != null)
@@ -121,31 +118,31 @@ public class DDirectedGraph
             throw new GraphException("Unable to set weight.");
         }
 
-        weights.put(e, new Double(value));
+        weights.put(e, value);
     }
 
     /**
      * Description of the Method
      */
-    public DirectedGraph transpose()
+    public DirectedGraph<V, WE> transpose()
         throws GraphException
     {
         try
         {
-            DirectedGraphImpl RC = new DirectedGraphImpl();
-            Set vertexSet = getVertices();
-            Set edgeSet = getEdges();
+            DirectedGraphImpl<V, WE> RC = new DirectedGraphImpl<V, WE>();
+            Set<V> vertexSet = getVertices();
+            Set<WE> edgeSet = getEdges();
 
-            Iterator vertices = vertexSet.iterator();
+            Iterator<V> vertices = vertexSet.iterator();
             while (vertices.hasNext())
             {
-                RC.addVertex((Vertex) vertices.next());
+                RC.addVertex(vertices.next());
             }
 
-            Iterator edges = edgeSet.iterator();
+            Iterator<WE> edges = edgeSet.iterator();
             while (edges.hasNext())
             {
-                Edge edge = (Edge) edges.next();
+                WE edge = edges.next();
 
                 RC.addEdge(edge,
                     getTarget(edge),
@@ -186,7 +183,7 @@ public class DDirectedGraph
                 allPaths.update(this);
             }
 
-            WeightedPath path =
+            WeightedPath<V, WE> path =
                 allPaths.getShortestPath(start, end);
         }
         catch (GraphException ex)
