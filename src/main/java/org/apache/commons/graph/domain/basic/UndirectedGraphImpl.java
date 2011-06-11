@@ -39,12 +39,12 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
 	     MutableGraph<V, WE>,
 	     InvocationHandler
 {
-    private Set<V> vertices = new HashSet<V>();
-    private Set<WE> edges = new HashSet<WE>();
+    private final Set<V> vertices = new HashSet<V>();
+    private final Set<WE> edges = new HashSet<WE>();
 
-    private Map<WE, Set<V>> edgeVerts = new HashMap<WE, Set<V>>();// EDGE X SET( VERTS )
-    private Map<V, Set<WE>> vertEdges = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
-    private Map<WE, Number> edgeWeights = new HashMap<WE, Number>(); // EDGE X WEIGHT
+    private final Map<WE, Set<V>> edgeVerts = new HashMap<WE, Set<V>>();// EDGE X SET( VERTS )
+    private final Map<V, Set<WE>> vertEdges = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
+    private final Map<WE, Number> edgeWeights = new HashMap<WE, Number>(); // EDGE X WEIGHT
 
     /**
      * Constructor for the UndirectedGraphImpl object
