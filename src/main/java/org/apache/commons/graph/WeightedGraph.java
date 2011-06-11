@@ -26,6 +26,6 @@ public interface WeightedGraph<V extends Vertex, W extends Number, WE extends We
     /**
      * Gets the weight attribute of the WeightedGraph object
      */
-    W getWeight( Edge e );
+    W getWeight( WE e );
 
 }
