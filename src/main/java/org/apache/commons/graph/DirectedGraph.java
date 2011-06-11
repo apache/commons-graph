@@ -33,24 +33,30 @@ public interface DirectedGraph<V extends Vertex, E extends Edge>
 {
 
     /**
-     * getInbound( Vertex ) Returns the set of edges which are inbound to the
-     * Vertex.
+     * Returns the set of {@link Edge}s which are inbound to the {@link Vertex}.
+     *
+     * @return the set of {@link Edge}s which are inbound to the {@link Vertex}.
      */
     Set<E> getInbound( Vertex v );
 
     /**
-     * getOutbound( Vertex ) Returns the set of edges which lead away from the
-     * Vertex.
+     * Returns the set of {@link Edge}s which lead away from the {@link Vertex}.
+     *
+     * @return the set of {@link Edge}s which lead away from the {@link Vertex}.
      */
     Set<E> getOutbound( Vertex v );
 
     /**
-     * getSource( Edge ) Returns the vertex which originates the edge.
+     * Returns the {@link Vertex} which originates the {@link Edge}.
+     *
+     * @return the {@link Vertex} which originates the {@link Edge}.
      */
     Vertex getSource( Edge e );
 
     /**
-     * getTarget( Edge ) Returns the vertex which terminates the edge.
+     * Returns the {@link Vertex} which terminates the {@link Edge}.
+     *
+     * @return the {@link Vertex} which terminates the {@link Edge}.
      */
     Vertex getTarget( Edge e );
 
