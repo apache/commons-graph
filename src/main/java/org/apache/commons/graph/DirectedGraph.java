@@ -32,21 +32,21 @@ public interface DirectedGraph
      * getInbound( Vertex ) Returns the set of edges which are inbound to the
      * Vertex.
      */
-    public Set getInbound(Vertex v);
+    Set getInbound(Vertex v);
 
     /**
      * getOutbound( Vertex ) Returns the set of edges which lead away from the
      * Vertex.
      */
-    public Set getOutbound(Vertex v);
+    Set getOutbound(Vertex v);
 
     /**
      * getSource( Edge ) Returns the vertex which originates the edge.
      */
-    public Vertex getSource(Edge e);
+    Vertex getSource(Edge e);
 
     /**
      * getTarget( Edge ) Returns the vertex which terminates the edge.
      */
-    public Vertex getTarget(Edge e);
+    Vertex getTarget(Edge e);
 }
