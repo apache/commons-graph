@@ -129,14 +129,14 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     {
         try
         {
-            DirectedGraphImpl<V, WE> RC = new DirectedGraphImpl<V, WE>();
+            DirectedGraphImpl<V, WE> directedGraph = new DirectedGraphImpl<V, WE>();
             Set<V> vertexSet = getVertices();
             Set<WE> edgeSet = getEdges();
 
             Iterator<V> vertices = vertexSet.iterator();
             while ( vertices.hasNext() )
             {
-                RC.addVertex( vertices.next() );
+                directedGraph.addVertex( vertices.next() );
             }
 
             Iterator<WE> edges = edgeSet.iterator();
@@ -144,10 +144,10 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
             {
                 WE edge = edges.next();
 
-                RC.addEdge( edge, getTarget( edge ), getSource( edge ) );
+                directedGraph.addEdge( edge, getTarget( edge ), getSource( edge ) );
             }
 
-            return RC;
+            return directedGraph;
         }
         catch ( GraphException e )
         {
