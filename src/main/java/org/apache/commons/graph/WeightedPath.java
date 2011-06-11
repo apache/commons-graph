@@ -25,8 +25,10 @@ package org.apache.commons.graph;
 public interface WeightedPath
      extends Path
 {
+
     /**
      * Gets the weight attribute of the WeightedPath object
      */
     double getWeight();
+
 }
