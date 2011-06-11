@@ -36,25 +36,25 @@ import org.apache.commons.graph.exception.*;
 /**
  * Description of the Class
  */
-public class DirectedGraphImpl
-     implements DirectedGraph,
-		WeightedGraph,
-		MutableDirectedGraph,
+public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
+     implements DirectedGraph<V, WE>,
+		WeightedGraph<V, WE>,
+		MutableDirectedGraph<V, WE>,
 		InvocationHandler
 {
     private Vertex root = null;
 
-    private Set vertices = new HashSet();
-    private Set edges = new HashSet();
-    private List contracts = new ArrayList();
+    private Set<V> vertices = new HashSet<V>();
+    private Set<WE> edges = new HashSet<WE>();
+    private List<Contract> contracts = new ArrayList<Contract>();
 
-    private Map inbound = new HashMap();// VERTEX X SET( EDGE )
-    private Map outbound = new HashMap();// - " " -
+    private Map<V, Set<WE>> inbound = new HashMap<V, Set<WE>>();// VERTEX X SET( EDGE )
+    private Map<V, Set<WE>> outbound = new HashMap<V, Set<WE>>();// - " " -
 
-    private Map edgeSource = new HashMap();// EDGE X VERTEX
-    private Map edgeTarget = new HashMap();// EDGE X TARGET
+    private Map<WE, V> edgeSource = new HashMap<WE, V>();// EDGE X VERTEX
+    private Map<WE, V> edgeTarget = new HashMap<WE, V>();// EDGE X TARGET
 
-    private Map edgeWeights = new HashMap();// EDGE X WEIGHT
+    private Map<WE, Number> edgeWeights = new HashMap<WE, Number>();// EDGE X WEIGHT
 
     /**
      * Constructor for the DirectedGraphImpl object
@@ -66,26 +66,28 @@ public class DirectedGraphImpl
      *
      * @param dg
      */
-    public DirectedGraphImpl(DirectedGraph dg)
+    public DirectedGraphImpl(DirectedGraph<V, WE> dg)
     {
 
-        Iterator v = dg.getVertices().iterator();
+        Iterator<V> v = dg.getVertices().iterator();
         while (v.hasNext())
         {
-            addVertexI((Vertex) v.next());
+            addVertexI(v.next());
         }
 
-        Iterator e = dg.getEdges().iterator();
+        Iterator<WE> e = dg.getEdges().iterator();
         while (e.hasNext())
         {
-            Edge edge = (Edge) e.next();
+            WE edge = e.next();
             addEdgeI(edge,
                 dg.getSource(edge),
                 dg.getTarget(edge));
 
             if (dg instanceof WeightedGraph)
             {
-                setWeight(edge, ((WeightedGraph) dg).getWeight(edge));
+                @SuppressWarnings( "unchecked" ) // it is a DirectedGraph<V, WE>
+                WeightedGraph<V, WE> weightedGraph = (WeightedGraph<V, WE>) dg;
+                setWeight(edge, weightedGraph.getWeight(edge));
             }
         }
     }
@@ -112,13 +114,13 @@ public class DirectedGraphImpl
     /**
      * Sets the weight attribute of the DirectedGraphImpl object
      */
-    public void setWeight(Edge e, double value)
+    public void setWeight(WE e, Number value)
     {
         if (edgeWeights.containsKey(e))
         {
             edgeWeights.remove(e);
         }
-        edgeWeights.put(e, new Double(value));
+        edgeWeights.put(e, value);
     }
 
     // Interface Methods
@@ -126,7 +128,7 @@ public class DirectedGraphImpl
     /**
      * Gets the vertices attribute of the DirectedGraphImpl object
      */
-    public Set getVertices()
+    public Set<V> getVertices()
     {
         return new HashSet(vertices);
     }
@@ -134,9 +136,9 @@ public class DirectedGraphImpl
     /**
      * Gets the vertices attribute of the DirectedGraphImpl object
      */
-    public Set getVertices(Edge e)
+    public Set<V> getVertices(WE e)
     {
-        Set RC = new HashSet();
+        Set<V> RC = new HashSet<V>();
         if (edgeSource.containsKey(e))
         {
             RC.add(edgeSource.get(e));
@@ -153,7 +155,7 @@ public class DirectedGraphImpl
     /**
      * Gets the edges attribute of the DirectedGraphImpl object
      */
-    public Set getEdges()
+    public Set<WE> getEdges()
     {
         return new HashSet(edges);
     }
@@ -161,17 +163,17 @@ public class DirectedGraphImpl
     /**
      * Gets the edges attribute of the DirectedGraphImpl object
      */
-    public Set getEdges(Vertex v)
+    public Set<WE> getEdges(V v)
     {
-        Set RC = new HashSet();
+        Set<WE> RC = new HashSet<WE>();
         if (inbound.containsKey(v))
         {
-            RC.addAll((Set) inbound.get(v));
+            RC.addAll(inbound.get(v));
         }
 
         if (outbound.containsKey(v))
         {
-            RC.addAll((Set) outbound.get(v));
+            RC.addAll(outbound.get(v));
         }
 
         return RC;
@@ -181,27 +183,27 @@ public class DirectedGraphImpl
     /**
      * Gets the source attribute of the DirectedGraphImpl object
      */
-    public Vertex getSource(Edge e)
+    public V getSource(WE e)
     {
-        return (Vertex) edgeSource.get(e);
+        return edgeSource.get(e);
     }
 
     /**
      * Gets the target attribute of the DirectedGraphImpl object
      */
-    public Vertex getTarget(Edge e)
+    public V getTarget(WE e)
     {
-        return (Vertex) edgeTarget.get(e);
+        return edgeTarget.get(e);
     }
 
     /**
      * Gets the inbound attribute of the DirectedGraphImpl object
      */
-    public Set getInbound(Vertex v)
+    public Set<WE> getInbound(Vertex v)
     {
         if (inbound.containsKey(v))
         {
-            return new HashSet((Set) inbound.get(v));
+            return new HashSet(inbound.get(v));
         }
         else
         {
@@ -212,11 +214,11 @@ public class DirectedGraphImpl
     /**
      * Gets the outbound attribute of the DirectedGraphImpl object
      */
-    public Set getOutbound(Vertex v)
+    public Set<WE> getOutbound(Vertex v)
     {
         if (outbound.containsKey(v))
         {
-            return new HashSet((Set) outbound.get(v));
+            return new HashSet(outbound.get(v));
         }
         else
         {
@@ -229,7 +231,7 @@ public class DirectedGraphImpl
     /**
      * Adds a feature to the VertexI attribute of the DirectedGraphImpl object
      */
-    private void addVertexI(Vertex v)
+    private void addVertexI(V v)
         throws GraphException
     {
 	if (root == null) root = v;
@@ -240,13 +242,13 @@ public class DirectedGraphImpl
     /**
      * Adds a feature to the Vertex attribute of the DirectedGraphImpl object
      */
-    public void addVertex(Vertex v)
+    public void addVertex(V v)
         throws GraphException
     {
-        Iterator conts = contracts.iterator();
+        Iterator<Contract> conts = contracts.iterator();
         while (conts.hasNext())
         {
-            ((Contract) conts.next()).addVertex(v);
+            conts.next().addVertex(v);
         }
         addVertexI(v);
     }
@@ -273,10 +275,10 @@ public class DirectedGraphImpl
     public void removeVertex(Vertex v)
         throws GraphException
     {
-        Iterator conts = contracts.iterator();
+        Iterator<Contract> conts = contracts.iterator();
         while (conts.hasNext())
         {
-            ((Contract) conts.next()).removeVertex(v);
+            conts.next().removeVertex(v);
         }
 
         removeVertexI(v);
@@ -286,60 +288,53 @@ public class DirectedGraphImpl
     /**
      * Adds a feature to the EdgeI attribute of the DirectedGraphImpl object
      */
-    private void addEdgeI(Edge e, Vertex start, Vertex end)
+    private void addEdgeI(WE e, V start, V end)
         throws GraphException
     {
         edges.add(e);
 
-        if (e instanceof WeightedEdge)
-        {
-            edgeWeights.put(e, new Double(((WeightedEdge<Double>) e).getWeight()));
-        }
-        else
-        {
-            edgeWeights.put(e, new Double(1.0));
-        }
+        edgeWeights.put(e, e.getWeight());
 
         edgeSource.put(e, start);
         edgeTarget.put(e, end);
 
         if (!outbound.containsKey(start))
         {
-            Set edgeSet = new HashSet();
+            Set<WE> edgeSet = new HashSet<WE>();
             edgeSet.add(e);
 
             outbound.put(start, edgeSet);
         }
         else
         {
-            ((Set) outbound.get(start)).add(e);
+            outbound.get(start).add(e);
         }
 
         if (!inbound.containsKey(end))
         {
-            Set edgeSet = new HashSet();
+            Set<WE> edgeSet = new HashSet<WE>();
             edgeSet.add(e);
 
             inbound.put(end, edgeSet);
         }
         else
         {
-            ((Set) inbound.get(end)).add(e);
+            inbound.get(end).add(e);
         }
     }
 
     /**
      * Adds a feature to the Edge attribute of the DirectedGraphImpl object
      */
-    public void addEdge(Edge e,
-                        Vertex start,
-                        Vertex end)
+    public void addEdge(WE e,
+                        V start,
+                        V end)
         throws GraphException
     {
-      Iterator conts = contracts.iterator();
+      Iterator<Contract> conts = contracts.iterator();
       while (conts.hasNext())
 	{
-	  Contract cont = (Contract) conts.next();
+	  Contract cont = conts.next();
 
 	  cont.addEdge(e, start, end);
 	}
@@ -356,16 +351,16 @@ public class DirectedGraphImpl
     {
         try
         {
-            Set edgeSet = null;
+            Set<WE> edgeSet = null;
 
-            Vertex source = (Vertex) edgeSource.get(e);
+            V source = edgeSource.get(e);
             edgeSource.remove(e);
-            edgeSet = (Set) outbound.get(source);
+            edgeSet = outbound.get(source);
             edgeSet.remove(e);
 
-            Vertex target = (Vertex) edgeTarget.get(e);
+            V target = edgeTarget.get(e);
             edgeTarget.remove(e);
-            edgeSet = (Set) inbound.get(target);
+            edgeSet = inbound.get(target);
             edgeSet.remove(e);
 
             if (edgeWeights.containsKey(e))
@@ -382,13 +377,13 @@ public class DirectedGraphImpl
     /**
      * Description of the Method
      */
-    public void removeEdge(Edge e)
+    public void removeEdge(WE e)
         throws GraphException
     {
-        Iterator conts = contracts.iterator();
+        Iterator<Contract> conts = contracts.iterator();
         while (conts.hasNext())
         {
-            ((Contract) conts.next()).removeEdge(e);
+            conts.next().removeEdge(e);
         }
         removeEdgeI(e);
     }
@@ -397,11 +392,11 @@ public class DirectedGraphImpl
     /**
      * Gets the weight attribute of the DirectedGraphImpl object
      */
-    public double getWeight(Edge e)
+    public Number getWeight(WE e)
     {
         if (edgeWeights.containsKey(e))
         {
-            return ((Double) edgeWeights.get(e)).doubleValue();
+            return edgeWeights.get(e);
         }
         else
         {
