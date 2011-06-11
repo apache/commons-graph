@@ -60,9 +60,9 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
             return (DDirectedGraph<V, WE>) decoratedGraphs.get( graph );
         }
 
-        DDirectedGraph<V, WE> RC = new DDirectedGraph<V, WE>( graph );
-        decoratedGraphs.put( graph, RC );
-        return RC;
+        DDirectedGraph<V, WE> decorated = new DDirectedGraph<V, WE>( graph );
+        decoratedGraphs.put( graph, decorated );
+        return decorated;
     }
 
     private final WeightedGraph<V, WE> weighted;
