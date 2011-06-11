@@ -39,13 +39,16 @@ import org.apache.commons.graph.domain.basic.DirectedGraphWrapper;
  * Description of the Class
  */
 public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
-     extends DirectedGraphWrapper<V, WE>
-     implements DirectedGraph<V, WE>,
-    WeightedGraph<V, WE>
+    extends DirectedGraphWrapper<V, WE>
+    implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
+
     private WeightedGraph<V, WE> weighted;
+
     private Map<WE, Number> weights = new HashMap<WE, Number>();// EDGE X DOUBLE
+
     private static Map decoratedGraphs = new HashMap();// DGRAPH X DDGRAPH
+
     private AllPairsShortestPath allPaths = null;
 
     /**
@@ -53,11 +56,11 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
      *
      * @param impl
      */
-    protected DDirectedGraph(DirectedGraph<V, WE> impl)
+    protected DDirectedGraph( DirectedGraph<V, WE> impl )
     {
-        super(impl);
+        super( impl );
 
-        if (impl instanceof WeightedGraph)
+        if ( impl instanceof WeightedGraph )
         {
             weighted = (WeightedGraph<V, WE>) impl;
         }
@@ -66,20 +69,20 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     /**
      * Description of the Method
      */
-    public static <V extends Vertex, WE extends WeightedEdge> DDirectedGraph<V, WE> decorateGraph(DirectedGraph<V, WE> graph)
+    public static <V extends Vertex, WE extends WeightedEdge> DDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
     {
-        if (graph instanceof DDirectedGraph)
+        if ( graph instanceof DDirectedGraph )
         {
             return (DDirectedGraph<V, WE>) graph;
         }
 
-        if (decoratedGraphs.containsKey(graph))
+        if ( decoratedGraphs.containsKey( graph ) )
         {
-            return (DDirectedGraph<V, WE>) decoratedGraphs.get(graph);
+            return (DDirectedGraph<V, WE>) decoratedGraphs.get( graph );
         }
 
-        DDirectedGraph<V, WE> RC = new DDirectedGraph<V, WE>(graph);
-        decoratedGraphs.put(graph, RC);
+        DDirectedGraph<V, WE> RC = new DDirectedGraph<V, WE>( graph );
+        decoratedGraphs.put( graph, RC );
         return RC;
     }
 
@@ -87,17 +90,17 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     /**
      * Gets the weight attribute of the DDirectedGraph object
      */
-    public Number getWeight(WE e)
+    public Number getWeight( WE e )
     {
-        if (weighted != null)
+        if ( weighted != null )
         {
-            return weighted.getWeight(e);
+            return weighted.getWeight( e );
         }
         else
         {
-            if (weights.containsKey(e))
+            if ( weights.containsKey( e ) )
             {
-                return weights.get(e);
+                return weights.get( e );
             }
             else
             {
@@ -109,15 +112,15 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     /**
      * Sets the weight attribute of the DDirectedGraph object
      */
-    public void setWeight(WE e, Number value)
+    public void setWeight( WE e, Number value )
         throws GraphException
     {
-        if (weighted != null)
+        if ( weighted != null )
         {
-            throw new GraphException("Unable to set weight.");
+            throw new GraphException( "Unable to set weight." );
         }
 
-        weights.put(e, value);
+        weights.put( e, value );
     }
 
     /**
@@ -133,59 +136,56 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
             Set<WE> edgeSet = getEdges();
 
             Iterator<V> vertices = vertexSet.iterator();
-            while (vertices.hasNext())
+            while ( vertices.hasNext() )
             {
-                RC.addVertex(vertices.next());
+                RC.addVertex( vertices.next() );
             }
 
             Iterator<WE> edges = edgeSet.iterator();
-            while (edges.hasNext())
+            while ( edges.hasNext() )
             {
                 WE edge = edges.next();
 
-                RC.addEdge(edge,
-                    getTarget(edge),
-                    getSource(edge));
+                RC.addEdge( edge, getTarget( edge ), getSource( edge ) );
             }
 
             return RC;
         }
-        catch (GraphException e)
+        catch ( GraphException e )
         {
             throw e;
         }
-        catch (Exception e)
+        catch ( Exception e )
         {
-            throw new GraphException(e);
+            throw new GraphException( e );
         }
     }
 
     /**
      * Description of the Method
      */
-    public boolean hasConnection(Vertex start, Vertex end)
+    public boolean hasConnection( Vertex start, Vertex end )
         throws GraphException
     {
-        if (start == end)
+        if ( start == end )
         {
             return true;
         }
 
         try
         {
-            if (allPaths == null)
+            if ( allPaths == null )
             {
-                allPaths = new AllPairsShortestPath(this);
+                allPaths = new AllPairsShortestPath( this );
             }
             else
             {
-                allPaths.update(this);
+                allPaths.update( this );
             }
 
-            WeightedPath<V, WE> path =
-                allPaths.getShortestPath(start, end);
+            WeightedPath<V, WE> path = allPaths.getShortestPath( start, end );
         }
-        catch (GraphException ex)
+        catch ( GraphException ex )
         {
             return false;
         }
@@ -193,16 +193,14 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
         return true;
     }
 
-  public MinimumSpanningForest minimumSpanningForest() {
-    return new MinimumSpanningForest( this );
-  }
+    public MinimumSpanningForest minimumSpanningForest()
+    {
+        return new MinimumSpanningForest( this );
+    }
 
-  public MinimumSpanningForest maximumSpanningForest() {
-    return new MinimumSpanningForest( false, this );
-  }
+    public MinimumSpanningForest maximumSpanningForest()
+    {
+        return new MinimumSpanningForest( false, this );
+    }
 
 }
-
-
-
-
