@@ -28,23 +28,23 @@ public interface Graph
     /**
      * getVertices - Returns the total set of Vertices in the graph.
      */
-    public Set getVertices();
+    Set getVertices();
 
     /**
      * getEdges - Returns the total set of Edges in the graph.
      */
-    public Set getEdges();
+    Set getEdges();
 
     /**
      * getEdges( Vertex ) - This method will return all edges which touch this
      * vertex.
      */
-    public Set getEdges(Vertex v);
+    Set getEdges(Vertex v);
 
     /**
      * getVertices( Edge ) - This method will return the set of Verticies on
      * this Edge. (2 for normal edges, > 2 for HyperEdges.)
      */
-    public Set getVertices(Edge e);
+    Set getVertices(Edge e);
 }
 
