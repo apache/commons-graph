@@ -48,7 +48,7 @@ public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
     }
 
     /**
-     * Gets the weight attribute of the WeightedGraphWrapper object
+     * {@inheritDoc}
      */
     public Number getWeight( WE e )
     {
@@ -61,6 +61,9 @@ public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
 
     /**
      * Sets the weight attribute of the WeightedGraphWrapper object
+     *
+     * @param e
+     * @param weight
      */
     public void setWeight( WE e, Number weight )
     {
