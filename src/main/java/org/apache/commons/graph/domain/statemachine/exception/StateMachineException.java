@@ -1,6 +1,6 @@
 package org.apache.commons.graph.domain.statemachine.exception;
 
-import org.apache.commons.graph.exception.GraphException;
+import org.apache.commons.graph.GraphException;
 
 /**
  * Description of the Class

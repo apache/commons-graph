@@ -1,4 +1,4 @@
-package org.apache.commons.graph.exception;
+package org.apache.commons.graph;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

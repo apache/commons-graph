@@ -1,5 +1,7 @@
 package org.apache.commons.graph.exception;
 
+import org.apache.commons.graph.GraphException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file

@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
@@ -33,7 +34,6 @@ import org.apache.commons.graph.algorithm.path.AllPairsShortestPath;
 import org.apache.commons.graph.algorithm.spanning.MinimumSpanningForest;
 import org.apache.commons.graph.domain.basic.DirectedGraphImpl;
 import org.apache.commons.graph.domain.basic.DirectedGraphWrapper;
-import org.apache.commons.graph.exception.GraphException;
 
 /**
  * Description of the Class
