@@ -53,11 +53,6 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
     private final Map<WE, Number> edgeWeights = new HashMap<WE, Number>(); // EDGE X WEIGHT
 
     /**
-     * Constructor for the UndirectedGraphImpl object
-     */
-    public UndirectedGraphImpl() { }
-
-    /**
      * {@inheritDoc}
      */
     public void addVertex( V v )
