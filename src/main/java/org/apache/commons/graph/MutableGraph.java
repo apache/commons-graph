@@ -21,6 +21,9 @@ package org.apache.commons.graph;
 
 /**
  * The {@code MutableGraph} is a graph that supports the addition and removal of {@link Vertex} and {@link Edge}s.
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
 public interface MutableGraph<V extends Vertex, E extends Edge>
     extends Graph<V, E>

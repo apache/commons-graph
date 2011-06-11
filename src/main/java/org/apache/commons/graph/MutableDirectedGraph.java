@@ -22,6 +22,9 @@ package org.apache.commons.graph;
 /**
  * The {@code MutableDirectedGraph} is a directed graph that supports the addition and removal of
  * {@link Vertex} and {@link Edge}s.
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
 public interface MutableDirectedGraph<V extends Vertex, E extends Edge>
     extends DirectedGraph<V, E>
