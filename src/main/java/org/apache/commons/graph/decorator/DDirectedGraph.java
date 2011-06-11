@@ -96,17 +96,11 @@ public class DDirectedGraph<V extends Vertex, WE extends WeightedEdge>
         {
             return weighted.getWeight( e );
         }
-        else
+        if ( weights.containsKey( e ) )
         {
-            if ( weights.containsKey( e ) )
-            {
-                return weights.get( e );
-            }
-            else
-            {
-                return 1.0;
-            }
+            return weights.get( e );
         }
+        return 1.0;
     }
 
     /**
