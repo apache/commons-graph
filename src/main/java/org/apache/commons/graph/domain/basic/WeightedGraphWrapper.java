@@ -31,9 +31,10 @@ import org.apache.commons.graph.*;
  * @param <E> the Graph edges type
  */
 public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
-     extends GraphWrapper<V, WE>
-     implements WeightedGraph<V, WE>
+    extends GraphWrapper<V, WE>
+    implements WeightedGraph<V, WE>
 {
+
     private final Map<WE, Number> weights = new HashMap<WE, Number>(); // EDGE X WEIGHT
 
     /**
@@ -41,19 +42,19 @@ public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
      *
      * @param graph
      */
-    public WeightedGraphWrapper(Graph<V, WE> graph)
+    public WeightedGraphWrapper( Graph<V, WE> graph )
     {
-        super(graph);
+        super( graph );
     }
 
     /**
      * Gets the weight attribute of the WeightedGraphWrapper object
      */
-    public Number getWeight(WE e)
+    public Number getWeight( WE e )
     {
-        if (weights.containsKey(e))
+        if ( weights.containsKey( e ) )
         {
-            return weights.get(e);
+            return weights.get( e );
         }
         else
         {
@@ -64,9 +65,9 @@ public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
     /**
      * Sets the weight attribute of the WeightedGraphWrapper object
      */
-    public void setWeight(WE e, Number weight)
+    public void setWeight( WE e, Number weight )
     {
-        weights.put(e, weight);
+        weights.put( e, weight );
     }
 
 }
