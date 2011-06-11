@@ -25,8 +25,9 @@ import org.apache.commons.graph.exception.*;
  * The {@code MutableGraph} is a graph that supports the addition and removal of {@link Vertex} and {@link Edge}s.
  */
 public interface MutableGraph<V extends Vertex, E extends Edge>
-     extends Graph<V, E>
+    extends Graph<V, E>
 {
+
     /**
      * Adds a feature to the Vertex attribute of the MutableGraph object
      */
@@ -62,4 +63,5 @@ public interface MutableGraph<V extends Vertex, E extends Edge>
      */
     void disconnect(E e, V v)
         throws GraphException;
+
 }
