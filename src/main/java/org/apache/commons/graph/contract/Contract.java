@@ -19,8 +19,10 @@ package org.apache.commons.graph.contract;
  * under the License.
  */
 
-import org.apache.commons.graph.*;
-import org.apache.commons.graph.exception.*;
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.Vertex;
 
 /**
  * Description of the Interface
