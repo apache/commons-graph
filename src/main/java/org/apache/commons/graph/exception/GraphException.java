@@ -19,19 +19,14 @@ package org.apache.commons.graph.exception;
  * under the License.
  */
 
+
 /**
  * GraphException This is the superclass of all exceptions that can be thrown.
  */
-
-import java.io.PrintStream;
-import java.io.PrintWriter;
-
 public class GraphException extends RuntimeException
 {
 
     private static final long serialVersionUID = 6356965258279945475L;
-
-    private Throwable cause = null;
 
     /**
      * Constructor for the GraphException object
@@ -58,24 +53,7 @@ public class GraphException extends RuntimeException
      */
     public GraphException(Throwable cause)
     {
-        super(cause.getMessage());
-        this.cause = cause;
+        super( cause );
     }
 
-    public Throwable getCause() {
-	return cause;
-    }
-
-    public void printStackTrace() {
-	cause.printStackTrace();
-    }
-
-    public void printStackTrace( PrintStream s ) {
-	cause.printStackTrace( s );
-    }
-
-    public void printStackTrace( PrintWriter w ) {
-	cause.printStackTrace( w );
-    }
-	
 }
