@@ -28,25 +28,27 @@ import java.util.Set;
 public interface DirectedGraph
      extends Graph
 {
+
     /**
      * getInbound( Vertex ) Returns the set of edges which are inbound to the
      * Vertex.
      */
-    Set getInbound(Vertex v);
+    Set getInbound( Vertex v );
 
     /**
      * getOutbound( Vertex ) Returns the set of edges which lead away from the
      * Vertex.
      */
-    Set getOutbound(Vertex v);
+    Set getOutbound( Vertex v );
 
     /**
      * getSource( Edge ) Returns the vertex which originates the edge.
      */
-    Vertex getSource(Edge e);
+    Vertex getSource( Edge e );
 
     /**
      * getTarget( Edge ) Returns the vertex which terminates the edge.
      */
-    Vertex getTarget(Edge e);
+    Vertex getTarget( Edge e );
+
 }
