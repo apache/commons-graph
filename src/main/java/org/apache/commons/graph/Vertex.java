@@ -17,7 +17,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * Description of the Interface
+ * A Vertex or Node is the fundamental unit out of which graphs are formed.
  */
 public interface Vertex
 {
