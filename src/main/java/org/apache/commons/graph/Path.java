@@ -43,13 +43,13 @@ public interface Path
      * Start to End. This includes the Start and End vertex, and will have one
      * more entry than the Edges list.
      */
-    public List getVertices();
+    public List<Vertex> getVertices();
 
     /**
      * getEdges() - This returns a list of Edges which comprise the path. It
      * will have one less than the list of Vertices.
      */
-    public List getEdges();
+    public List<Edge> getEdges();
 
     /**
      * size() - This returns the size of the path in terms of number of
