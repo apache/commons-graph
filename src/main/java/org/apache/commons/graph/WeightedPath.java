@@ -23,7 +23,7 @@ package org.apache.commons.graph;
  * Description of the Interface
  */
 public interface WeightedPath
-     extends Path
+    extends Path
 {
 
     /**
