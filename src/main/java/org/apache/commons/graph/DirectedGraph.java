@@ -19,7 +19,11 @@ package org.apache.commons.graph;
 import java.util.Set;
 
 /**
- * Description of the Interface
+ * A {@code DirectedGraph} or <i>digraph</i> is an ordered pair {@code D = ( V, E )} with
+ * <ul>
+ * {@code V} a set whose elements are called vertices or nodes, and
+ * {@code E} a set of ordered pairs of vertices, called arcs, directed edges, or arrows.
+ * </ul>
  */
 public interface DirectedGraph
      extends Graph
