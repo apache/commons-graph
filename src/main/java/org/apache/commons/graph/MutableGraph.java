@@ -25,7 +25,7 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface MutableGraph<V extends Vertex, E extends Edge>
+public interface MutableGraph<V extends Vertex, E extends Edge<V>>
     extends Graph<V, E>
 {
 

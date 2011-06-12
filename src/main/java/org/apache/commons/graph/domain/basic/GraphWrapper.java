@@ -29,7 +29,7 @@ import org.apache.commons.graph.*;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class GraphWrapper<V extends Vertex, E extends Edge>
+public class GraphWrapper<V extends Vertex, E extends Edge<V>>
     implements Graph<V, E>
 {
 

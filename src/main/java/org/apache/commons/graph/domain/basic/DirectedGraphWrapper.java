@@ -26,7 +26,7 @@ import org.apache.commons.graph.*;
 /**
  * Description of the Class
  */
-public class DirectedGraphWrapper<V extends Vertex, E extends Edge>
+public class DirectedGraphWrapper<V extends Vertex, E extends Edge<V>>
     extends GraphWrapper<V, E>
     implements DirectedGraph<V, E>
 {

@@ -28,7 +28,7 @@ package org.apache.commons.graph;
  * @param <W> the {@link Edge} weight.
  * @param <WE> the Graph weighted edges type
  */
-public interface WeightedGraph<V extends Vertex, WE extends WeightedEdge>
+public interface WeightedGraph<V extends Vertex, WE extends WeightedEdge<V>>
     extends Graph<V, WE>
 {
 

@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.MutableDirectedGraph;
 import org.apache.commons.graph.Vertex;
@@ -44,7 +43,7 @@ import org.apache.commons.graph.contract.Contract;
 /**
  * Description of the Class
  */
-public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
+public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge<V>>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>, MutableDirectedGraph<V, WE>, InvocationHandler
 {
 
@@ -365,7 +364,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
      * @param e
      * @throws GraphException
      */
-    private void removeEdgeI( Edge e )
+    private void removeEdgeI( WE e )
         throws GraphException
     {
         try

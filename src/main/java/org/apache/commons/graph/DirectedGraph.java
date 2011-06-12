@@ -31,7 +31,7 @@ import java.util.Set;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface DirectedGraph<V extends Vertex, E extends Edge>
+public interface DirectedGraph<V extends Vertex, E extends Edge<V>>
     extends Graph<V, E>
 {
 

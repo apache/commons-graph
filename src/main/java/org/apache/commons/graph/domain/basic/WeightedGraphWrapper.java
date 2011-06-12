@@ -30,7 +30,7 @@ import org.apache.commons.graph.*;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge>
+public class WeightedGraphWrapper<V extends Vertex, WE extends WeightedEdge<V>>
     extends GraphWrapper<V, WE>
     implements WeightedGraph<V, WE>
 {

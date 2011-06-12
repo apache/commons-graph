@@ -40,7 +40,7 @@ import org.apache.commons.graph.WeightedGraph;
 /**
  * Description of the Class
  */
-public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge>
+public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge<V>>
     implements UndirectedGraph<V, WE>, WeightedGraph<V, WE>, MutableGraph<V, WE>, InvocationHandler
 {
 
