@@ -26,7 +26,9 @@ public interface Labeled
 {
 
     /**
-     * Gets the name attribute of the Named object
+     * Gets the label attribute of the {@code Labeled} object.
+     *
+     * @return the label attribute of the {@code Labeled} object.
      */
     String getLabel();
 
