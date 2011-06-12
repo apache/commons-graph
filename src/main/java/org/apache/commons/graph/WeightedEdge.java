@@ -23,7 +23,7 @@ package org.apache.commons.graph;
  * A WeightedEdge is an {@link Edge} where a number (weight) is assigned to represent, for example,
  * costs, lengths or capacities, etc. depending on the problem.
  *
- * @param <W> the {@link Edge} weight.
+ * @param <V> the Graph vertices type
  */
 public interface WeightedEdge<V extends Vertex>
     extends Edge<V>, Comparable<WeightedEdge<V>>
