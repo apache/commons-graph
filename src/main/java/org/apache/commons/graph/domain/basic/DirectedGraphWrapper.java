@@ -21,7 +21,9 @@ package org.apache.commons.graph.domain.basic;
 
 import java.util.Set;
 
-import org.apache.commons.graph.*;
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Vertex;
 
 /**
  * Description of the Class
@@ -58,22 +60,6 @@ public class DirectedGraphWrapper<V extends Vertex, E extends Edge<V>>
     public Set<E> getOutbound(V v)
     {
         return impl.getOutbound(v);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public V getSource(E e)
-    {
-        return impl.getSource(e);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public V getTarget(E e)
-    {
-        return impl.getTarget(e);
     }
 
 }

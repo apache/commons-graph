@@ -90,7 +90,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge<V>>
         while ( e.hasNext() )
         {
             WE edge = e.next();
-            addEdgeI( edge, dg.getSource( edge ), dg.getTarget( edge ) );
+            addEdgeI( edge, edge.getHead(), edge.getTail() );
 
             if ( dg instanceof WeightedGraph )
             {

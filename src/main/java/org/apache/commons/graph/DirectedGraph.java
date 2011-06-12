@@ -51,20 +51,4 @@ public interface DirectedGraph<V extends Vertex, E extends Edge<V>>
      */
     Set<E> getOutbound( V v );
 
-    /**
-     * Returns the {@link Vertex} which originates the {@link Edge}.
-     *
-     * @param e the {@link Edge} which has the returned {@link Vertex} as source.
-     * @return the {@link Vertex} which originates the {@link Edge}.
-     */
-    V getSource( E e );
-
-    /**
-     * Returns the {@link Vertex} which terminates the {@link Edge}.
-     *
-     * @param e the {@link Edge} which has the returned {@link Vertex} as target.
-     * @return the {@link Vertex} which terminates the {@link Edge}.
-     */
-    V getTarget( E e );
-
 }
