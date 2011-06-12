@@ -23,7 +23,7 @@ import org.apache.commons.graph.*;
 import jdepend.framework.*;
 
 public class ImportEdge
-  implements Edge, Named
+  implements Edge, Labeled
 {
   private JavaPackage pkg = null;
   private JavaClass clz = null;

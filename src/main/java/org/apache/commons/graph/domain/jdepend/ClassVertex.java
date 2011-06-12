@@ -27,7 +27,7 @@ import org.apache.commons.graph.*;
 import org.apache.commons.graph.visualize.*;
 
 public class ClassVertex
-  implements Vertex, Named, Colored
+  implements Vertex, Labeled, Colored
 {
   private JavaClass clazz = null;
 

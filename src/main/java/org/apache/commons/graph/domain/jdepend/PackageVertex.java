@@ -27,7 +27,7 @@ import org.apache.commons.graph.visualize.*;
 import jdepend.framework.*;
 
 public class PackageVertex
-  implements Vertex, Named, Colored
+  implements Vertex, Labeled, Colored
 {
   private JavaPackage pkg = null;
 

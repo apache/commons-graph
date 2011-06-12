@@ -22,12 +22,12 @@ package org.apache.commons.graph;
 /**
  * Description of the Interface
  */
-public interface Named
+public interface Labeled
 {
 
     /**
      * Gets the name attribute of the Named object
      */
-    String getName();
+    String getLabel();
 
 }

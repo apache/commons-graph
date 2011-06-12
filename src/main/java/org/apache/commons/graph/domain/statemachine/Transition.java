@@ -6,7 +6,7 @@ import org.apache.commons.graph.*;
  * Description of the Class
  */
 public class Transition
-     implements Edge, Named
+     implements Edge, Labeled
 {
     private String name;
     private State source;

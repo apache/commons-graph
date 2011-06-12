@@ -181,9 +181,9 @@ public class TouchGraph
                 "\" visible=\"true\" />");
 
             String label;
-            if (v instanceof Named)
+            if (v instanceof Labeled)
             {
-                label = ((Named) v).getName();
+                label = ((Labeled) v).getName();
             }
             else
             {

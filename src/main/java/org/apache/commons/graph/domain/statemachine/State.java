@@ -6,7 +6,7 @@ import org.apache.commons.graph.*;
  * Description of the Class
  */
 public class State
-     implements Vertex, Named
+     implements Vertex, Labeled
 {
     private String name;
     private StateMachine subMachine = null;
