@@ -20,7 +20,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * Description of the Interface
+ * A {@code Label} is an identifier to be assigned to a {@link Vertex} or to an {@link Edge}.
  */
 public interface Labeled
 {
