@@ -94,9 +94,7 @@ public class DirectedGraphImpl<V extends Vertex, WE extends WeightedEdge<V>>
 
             if ( dg instanceof WeightedGraph )
             {
-                @SuppressWarnings( "unchecked" ) // it is a DirectedGraph<V, WE>
-                WeightedGraph<V, WE> weightedGraph = (WeightedGraph<V, WE>) dg;
-                setWeight( edge, weightedGraph.getWeight( edge ) );
+                setWeight( edge, edge.getWeight() );
             }
         }
     }

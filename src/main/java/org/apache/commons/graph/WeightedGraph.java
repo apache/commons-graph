@@ -32,12 +32,4 @@ public interface WeightedGraph<V extends Vertex, WE extends WeightedEdge<V>>
     extends Graph<V, WE>
 {
 
-    /**
-     * Gets the weight attribute of the WeightedGraph object.
-     *
-     * @param e the {@link Edge} reference.
-     * @return the weight attribute of the WeightedGraph object.
-     */
-    Number getWeight( WE e );
-
 }
