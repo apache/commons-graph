@@ -35,13 +35,13 @@ public final class Visit
 {
 
     /**
-     * 
+     * Breadth-first search algorithm implementation.
      *
-     * @param <V>
-     * @param <E>
-     * @param graph
-     * @param source
-     * @param handler
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param graph the Graph instance has to be visited
+     * @param source the root node the search begins from
+     * @param handler the handler intercepts visit actions
      */
     public final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source,
                                                                                 GraphVisitHandler<V, E> handler )
@@ -81,13 +81,13 @@ public final class Visit
     }
 
     /**
-     * 
+     * Depth-first search algorithm implementation.
      *
-     * @param <V>
-     * @param <E>
-     * @param graph
-     * @param source
-     * @param handler
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param graph the Graph instance has to be visited
+     * @param source the root node the search begins from
+     * @param handler the handler intercepts visit actions
      */
     public final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source,
                                                                               GraphVisitHandler<V, E> handler )
