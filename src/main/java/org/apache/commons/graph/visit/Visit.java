@@ -41,6 +41,19 @@ public final class Visit
      * @param <E> the Graph edges type
      * @param graph the Graph instance has to be visited
      * @param source the root node the search begins from
+     */
+    public final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source )
+    {
+        breadthFirstSearch( graph, source, null );
+    }
+
+    /**
+     * Breadth-first search algorithm implementation.
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param graph the Graph instance has to be visited
+     * @param source the root node the search begins from
      * @param handler the handler intercepts visit actions
      */
     public final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source,
@@ -105,6 +118,19 @@ public final class Visit
         {
             handler.finishGraph( graph );
         }
+    }
+
+    /**
+     * Depth-first search algorithm implementation.
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param graph the Graph instance has to be visited
+     * @param source the root node the search begins from
+     */
+    public final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source )
+    {
+        depthFirstSearch( graph, source, null );
     }
 
     /**
