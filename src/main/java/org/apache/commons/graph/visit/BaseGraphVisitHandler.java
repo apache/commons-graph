@@ -29,7 +29,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class BaseGraphVisitHanlder<V extends Vertex, E extends Edge<V>>
+public class BaseGraphVisitHandler<V extends Vertex, E extends Edge<V>>
     implements GraphVisitHandler<V, E>
 {
 
