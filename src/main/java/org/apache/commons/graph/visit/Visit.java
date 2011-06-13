@@ -46,7 +46,19 @@ public final class Visit
     public final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source,
                                                                                 GraphVisitHandler<V, E> handler )
     {
-        handler.discoverGraph( graph );
+        if ( graph == null )
+        {
+            throw new IllegalArgumentException( "Graph has to be visited can not be null." );
+        }
+        if ( source == null )
+        {
+            throw new IllegalArgumentException( "Root node the search begins from can not be null." );
+        }
+
+        if ( handler != null )
+        {
+            handler.discoverGraph( graph );
+        }
 
         LinkedList<V> vertexQueue = new LinkedList<V>();
         vertexQueue.add( source );
@@ -58,7 +70,10 @@ public final class Visit
         {
             V v = vertexQueue.remove();
 
-            handler.discoverVertex( v );
+            if ( handler != null )
+            {
+                handler.discoverVertex( v );
+            }
 
             for ( E e : graph.getEdges( v ) )
             {
@@ -66,18 +81,30 @@ public final class Visit
 
                 if ( !visitedVetices.add( w ) )
                 {
-                    handler.discoverEdge( e );
+                    if ( handler != null )
+                    {
+                        handler.discoverEdge( e );
+                    }
 
                     vertexQueue.addFirst( v );
 
-                    handler.finishEdge( e );
+                    if ( handler != null )
+                    {
+                        handler.finishEdge( e );
+                    }
                 }
             }
 
-            handler.finishVertex( v );
+            if ( handler != null )
+            {
+                handler.finishVertex( v );
+            }
         }
 
-        handler.finishGraph( graph );
+        if ( handler != null )
+        {
+            handler.finishGraph( graph );
+        }
     }
 
     /**
@@ -92,7 +119,19 @@ public final class Visit
     public final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source,
                                                                               GraphVisitHandler<V, E> handler )
     {
-        handler.discoverGraph( graph );
+        if ( graph == null )
+        {
+            throw new IllegalArgumentException( "Graph has to be visited can not be null." );
+        }
+        if ( source == null )
+        {
+            throw new IllegalArgumentException( "Root node the search begins from can not be null." );
+        }
+
+        if ( handler != null )
+        {
+            handler.discoverGraph( graph );
+        }
 
         Stack<V> vertexStack = new Stack<V>();
         vertexStack.push( source );
@@ -104,7 +143,10 @@ public final class Visit
         {
             V v = vertexStack.pop();
 
-            handler.discoverVertex( v );
+            if ( handler != null )
+            {
+                handler.discoverVertex( v );
+            }
 
             for ( E e : graph.getEdges( v ) )
             {
@@ -112,18 +154,30 @@ public final class Visit
 
                 if ( !visitedVetices.add( w ) )
                 {
-                    handler.discoverEdge( e );
+                    if ( handler != null )
+                    {
+                        handler.discoverEdge( e );
+                    }
 
                     vertexStack.push( w );
 
-                    handler.finishEdge( e );
+                    if ( handler != null )
+                    {
+                        handler.finishEdge( e );
+                    }
                 }
             }
 
-            handler.finishVertex( v );
+            if ( handler != null )
+            {
+                handler.finishVertex( v );
+            }
         }
 
-        handler.finishGraph( graph );
+        if ( handler != null )
+        {
+            handler.finishGraph( graph );
+        }
     }
 
     /**
