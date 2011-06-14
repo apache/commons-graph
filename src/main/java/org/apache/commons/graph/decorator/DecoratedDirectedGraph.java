@@ -39,7 +39,7 @@ import org.apache.commons.graph.domain.basic.DirectedGraphWrapper;
 /**
  * Description of the Class
  */
-public class DecoratedDirectedGraph<V extends Vertex, WE extends WeightedEdge>
+public class DecoratedDirectedGraph<V extends Vertex, WE extends WeightedEdge<V>>
     extends DirectedGraphWrapper<V, WE>
     implements DirectedGraph<V, WE>, WeightedGraph<V, WE>
 {
@@ -50,7 +50,7 @@ public class DecoratedDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     /**
      * Description of the Method
      */
-    public static <V extends Vertex, WE extends WeightedEdge> DecoratedDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge<V>> DecoratedDirectedGraph<V, WE> decorateGraph( DirectedGraph<V, WE> graph )
     {
         if ( graph instanceof DecoratedDirectedGraph )
         {
@@ -97,35 +97,6 @@ public class DecoratedDirectedGraph<V extends Vertex, WE extends WeightedEdge>
     }
 
     // WeightedGraph Implementation
-    /**
-     * Gets the weight attribute of the DDirectedGraph object
-     */
-    public Number getWeight( WE e )
-    {
-        if ( weighted != null )
-        {
-            return weighted.getWeight( e );
-        }
-        if ( weights.containsKey( e ) )
-        {
-            return weights.get( e );
-        }
-        return 1.0;
-    }
-
-    /**
-     * Sets the weight attribute of the DDirectedGraph object
-     */
-    public void setWeight( WE e, Number value )
-        throws GraphException
-    {
-        if ( weighted != null )
-        {
-            throw new GraphException( "Unable to set weight." );
-        }
-
-        weights.put( e, value );
-    }
 
     /**
      * Description of the Method
@@ -150,7 +121,7 @@ public class DecoratedDirectedGraph<V extends Vertex, WE extends WeightedEdge>
             {
                 WE edge = edges.next();
 
-                directedGraph.addEdge( edge, getTarget( edge ), getSource( edge ) );
+                directedGraph.addEdge( edge, edge.getTail(), edge.getHead() );
             }
 
             return directedGraph;
