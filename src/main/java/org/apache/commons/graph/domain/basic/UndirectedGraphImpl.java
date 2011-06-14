@@ -21,9 +21,6 @@ package org.apache.commons.graph.domain.basic;
 
 import static java.util.Collections.unmodifiableSet;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -41,7 +38,7 @@ import org.apache.commons.graph.WeightedGraph;
  * Description of the Class
  */
 public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge<V>>
-    implements UndirectedGraph<V, WE>, WeightedGraph<V, WE>, MutableGraph<V, WE>, InvocationHandler
+    implements UndirectedGraph<V, WE>, WeightedGraph<V, WE>, MutableGraph<V, WE>
 {
 
     private final Set<V> vertices = new HashSet<V>();
@@ -218,22 +215,6 @@ public class UndirectedGraphImpl<V extends Vertex, WE extends WeightedEdge<V>>
             return edgeWeights.get( e );
         }
         return 1;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Object invoke( Object proxy, Method method, Object args[] )
-        throws Throwable
-    {
-        try
-        {
-            return method.invoke( this, args );
-        }
-        catch ( InvocationTargetException ex )
-        {
-            throw ex.getTargetException();
-        }
     }
 
 }
