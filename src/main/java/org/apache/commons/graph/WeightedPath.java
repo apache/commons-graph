@@ -34,6 +34,6 @@ public interface WeightedPath<V extends Vertex, E extends Edge<V>>
      *
      * @return the weight attribute of the {@code WeightedPath} object.
      */
-    Number getWeight();
+    Double getWeight();
 
 }

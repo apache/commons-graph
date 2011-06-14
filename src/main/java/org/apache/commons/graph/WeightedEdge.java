@@ -34,6 +34,6 @@ public interface WeightedEdge<V extends Vertex>
      *
      * @return the weight attribute of the WeightedEdge object
      */
-    Number getWeight();
+    Double getWeight();
 
 }
