@@ -72,11 +72,11 @@ public class PathImpl
 	return new PathImpl( newVertices, newEdges );
     }
 
-  public Vertex getStart() {
+  public Vertex getSource() {
     return (Vertex) vertexList.get( 0 );
   }
 
-  public Vertex getEnd() {
+  public Vertex getTarget() {
     return (Vertex) vertexList.get( vertexList.size() - 1 );
   }
 
