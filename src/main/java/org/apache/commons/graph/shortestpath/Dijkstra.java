@@ -68,7 +68,7 @@ public final class Dijkstra
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final Map<V, V> predecessors = new HashMap<V, V>();
+        final Map<V, WE> predecessors = new HashMap<V, WE>();
 
         // the current node
         V vertex;
@@ -78,11 +78,23 @@ public final class Dijkstra
         {
             assert !settledNodes.contains( vertex );
 
-            // destination reached, stop
+            // destination reached, stop and build the path
             if ( target == vertex )
             {
-                // TODO return a WeightedPath instance
-                break;
+                InMemoryPath<V, WE> path = new InMemoryPath<V, WE>( source, target, shortestDistances.get( target ) );
+
+                V v = target;
+                while ( v != source )
+                {
+                    WE edge = predecessors.get( v );
+
+                    path.addEdgeInHead( edge );
+                    path.addVertexInHead( v );
+
+                    v = edge.getHead();
+                }
+
+                return path;
             }
 
             settledNodes.add( vertex );
@@ -103,7 +115,7 @@ public final class Dijkstra
                         unsettledNodes.add( v );
 
                         // assign predecessor in shortest path
-                        predecessors.put( v, vertex );
+                        predecessors.put( v, edge );
                     }
                 }
             }
