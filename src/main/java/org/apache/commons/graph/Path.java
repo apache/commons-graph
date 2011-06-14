@@ -32,14 +32,14 @@ public interface Path<V extends Vertex, E extends Edge<V>>
 {
 
     /**
-     * Returns the start of the path.
+     * Returns the source of the path.
      */
-    V getStart();
+    V getSource();
 
     /**
-     * Returns the end of the path.
+     * Returns the target of the path.
      */
-    V getEnd();
+    V getTarget();
 
     /**
      * getVertices() - This returns a list of Vertices, in order as they go from
