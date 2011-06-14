@@ -79,7 +79,7 @@ public final class Dijkstra
             assert !settledNodes.contains( vertex );
 
             // destination reached, stop and build the path
-            if ( target == vertex )
+            if ( target.equals( vertex ) )
             {
                 InMemoryPath<V, WE> path = new InMemoryPath<V, WE>( source, target, shortestDistances.get( target ) );
 
