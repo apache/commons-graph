@@ -83,15 +83,14 @@ public final class Dijkstra
             {
                 InMemoryPath<V, WE> path = new InMemoryPath<V, WE>( source, target, shortestDistances.get( target ) );
 
-                V v = target;
-                while ( !v.equals( source ) )
+                while ( !vertex.equals( source ) )
                 {
-                    WE edge = predecessors.get( v );
+                    WE edge = predecessors.get( vertex );
 
                     path.addEdgeInHead( edge );
-                    path.addVertexInHead( v );
+                    path.addVertexInHead( vertex );
 
-                    v = edge.getHead();
+                    vertex = edge.getHead();
                 }
 
                 return path;
