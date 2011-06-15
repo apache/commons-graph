@@ -107,7 +107,7 @@ public final class Dijkstra
                 {
                     Double shortDist = shortestDistances.get( vertex ) + edge.getWeight();
 
-                    if ( shortDist < shortestDistances.get( v ) )
+                    if ( shortDist.compareTo( shortestDistances.get( v ) ) < 0 )
                     {
                         // assign new shortest distance and mark unsettled
                         shortestDistances.put( v, shortDist );
