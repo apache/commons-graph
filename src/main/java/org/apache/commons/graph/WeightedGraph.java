@@ -24,8 +24,7 @@ package org.apache.commons.graph;
  * Such weights might represent, for example, costs, lengths or capacities, etc. depending on the problem.
  * The weight of the graph is the sum of the weights given to all edges.
  *
- * @param <V> the Graph vertices type
- * @param <W> the {@link Edge} weight.
+ * @param <V> the Graph vertices type.
  * @param <WE> the Graph weighted edges type
  */
 public interface WeightedGraph<V extends Vertex, WE extends WeightedEdge<V>>
