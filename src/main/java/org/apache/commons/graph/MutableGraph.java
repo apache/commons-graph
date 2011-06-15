@@ -34,31 +34,27 @@ public interface MutableGraph<V extends Vertex, E extends Edge<V>>
      *
      * @param v the {@link Vertex} has to be added in this {@code MutableGraph} instance.
      */
-    void addVertex( V v )
-        throws GraphException;
+    void addVertex( V v );
 
     /**
      * Removes the {@link Vertex} from the {@code MutableGraph} object.
      *
      * @param v the {@link Vertex} has to be removed from this {@code MutableGraph} instance.
      */
-    void removeVertex( V v )
-        throws GraphException;
+    void removeVertex( V v );
 
     /**
      * Adds a feature to the {@link Edge} attribute of the {@code MutableGraph} object
      *
      * @param e the {@link Edge} has to be added in this {@code MutableGraph} instance.
      */
-    void addEdge( E e )
-        throws GraphException;
+    void addEdge( E e );
 
     /**
      * Removed the {@link Edge} from the {@code MutableGraph} object.
      *
      * @param e the {@link Edge} has to be removed from this {@code MutableGraph} instance.
      */
-    void removeEdge( E e )
-        throws GraphException;
+    void removeEdge( E e );
 
 }
