@@ -19,6 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static java.lang.String.format;
 import static java.util.Collections.unmodifiableSet;
 
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.Set;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
 
 /**
@@ -102,6 +104,23 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     protected final Set<E> getAllEdges()
     {
         return allEdges;
+    }
+
+    /**
+     * Utility method to check if Vertices in the given Edge are present in the Graph.
+     *
+     * @param e the Edge which Vertices have to be checked
+     */
+    protected final void checkEdge( E e )
+    {
+        if ( !adjacencyList.containsKey( e.getHead() ) )
+        {
+            throw new GraphException( format( "Vertex '%s' not present in the Graph", e.getHead() ) );
+        }
+        if ( !adjacencyList.containsKey( e.getTail() ) )
+        {
+            throw new GraphException( format( "Vertex '%s' not present in the Graph", e.getTail() ) );
+        }
     }
 
 }
