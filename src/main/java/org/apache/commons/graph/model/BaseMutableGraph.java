@@ -43,7 +43,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public void addVertex( V v )
+    public final void addVertex( V v )
     {
         if ( v == null )
         {
@@ -69,7 +69,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public void removeVertex( V v )
+    public final void removeVertex( V v )
     {
         if ( v == null )
         {
@@ -95,10 +95,11 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public void addEdge( E e )
+    public final void addEdge( E e )
     {
         checkEdge( e );
 
+        getAllEdges().add( e );
         getAdjacencyList().get( e.getHead() ).add( e );
 
         decorateAddEdge( e );
@@ -114,10 +115,11 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public void removeEdge( E e )
+    public final void removeEdge( E e )
     {
         checkEdge( e );
 
+        getAllEdges().remove( e );
         getAdjacencyList().get( e.getHead() ).remove( e );
 
         decorateRemoveEdge( e );
