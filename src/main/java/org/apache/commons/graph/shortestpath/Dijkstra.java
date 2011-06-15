@@ -83,7 +83,7 @@ public final class Dijkstra
             {
                 InMemoryPath<V, WE> path = new InMemoryPath<V, WE>( source, target, shortestDistances.get( target ) );
 
-                while ( !vertex.equals( source ) )
+                while ( !source.equals( vertex ) )
                 {
                     WE edge = predecessors.get( vertex );
 
