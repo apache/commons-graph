@@ -19,12 +19,14 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.apache.commons.graph.Vertex;
 
 final class ShortestDistances<V extends Vertex>
     extends HashMap<V, Double>
+    implements Comparator<V>
 {
 
     private static final long serialVersionUID = 568538689459177637L;
@@ -37,6 +39,14 @@ final class ShortestDistances<V extends Vertex>
     {
         Double distance = super.get( key );
         return (distance == null) ? Double.POSITIVE_INFINITY : distance;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int compare( V left, V right )
+    {
+        return get( left ).compareTo( get( right ) );
     }
 
 }
