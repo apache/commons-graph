@@ -61,22 +61,4 @@ public interface MutableGraph<V extends Vertex, E extends Edge<V>>
     void removeEdge( E e )
         throws GraphException;
 
-    /**
-     * Creates a connection between the input {@link Edge} and {@link Vertex}.
-     *
-     * @param e the {@link Edge} has to be connected
-     * @param v the {@link Vertex} has to be connected
-     */
-    void connect( E e, V v )
-        throws GraphException;
-
-    /**
-     * Breaks a connection between the input {@link Edge} and {@link Vertex}.
-     *
-     * @param e the {@link Edge} has to be disconnected
-     * @param v the {@link Vertex} has to be disconnected
-     */
-    void disconnect( E e, V v )
-        throws GraphException;
-
 }
