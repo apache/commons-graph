@@ -1,4 +1,4 @@
-package org.apache.commons.graph.shortestpath;
+package org.apache.commons.graph.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,7 +35,7 @@ import org.apache.commons.graph.WeightedPath;
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
  */
-final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
+public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     implements WeightedPath<V, WE>
 {
 
