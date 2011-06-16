@@ -62,6 +62,7 @@ public final class Dijkstra
                                                                                                        V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
+        shortestDistances.put( source, 0D );
 
         final PriorityQueue<V> unsettledNodes =
             new PriorityQueue<V>( graph.getVertices().size(), shortestDistances );
