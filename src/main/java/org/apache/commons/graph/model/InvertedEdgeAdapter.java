@@ -28,14 +28,22 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
 
 /**
- * 
+ * Simple {@link Edge} Proxy that inverts head/tail for undirectedGraph implementations.
  *
- * @param <V>
+ * @param <V> the Graph vertices type
  */
 final class InvertedEdgeAdapter<V extends Vertex>
     implements Edge<V>, InvocationHandler
 {
 
+    /**
+     * Creates a new inverted {@link Edge}.
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param edge the edge has to be inverted
+     * @return
+     */
     public static <V extends Vertex, E extends Edge<V>> E invertHeadAndTail( E edge )
     {
         @SuppressWarnings( "unchecked" ) // type driven by input
@@ -46,6 +54,11 @@ final class InvertedEdgeAdapter<V extends Vertex>
 
     private final Edge<V> adapted;
 
+    /**
+     * Creates a new inverted {@link Edge}, wrapping a default one.
+     *
+     * @param adapted the wrapped Edge
+     */
     private InvertedEdgeAdapter( Edge<V> adapted )
     {
         this.adapted = adapted;
@@ -68,17 +81,19 @@ final class InvertedEdgeAdapter<V extends Vertex>
     }
 
     /**
-     * 
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @return
-     * @throws Throwable
+     * {@inheritDoc}
      */
     public Object invoke( Object proxy, Method method, Object[] args )
         throws Throwable
     {
-        return method.invoke( this, args );
+        try
+        {
+            return method.invoke( this, args );
+        }
+        catch ( Throwable t )
+        {
+            return method.invoke( adapted, args );
+        }
     }
 
 }
