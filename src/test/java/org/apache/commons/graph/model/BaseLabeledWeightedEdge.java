@@ -31,7 +31,7 @@ public class BaseLabeledWeightedEdge
 
     private final Double weight;
 
-    public BaseLabeledWeightedEdge( String label, Double weight, BaseLabeledVertex head, BaseLabeledVertex tail )
+    public BaseLabeledWeightedEdge( String label, BaseLabeledVertex head, BaseLabeledVertex tail, Double weight )
     {
         super( label, head, tail );
         this.weight = weight;
