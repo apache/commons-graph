@@ -131,7 +131,7 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     @Override
     public String toString()
     {
-        return format( "InMemoryPath [weigth=%s, vertices=%s, edges=%s]", weigth, edges );
+        return format( "InMemoryPath [weigth=%s, vertices=%s, edges=%s]", weigth, vertices, edges );
     }
 
 }
