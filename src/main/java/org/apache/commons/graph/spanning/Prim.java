@@ -19,19 +19,28 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 
 /**
- * 
+ * Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a connected weighted undirected graph.
  */
 public final class Prim
 {
 
-    public static <V extends Vertex, WE extends WeightedEdge<V>> void minimumSpanningTree(  WeightedGraph<V, WE> graph )
+    /**
+     * Calculates the minimum spanning tree (or forest) of the input Graph.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <WE> the Graph weighted edges type.
+     * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
+     * @return  the minimum spanning tree (or forest) of the input Graph.
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<V>> Graph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph )
     {
-        
+        return null;
     }
 
 }
