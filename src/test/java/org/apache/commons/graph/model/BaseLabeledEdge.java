@@ -69,6 +69,83 @@ public class BaseLabeledEdge<V extends LabeledVertex>
      * {@inheritDoc}
      */
     @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ( ( head == null ) ? 0 : head.hashCode() );
+        result = prime * result + ( ( label == null ) ? 0 : label.hashCode() );
+        result = prime * result + ( ( tail == null ) ? 0 : tail.hashCode() );
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
+
+        if ( obj == null )
+        {
+            return false;
+        }
+
+        if ( getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        @SuppressWarnings( "unchecked" ) // etherogeneous edges won't be tested
+        BaseLabeledEdge<V> other = (BaseLabeledEdge<V>) obj;
+
+        if ( head == null )
+        {
+            if ( other.getHead() != null )
+            {
+                return false;
+            }
+        }
+        else if ( !head.equals( other.getHead() ) )
+        {
+            return false;
+        }
+
+        if ( tail == null )
+        {
+            if ( other.getTail() != null )
+            {
+                return false;
+            }
+        }
+        else if ( !tail.equals( other.getTail() ) )
+        {
+            return false;
+        }
+
+        if ( label == null )
+        {
+            if ( other.getLabel() != null )
+            {
+                return false;
+            }
+        }
+        else if ( !label.equals( other.label ) )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString()
     {
         return format( "Edge(label=%s, head=%s, tail=%s)", label, head.getLabel(), tail.getLabel() );
