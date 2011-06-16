@@ -22,8 +22,9 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 
 import org.apache.commons.graph.LabeledEdge;
+import org.apache.commons.graph.LabeledVertex;
 
-public class BaseLabeledEdge<V extends BaseLabeledVertex>
+public class BaseLabeledEdge<V extends LabeledVertex>
     implements LabeledEdge<V>
 {
 
