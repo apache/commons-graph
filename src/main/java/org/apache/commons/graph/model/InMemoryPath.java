@@ -129,6 +129,72 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
      * {@inheritDoc}
      */
     @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ( ( edges == null ) ? 0 : edges.hashCode() );
+        result = prime * result + ( ( source == null ) ? 0 : source.hashCode() );
+        result = prime * result + ( ( target == null ) ? 0 : target.hashCode() );
+        result = prime * result + ( ( vertices == null ) ? 0 : vertices.hashCode() );
+        result = prime * result + ( ( weigth == null ) ? 0 : weigth.hashCode() );
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
+
+        if ( obj == null )
+        {
+            return false;
+        }
+
+        if ( getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        InMemoryPath other = (InMemoryPath) obj;
+        if ( !source.equals( other.getSource() ) )
+        {
+            return false;
+        }
+
+        if ( !target.equals( other.target ) )
+        {
+            return false;
+        }
+
+        if ( !vertices.equals( other.vertices ) )
+        {
+            return false;
+        }
+
+        if ( !edges.equals( other.getEdges() ) )
+        {
+            return false;
+        }
+
+        if ( !weigth.equals( other.weigth ) )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString()
     {
         return format( "InMemoryPath [weigth=%s, vertices=%s, edges=%s]", weigth, vertices, edges );
