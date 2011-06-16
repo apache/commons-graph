@@ -146,7 +146,7 @@ public class BaseLabeledEdge
     @Override
     public String toString()
     {
-        return format( "Edge(label=%s, head=%s, tail=%s)", label, head.getLabel(), tail.getLabel() );
+        return format( "%s[ %s -> %s ]", label, head.getLabel(), tail.getLabel() );
     }
 
 }

@@ -97,7 +97,7 @@ public class BaseLabeledVertex
     @Override
     public String toString()
     {
-        return format( "Vertex(label=%s)", label );
+        return format( "{ %s }", label );
     }
 
 }
