@@ -100,7 +100,7 @@ public class BaseLabeledEdge<V extends LabeledVertex>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" ) // etherogeneous edges won't be tested
+        @SuppressWarnings( "unchecked" ) // etherogeneous xedges won't be tested
         BaseLabeledEdge<V> other = (BaseLabeledEdge<V>) obj;
 
         if ( head == null )
