@@ -19,6 +19,8 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static java.lang.String.format;
+
 import org.apache.commons.graph.WeightedEdge;
 
 /**
@@ -100,6 +102,15 @@ public class BaseLabeledWeightedEdge
         }
 
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return format( "Vertex(label=%s, weight=%s)", getLabel(), weight );
     }
 
 }
