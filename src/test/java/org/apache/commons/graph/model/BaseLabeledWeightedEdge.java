@@ -110,7 +110,7 @@ public class BaseLabeledWeightedEdge
     @Override
     public String toString()
     {
-        return format( "%s[ %s -> %s (%s) ]", getLabel(), getHead().getLabel(), getTail().getLabel(), weight );
+        return format( "%s[ %s -> %s (%s) ]", getLabel(), getHead(), getTail(), weight );
     }
 
 }
