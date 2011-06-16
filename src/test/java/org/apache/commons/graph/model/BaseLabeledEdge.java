@@ -22,19 +22,18 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 
 import org.apache.commons.graph.LabeledEdge;
-import org.apache.commons.graph.LabeledVertex;
 
-public class BaseLabeledEdge<V extends LabeledVertex>
-    implements LabeledEdge<V>
+public class BaseLabeledEdge
+    implements LabeledEdge<BaseLabeledVertex>
 {
 
     private final String label;
 
-    private final V head;
+    private final BaseLabeledVertex head;
 
-    private final V tail;
+    private final BaseLabeledVertex tail;
 
-    public BaseLabeledEdge( String label, V head, V tail )
+    public BaseLabeledEdge( String label, BaseLabeledVertex head, BaseLabeledVertex tail )
     {
         this.label = label;
         this.head = head;
@@ -52,7 +51,7 @@ public class BaseLabeledEdge<V extends LabeledVertex>
     /**
      * {@inheritDoc}
      */
-    public V getHead()
+    public BaseLabeledVertex getHead()
     {
         return head;
     }
@@ -60,7 +59,7 @@ public class BaseLabeledEdge<V extends LabeledVertex>
     /**
      * {@inheritDoc}
      */
-    public V getTail()
+    public BaseLabeledVertex getTail()
     {
         return tail;
     }
@@ -100,8 +99,7 @@ public class BaseLabeledEdge<V extends LabeledVertex>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" ) // etherogeneous xedges won't be tested
-        BaseLabeledEdge<V> other = (BaseLabeledEdge<V>) obj;
+        BaseLabeledEdge other = (BaseLabeledEdge) obj;
 
         if ( head == null )
         {
