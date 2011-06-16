@@ -19,6 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.LinkedList;
@@ -122,6 +123,15 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     public Double getWeight()
     {
         return weigth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return format( "InMemoryPath [weigth=%s, edges=%s]", weigth, edges );
     }
 
 }
