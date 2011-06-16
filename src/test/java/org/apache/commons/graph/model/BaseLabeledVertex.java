@@ -46,6 +46,55 @@ public class BaseLabeledVertex
      * {@inheritDoc}
      */
     @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ( ( label == null ) ? 0 : label.hashCode() );
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
+
+        if ( obj == null )
+        {
+            return false;
+        }
+
+        if ( getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        BaseLabeledVertex other = (BaseLabeledVertex) obj;
+        if ( label == null )
+        {
+            if ( other.getLabel() != null )
+            {
+                return false;
+            }
+        }
+        else if ( !label.equals( other.getLabel() ) )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString()
     {
         return format( "Vertex(label=%s)", label );
