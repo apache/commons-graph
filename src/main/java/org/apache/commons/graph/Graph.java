@@ -47,9 +47,9 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
     Set<E> getEdges();
 
     /**
-     * Returns all edges which touch this vertex.
+     * Returns all edges which touch this vertex, where the input vertex is in the edge head.
      *
-     * @return all edges which touch this vertex.
+     * @return all edges which touch this vertex, where the input vertex is in the edge head.
      */
     Set<E> getEdges( V v );
 
