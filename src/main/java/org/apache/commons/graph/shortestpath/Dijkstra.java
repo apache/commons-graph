@@ -78,8 +78,6 @@ public final class Dijkstra
         // extract the node with the shortest distance
         while ( ( vertex = unsettledNodes.poll() ) != null )
         {
-            assert !settledNodes.contains( vertex );
-
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
             {
