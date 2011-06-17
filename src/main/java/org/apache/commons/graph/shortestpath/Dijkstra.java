@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
@@ -99,7 +100,10 @@ public final class Dijkstra
 
             settledNodes.add( vertex );
 
-            for ( WE edge : graph.getEdges( vertex ) )
+            @SuppressWarnings( "unchecked" ) // graph type driven by input Graph instance
+            Set<WE> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( vertex )
+                                                               : graph.getEdges( vertex );
+            for ( WE edge : edges )
             {
                 V v = edge.getTail();
 

@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
@@ -88,7 +89,9 @@ public final class Visit
                 handler.discoverVertex( v );
             }
 
-            for ( E e : graph.getEdges( v ) )
+            Set<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
+                                                              : graph.getEdges( v );
+            for ( E e : edges )
             {
                 V w = e.getTail();
 
@@ -174,7 +177,9 @@ public final class Visit
                 handler.discoverVertex( v );
             }
 
-            for ( E e : graph.getEdges( v ) )
+            Set<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
+                                                              : graph.getEdges( v );
+            for ( E e : edges )
             {
                 V w = e.getTail();
 
