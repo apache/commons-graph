@@ -35,7 +35,7 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 
 /**
- * 
+ * Contains the Dijkstra's shortest path algorithm implementation.
  */
 public final class Dijkstra
 {
@@ -51,12 +51,12 @@ public final class Dijkstra
     /**
      * Applies the classical Dijkstra algorithm to find the shortest path from the source to the target, if exists.
      *
-     * @param <V>
-     * @param <WE>
-     * @param graph
-     * @param source
-     * @param target
-     * @return
+     * @param <V> the Graph vertices type.
+     * @param <WE> the Graph weighted edges type
+     * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
+     * @param source the shortest path source Vertex
+     * @param target the shortest path target Vertex
+     * @return a path wich describes the shortes path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
     public static <V extends Vertex, WE extends WeightedEdge<V>> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
                                                                                                        V source,
