@@ -168,12 +168,12 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
             return false;
         }
 
-        if ( !target.equals( other.target ) )
+        if ( !target.equals( other.getTarget() ) )
         {
             return false;
         }
 
-        if ( !vertices.equals( other.vertices ) )
+        if ( !vertices.equals( other.getVertices() ) )
         {
             return false;
         }
@@ -183,7 +183,7 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
             return false;
         }
 
-        if ( !weigth.equals( other.weigth ) )
+        if ( !weigth.equals( other.getWeight() ) )
         {
             return false;
         }
