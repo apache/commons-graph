@@ -159,7 +159,8 @@ public class InMemoryPath<V extends Vertex, E extends Edge<V>>
             return false;
         }
 
-        InMemoryPath other = (InMemoryPath) obj;
+        @SuppressWarnings( "unchecked" ) // test against any Path typed instance
+        InMemoryPath<Vertex, Edge<Vertex>> other = (InMemoryPath<Vertex, Edge<Vertex>>) obj;
         if ( !source.equals( other.getSource() ) )
         {
             return false;

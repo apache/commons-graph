@@ -91,7 +91,8 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
             return false;
         }
 
-        InMemoryWeightedPath other = (InMemoryWeightedPath) obj;
+        @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
+        InMemoryWeightedPath<Vertex, WeightedEdge<Vertex>> other = (InMemoryWeightedPath<Vertex, WeightedEdge<Vertex>>) obj;
         if ( !weigth.equals( other.getWeight() ) )
         {
             return false;
