@@ -36,7 +36,7 @@ import org.apache.commons.graph.WeightedPath;
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
  */
-public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
+public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     implements WeightedPath<V, WE>
 {
 
