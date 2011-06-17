@@ -50,15 +50,15 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
 
     private final LinkedList<WE> edges = new LinkedList<WE>();
 
-    public InMemoryPath( V start, V end, Double weigth )
+    public InMemoryPath( V start, V target, Double weigth )
     {
         if ( start == null )
         {
             throw new IllegalArgumentException( "Path source cannot be null" );
         }
-        if ( end == null )
+        if ( target == null )
         {
-            throw new IllegalArgumentException( "Path end cannot be null" );
+            throw new IllegalArgumentException( "Path target cannot be null" );
         }
         if ( weigth == null )
         {
@@ -66,7 +66,7 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
         }
 
         this.source = start;
-        this.target = end;
+        this.target = target;
         this.weigth = weigth;
     }
 
