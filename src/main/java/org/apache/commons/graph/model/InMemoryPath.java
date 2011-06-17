@@ -52,6 +52,19 @@ public final class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
 
     public InMemoryPath( V start, V end, Double weigth )
     {
+        if ( start == null )
+        {
+            throw new IllegalArgumentException( "Path source cannot be null" );
+        }
+        if ( end == null )
+        {
+            throw new IllegalArgumentException( "Path end cannot be null" );
+        }
+        if ( weigth == null )
+        {
+            throw new IllegalArgumentException( "Path weigth cannot be null" );
+        }
+
         this.source = start;
         this.target = end;
         this.weigth = weigth;
