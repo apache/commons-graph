@@ -146,7 +146,7 @@ public class BaseLabeledEdge
     @Override
     public String toString()
     {
-        return format( "%s( %s ==> %s )", label, head, tail );
+        return format( "%s( %s ==> %s )", getLabel(), getHead(), getTail() );
     }
 
 }
