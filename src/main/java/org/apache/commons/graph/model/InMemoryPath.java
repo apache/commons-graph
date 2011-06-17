@@ -25,32 +25,30 @@ import static java.util.Collections.unmodifiableList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Path;
 import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedPath;
 
 /**
- * Support {@link WeightedPath} implementation, optimized for algorithms (such Dijkstra's) that need to rebuild the path
+ * Support {@link Path} implementation, optimized for algorithms (such Dijkstra's) that need to rebuild the path
  * traversing the predecessor list bottom-up.
  *
  * @param <V> the Graph vertices type
- * @param <WE> the Graph weighted edges type
+ * @param <E> the Graph edges type
  */
-public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
-    implements WeightedPath<V, WE>
+public class InMemoryPath<V extends Vertex, E extends Edge<V>>
+    implements Path<V, E>
 {
 
     private final V source;
 
     private final V target;
 
-    private final Double weigth;
-
     private final LinkedList<V> vertices = new LinkedList<V>();
 
-    private final LinkedList<WE> edges = new LinkedList<WE>();
+    private final LinkedList<E> edges = new LinkedList<E>();
 
-    public InMemoryPath( V start, V target, Double weigth )
+    public InMemoryPath( V start, V target )
     {
         if ( start == null )
         {
@@ -60,14 +58,9 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
         {
             throw new IllegalArgumentException( "Path target cannot be null" );
         }
-        if ( weigth == null )
-        {
-            throw new IllegalArgumentException( "Path weigth cannot be null" );
-        }
 
         this.source = start;
         this.target = target;
-        this.weigth = weigth;
     }
 
     /**
@@ -104,12 +97,12 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
         return unmodifiableList( vertices );
     }
 
-    public void addEdgeInHead( WE edge )
+    public void addEdgeInHead( E edge )
     {
         edges.addFirst( edge );
     }
 
-    public void addEdgeInTail( WE edge )
+    public void addEdgeInTail( E edge )
     {
         edges.addLast( edge );
     }
@@ -117,7 +110,7 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     /**
      * {@inheritDoc}
      */
-    public List<WE> getEdges()
+    public List<E> getEdges()
     {
         return unmodifiableList( edges );
     }
@@ -133,14 +126,6 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     /**
      * {@inheritDoc}
      */
-    public Double getWeight()
-    {
-        return weigth;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode()
     {
@@ -150,7 +135,6 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
         result = prime * result + ( ( source == null ) ? 0 : source.hashCode() );
         result = prime * result + ( ( target == null ) ? 0 : target.hashCode() );
         result = prime * result + ( ( vertices == null ) ? 0 : vertices.hashCode() );
-        result = prime * result + ( ( weigth == null ) ? 0 : weigth.hashCode() );
         return result;
     }
 
@@ -196,11 +180,6 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
             return false;
         }
 
-        if ( !weigth.equals( other.getWeight() ) )
-        {
-            return false;
-        }
-
         return true;
     }
 
@@ -210,7 +189,7 @@ public class InMemoryPath<V extends Vertex, WE extends WeightedEdge<V>>
     @Override
     public String toString()
     {
-        return format( "InMemoryPath [weigth=%s, vertices=%s, edges=%s]", weigth, vertices, edges );
+        return format( "InMemoryPath [vertices=%s, edges=%s]", vertices, edges );
     }
 
 }
