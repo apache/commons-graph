@@ -31,7 +31,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.model.InMemoryPath;
+import org.apache.commons.graph.model.InMemoryWeightedPath;
 
 /**
  * 
@@ -81,7 +81,8 @@ public final class Dijkstra
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
             {
-                InMemoryPath<V, WE> path = new InMemoryPath<V, WE>( source, target, shortestDistances.get( target ) );
+                InMemoryWeightedPath<V, WE> path =
+                    new InMemoryWeightedPath<V, WE>( source, target, shortestDistances.get( target ) );
 
                 while ( !source.equals( vertex ) )
                 {
