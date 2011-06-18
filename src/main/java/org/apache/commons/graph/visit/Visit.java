@@ -107,7 +107,7 @@ public final class Visit
                         handler.discoverEdge( e );
                     }
 
-                    vertexQueue.addFirst( v );
+                    vertexQueue.addFirst( w );
 
                     if ( handler != null )
                     {
