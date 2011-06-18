@@ -23,11 +23,13 @@ import static org.apache.commons.graph.visit.Visit.breadthFirstSearch;
 import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public final class VisitTestCase
@@ -106,11 +108,76 @@ public final class VisitTestCase
         assertEquals( expected, actual );
     }
 
+    /**
+     * Graph picture can be see
+     * <a href="http://aiukswkelasgkelompok7.wordpress.com/metode-pencarian-dan-pelacakan/">here</a>
+     */
     @Test
-    @Ignore
     public void verifyDepthFirstSearch()
     {
-        depthFirstSearch( null, null );
+        // vertices
+
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+        BaseLabeledVertex e = new BaseLabeledVertex( "E" );
+        BaseLabeledVertex f = new BaseLabeledVertex( "F" );
+        BaseLabeledVertex g = new BaseLabeledVertex( "G" );
+        BaseLabeledVertex h = new BaseLabeledVertex( "H" );
+        BaseLabeledVertex s = new BaseLabeledVertex( "S" );
+
+        // input graph
+
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+
+        input.addVertex( a );
+        input.addVertex( b );
+        input.addVertex( c );
+        input.addVertex( d );
+        input.addVertex( e );
+        input.addVertex( f );
+        input.addVertex( g );
+        input.addVertex( h );
+        input.addVertex( s );
+
+        input.addEdge( new BaseLabeledEdge( "", s, a ) );
+        input.addEdge( new BaseLabeledEdge( "", s, b ) );
+
+        input.addEdge( new BaseLabeledEdge( "", a, c ) );
+        input.addEdge( new BaseLabeledEdge( "", a, d ) );
+
+        input.addEdge( new BaseLabeledEdge( "", b, e ) );
+        input.addEdge( new BaseLabeledEdge( "", b, f ) );
+
+        input.addEdge( new BaseLabeledEdge( "", e, g ) );
+        input.addEdge( new BaseLabeledEdge( "", e, h ) );
+
+        // expected node set
+
+        // order is not the same in the pic, due to Stack use
+        final List<BaseLabeledVertex> expected = new ArrayList<BaseLabeledVertex>();
+        expected.add( s );
+        expected.add( b );
+        expected.add( e );
+        expected.add( h );
+        expected.add( g );
+        expected.add( f );
+        expected.add( a );
+        expected.add( d );
+        expected.add( c );
+
+        // actual node set
+
+        NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge> visitor =
+            new NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge>();
+        depthFirstSearch( input, s, visitor );
+        final List<BaseLabeledVertex> actual = visitor.getVertices();
+
+        // assertion
+
+        assertEquals( expected, actual );
     }
 
 }
