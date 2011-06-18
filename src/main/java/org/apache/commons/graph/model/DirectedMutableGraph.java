@@ -41,6 +41,8 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
 
     private final Map<V, Set<E>> inbound = new HashMap<V, Set<E>>();
 
+    private final Map<V, Set<E>> outbound = new HashMap<V, Set<E>>();
+
     /**
      * {@inheritDoc}
      */
@@ -54,7 +56,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
      */
     public Set<E> getOutbound( V v )
     {
-        return getAdjacencyList().get( v );
+        return outbound.get( v );
     }
 
     /**
@@ -64,6 +66,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     protected void decorateAddVertex( V v )
     {
         inbound.put( v, new HashSet<E>() );
+        outbound.put( v, new HashSet<E>() );
     }
 
     /**
@@ -73,6 +76,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     protected void decorateRemoveVertex( V v )
     {
         inbound.remove( v );
+        outbound.remove( v );
     }
 
     /**
@@ -82,6 +86,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     protected void decorateAddEdge( E e )
     {
         inbound.get( e.getTail() ).add( e );
+        outbound.get( e.getHead() ).add( e );
     }
 
     /**
@@ -91,6 +96,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     protected void decorateRemoveEdge( E e )
     {
         inbound.get( e.getTail() ).remove( e );
+        outbound.get( e.getHead() ).remove( e );
     }
 
 }

@@ -101,6 +101,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
 
         getAllEdges().add( e );
         getAdjacencyList().get( e.getHead() ).add( e );
+        getAdjacencyList().get( e.getTail() ).add( e );
 
         decorateAddEdge( e );
     }
@@ -121,6 +122,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
 
         getAllEdges().remove( e );
         getAdjacencyList().get( e.getHead() ).remove( e );
+        getAdjacencyList().get( e.getTail() ).remove( e );
 
         decorateRemoveEdge( e );
     }
