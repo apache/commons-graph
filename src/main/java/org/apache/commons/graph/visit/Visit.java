@@ -46,7 +46,7 @@ public final class Visit
      * @param source the root node the search begins from
      * @return the breadth first search tree
      */
-    public final <V extends Vertex, E extends Edge<V>> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
+    public static final <V extends Vertex, E extends Edge<V>> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
     {
         VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
         breadthFirstSearch( graph, source, visitGraphBuilder );
@@ -62,8 +62,8 @@ public final class Visit
      * @param source the root node the search begins from
      * @param handler the handler intercepts visit actions
      */
-    public final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source,
-                                                                                GraphVisitHandler<V, E> handler )
+    public static final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source,
+                                                                                       GraphVisitHandler<V, E> handler )
     {
         if ( graph == null )
         {
@@ -137,7 +137,7 @@ public final class Visit
      * @param source the root node the search begins from
      * @return the depth first search tree
      */
-    public final <V extends Vertex, E extends Edge<V>> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
+    public static final <V extends Vertex, E extends Edge<V>> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
     {
         VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
         depthFirstSearch( graph, source, visitGraphBuilder );
@@ -153,8 +153,8 @@ public final class Visit
      * @param source the root node the search begins from
      * @param handler the handler intercepts visit actions
      */
-    public final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source,
-                                                                              GraphVisitHandler<V, E> handler )
+    public static final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source,
+                                                                                     GraphVisitHandler<V, E> handler )
     {
         if ( graph == null )
         {
