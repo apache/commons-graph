@@ -99,7 +99,7 @@ public final class Visit
             {
                 V w = getConnectedVertex( v, e );
 
-                if ( !visitedVetices.add( w ) )
+                if ( visitedVetices.add( w ) )
                 {
                     if ( handler != null )
                     {
@@ -189,7 +189,7 @@ public final class Visit
             {
                 V w = getConnectedVertex( v, e );
 
-                if ( !visitedVetices.add( w ) )
+                if ( visitedVetices.add( w ) )
                 {
                     if ( handler != null )
                     {
