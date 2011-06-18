@@ -29,7 +29,7 @@ import org.apache.commons.graph.WeightedGraph;
  * @param <V> the Graph vertices type
  * @param <WE> the WeightedEdge edges type
  */
-public class UnirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedEdge<V>>
+public class UndirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedEdge<V>>
     extends UndirectedMutableGraph<V, WE>
     implements WeightedGraph<V, WE>
 {
