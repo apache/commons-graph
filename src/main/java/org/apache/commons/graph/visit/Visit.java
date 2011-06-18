@@ -48,8 +48,9 @@ public final class Visit
      */
     public final <V extends Vertex, E extends Edge<V>> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
     {
-        breadthFirstSearch( graph, source, null );
-        return null;
+        VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
+        breadthFirstSearch( graph, source, visitGraphBuilder );
+        return visitGraphBuilder.getVisitGraph();
     }
 
     /**
@@ -138,8 +139,9 @@ public final class Visit
      */
     public final <V extends Vertex, E extends Edge<V>> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
     {
-        depthFirstSearch( graph, source, null );
-        return null;
+        VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
+        depthFirstSearch( graph, source, visitGraphBuilder );
+        return visitGraphBuilder.getVisitGraph();
     }
 
     /**
