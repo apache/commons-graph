@@ -104,4 +104,44 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
         return allEdges;
     }
 
+    @Override
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
+
+        if ( obj == null )
+        {
+            return false;
+        }
+
+        if ( getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        @SuppressWarnings( "unchecked" ) // test against any Graph typed instance
+        BaseGraph<Vertex, Edge<Vertex>> other = (BaseGraph<Vertex, Edge<Vertex>>) obj;
+        if ( !adjacencyList.equals( other.getAdjacencyList() ) )
+        {
+            return false;
+        }
+        if ( !allEdges.equals( other.getAllEdges() ) )
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return String.valueOf( getAdjacencyList() );
+    }
+
 }
