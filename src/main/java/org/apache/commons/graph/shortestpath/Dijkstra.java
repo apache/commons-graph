@@ -20,6 +20,7 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -105,7 +106,7 @@ public final class Dijkstra
                                                                : graph.getEdges( vertex );
             for ( WE edge : edges )
             {
-                V v = edge.getTail();
+                V v = getConnectedVertex( vertex, edge );
 
                 // skip node already settled
                 if ( !settledNodes.contains( v ) )
