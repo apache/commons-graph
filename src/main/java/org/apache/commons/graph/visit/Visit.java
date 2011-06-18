@@ -19,6 +19,8 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -93,7 +95,7 @@ public final class Visit
                                                               : graph.getEdges( v );
             for ( E e : edges )
             {
-                V w = e.getTail();
+                V w = getConnectedVertex( v, e );
 
                 if ( !visitedVetices.add( w ) )
                 {
@@ -181,7 +183,7 @@ public final class Visit
                                                               : graph.getEdges( v );
             for ( E e : edges )
             {
-                V w = e.getTail();
+                V w = getConnectedVertex( v, e );
 
                 if ( !visitedVetices.add( w ) )
                 {
