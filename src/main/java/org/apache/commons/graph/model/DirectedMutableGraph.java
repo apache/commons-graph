@@ -20,7 +20,7 @@ package org.apache.commons.graph.model;
  */
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -65,8 +65,8 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     @Override
     protected void decorateAddVertex( V v )
     {
-        inbound.put( v, new HashSet<E>() );
-        outbound.put( v, new HashSet<E>() );
+        inbound.put( v, new LinkedHashSet<E>() );
+        outbound.put( v, new LinkedHashSet<E>() );
     }
 
     /**

@@ -23,6 +23,7 @@ import static java.util.Collections.unmodifiableSet;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -76,7 +77,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
      */
     public final Set<V> getVertices( E e )
     {
-        Set<V> vertices = new HashSet<V>();
+        Set<V> vertices = new LinkedHashSet<V>();
 
         vertices.add( e.getHead() );
         vertices.add( e.getTail() );
