@@ -23,6 +23,7 @@ import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -79,7 +80,7 @@ public final class Visit
             handler.discoverGraph( graph );
         }
 
-        LinkedList<V> vertexQueue = new LinkedList<V>();
+        Queue<V> vertexQueue = new LinkedList<V>();
         vertexQueue.add( source );
 
         Set<V> visitedVetices = new HashSet<V>();
@@ -107,7 +108,7 @@ public final class Visit
                         handler.discoverEdge( e );
                     }
 
-                    vertexQueue.addFirst( w );
+                    vertexQueue.offer( w );
 
                     if ( handler != null )
                     {
