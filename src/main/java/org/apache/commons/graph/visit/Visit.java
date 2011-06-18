@@ -44,10 +44,12 @@ public final class Visit
      * @param <E> the Graph edges type
      * @param graph the Graph instance has to be visited
      * @param source the root node the search begins from
+     * @return the breadth first search tree
      */
-    public final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source )
+    public final <V extends Vertex, E extends Edge<V>> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
     {
         breadthFirstSearch( graph, source, null );
+        return null;
     }
 
     /**
@@ -132,10 +134,12 @@ public final class Visit
      * @param <E> the Graph edges type
      * @param graph the Graph instance has to be visited
      * @param source the root node the search begins from
+     * @return the depth first search tree
      */
-    public final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source )
+    public final <V extends Vertex, E extends Edge<V>> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
     {
         depthFirstSearch( graph, source, null );
+        return null;
     }
 
     /**
