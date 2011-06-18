@@ -21,10 +21,11 @@ package org.apache.commons.graph.model;
 
 import static java.lang.String.format;
 
-import org.apache.commons.graph.LabeledVertex;
+import org.apache.commons.graph.Labeled;
+import org.apache.commons.graph.Vertex;
 
 public class BaseLabeledVertex
-    implements LabeledVertex
+    implements Labeled, Vertex
 {
 
     private final String label;

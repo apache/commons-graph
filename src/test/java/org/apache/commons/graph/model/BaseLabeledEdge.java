@@ -21,10 +21,11 @@ package org.apache.commons.graph.model;
 
 import static java.lang.String.format;
 
-import org.apache.commons.graph.LabeledEdge;
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Labeled;
 
 public class BaseLabeledEdge
-    implements LabeledEdge<BaseLabeledVertex>
+    implements Edge<BaseLabeledVertex>, Labeled
 {
 
     private final String label;
