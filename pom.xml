@@ -69,10 +69,6 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/sandbox/graph/trunk</developerConnection>
     <url>http://svn.apache.org/viewvc/commons/sandbox/graph/trunk</url>
   </scm>
-  <issueManagement>
-    <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/GRAPH</url>
-  </issueManagement>
   <distributionManagement>
     <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
     <site>
@@ -86,13 +82,7 @@
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
     <commons.componentid>graph</commons.componentid>
-    <commons.release.version>0.1</commons.release.version>
-    <commons.release.desc>(minimum JDK 1.5)</commons.release.desc>
-    <commons.release.2.version>2.1</commons.release.2.version>
-    <commons.release.2.desc>(minimum JDK 1.5)</commons.release.2.desc>
-    <commons.rc.version>RC1</commons.rc.version>
-    <commons.jira.id>GRAPH</commons.jira.id>
-    <commons.jira.pid>12310471</commons.jira.pid>
+    <commons.jira.componentid>12314503</commons.jira.componentid>
   </properties>
 
   <dependencies>

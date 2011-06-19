@@ -25,7 +25,9 @@
 
   <body>
     <menu name="Graph">
-      <item name="Overview" href="/index.html" />
+      <item name="Overview"                href="/index.html" />
+      <item name="Mailing Lists"           href="/mail-lists.html"/>
+      <item name="Issue Tracking"          href="/issue-tracking.html"/>
     </menu>
   </body>
 
