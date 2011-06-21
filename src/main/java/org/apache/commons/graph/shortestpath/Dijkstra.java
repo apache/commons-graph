@@ -57,9 +57,9 @@ public final class Dijkstra
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<V>> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
-                                                                                                       V source,
-                                                                                                       V target )
+    public static <V extends Vertex, WE extends WeightedEdge<V>, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
+                                                                                                                                                              V source,
+                                                                                                                                                              V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
@@ -86,9 +86,7 @@ public final class Dijkstra
 
             settledNodes.add( vertex );
 
-            @SuppressWarnings( "unchecked" ) // graph type driven by input Graph instance
-            Set<WE> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( vertex )
-                                                               : graph.getEdges( vertex );
+            Set<WE> edges = graph.getOutbound( vertex );
             for ( WE edge : edges )
             {
                 V v = getConnectedVertex( vertex, edge );
