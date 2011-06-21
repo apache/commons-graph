@@ -63,8 +63,7 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<V>>
      */
     public WeightedPath<V, WE> buildPath( V source, V target, Double cost )
     {
-        InMemoryWeightedPath<V, WE> path =
-            new InMemoryWeightedPath<V, WE>( source, target, cost );
+        InMemoryWeightedPath<V, WE> path = new InMemoryWeightedPath<V, WE>( source, target, cost );
 
         V vertex = target;
         while ( !source.equals( vertex ) )
