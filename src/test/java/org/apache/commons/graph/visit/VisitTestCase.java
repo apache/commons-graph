@@ -151,8 +151,8 @@ public final class VisitTestCase
         input.addEdge( new BaseLabeledEdge( "", b, e ) );
         input.addEdge( new BaseLabeledEdge( "", b, f ) );
 
-        input.addEdge( new BaseLabeledEdge( "", e, g ) );
         input.addEdge( new BaseLabeledEdge( "", e, h ) );
+        input.addEdge( new BaseLabeledEdge( "", e, g ) );
 
         // expected node set
 
@@ -160,10 +160,10 @@ public final class VisitTestCase
         final List<BaseLabeledVertex> expected = new ArrayList<BaseLabeledVertex>();
         expected.add( s );
         expected.add( b );
-        expected.add( e );
-        expected.add( h );
-        expected.add( g );
         expected.add( f );
+        expected.add( e );
+        expected.add( g );
+        expected.add( h );
         expected.add( a );
         expected.add( d );
         expected.add( c );
