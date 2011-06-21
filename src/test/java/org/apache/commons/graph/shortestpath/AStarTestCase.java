@@ -1,18 +1,5 @@
 package org.apache.commons.graph.shortestpath;
 
-import static junit.framework.Assert.assertEquals;
-import static org.apache.commons.graph.shortestpath.AStar.findShortestPath;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.graph.Path;
-import org.apache.commons.graph.model.BaseLabeledVertex;
-import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.model.InMemoryWeightedPath;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.junit.Test;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -31,6 +18,19 @@ import org.junit.Test;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import static junit.framework.Assert.assertEquals;
+import static org.apache.commons.graph.shortestpath.AStar.findShortestPath;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.graph.Path;
+import org.apache.commons.graph.model.BaseLabeledVertex;
+import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.junit.Test;
 
 public final class AStarTestCase
 {
