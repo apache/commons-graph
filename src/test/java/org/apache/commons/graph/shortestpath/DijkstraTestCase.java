@@ -34,7 +34,7 @@ public final class DijkstraTestCase
 
     /**
      * Test Graph and Dijkstra's solution can be seen on
-     * Wikipedia {@link http://en.wikipedia.org/wiki/Dijkstra's_algorithm}
+     * <a href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm>Wikipedia</a>
      */
     @Test
     public void findShortestPathAndVerify()
