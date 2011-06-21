@@ -39,7 +39,7 @@ public final class DijkstraTestCase
     @Test
     public void findShortestPathAndVerify()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> mutable =
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> graph =
             new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>();
 
         // building Graph
@@ -51,25 +51,25 @@ public final class DijkstraTestCase
         BaseLabeledVertex five = new BaseLabeledVertex( "5" );
         BaseLabeledVertex six = new BaseLabeledVertex( "6" );
 
-        mutable.addVertex( one );
-        mutable.addVertex( two );
-        mutable.addVertex( three );
-        mutable.addVertex( four );
-        mutable.addVertex( five );
-        mutable.addVertex( six );
+        graph.addVertex( one );
+        graph.addVertex( two );
+        graph.addVertex( three );
+        graph.addVertex( four );
+        graph.addVertex( five );
+        graph.addVertex( six );
 
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", one, six, 14D ) );
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", one, three, 9D ) );
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", one, two, 7D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", one, six, 14D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", one, three, 9D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", one, two, 7D ) );
 
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", two, three, 10D ) );
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", two, four, 15D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", two, three, 10D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", two, four, 15D ) );
 
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", three, six, 2D ) );
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", three, four, 11D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", three, six, 2D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", three, four, 11D ) );
 
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", four, five, 6D ) );
-        mutable.addEdge( new BaseLabeledWeightedEdge( "", six, five, 9D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", four, five, 6D ) );
+        graph.addEdge( new BaseLabeledWeightedEdge( "", six, five, 9D ) );
 
         // expected path
 
@@ -86,7 +86,7 @@ public final class DijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = findShortestPath( mutable, one, five );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = findShortestPath( graph, one, five );
 
         // assert!
 
