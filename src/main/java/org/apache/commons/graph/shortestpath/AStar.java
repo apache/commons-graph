@@ -68,7 +68,8 @@ public final class AStar
 
         // Estimated total cost from start to goal through y.
         final ShortestDistances<V> fScores = new ShortestDistances<V>();
-        fScores.setWeight( start, heuristic.applyHeuristic( start, goal ) );
+        Double hScore = heuristic.applyHeuristic( start, goal );
+        fScores.setWeight( start, hScore );
 
         // The set of nodes already evaluated.
         final Set<V> closedSet = new HashSet<V>();
@@ -109,7 +110,8 @@ public final class AStar
                     {
                         predecessors.addPredecessor( v, edge );
                         gScores.setWeight( v, tentativeGScore );
-                        fScores.setWeight( v, gScores.getWeight( v ) + heuristic.applyHeuristic( v, goal ) );
+                        hScore = heuristic.applyHeuristic( v, goal );
+                        fScores.setWeight( v, gScores.getWeight( v ) + hScore );
                     }
                 }
             }
