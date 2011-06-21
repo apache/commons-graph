@@ -74,11 +74,12 @@ public final class Visit
         {
             throw new IllegalArgumentException( "Root node the search begins from can not be null." );
         }
-
-        if ( handler != null )
+        if ( handler == null )
         {
-            handler.discoverGraph( graph );
+            throw new IllegalArgumentException( "Graph visitor handler can not be null." );
         }
+
+        handler.discoverGraph( graph );
 
         Queue<V> vertexQueue = new LinkedList<V>();
         vertexQueue.add( source );
@@ -90,10 +91,7 @@ public final class Visit
         {
             V v = vertexQueue.remove();
 
-            if ( handler != null )
-            {
-                handler.discoverVertex( v );
-            }
+            handler.discoverVertex( v );
 
             Set<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
                                                               : graph.getEdges( v );
@@ -103,30 +101,18 @@ public final class Visit
 
                 if ( visitedVetices.add( w ) )
                 {
-                    if ( handler != null )
-                    {
-                        handler.discoverEdge( e );
-                    }
+                    handler.discoverEdge( e );
 
                     vertexQueue.offer( w );
 
-                    if ( handler != null )
-                    {
-                        handler.finishEdge( e );
-                    }
+                    handler.finishEdge( e );
                 }
             }
 
-            if ( handler != null )
-            {
-                handler.finishVertex( v );
-            }
+            handler.finishVertex( v );
         }
 
-        if ( handler != null )
-        {
-            handler.finishGraph( graph );
-        }
+        handler.finishGraph( graph );
     }
 
     /**
@@ -165,11 +151,12 @@ public final class Visit
         {
             throw new IllegalArgumentException( "Root node the search begins from can not be null." );
         }
-
-        if ( handler != null )
+        if ( handler == null )
         {
-            handler.discoverGraph( graph );
+            throw new IllegalArgumentException( "Graph visitor handler can not be null." );
         }
+
+        handler.discoverGraph( graph );
 
         Stack<V> vertexStack = new Stack<V>();
         vertexStack.push( source );
@@ -181,10 +168,7 @@ public final class Visit
         {
             V v = vertexStack.pop();
 
-            if ( handler != null )
-            {
-                handler.discoverVertex( v );
-            }
+            handler.discoverVertex( v );
 
             Set<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
                                                               : graph.getEdges( v );
@@ -194,30 +178,18 @@ public final class Visit
 
                 if ( visitedVetices.add( w ) )
                 {
-                    if ( handler != null )
-                    {
-                        handler.discoverEdge( e );
-                    }
+                    handler.discoverEdge( e );
 
                     vertexStack.push( w );
 
-                    if ( handler != null )
-                    {
-                        handler.finishEdge( e );
-                    }
+                    handler.finishEdge( e );
                 }
             }
 
-            if ( handler != null )
-            {
-                handler.finishVertex( v );
-            }
+            handler.finishVertex( v );
         }
 
-        if ( handler != null )
-        {
-            handler.finishGraph( graph );
-        }
+        handler.finishGraph( graph );
     }
 
     /**
