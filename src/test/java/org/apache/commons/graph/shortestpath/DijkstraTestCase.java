@@ -3,14 +3,11 @@ package org.apache.commons.graph.shortestpath;
 import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.shortestpath.Dijkstra.findShortestPath;
 
-import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.Path;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.junit.Test;
 
 public final class DijkstraTestCase
@@ -21,21 +18,10 @@ public final class DijkstraTestCase
      * Wikipedia {@link http://en.wikipedia.org/wiki/Dijkstra's_algorithm}
      */
     @Test
-    public void undirectedShortestPath()
+    public void findShortestPathAndVerify()
     {
-        findShortestPathAndVerify( new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>() );
-    }
-
-    @Test
-    public void directedShortestPath()
-    {
-        findShortestPathAndVerify( new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>() );
-    }
-
-    private void findShortestPathAndVerify( WeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> weighted )
-    {
-        @SuppressWarnings( "unchecked" ) // mutable by definition, generic types driven by input arg
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> mutable = (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>) weighted;
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> mutable =
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>();
 
         // building Graph
 
@@ -81,7 +67,7 @@ public final class DijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = findShortestPath( weighted, one, five );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = findShortestPath( mutable, one, five );
 
         // assert!
 
