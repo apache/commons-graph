@@ -52,33 +52,33 @@ public final class AStar
      * @param <V> the Graph vertices type.
      * @param <WE> the Graph weighted edges type
      * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
-     * @param source the shortest path source Vertex
-     * @param target the shortest path target Vertex
+     * @param start the shortest path source Vertex
+     * @param goal the shortest path target Vertex
      * @param heuristic the <i>h(x)</i> function
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
     public static <V extends Vertex, WE extends WeightedEdge<V>> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
-                                                                                                       V source,
-                                                                                                       V target,
+                                                                                                       V start,
+                                                                                                       V goal,
                                                                                                        Heuristic<V> heuristic )
     {
         // Cost from start along best known path.
         final ShortestDistances<V> gScores = new ShortestDistances<V>();
-        gScores.setWeight( source, 0D );
+        gScores.setWeight( start, 0D );
 
         final ShortestDistances<V> hScores = new ShortestDistances<V>();
-        gScores.setWeight( source, heuristic.applyHeuristic( source, target ) );
+        gScores.setWeight( start, heuristic.applyHeuristic( start, goal ) );
 
         // Estimated total cost from start to goal through y.
         final ShortestDistances<V> fScores = new ShortestDistances<V>();
-        fScores.setWeight( source, hScores.getWeight( source ) );
+        fScores.setWeight( start, hScores.getWeight( start ) );
 
         // The set of nodes already evaluated.
         final Set<V> closedSet = new HashSet<V>();
 
         // The set of tentative nodes to be evaluated.
         final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getVertices().size(), fScores );
-        openSet.add( source );
+        openSet.add( start );
 
         // The of navigated nodes
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
@@ -90,9 +90,9 @@ public final class AStar
         while ( ( current = openSet.poll() ) != null )
         {
             // destination reached, stop and build the path
-            if ( target.equals( current ) )
+            if ( goal.equals( current ) )
             {
-                return predecessors.buildPath( source, target );
+                return predecessors.buildPath( start, goal );
             }
 
             closedSet.add( current );
@@ -112,14 +112,14 @@ public final class AStar
                     {
                         predecessors.addPredecessor( v, edge );
                         gScores.setWeight( v, tentativeGScore );
-                        hScores.setWeight( v, heuristic.applyHeuristic( v, target ) );
+                        hScores.setWeight( v, heuristic.applyHeuristic( v, goal ) );
                         fScores.setWeight( v, gScores.getWeight( v ) + hScores.getWeight( v ) );
                     }
                 }
             }
         }
 
-        throw new PathNotFoundException( format( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target,
+        throw new PathNotFoundException( format( "Path from '%s' to '%s' doesn't exist in Graph '%s'", start, goal,
                                                  graph ) );
     }
 
