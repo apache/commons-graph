@@ -1,5 +1,6 @@
 package org.apache.commons.graph.shortestpath;
 
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
@@ -48,9 +49,9 @@ public final class BellmannFord
      * @param target the shortest path target Vertex
      * @return a path wich describes the shortes path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<V>> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
-                                                                                                       V source,
-                                                                                                       V target )
+    public static <V extends Vertex, WE extends WeightedEdge<V>, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
+                                                                                                                                                              V source,
+                                                                                                                                                              V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
