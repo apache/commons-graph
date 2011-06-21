@@ -21,7 +21,7 @@ package org.apache.commons.graph.model;
 
 import static java.lang.String.format;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
@@ -54,7 +54,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
             throw new GraphException( format( "Vertex '%s' already present in the Graph", v ) );
         }
 
-        getAdjacencyList().put( v, new HashSet<E>() );
+        getAdjacencyList().put( v, new LinkedHashSet<E>() );
 
         decorateAddVertex( v );
     }
