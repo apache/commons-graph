@@ -47,7 +47,7 @@ public final class BellmannFord
      * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
      * @param source the shortest path source Vertex
      * @param target the shortest path target Vertex
-     * @return a path wich describes the shortes path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
     public static <V extends Vertex, WE extends WeightedEdge<V>, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
                                                                                                                                                               V source,
