@@ -46,11 +46,13 @@ public final class AStar
      * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
      * @param source the shortest path source Vertex
      * @param target the shortest path target Vertex
+     * @param heuristic the <i>h(x)</i> function
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
     public static <V extends Vertex, WE extends WeightedEdge<V>> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
                                                                                                        V source,
-                                                                                                       V target )
+                                                                                                       V target,
+                                                                                                       Heuristic<V> heuristic )
     {
         return null;
     }
