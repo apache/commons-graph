@@ -21,24 +21,45 @@ package org.apache.commons.graph.shortestpath;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.graph.Vertex;
 
 final class ShortestDistances<V extends Vertex>
-    extends HashMap<V, Double>
     implements Comparator<V>
 {
 
     private static final long serialVersionUID = 568538689459177637L;
 
+    private final Map<V, Double> distances = new HashMap<V, Double>();
+
     /**
-     * {@inheritDoc}
+     * Returns the distance related to input vertex, or {@code INFINITY} if it wasn't previously visited.
+     *
+     * @param vertex the vertex for which the distance has to be retrieved
+     * @return the distance related to input vertex, or {@code INFINITY} if it wasn't previously visited.
      */
-    @Override
-    public Double get( Object key )
+    public Double getWeight( V vertex )
     {
-        Double distance = super.get( key );
-        return (distance == null) ? Double.POSITIVE_INFINITY : distance;
+        Double distance = distances.get( vertex );
+
+        if ( distance == null )
+        {
+            return Double.POSITIVE_INFINITY;
+        }
+
+        return distance;
+    }
+
+    /**
+     * Update the input vertex distance.
+     *
+     * @param vertex the vertex for which the distance has to be updated
+     * @param distance the new input vertex distance
+     */
+    public void setWeight( V vertex, Double distance )
+    {
+        distances.put( vertex, distance );
     }
 
     /**
@@ -46,7 +67,7 @@ final class ShortestDistances<V extends Vertex>
      */
     public int compare( V left, V right )
     {
-        return get( left ).compareTo( get( right ) );
+        return getWeight( left ).compareTo( getWeight( right ) );
     }
 
 }

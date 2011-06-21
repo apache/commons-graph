@@ -62,7 +62,7 @@ public final class Dijkstra
                                                                                                        V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
-        shortestDistances.put( source, 0D );
+        shortestDistances.setWeight( source, 0D );
 
         final PriorityQueue<V> unsettledNodes =
             new PriorityQueue<V>( graph.getVertices().size(), shortestDistances );
@@ -81,7 +81,7 @@ public final class Dijkstra
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
             {
-                return predecessors.buildPath( source, target, shortestDistances.get( target ) );
+                return predecessors.buildPath( source, target, shortestDistances.getWeight( target ) );
             }
 
             settledNodes.add( vertex );
@@ -96,12 +96,12 @@ public final class Dijkstra
                 // skip node already settled
                 if ( !settledNodes.contains( v ) )
                 {
-                    Double shortDist = shortestDistances.get( vertex ) + edge.getWeight();
+                    Double shortDist = shortestDistances.getWeight( vertex ) + edge.getWeight();
 
-                    if ( shortDist.compareTo( shortestDistances.get( v ) ) < 0 )
+                    if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
                     {
                         // assign new shortest distance and mark unsettled
-                        shortestDistances.put( v, shortDist );
+                        shortestDistances.setWeight( v, shortDist );
                         unsettledNodes.add( v );
 
                         // assign predecessor in shortest path
