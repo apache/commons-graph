@@ -19,6 +19,14 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
+
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
@@ -54,7 +62,65 @@ public final class AStar
                                                                                                        V target,
                                                                                                        Heuristic<V> heuristic )
     {
-        return null;
+        // Cost from start along best known path.
+        final ShortestDistances<V> gScores = new ShortestDistances<V>();
+        gScores.setWeight( source, 0D );
+
+        final ShortestDistances<V> hScores = new ShortestDistances<V>();
+        gScores.setWeight( source, heuristic.applyHeuristic( source, target ) );
+
+        // Estimated total cost from start to goal through y.
+        final ShortestDistances<V> fScores = new ShortestDistances<V>();
+        fScores.setWeight( source, hScores.getWeight( source ) );
+
+        // The set of nodes already evaluated.
+        final Set<V> closedSet = new HashSet<V>();
+
+        // The set of tentative nodes to be evaluated.
+        final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getVertices().size(), fScores );
+        openSet.add( source );
+
+        // The of navigated nodes
+        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
+
+        // the current node
+        V current;
+
+        // extract the node in openset having the lowest f_score[] value
+        while ( ( current = openSet.poll() ) != null )
+        {
+            // destination reached, stop and build the path
+            if ( target.equals( current ) )
+            {
+                return predecessors.buildPath( source, target );
+            }
+
+            closedSet.add( current );
+
+            @SuppressWarnings( "unchecked" )
+            Set<WE> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
+                                                               : graph.getEdges( current );
+            for ( WE edge : edges )
+            {
+                V v = getConnectedVertex( current, edge );
+
+                if ( !closedSet.contains( v ) )
+                {
+                    Double tentativeGScore = gScores.getWeight( current ) + edge.getWeight();
+
+                    if ( openSet.add( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
+                    {
+                        predecessors.addPredecessor( v, edge );
+                        gScores.setWeight( v, tentativeGScore );
+                        hScores.setWeight( v, heuristic.applyHeuristic( v, target ) );
+                        fScores.setWeight( v, gScores.getWeight( v ) + hScores.getWeight( v ) );
+                    }
+                }
+            }
+        }
+
+        throw new PathNotFoundException( format( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target,
+                                                 graph ) );
     }
 
 }
