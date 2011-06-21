@@ -86,8 +86,7 @@ public final class Dijkstra
 
             settledNodes.add( vertex );
 
-            Set<WE> edges = graph.getOutbound( vertex );
-            for ( WE edge : edges )
+            for ( WE edge : graph.getOutbound( vertex ) )
             {
                 V v = getConnectedVertex( vertex, edge );
 
