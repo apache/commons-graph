@@ -76,6 +76,8 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<V>>
             vertex = getConnectedVertex( vertex, edge );
         }
 
+        path.addVertexInHead( source );
+
         return path;
     }
 
