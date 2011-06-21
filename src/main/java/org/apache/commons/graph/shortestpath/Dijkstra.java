@@ -22,9 +22,7 @@ package org.apache.commons.graph.shortestpath;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -33,7 +31,6 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.model.InMemoryWeightedPath;
 
 /**
  * Contains the Dijkstra's shortest path algorithm implementation.
@@ -73,7 +70,7 @@ public final class Dijkstra
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final Map<V, WE> predecessors = new HashMap<V, WE>();
+        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
 
         // the current node
         V vertex;
@@ -84,20 +81,7 @@ public final class Dijkstra
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
             {
-                InMemoryWeightedPath<V, WE> path =
-                    new InMemoryWeightedPath<V, WE>( source, target, shortestDistances.get( target ) );
-
-                while ( !source.equals( vertex ) )
-                {
-                    WE edge = predecessors.get( vertex );
-
-                    path.addEdgeInHead( edge );
-                    path.addVertexInHead( vertex );
-
-                    vertex = edge.getHead();
-                }
-
-                return path;
+                return predecessors.buildPath( source, target, shortestDistances.get( target ) );
             }
 
             settledNodes.add( vertex );
@@ -121,7 +105,7 @@ public final class Dijkstra
                         unsettledNodes.add( v );
 
                         // assign predecessor in shortest path
-                        predecessors.put( v, edge );
+                        predecessors.addPredecessor( v, edge );
                     }
                 }
             }
