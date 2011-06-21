@@ -76,6 +76,7 @@ public final class DijkstraTestCase
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, five );
 
+        expected.addVertexInTail( one );
         expected.addVertexInTail( three );
         expected.addVertexInTail( six );
         expected.addVertexInTail( five );
