@@ -25,6 +25,11 @@ import java.util.Map;
 
 import org.apache.commons.graph.Vertex;
 
+/**
+ * Stores and compares Graph Vertices weights.
+ *
+ * @param <V> the Graph vertices type
+ */
 final class ShortestDistances<V extends Vertex>
     implements Comparator<V>
 {
