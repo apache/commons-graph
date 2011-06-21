@@ -81,7 +81,7 @@ public final class Dijkstra
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
             {
-                return predecessors.buildPath( source, target, shortestDistances.getWeight( target ) );
+                return predecessors.buildPath( source, target );
             }
 
             settledNodes.add( vertex );

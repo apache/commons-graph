@@ -37,17 +37,41 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
     implements WeightedPath<V, WE>
 {
 
-    private final Double weigth;
+    private Double weigth = 0D;
 
-    public InMemoryWeightedPath( V start, V target, Double weigth )
+    public InMemoryWeightedPath( V start, V target )
     {
         super( start, target );
+    }
 
-        if ( weigth == null )
-        {
-            throw new IllegalArgumentException( "Path weigth cannot be null" );
-        }
-        this.weigth = weigth;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addEdgeInHead( WE edge )
+    {
+        super.addEdgeInHead( edge );
+        increaseWeight( edge );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addEdgeInTail( WE edge )
+    {
+        super.addEdgeInTail( edge );
+        increaseWeight( edge );
+    }
+
+    /**
+     * Increase the path weight
+     *
+     * @param edge the edge which weigth increase the path weigth
+     */
+    private void increaseWeight( WE edge )
+    {
+        weigth = edge.getWeight().doubleValue() + weigth.doubleValue();
     }
 
     /**
