@@ -19,8 +19,6 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,7 +71,7 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<V>>
             path.addEdgeInHead( edge );
             path.addVertexInHead( vertex );
 
-            vertex = getConnectedVertex( vertex, edge );
+            vertex = edge.getHead();
         }
 
         path.addVertexInHead( source );

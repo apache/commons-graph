@@ -20,7 +20,6 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import static java.lang.String.format;
-import static org.apache.commons.graph.utils.Edges.getConnectedVertex;
 
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -100,7 +99,7 @@ public final class AStar
                                                                : graph.getEdges( current );
             for ( WE edge : edges )
             {
-                V v = getConnectedVertex( current, edge );
+                V v = edge.getTail();
 
                 if ( !closedSet.contains( v ) )
                 {

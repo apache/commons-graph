@@ -55,6 +55,12 @@ public class BaseLabeledWeightedEdge
         return weight;
     }
 
+    @Override
+    public BaseLabeledEdge reverse()
+    {
+        return new BaseLabeledWeightedEdge( getLabel(), getTail(), getHead(), weight );
+    }
+
     /**
      * {@inheritDoc}
      */

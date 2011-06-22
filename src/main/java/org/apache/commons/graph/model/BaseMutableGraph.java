@@ -101,8 +101,6 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
 
         getAllEdges().add( e );
         getAdjacencyList().get( e.getHead() ).add( e );
-        getAdjacencyList().get( e.getTail() ).add( e );
-
         decorateAddEdge( e );
     }
 
@@ -122,8 +120,6 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
 
         getAllEdges().remove( e );
         getAdjacencyList().get( e.getHead() ).remove( e );
-        getAdjacencyList().get( e.getTail() ).remove( e );
-
         decorateRemoveEdge( e );
     }
 
@@ -143,11 +139,11 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     {
         if ( !getAdjacencyList().containsKey( e.getHead() ) )
         {
-            throw new GraphException( format( "Vertex '%s' not present in the Graph", e.getHead() ) );
+            throw new GraphException( format( "Head Vertex '%s' not present in the Graph", e.getHead() ) );
         }
         if ( !getAdjacencyList().containsKey( e.getTail() ) )
         {
-            throw new GraphException( format( "Vertex '%s' not present in the Graph", e.getTail() ) );
+            throw new GraphException( format( "Tail Vertex '%s' not present in the Graph", e.getTail() ) );
         }
     }
 

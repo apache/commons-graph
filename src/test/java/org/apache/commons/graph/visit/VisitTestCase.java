@@ -68,18 +68,27 @@ public final class VisitTestCase
         input.addVertex( y );
 
         input.addEdge( new BaseLabeledEdge( "", s, r ) );
+        input.addEdge( new BaseLabeledEdge( "", r, s ) );
         input.addEdge( new BaseLabeledEdge( "", s, w ) );
+        input.addEdge( new BaseLabeledEdge( "", w, s ) );
 
         input.addEdge( new BaseLabeledEdge( "", r, v ) );
+        input.addEdge( new BaseLabeledEdge( "", v, r ) );
 
         input.addEdge( new BaseLabeledEdge( "", w, t ) );
+        input.addEdge( new BaseLabeledEdge( "", t, w ) );
         input.addEdge( new BaseLabeledEdge( "", w, x ) );
+        input.addEdge( new BaseLabeledEdge( "", x, w ) );
 
         input.addEdge( new BaseLabeledEdge( "", t, u ) );
+        input.addEdge( new BaseLabeledEdge( "", u, t ) );
         input.addEdge( new BaseLabeledEdge( "", t, x ) );
+        input.addEdge( new BaseLabeledEdge( "", x, t ) );
 
         input.addEdge( new BaseLabeledEdge( "", y, u ) );
+        input.addEdge( new BaseLabeledEdge( "", u, y ) );
         input.addEdge( new BaseLabeledEdge( "", y, x ) );
+        input.addEdge( new BaseLabeledEdge( "", x, y ) );
 
         // expected graph
 
@@ -97,7 +106,7 @@ public final class VisitTestCase
         expected.addEdge( new BaseLabeledEdge( "", w, t ) );
         expected.addEdge( new BaseLabeledEdge( "", w, x ) );
         expected.addEdge( new BaseLabeledEdge( "", t, u ) );
-        expected.addEdge( new BaseLabeledEdge( "", y, x ) );
+        expected.addEdge( new BaseLabeledEdge( "", x, y ) );
 
         // actual graph
 
@@ -143,16 +152,24 @@ public final class VisitTestCase
         input.addVertex( s );
 
         input.addEdge( new BaseLabeledEdge( "", s, a ) );
+        input.addEdge( new BaseLabeledEdge( "", a, s ) );
         input.addEdge( new BaseLabeledEdge( "", s, b ) );
+        input.addEdge( new BaseLabeledEdge( "", b, s ) );
 
         input.addEdge( new BaseLabeledEdge( "", a, c ) );
+        input.addEdge( new BaseLabeledEdge( "", c, a ) );
         input.addEdge( new BaseLabeledEdge( "", a, d ) );
+        input.addEdge( new BaseLabeledEdge( "", d, a ) );
 
         input.addEdge( new BaseLabeledEdge( "", b, e ) );
+        input.addEdge( new BaseLabeledEdge( "", e, b ) );
         input.addEdge( new BaseLabeledEdge( "", b, f ) );
+        input.addEdge( new BaseLabeledEdge( "", f, b ) );
 
         input.addEdge( new BaseLabeledEdge( "", e, h ) );
+        input.addEdge( new BaseLabeledEdge( "", h, e ) );
         input.addEdge( new BaseLabeledEdge( "", e, g ) );
+        input.addEdge( new BaseLabeledEdge( "", g, e ) );
 
         // expected node set
 
