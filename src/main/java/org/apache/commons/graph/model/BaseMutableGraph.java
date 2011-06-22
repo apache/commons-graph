@@ -137,6 +137,19 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
      */
     private final void checkEdge( E e )
     {
+        if ( e == null )
+        {
+            throw new GraphException( "Impossible to add a null Edge in the Graph" );
+        }
+        if ( e.getHead() == null )
+        {
+            throw new GraphException( "Null head Vertex not admitted" );
+        }
+        if ( e.getTail() == null )
+        {
+            throw new GraphException( "Null tail Vertex not admitted" );
+        }
+
         if ( !getAdjacencyList().containsKey( e.getHead() ) )
         {
             throw new GraphException( format( "Head Vertex '%s' not present in the Graph", e.getHead() ) );
