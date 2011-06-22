@@ -141,11 +141,6 @@ public class BaseLabeledEdge
         return true;
     }
 
-    public BaseLabeledEdge reverse()
-    {
-        return new BaseLabeledEdge( label, tail, head );
-    }
-
     /**
      * {@inheritDoc}
      */
