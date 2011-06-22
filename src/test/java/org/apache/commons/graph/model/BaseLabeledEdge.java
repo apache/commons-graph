@@ -36,6 +36,18 @@ public class BaseLabeledEdge
 
     public BaseLabeledEdge( String label, BaseLabeledVertex head, BaseLabeledVertex tail )
     {
+        if ( label == null )
+        {
+            throw new IllegalArgumentException( "Argument 'label' must not be null" );
+        }
+        if ( head == null )
+        {
+            throw new IllegalArgumentException( "Argument 'head' must not be null" );
+        }
+        if ( tail == null )
+        {
+            throw new IllegalArgumentException( "Argument 'tail' must not be null" );
+        }
         this.label = label;
         this.head = head;
         this.tail = tail;
@@ -102,38 +114,17 @@ public class BaseLabeledEdge
 
         BaseLabeledEdge other = (BaseLabeledEdge) obj;
 
-        if ( head == null )
-        {
-            if ( other.getHead() != null )
-            {
-                return false;
-            }
-        }
-        else if ( !head.equals( other.getHead() ) )
+        if ( !head.equals( other.getHead() ) )
         {
             return false;
         }
 
-        if ( tail == null )
-        {
-            if ( other.getTail() != null )
-            {
-                return false;
-            }
-        }
-        else if ( !tail.equals( other.getTail() ) )
+        if ( !tail.equals( other.getTail() ) )
         {
             return false;
         }
 
-        if ( label == null )
-        {
-            if ( other.getLabel() != null )
-            {
-                return false;
-            }
-        }
-        else if ( !label.equals( other.label ) )
+        if ( !label.equals( other.label ) )
         {
             return false;
         }

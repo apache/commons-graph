@@ -36,6 +36,10 @@ public class BaseLabeledWeightedEdge
     public BaseLabeledWeightedEdge( String label, BaseLabeledVertex head, BaseLabeledVertex tail, Double weight )
     {
         super( label, head, tail );
+        if ( weight == null )
+        {
+            throw new IllegalArgumentException( "Argument 'weight' must not be null" );
+        }
         this.weight = weight;
     }
 
@@ -89,14 +93,7 @@ public class BaseLabeledWeightedEdge
         }
 
         BaseLabeledWeightedEdge other = (BaseLabeledWeightedEdge) obj;
-        if ( weight == null )
-        {
-            if ( other.getWeight() != null )
-            {
-                return false;
-            }
-        }
-        else if ( !weight.equals( other.getWeight() ) )
+        if ( !weight.equals( other.getWeight() ) )
         {
             return false;
         }
