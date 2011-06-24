@@ -40,11 +40,25 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
     Set<V> getVertices();
 
     /**
+     * Returns the <i>order</i> of a Graph (the number of Vertices);
+     *
+     * @return the <i>order</i> of a Graph (the number of Vertices);
+     */
+    int getOrder();
+
+    /**
      * Returns the total set of Edges in the graph.
      * 
      * @return the total set of Edges in the graph.
      */
     Set<E> getEdges();
+
+    /**
+     * Returns the <i>size</i> of a Graph (the number of Edges)
+     *
+     * @return the <i>size</i> of a Graph (the number of Edges)
+     */
+    int getSize();
 
     /**
      * Returns all edges which touch this vertex, where the input vertex is in the edge head.

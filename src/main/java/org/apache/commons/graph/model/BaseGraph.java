@@ -57,9 +57,25 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
+    public final int getOrder()
+    {
+        return adjacencyList.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public final Set<E> getEdges()
     {
         return unmodifiableSet( new HashSet<E>( indexedEdges.values() ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getSize()
+    {
+        return indexedEdges.size();
     }
 
     /**
