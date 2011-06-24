@@ -84,7 +84,8 @@ public final class BellmannFord
 
             if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
             {
-                throw new NegativeWeightedCycleException( "A negative weighted cycle has been dected in vertex %s",
+                // TODO it would be nice printing the cycle
+                throw new NegativeWeightedCycleException( "Graph contains a negative-weight cycle in vertex %s",
                                                           v, graph );
             }
         }
