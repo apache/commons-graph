@@ -19,8 +19,6 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import static java.lang.String.format;
-
 import java.util.LinkedHashSet;
 
 import org.apache.commons.graph.Edge;
@@ -52,7 +50,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
 
         if ( getAdjacencyList().containsKey( v ) )
         {
-            throw new GraphException( format( "Vertex '%s' already present in the Graph", v ) );
+            throw new GraphException( "Vertex '%s' already present in the Graph", v );
         }
 
         getAdjacencyList().put( v, new LinkedHashSet<E>() );
@@ -76,7 +74,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
         }
 
         if ( !getAdjacencyList().containsKey( v ) ){
-            throw new GraphException( format( "Vertex '%s' not present in the Graph", v ) );
+            throw new GraphException( "Vertex '%s' not present in the Graph", v );
         }
 
         getAdjacencyList().remove( v );
@@ -153,11 +151,11 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
 
         if ( !getAdjacencyList().containsKey( e.getHead() ) )
         {
-            throw new GraphException( format( "Head Vertex '%s' not present in the Graph", e.getHead() ) );
+            throw new GraphException( "Head Vertex '%s' not present in the Graph", e.getHead() );
         }
         if ( !getAdjacencyList().containsKey( e.getTail() ) )
         {
-            throw new GraphException( format( "Tail Vertex '%s' not present in the Graph", e.getTail() ) );
+            throw new GraphException( "Tail Vertex '%s' not present in the Graph", e.getTail() );
         }
     }
 
