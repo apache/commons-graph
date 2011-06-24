@@ -91,8 +91,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
             throw new IllegalArgumentException( "Impossible to find the shortest path to a null target" );
         }
 
-        VertexPair<V> vertexPair = new VertexPair<V>( source, target );
-        WeightedPath<V, WE> path = paths.get( vertexPair );
+        WeightedPath<V, WE> path = paths.get( new VertexPair<V>( source, target ) );
 
         if ( path == null )
         {
