@@ -19,6 +19,7 @@ package org.apache.commons.graph;
  * under the License.
  */
 
+import static java.lang.String.format;
 
 /**
  * GraphException This is the superclass of all exceptions that can be thrown.
@@ -40,11 +41,13 @@ public class GraphException
     /**
      * Constructs a new graph exception with the specified detail message.
      *
-     * @param msg the detail message.
+     * @param messagePattern The error message text pattern
+     * @param arguments Arguments referenced by the format specifiers in the format string
+     * @see java.lang.String#format(String, Object...)
      */
-    public GraphException( String msg )
+    public GraphException( String messagePattern, Object...arguments )
     {
-        super(msg);
+        super( format( messagePattern, arguments ) );
     }
 
     /**

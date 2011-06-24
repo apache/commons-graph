@@ -19,8 +19,6 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import static java.lang.String.format;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,7 +93,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
 
         if ( path == null )
         {
-            throw new PathNotFoundException( format( "Path from '%s' to '%s' doesn't exist", source, target ) );
+            throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
         }
 
         return path;

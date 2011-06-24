@@ -27,9 +27,9 @@ public final class PathNotFoundException
 
     private static final long serialVersionUID = 2919520319054603708L;
 
-    public PathNotFoundException( String msg )
+    public PathNotFoundException( String messagePattern, Object...arguments )
     {
-        super( msg );
+        super( messagePattern, arguments );
     }
 
 }

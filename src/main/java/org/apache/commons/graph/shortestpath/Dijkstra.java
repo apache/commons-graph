@@ -19,8 +19,6 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import static java.lang.String.format;
-
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -106,8 +104,7 @@ public final class Dijkstra
             }
         }
 
-        throw new PathNotFoundException( format( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target,
-                                                 graph ) );
+        throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph );
     }
 
 }
