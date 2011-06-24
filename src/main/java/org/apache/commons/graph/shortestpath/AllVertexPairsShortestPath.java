@@ -125,7 +125,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      * @param target The target Vertex
      * @return Returns the shortest distance between source and target.
      */
-    public Double getShortestDistance( V source, V target )
+    Double getShortestDistance( V source, V target )
     {
         if ( source == null )
         {
