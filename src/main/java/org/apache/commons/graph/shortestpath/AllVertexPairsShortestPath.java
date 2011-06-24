@@ -25,7 +25,7 @@ import java.util.Map;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.utils.VertexPair;
+import org.apache.commons.graph.model.VertexPair;
 
 /**
  * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.

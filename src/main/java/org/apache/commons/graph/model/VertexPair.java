@@ -1,4 +1,4 @@
-package org.apache.commons.graph.utils;
+package org.apache.commons.graph.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

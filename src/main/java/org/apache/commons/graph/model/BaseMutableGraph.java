@@ -28,7 +28,6 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.utils.VertexPair;
 
 /**
  * Basic abstract in-memory based of a simple mutable {@link Graph} implementation.

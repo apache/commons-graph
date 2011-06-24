@@ -30,7 +30,6 @@ import java.util.Set;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.utils.VertexPair;
 
 /**
  * Basic abstract in-memory based of a simple read-only {@link Graph} implementation. Subclasses may load adjacency
