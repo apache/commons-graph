@@ -19,8 +19,6 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import java.util.Set;
-
 /**
  * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs, called {@link Edge}s or
  * arcs, of certain entities called {@link Vertex} or node. As in mathematics, an {@link Edge} {@code (x,y)} is said to
@@ -37,7 +35,7 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
      * 
      * @return the total set of Vertices in the graph.
      */
-    Set<V> getVertices();
+    Iterable<V> getVertices();
 
     /**
      * Returns the <i>order</i> of a Graph (the number of Vertices);
@@ -51,7 +49,7 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
      * 
      * @return the total set of Edges in the graph.
      */
-    Set<E> getEdges();
+    Iterable<E> getEdges();
 
     /**
      * Returns the <i>size</i> of a Graph (the number of Edges)
@@ -65,7 +63,7 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
      * 
      * @return all edges which touch this vertex, where the input vertex is in the edge head.
      */
-    Set<E> getEdges( V v );
+    Iterable<E> getEdges( V v );
 
     /**
      * Returns the edge with vertex source and target.
@@ -81,6 +79,6 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
      * 
      * @return the set of {@link Vertex} on this Edge.
      */
-    Set<V> getVertices( E e );
+    Iterable<V> getVertices( E e );
 
 }

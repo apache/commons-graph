@@ -91,8 +91,8 @@ public final class Visit
 
             handler.discoverVertex( v );
 
-            Set<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
-                                                              : graph.getEdges( v );
+            Iterable<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
+                                                                   : graph.getEdges( v );
             for ( E e : edges )
             {
                 V w = e.getTail();
@@ -168,8 +168,8 @@ public final class Visit
 
             handler.discoverVertex( v );
 
-            Set<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
-                                                              : graph.getEdges( v );
+            Iterable<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
+                                                                   : graph.getEdges( v );
             for ( E e : edges )
             {
                 V w = e.getTail();

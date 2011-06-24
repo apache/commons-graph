@@ -19,6 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final Set<V> getVertices()
+    public final Iterable<V> getVertices()
     {
         return unmodifiableSet( adjacencyList.keySet() );
     }
@@ -65,9 +66,9 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final Set<E> getEdges()
+    public final Iterable<E> getEdges()
     {
-        return unmodifiableSet( new HashSet<E>( indexedEdges.values() ) );
+        return unmodifiableCollection( indexedEdges.values() );
     }
 
     /**
@@ -81,7 +82,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final Set<E> getEdges( V v )
+    public final Iterable<E> getEdges( V v )
     {
         return unmodifiableSet( adjacencyList.get( v ) );
     }
@@ -97,7 +98,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final Set<V> getVertices( E e )
+    public final Iterable<V> getVertices( E e )
     {
         Set<V> vertices = new LinkedHashSet<V>();
 

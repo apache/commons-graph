@@ -19,8 +19,6 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import java.util.Set;
-
 /**
  * A {@code DirectedGraph} or <i>digraph</i> is an ordered pair {@code D = ( V, E )} with
  * <ul>
@@ -41,7 +39,7 @@ public interface DirectedGraph<V extends Vertex, E extends Edge<V>>
      * @param v the {@link Vertex} which inbound {@link Edge}s have to be returned
      * @return the set of {@link Edge}s which are inbound to the {@link Vertex}.
      */
-    Set<E> getInbound( V v );
+    Iterable<E> getInbound( V v );
 
     /**
      * Returns the set of {@link Edge}s which lead away from the {@link Vertex}.
@@ -49,6 +47,6 @@ public interface DirectedGraph<V extends Vertex, E extends Edge<V>>
      * @param v the {@link Vertex} which outbound {@link Edge}s have to be returned
      * @return the set of {@link Edge}s which lead away from the {@link Vertex}.
      */
-    Set<E> getOutbound( V v );
+    Iterable<E> getOutbound( V v );
 
 }

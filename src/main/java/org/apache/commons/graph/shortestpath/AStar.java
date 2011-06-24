@@ -74,7 +74,7 @@ public final class AStar
         final Set<V> closedSet = new HashSet<V>();
 
         // The set of tentative nodes to be evaluated.
-        final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getVertices().size(), fScores );
+        final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getOrder(), fScores );
         openSet.add( start );
 
         // The of navigated nodes
@@ -95,8 +95,8 @@ public final class AStar
             closedSet.add( current );
 
             @SuppressWarnings( "unchecked" )
-            Set<WE> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
-                                                               : graph.getEdges( current );
+            Iterable<WE> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
+                                                                    : graph.getEdges( current );
             for ( WE edge : edges )
             {
                 V v = edge.getTail();

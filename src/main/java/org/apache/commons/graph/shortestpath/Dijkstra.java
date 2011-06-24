@@ -63,7 +63,7 @@ public final class Dijkstra
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
 
-        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getVertices().size(), shortestDistances );
+        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestDistances );
         unsettledNodes.add( source );
 
         final Set<V> settledNodes = new HashSet<V>();
