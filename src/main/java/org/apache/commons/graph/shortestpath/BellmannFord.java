@@ -58,7 +58,36 @@ public final class BellmannFord
 
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
 
-        
+        for ( WE edge : graph.getEdges() )
+        {
+            V u = edge.getHead();
+            V v = edge.getTail();
+
+            Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
+
+            if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+            {
+                // assign new shortest distance and mark unsettled
+                shortestDistances.setWeight( v, shortDist );
+
+                // assign predecessor in shortest path
+                predecessors.addPredecessor( v, edge );
+            }
+        }
+
+        for ( WE edge : graph.getEdges() )
+        {
+            V u = edge.getHead();
+            V v = edge.getTail();
+
+            Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
+
+            if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+            {
+                throw new NegativeWeightedCycleException( "A negative weighted cycle has been dected in vertex %s",
+                                                          v, graph );
+            }
+        }
 
         return null;
     }
