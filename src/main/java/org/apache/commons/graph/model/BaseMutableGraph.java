@@ -28,6 +28,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.utils.VertexPair;
 
 /**
  * Basic abstract in-memory based of a simple mutable {@link Graph} implementation.
@@ -50,7 +51,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
             throw new GraphException( "Impossible to add a null Vertex to the Graph" );
         }
 
-        if ( getAdjacencyList().containsKey( v ) ){
+        if ( getAdjacencyList().containsKey( v ) )
+        {
             throw new GraphException( format( "Vertex '%s' already present in the Graph", v ) );
         }
 
@@ -60,8 +62,6 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     }
 
     /**
-     * 
-     *
      * @param v
      */
     protected abstract void decorateAddVertex( V v );
@@ -99,8 +99,9 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     {
         checkEdge( e );
 
-        getAllEdges().add( e );
         getAdjacencyList().get( e.getHead() ).add( e );
+        getIndexedEdges().put( new VertexPair<V>( e.getHead(), e.getTail() ), e );
+
         decorateAddEdge( e );
     }
 
@@ -118,8 +119,9 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     {
         checkEdge( e );
 
-        getAllEdges().remove( e );
         getAdjacencyList().get( e.getHead() ).remove( e );
+        getIndexedEdges().remove( new VertexPair<V>( e.getHead(), e.getTail() ) );
+
         decorateRemoveEdge( e );
     }
 
