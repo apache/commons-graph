@@ -63,6 +63,12 @@
       <email>simonetripodi AT apache DOT org</email>
     </developer>
   </developers>
+  <contributors>
+    <contributor>
+      <name>Marco Speranza</name>
+      <email>marco DOT speranza79 AT gmail DOT com</email>
+    </contributor>
+  </contributors>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/commons/sandbox/graph/trunk</connection>
