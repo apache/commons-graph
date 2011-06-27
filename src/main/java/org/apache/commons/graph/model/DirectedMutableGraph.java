@@ -34,19 +34,19 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
+public class DirectedMutableGraph<V extends Vertex, E extends Edge>
     extends BaseMutableGraph<V, E>
     implements DirectedGraph<V, E>
 {
 
-    private final Map<V, Set<E>> inbound = new HashMap<V, Set<E>>();
+    private final Map<V, Set<V>> inbound = new HashMap<V, Set<V>>();
 
-    private final Map<V, Set<E>> outbound = new HashMap<V, Set<E>>();
+    private final Map<V, Set<V>> outbound = new HashMap<V, Set<V>>();
 
     /**
      * {@inheritDoc}
      */
-    public Iterable<E> getInbound( V v )
+    public Iterable<V> getInbound( V v )
     {
         return inbound.get( v );
     }
@@ -54,7 +54,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public Iterable<E> getOutbound( V v )
+    public Iterable<V> getOutbound( V v )
     {
         return outbound.get( v );
     }
@@ -65,8 +65,8 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     @Override
     protected void decorateAddVertex( V v )
     {
-        inbound.put( v, new LinkedHashSet<E>() );
-        outbound.put( v, new LinkedHashSet<E>() );
+        inbound.put( v, new LinkedHashSet<V>() );
+        outbound.put( v, new LinkedHashSet<V>() );
     }
 
     /**
@@ -83,10 +83,10 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddEdge( E e )
+    protected void decorateAddEdge( V head, E e, V tail )
     {
-        inbound.get( e.getTail() ).add( e );
-        outbound.get( e.getHead() ).add( e );
+        inbound.get( tail ).add( head );
+        outbound.get( head ).add( tail );
     }
 
     /**
@@ -95,8 +95,7 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge<V>>
     @Override
     protected void decorateRemoveEdge( E e )
     {
-        inbound.get( e.getTail() ).remove( e );
-        outbound.get( e.getHead() ).remove( e );
+        // TODO complete me
     }
 
 }

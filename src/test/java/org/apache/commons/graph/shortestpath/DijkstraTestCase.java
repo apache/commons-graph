@@ -58,18 +58,18 @@ public final class DijkstraTestCase
         graph.addVertex( five );
         graph.addVertex( six );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", one, six, 14D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", one, three, 9D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", one, two, 7D ) );
+        graph.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 6", 14D ), six );
+        graph.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
+        graph.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 2", 7D ), two );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", two, three, 10D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", two, four, 15D ) );
+        graph.addEdge( two, new BaseLabeledWeightedEdge( "2 -> 3", 10D ), three );
+        graph.addEdge( two, new BaseLabeledWeightedEdge( "2 -> 4", 15D ), four );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", three, six, 2D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", three, four, 11D ) );
+        graph.addEdge( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
+        graph.addEdge( three, new BaseLabeledWeightedEdge( "3 -> 4", 11D ), four );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", four, five, 6D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", six, five, 9D ) );
+        graph.addEdge( four, new BaseLabeledWeightedEdge( "4 -> 5", 6D ), five );
+        graph.addEdge( six, new BaseLabeledWeightedEdge( "6 -> 5", 9D ), five );
 
         // expected path
 
@@ -81,9 +81,9 @@ public final class DijkstraTestCase
         expected.addVertexInTail( six );
         expected.addVertexInTail( five );
 
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", one, three, 9D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", three, six, 2D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", six, five, 9D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "1 -> 3", 9D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "3 -> 6", 2D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "6 -> 5", 9D ) );
 
         // actual path
 

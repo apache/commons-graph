@@ -27,7 +27,7 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface Graph<V extends Vertex, E extends Edge<V>>
+public interface Graph<V extends Vertex, E extends Edge>
 {
 
     /**
@@ -59,11 +59,11 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
     int getSize();
 
     /**
-     * Returns all edges which touch this vertex, where the input vertex is in the edge head.
+     * Returns all vertices which touch this vertex.
      * 
-     * @return all edges which touch this vertex, where the input vertex is in the edge head.
+     * @return all vertices which touch this vertex.
      */
-    Iterable<E> getEdges( V v );
+    Iterable<V> getConnectedVertices( V v );
 
     /**
      * Returns the edge with vertex source and target.
@@ -79,6 +79,6 @@ public interface Graph<V extends Vertex, E extends Edge<V>>
      * 
      * @return the set of {@link Vertex} on this Edge.
      */
-    Iterable<V> getVertices( E e );
+    VertexPair<V> getVertices( E e );
 
 }

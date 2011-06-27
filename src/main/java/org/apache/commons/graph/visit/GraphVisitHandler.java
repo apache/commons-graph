@@ -26,7 +26,7 @@ import org.apache.commons.graph.Vertex;
 /**
  * Description of the Interface
  */
-public interface GraphVisitHandler<V extends Vertex, E extends Edge<V>>
+public interface GraphVisitHandler<V extends Vertex, E extends Edge>
 {
 
     /**

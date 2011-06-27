@@ -1,4 +1,4 @@
-package org.apache.commons.graph.model;
+package org.apache.commons.graph;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,7 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import org.apache.commons.graph.Vertex;
+import static java.lang.String.format;
 
 /**
  * Indicates a {@link Vertex} pair.
@@ -116,6 +116,12 @@ public final class VertexPair<V extends Vertex>
         }
 
         return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return format( "[head=%s, tail=%s]", head, tail );
     }
 
 }

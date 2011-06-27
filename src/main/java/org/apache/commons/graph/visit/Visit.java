@@ -45,7 +45,7 @@ public final class Visit
      * @param source the root node the search begins from
      * @return the breadth first search tree
      */
-    public static final <V extends Vertex, E extends Edge<V>> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
+    public static final <V extends Vertex, E extends Edge> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
     {
         VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
         breadthFirstSearch( graph, source, visitGraphBuilder );
@@ -61,7 +61,7 @@ public final class Visit
      * @param source the root node the search begins from
      * @param handler the handler intercepts visit actions
      */
-    public static final <V extends Vertex, E extends Edge<V>> void breadthFirstSearch( Graph<V, E> graph, V source,
+    public static final <V extends Vertex, E extends Edge> void breadthFirstSearch( Graph<V, E> graph, V source,
                                                                                        GraphVisitHandler<V, E> handler )
     {
         if ( graph == null )
@@ -91,14 +91,14 @@ public final class Visit
 
             handler.discoverVertex( v );
 
-            Iterable<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
-                                                                   : graph.getEdges( v );
-            for ( E e : edges )
+            Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
+                                                                       : graph.getConnectedVertices( v );
+            for ( V w : connected )
             {
-                V w = e.getTail();
-
                 if ( visitedVetices.add( w ) )
                 {
+                    E e = graph.getEdge( v, w );
+
                     handler.discoverEdge( e );
 
                     vertexQueue.offer( w );
@@ -122,7 +122,7 @@ public final class Visit
      * @param source the root node the search begins from
      * @return the depth first search tree
      */
-    public static final <V extends Vertex, E extends Edge<V>> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
+    public static final <V extends Vertex, E extends Edge> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
     {
         VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
         depthFirstSearch( graph, source, visitGraphBuilder );
@@ -138,7 +138,7 @@ public final class Visit
      * @param source the root node the search begins from
      * @param handler the handler intercepts visit actions
      */
-    public static final <V extends Vertex, E extends Edge<V>> void depthFirstSearch( Graph<V, E> graph, V source,
+    public static final <V extends Vertex, E extends Edge> void depthFirstSearch( Graph<V, E> graph, V source,
                                                                                      GraphVisitHandler<V, E> handler )
     {
         if ( graph == null )
@@ -168,14 +168,14 @@ public final class Visit
 
             handler.discoverVertex( v );
 
-            Iterable<E> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
-                                                                   : graph.getEdges( v );
-            for ( E e : edges )
+            Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
+                            : graph.getConnectedVertices( v );
+            for ( V w : connected )
             {
-                V w = e.getTail();
-
                 if ( visitedVetices.add( w ) )
                 {
+                    E e = graph.getEdge( v, w );
+
                     handler.discoverEdge( e );
 
                     vertexStack.push( w );

@@ -25,32 +25,18 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Labeled;
 
 public class BaseLabeledEdge
-    implements Edge<BaseLabeledVertex>, Labeled
+    implements Edge, Labeled
 {
 
     private final String label;
 
-    private final BaseLabeledVertex head;
-
-    private final BaseLabeledVertex tail;
-
-    public BaseLabeledEdge( String label, BaseLabeledVertex head, BaseLabeledVertex tail )
+    public BaseLabeledEdge( String label )
     {
         if ( label == null )
         {
             throw new IllegalArgumentException( "Argument 'label' must not be null" );
         }
-        if ( head == null )
-        {
-            throw new IllegalArgumentException( "Argument 'head' must not be null" );
-        }
-        if ( tail == null )
-        {
-            throw new IllegalArgumentException( "Argument 'tail' must not be null" );
-        }
         this.label = label;
-        this.head = head;
-        this.tail = tail;
     }
 
     /**
@@ -64,30 +50,12 @@ public class BaseLabeledEdge
     /**
      * {@inheritDoc}
      */
-    public BaseLabeledVertex getHead()
-    {
-        return head;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public BaseLabeledVertex getTail()
-    {
-        return tail;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ( ( head == null ) ? 0 : head.hashCode() );
         result = prime * result + ( ( label == null ) ? 0 : label.hashCode() );
-        result = prime * result + ( ( tail == null ) ? 0 : tail.hashCode() );
         return result;
     }
 
@@ -114,16 +82,6 @@ public class BaseLabeledEdge
 
         BaseLabeledEdge other = (BaseLabeledEdge) obj;
 
-        if ( !head.equals( other.getHead() ) )
-        {
-            return false;
-        }
-
-        if ( !tail.equals( other.getTail() ) )
-        {
-            return false;
-        }
-
         if ( !label.equals( other.label ) )
         {
             return false;
@@ -138,7 +96,7 @@ public class BaseLabeledEdge
     @Override
     public String toString()
     {
-        return format( "%s( %s ==> %s )", getLabel(), getHead(), getTail() );
+        return format( "%s()", getLabel() );
     }
 
 }

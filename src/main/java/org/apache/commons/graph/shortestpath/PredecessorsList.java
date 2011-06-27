@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
@@ -35,20 +36,27 @@ import org.apache.commons.graph.model.InMemoryWeightedPath;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<V>>
+final class PredecessorsList<V extends Vertex, WE extends WeightedEdge>
 {
 
-    final Map<V, WE> predecessors = new HashMap<V, WE>();
+    final Graph<V, WE> graph;
+
+    final Map<V, V> predecessors = new HashMap<V, V>();
+
+    public PredecessorsList(Graph<V, WE> graph )
+    {
+        this.graph = graph;
+    }
 
     /**
      * Add an {@link Edge} in the predecessor list associated to the input {@link Vertex}.
      *
-     * @param vertex the predecessor vertex
-     * @param edge the edge that succeeds to the input vertex
+     * @param tail the predecessor vertex
+     * @param head the edge that succeeds to the input vertex
      */
-    public void addPredecessor( V vertex, WE edge )
+    public void addPredecessor( V tail, V head )
     {
-        predecessors.put( vertex, edge );
+        predecessors.put( tail, head );
     }
 
     /**
@@ -66,12 +74,13 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<V>>
         V vertex = target;
         while ( !source.equals( vertex ) )
         {
-            WE edge = predecessors.get( vertex );
+            V predecessor = predecessors.get( vertex );
+            WE edge = graph.getEdge( predecessor, vertex );
 
             path.addEdgeInHead( edge );
             path.addVertexInHead( vertex );
 
-            vertex = edge.getHead();
+            vertex = predecessor;
         }
 
         path.addVertexInHead( source );

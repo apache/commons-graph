@@ -54,7 +54,7 @@ public final class Dijkstra
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<V>, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
+    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
                                                                                                                                                               V source,
                                                                                                                                                               V target )
     {
@@ -66,7 +66,7 @@ public final class Dijkstra
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
+        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
 
         // the current node
         V vertex;
@@ -82,13 +82,12 @@ public final class Dijkstra
 
             settledNodes.add( vertex );
 
-            for ( WE edge : graph.getOutbound( vertex ) )
+            for ( V v : graph.getOutbound( vertex ) )
             {
-                V v = edge.getTail();
-
                 // skip node already settled
                 if ( !settledNodes.contains( v ) )
                 {
+                    WE edge = graph.getEdge( vertex, v );
                     Double shortDist = shortestDistances.getWeight( vertex ) + edge.getWeight();
 
                     if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
@@ -98,7 +97,7 @@ public final class Dijkstra
                         unsettledNodes.add( v );
 
                         // assign predecessor in shortest path
-                        predecessors.addPredecessor( v, edge );
+                        predecessors.addPredecessor( v, vertex );
                     }
                 }
             }

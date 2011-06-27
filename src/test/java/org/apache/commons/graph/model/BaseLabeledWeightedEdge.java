@@ -28,14 +28,14 @@ import org.apache.commons.graph.WeightedEdge;
  */
 public class BaseLabeledWeightedEdge
     extends BaseLabeledEdge
-    implements WeightedEdge<BaseLabeledVertex>
+    implements WeightedEdge
 {
 
     private final Double weight;
 
-    public BaseLabeledWeightedEdge( String label, BaseLabeledVertex head, BaseLabeledVertex tail, Double weight )
+    public BaseLabeledWeightedEdge( String label, Double weight )
     {
-        super( label, head, tail );
+        super( label );
         if ( weight == null )
         {
             throw new IllegalArgumentException( "Argument 'weight' must not be null" );
@@ -46,7 +46,7 @@ public class BaseLabeledWeightedEdge
     /**
      * {@inheritDoc}
      */
-    public int compareTo( WeightedEdge<BaseLabeledVertex> other )
+    public int compareTo( WeightedEdge other )
     {
         return weight.compareTo( other.getWeight() );
     }
@@ -107,7 +107,7 @@ public class BaseLabeledWeightedEdge
     @Override
     public String toString()
     {
-        return format( "%s( %s =%s=> %s )", getLabel(), getHead(), weight, getTail() );
+        return format( "%s( %s )", getLabel(), weight );
     }
 
 }

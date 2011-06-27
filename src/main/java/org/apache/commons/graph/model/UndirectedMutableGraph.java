@@ -29,7 +29,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class UndirectedMutableGraph<V extends Vertex, E extends Edge<V>>
+public class UndirectedMutableGraph<V extends Vertex, E extends Edge>
     extends BaseMutableGraph<V, E>
     implements UndirectedGraph<V, E>
 {
@@ -56,9 +56,9 @@ public class UndirectedMutableGraph<V extends Vertex, E extends Edge<V>>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddEdge( E e )
+    protected void decorateAddEdge( V head, E e, V tail )
     {
-        // do nothing
+        internalAddEdge( tail, e, head );
     }
 
     /**

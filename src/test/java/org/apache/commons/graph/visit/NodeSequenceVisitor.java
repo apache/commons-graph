@@ -27,7 +27,7 @@ import java.util.List;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
 
-public final class NodeSequenceVisitor<V extends Vertex, E extends Edge<V>>
+public final class NodeSequenceVisitor<V extends Vertex, E extends Edge>
     extends BaseGraphVisitHandler<V, E>
 {
 

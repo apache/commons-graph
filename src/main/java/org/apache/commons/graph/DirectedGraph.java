@@ -29,24 +29,24 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface DirectedGraph<V extends Vertex, E extends Edge<V>>
+public interface DirectedGraph<V extends Vertex, E extends Edge>
     extends Graph<V, E>
 {
 
     /**
      * Returns the set of {@link Edge}s which are inbound to the {@link Vertex}.
      *
-     * @param v the {@link Vertex} which inbound {@link Edge}s have to be returned
-     * @return the set of {@link Edge}s which are inbound to the {@link Vertex}.
+     * @param v the {@link Vertex} which inbound {@link Vertex}s have to be returned
+     * @return the set of {@link Vertex}s which are inbound to the {@link Vertex}.
      */
-    Iterable<E> getInbound( V v );
+    Iterable<V> getInbound( V v );
 
     /**
-     * Returns the set of {@link Edge}s which lead away from the {@link Vertex}.
+     * Returns the set of {@link Vertex}s which lead away from the {@link Vertex}.
      *
-     * @param v the {@link Vertex} which outbound {@link Edge}s have to be returned
-     * @return the set of {@link Edge}s which lead away from the {@link Vertex}.
+     * @param v the {@link Vertex} which outbound {@link Vertex}s have to be returned
+     * @return the set of {@link Vertex}s which lead away from the {@link Vertex}.
      */
-    Iterable<E> getOutbound( V v );
+    Iterable<V> getOutbound( V v );
 
 }

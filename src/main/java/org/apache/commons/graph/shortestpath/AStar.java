@@ -54,7 +54,7 @@ public final class AStar
      * @param heuristic the <i>h(x)</i> function
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<V>> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
+    public static <V extends Vertex, WE extends WeightedEdge> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
                                                                                                        V start,
                                                                                                        V goal,
                                                                                                        Heuristic<V> heuristic )
@@ -76,7 +76,7 @@ public final class AStar
         openSet.add( start );
 
         // The of navigated nodes
-        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
+        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
 
         // the current node
         V current;
@@ -93,19 +93,18 @@ public final class AStar
             closedSet.add( current );
 
             @SuppressWarnings( "unchecked" )
-            Iterable<WE> edges = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
-                                                                    : graph.getEdges( current );
-            for ( WE edge : edges )
+            Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
+                                                                       : graph.getConnectedVertices( current );
+            for ( V v : connected )
             {
-                V v = edge.getTail();
-
                 if ( !closedSet.contains( v ) )
                 {
+                    WE edge = graph.getEdge( current, v );
                     Double tentativeGScore = gScores.getWeight( current ) + edge.getWeight();
 
                     if ( openSet.add( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
                     {
-                        predecessors.addPredecessor( v, edge );
+                        predecessors.addPredecessor( v, current );
                         gScores.setWeight( v, tentativeGScore );
                         hScore = heuristic.applyHeuristic( v, goal );
                         fScores.setWeight( v, gScores.getWeight( v ) + hScore );

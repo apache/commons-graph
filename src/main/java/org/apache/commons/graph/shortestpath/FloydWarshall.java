@@ -22,14 +22,15 @@ package org.apache.commons.graph.shortestpath;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.model.VertexPair;
 
 /**
- * Contains the Floyd�Warshall's shortest paths algorithm implementation.
+ * Contains the Floyd-Warshall's shortest paths algorithm implementation.
  */
 public final class FloydWarshall
 {
@@ -39,17 +40,17 @@ public final class FloydWarshall
      */
     private FloydWarshall()
     {
-        // do nothgin
+        // do nothing
     }
 
     /**
-     * Applies the classical Floyd�Warshall's algorithm to find all vertex shortest path
+     * Applies the classical Floyd-Warshall's algorithm to find all vertex shortest path
      * 
      * @param <V> the Graph vertices type.
      * @param <WE> the Graph weighted edges type
      * @return a data structure which contains all vertex pairs shortest path.
      */
-    public static <V extends Vertex, WE extends WeightedEdge<V>> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( WeightedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( WeightedGraph<V, WE> graph )
     {
         AllVertexPairsShortestPath<V, WE> shortesPaths = new AllVertexPairsShortestPath<V, WE>();
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
@@ -57,11 +58,16 @@ public final class FloydWarshall
         // init
         for ( WE we : graph.getEdges() )
         {
-            shortesPaths.addShortestDistance( we.getHead(), we.getTail(), we.getWeight() );
+            VertexPair<V> vertexPair = graph.getVertices( we );
+            shortesPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), we.getWeight() );
+
+            if ( graph instanceof UndirectedGraph )
+            {
+                shortesPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), we.getWeight() );
+            }
         }
 
         // run the Floyd-Warshall algorithm.
-
         for ( V k : graph.getVertices() )
         {
             for ( V i : graph.getVertices() )
@@ -70,7 +76,7 @@ public final class FloydWarshall
                 {
                     Double newDistance =
                         shortesPaths.getShortestDistance( i, k ) + shortesPaths.getShortestDistance( k, j );
-                    if ( newDistance < shortesPaths.getShortestDistance( i, j ) )
+                    if ( newDistance.compareTo( shortesPaths.getShortestDistance( i, j ) ) < 0 )
                     {
                         shortesPaths.addShortestDistance( i, j, newDistance );
 
@@ -79,7 +85,6 @@ public final class FloydWarshall
                     }
                 }
             }
-
         }
 
         // fills all WeightedPaths
@@ -89,7 +94,7 @@ public final class FloydWarshall
             {
                 if ( !source.equals( target ) )
                 {
-                    PredecessorsList<V, WE> predecessorsList = new PredecessorsList<V, WE>();
+                    PredecessorsList<V, WE> predecessorsList = new PredecessorsList<V, WE>( graph );
 
                     pathReconstruction( predecessorsList, source, target, next, graph );
                     if ( !predecessorsList.predecessors.isEmpty() )
@@ -100,7 +105,6 @@ public final class FloydWarshall
                             shortesPaths.addShortestPath( source, target, weightedPath );
                         }
                     }
-
                 }
             }
         }
@@ -108,10 +112,10 @@ public final class FloydWarshall
         return shortesPaths;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge<V>> void pathReconstruction( PredecessorsList<V, WE> path,
-                                                                                           V source, V target,
-                                                                                           Map<VertexPair<V>, V> next,
-                                                                                           WeightedGraph<V, WE> graph )
+    private static <V extends Vertex, WE extends WeightedEdge> void pathReconstruction( PredecessorsList<V, WE> path,
+                                                                                        V source, V target,
+                                                                                        Map<VertexPair<V>, V> next,
+                                                                                        WeightedGraph<V, WE> graph )
     {
         V k = next.get( new VertexPair<Vertex>( source, target ) );
         if ( k == null )
@@ -120,7 +124,7 @@ public final class FloydWarshall
             WE edge = graph.getEdge( source, target );
             if ( edge != null )
             {
-                path.addPredecessor( target, edge );
+                path.addPredecessor( target, source );
             }
         }
         else
@@ -128,7 +132,6 @@ public final class FloydWarshall
             pathReconstruction( path, source, k, next, graph );
             pathReconstruction( path, k, target, next, graph );
         }
-
     }
 
 }

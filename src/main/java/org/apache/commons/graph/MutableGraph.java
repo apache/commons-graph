@@ -25,7 +25,7 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface MutableGraph<V extends Vertex, E extends Edge<V>>
+public interface MutableGraph<V extends Vertex, E extends Edge>
     extends Graph<V, E>
 {
 
@@ -48,7 +48,7 @@ public interface MutableGraph<V extends Vertex, E extends Edge<V>>
      *
      * @param e the {@link Edge} has to be added in this {@code MutableGraph} instance.
      */
-    void addEdge( E e );
+    void addEdge( V head, E e, V tail );
 
     /**
      * Removed the {@link Edge} from the {@code MutableGraph} object.

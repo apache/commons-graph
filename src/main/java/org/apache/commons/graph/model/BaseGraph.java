@@ -23,14 +23,13 @@ import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 
 /**
  * Basic abstract in-memory based of a simple read-only {@link Graph} implementation. Subclasses may load adjacency
@@ -39,13 +38,15 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
+public abstract class BaseGraph<V extends Vertex, E extends Edge>
     implements Graph<V, E>
 {
 
-    private final Map<V, Set<E>> adjacencyList = new HashMap<V, Set<E>>();
+    private final Map<V, Set<V>> adjacencyList = new HashMap<V, Set<V>>();
 
     private final Map<VertexPair<V>, E> indexedEdges = new HashMap<VertexPair<V>, E>();
+
+    private final Map<E, VertexPair<V>> indexedVertices = new HashMap<E, VertexPair<V>>();
 
     /**
      * {@inheritDoc}
@@ -82,7 +83,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final Iterable<E> getEdges( V v )
+    public final Iterable<V> getConnectedVertices( V v )
     {
         return unmodifiableSet( adjacencyList.get( v ) );
     }
@@ -98,14 +99,9 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final Iterable<V> getVertices( E e )
+    public final VertexPair<V> getVertices( E e )
     {
-        Set<V> vertices = new LinkedHashSet<V>();
-
-        vertices.add( e.getHead() );
-        vertices.add( e.getTail() );
-
-        return unmodifiableSet( vertices );
+        return indexedVertices.get( e );
     }
 
     /**
@@ -113,19 +109,9 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
      * 
      * @return the adjacency list where stored vertex/edges.
      */
-    protected final Map<V, Set<E>> getAdjacencyList()
+    protected final Map<V, Set<V>> getAdjacencyList()
     {
         return adjacencyList;
-    }
-
-    /**
-     * Returns the set with all Graph edges.
-     * 
-     * @return the set with all Graph edges.
-     */
-    private final Set<E> getAllEdges()
-    {
-        return unmodifiableSet( new HashSet<E>( indexedEdges.values() ) );
     }
 
     /**
@@ -151,12 +137,8 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
 
         @SuppressWarnings( "unchecked" )
         // test against any Graph typed instance
-        BaseGraph<Vertex, Edge<Vertex>> other = (BaseGraph<Vertex, Edge<Vertex>>) obj;
+        BaseGraph<Vertex, Edge> other = (BaseGraph<Vertex, Edge>) obj;
         if ( !adjacencyList.equals( other.getAdjacencyList() ) )
-        {
-            return false;
-        }
-        if ( !getAllEdges().equals( other.getAllEdges() ) )
         {
             return false;
         }
@@ -178,6 +160,14 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge<V>>
     protected Map<VertexPair<V>, E> getIndexedEdges()
     {
         return indexedEdges;
+    }
+
+    /**
+     * @return the indexedVertices
+     */
+    protected Map<E, VertexPair<V>> getIndexedVertices()
+    {
+        return indexedVertices;
     }
 
 }

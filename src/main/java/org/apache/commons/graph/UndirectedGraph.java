@@ -26,7 +26,7 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface UndirectedGraph<V extends Vertex, E extends Edge<V>>
+public interface UndirectedGraph<V extends Vertex, E extends Edge>
     extends Graph<V, E>
 {
 }

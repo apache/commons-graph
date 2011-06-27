@@ -25,7 +25,7 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
  */
-public interface WeightedPath<V extends Vertex, WE extends WeightedEdge<V>>
+public interface WeightedPath<V extends Vertex, WE extends WeightedEdge>
     extends Path<V, WE>
 {
 

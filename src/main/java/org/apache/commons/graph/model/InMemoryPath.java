@@ -36,7 +36,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class InMemoryPath<V extends Vertex, E extends Edge<V>>
+public class InMemoryPath<V extends Vertex, E extends Edge>
     implements Path<V, E>
 {
 
@@ -160,7 +160,7 @@ public class InMemoryPath<V extends Vertex, E extends Edge<V>>
         }
 
         @SuppressWarnings( "unchecked" ) // test against any Path typed instance
-        InMemoryPath<Vertex, Edge<Vertex>> other = (InMemoryPath<Vertex, Edge<Vertex>>) obj;
+        InMemoryPath<Vertex, Edge> other = (InMemoryPath<Vertex, Edge>) obj;
         if ( !source.equals( other.getSource() ) )
         {
             return false;

@@ -2,6 +2,7 @@ package org.apache.commons.graph.shortestpath;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
@@ -49,19 +50,20 @@ public final class BellmannFord
      * @param target the shortest path target Vertex
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<V>, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
+    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
                                                                                                                                                               V source,
                                                                                                                                                               V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
 
-        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>();
+        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
 
         for ( WE edge : graph.getEdges() )
         {
-            V u = edge.getHead();
-            V v = edge.getTail();
+            VertexPair<V> vertexPair = graph.getVertices( edge );
+            V u = vertexPair.getHead();
+            V v = vertexPair.getTail();
 
             Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
 
@@ -71,14 +73,15 @@ public final class BellmannFord
                 shortestDistances.setWeight( v, shortDist );
 
                 // assign predecessor in shortest path
-                predecessors.addPredecessor( v, edge );
+                predecessors.addPredecessor( v, u );
             }
         }
 
         for ( WE edge : graph.getEdges() )
         {
-            V u = edge.getHead();
-            V v = edge.getTail();
+            VertexPair<V> vertexPair = graph.getVertices( edge );
+            V u = vertexPair.getHead();
+            V v = vertexPair.getTail();
 
             Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
 

@@ -26,24 +26,8 @@ package org.apache.commons.graph;
  *
  * In a {@link DirectedGraph}, {@link Edge}s have orientation, so relation expressed by the {@link Edge} has to be
  * intended from {@link #getHead()} to {@link #getTail()}.
- *
- * @param <V> the Graph vertices type
  */
-public interface Edge<V extends Vertex>
+public interface Edge
 {
-
-    /**
-     * Return the head of this edge.
-     *
-     * @return the head of this edge.
-     */
-    V getHead();
-
-    /**
-     * Return the tail of this edge.
-     *
-     * @return the tail of this edge.
-     */
-    V getTail();
 
 }

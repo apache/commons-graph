@@ -63,22 +63,15 @@ public final class AStarTestCase
         graph.addVertex( e );
         graph.addVertex( goal );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", start, a, 1.5D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", a, start, 1.5D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", start, d, 2D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", d, start, 2D ) );
+        graph.addEdge( start, new BaseLabeledWeightedEdge( "start <-> a", 1.5D ), a );
+        graph.addEdge( start, new BaseLabeledWeightedEdge( "start <-> d", 2D ), d );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", a, b, 2D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", b, a, 2D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", b, c, 3D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", c, b, 3D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", c, goal, 3D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", goal, c, 3D ) );
+        graph.addEdge( a, new BaseLabeledWeightedEdge( "a <-> b", 2D ), b );
+        graph.addEdge( b, new BaseLabeledWeightedEdge( "b <-> c", 3D ), c );
+        graph.addEdge( c, new BaseLabeledWeightedEdge( "c <-> goal", 3D ), goal );
 
-        graph.addEdge( new BaseLabeledWeightedEdge( "", d, e, 3D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", e, d, 3D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", e, goal, 2D ) );
-        graph.addEdge( new BaseLabeledWeightedEdge( "", goal, e, 2D ) );
+        graph.addEdge( d, new BaseLabeledWeightedEdge( "d <-> e", 3D ), e );
+        graph.addEdge( e, new BaseLabeledWeightedEdge( "e <-> goal", 2D ), goal );
 
         // euristics
 
@@ -111,10 +104,10 @@ public final class AStarTestCase
         expected.addVertexInTail( c );
         expected.addVertexInTail( goal );
 
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", start, a, 1.5D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", a, b, 2D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", b, c, 3D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "", c, goal, 3D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "start <-> a", 1.5D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "a <-> b", 2D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "b <-> c", 3D ) );
+        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "c <-> goal", 3D ) );
 
         // actual path
 

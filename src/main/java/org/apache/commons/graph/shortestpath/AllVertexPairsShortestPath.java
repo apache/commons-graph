@@ -23,9 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.model.VertexPair;
 
 /**
  * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.
@@ -33,7 +33,7 @@ import org.apache.commons.graph.model.VertexPair;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge<V>>
+public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge>
 {
 
     private final Map<VertexPair<V>, WeightedPath<V, WE>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE>>();
@@ -153,6 +153,12 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
         }
 
         return distance;
+    }
+
+    @Override
+    public String toString()
+    {
+        return shortestDistances.toString();
     }
 
 }

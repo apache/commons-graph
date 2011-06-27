@@ -26,6 +26,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 
 /**
  * Basic abstract in-memory based of a simple mutable {@link Graph} implementation.
@@ -33,7 +34,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
+public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     extends BaseGraph<V, E>
     implements MutableGraph<V, E>
 {
@@ -53,7 +54,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
             throw new GraphException( "Vertex '%s' already present in the Graph", v );
         }
 
-        getAdjacencyList().put( v, new LinkedHashSet<E>() );
+        getAdjacencyList().put( v, new LinkedHashSet<V>() );
 
         decorateAddVertex( v );
     }
@@ -77,6 +78,10 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
             throw new GraphException( "Vertex '%s' not present in the Graph", v );
         }
 
+        for ( V tail : getAdjacencyList().get( v ) )
+        {
+            getIndexedEdges().remove( new VertexPair<Vertex>( v, tail ) );
+        }
         getAdjacencyList().remove( v );
 
         decorateRemoveVertex( v );
@@ -92,14 +97,46 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
     /**
      * {@inheritDoc}
      */
-    public final void addEdge( E e )
+    public void addEdge( V head, E e, V tail )
     {
-        checkEdge( e );
+        internalAddEdge( head, e, tail );
 
-        getAdjacencyList().get( e.getHead() ).add( e );
-        getIndexedEdges().put( new VertexPair<V>( e.getHead(), e.getTail() ), e );
+        decorateAddEdge( head, e, tail );
+    }
 
-        decorateAddEdge( e );
+    protected void internalAddEdge( V head, E e, V tail )
+    {
+        if ( head == null )
+        {
+            throw new GraphException( "Null head Vertex not admitted" );
+        }
+        if ( e == null )
+        {
+            throw new GraphException( "Impossible to add a null Edge in the Graph" );
+        }
+        if ( tail == null )
+        {
+            throw new GraphException( "Null tail Vertex not admitted" );
+        }
+
+        if ( !getAdjacencyList().containsKey( head ) )
+        {
+            throw new GraphException( "Head Vertex '%s' not present in the Graph", head );
+        }
+        if ( !getAdjacencyList().containsKey( tail ) )
+        {
+            throw new GraphException( "Tail Vertex '%s' not present in the Graph", tail );
+        }
+
+        getAdjacencyList().get( head ).add( tail );
+
+        VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
+        getIndexedEdges().put( vertexPair, e );
+
+        if ( !getIndexedVertices().containsKey( e ) )
+        {
+            getIndexedVertices().put( e, vertexPair );
+        }
     }
 
     /**
@@ -107,17 +144,19 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
      *
      * @param e
      */
-    protected abstract void decorateAddEdge( E e );
+    protected abstract void decorateAddEdge( V head, E e, V tail );
 
     /**
      * {@inheritDoc}
      */
     public final void removeEdge( E e )
     {
-        checkEdge( e );
+        if ( e == null )
+        {
+            throw new GraphException( "Impossible to add a null Edge in the Graph" );
+        }
 
-        getAdjacencyList().get( e.getHead() ).remove( e );
-        getIndexedEdges().remove( new VertexPair<V>( e.getHead(), e.getTail() ) );
+        // TODO to be completed
 
         decorateRemoveEdge( e );
     }
@@ -128,35 +167,5 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge<V>>
      * @param e
      */
     protected abstract void decorateRemoveEdge( E e );
-
-    /**
-     * Utility method to check if Vertices in the given Edge are present in the Graph.
-     *
-     * @param e the Edge which Vertices have to be checked
-     */
-    private final void checkEdge( E e )
-    {
-        if ( e == null )
-        {
-            throw new GraphException( "Impossible to add a null Edge in the Graph" );
-        }
-        if ( e.getHead() == null )
-        {
-            throw new GraphException( "Null head Vertex not admitted" );
-        }
-        if ( e.getTail() == null )
-        {
-            throw new GraphException( "Null tail Vertex not admitted" );
-        }
-
-        if ( !getAdjacencyList().containsKey( e.getHead() ) )
-        {
-            throw new GraphException( "Head Vertex '%s' not present in the Graph", e.getHead() );
-        }
-        if ( !getAdjacencyList().containsKey( e.getTail() ) )
-        {
-            throw new GraphException( "Tail Vertex '%s' not present in the Graph", e.getTail() );
-        }
-    }
 
 }
