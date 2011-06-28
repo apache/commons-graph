@@ -1,11 +1,6 @@
 package org.apache.commons.graph.coloring;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
@@ -44,42 +39,20 @@ public final class GraphColoring
      */
     public static <V extends Vertex, E extends Edge> ColoredVertices<V> coloring( UndirectedGraph<V, E> g )
     {
-        ColoredVertices<V> coloredVertices = new ColoredVertices<V>();
-        List<V> uncoloredVertices = null;
+        final ColoredVertices<V> coloredVertices = new ColoredVertices<V>();
 
         // decreasing sorting all vertices by degree.
-        Map<Integer, List<V>> orderedVertex = new TreeMap<Integer, List<V>>( new Comparator<Integer>()
-        {
-            public int compare( Integer o1, Integer o2 )
-            {
-                return o2.compareTo( o1 );
-            }
-        } );
+        final UncoloredOrderedVertices<V> uncoloredOrderedVertices = new UncoloredOrderedVertices<V>();
 
         for ( V v : g.getVertices() )
         {
-            int degree = g.getDegree( v );
-            List<V> vertices = orderedVertex.get( degree );
-
-            if ( vertices == null )
-            {
-                vertices = new ArrayList<V>();
-            }
-
-            vertices.add( v );
-            orderedVertex.put( degree, vertices );
-        }
-
-        uncoloredVertices = new ArrayList<V>();
-        for ( Integer key : orderedVertex.keySet() )
-        {
-            uncoloredVertices.addAll( orderedVertex.get( key ) );
+            uncoloredOrderedVertices.addVertexDegree( v, g.getDegree( v ) );
         }
 
         // search coloring
         int currrentColorIndex = 0;
 
-        Iterator<V> it = uncoloredVertices.iterator();
+        Iterator<V> it = uncoloredOrderedVertices.iterator();
         while ( it.hasNext() )
         {
             V v = it.next();
@@ -89,7 +62,7 @@ public final class GraphColoring
             coloredVertices.addColor( v, currrentColorIndex );
 
             // color all vertices not adjacent
-            Iterator<V> it2 = uncoloredVertices.iterator();
+            Iterator<V> it2 = uncoloredOrderedVertices.iterator();
             while ( it2.hasNext() )
             {
                 V v2 = it2.next();
@@ -101,7 +74,7 @@ public final class GraphColoring
                 }
             }
 
-            it = uncoloredVertices.iterator();
+            it = uncoloredOrderedVertices.iterator();
             currrentColorIndex++;
         }
 
