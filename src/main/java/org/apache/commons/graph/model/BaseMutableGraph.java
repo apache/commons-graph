@@ -99,13 +99,6 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
      */
     public void addEdge( V head, E e, V tail )
     {
-        internalAddEdge( head, e, tail );
-
-        decorateAddEdge( head, e, tail );
-    }
-
-    protected void internalAddEdge( V head, E e, V tail )
-    {
         if ( head == null )
         {
             throw new GraphException( "Null head Vertex not admitted" );
@@ -119,6 +112,10 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
             throw new GraphException( "Null tail Vertex not admitted" );
         }
 
+        if ( !getAllEdges().add( e ) )
+        {
+            throw new GraphException( "Edge '%s' already present in the Graph", e );
+        }
         if ( !getAdjacencyList().containsKey( head ) )
         {
             throw new GraphException( "Head Vertex '%s' not present in the Graph", head );
@@ -128,6 +125,13 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
             throw new GraphException( "Tail Vertex '%s' not present in the Graph", tail );
         }
 
+        internalAddEdge( head, e, tail );
+
+        decorateAddEdge( head, e, tail );
+    }
+
+    protected void internalAddEdge( V head, E e, V tail )
+    {
         getAdjacencyList().get( head ).add( tail );
 
         VertexPair<V> vertexPair = new VertexPair<V>( head, tail );

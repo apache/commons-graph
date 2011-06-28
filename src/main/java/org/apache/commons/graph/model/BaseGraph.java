@@ -23,6 +23,7 @@ import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,6 +44,8 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
 {
 
     private final Map<V, Set<V>> adjacencyList = new HashMap<V, Set<V>>();
+
+    private final Set<E> allEdges = new HashSet<E>();
 
     private final Map<VertexPair<V>, E> indexedEdges = new HashMap<VertexPair<V>, E>();
 
@@ -69,7 +72,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public final Iterable<E> getEdges()
     {
-        return unmodifiableCollection( indexedEdges.values() );
+        return unmodifiableCollection( allEdges );
     }
 
     /**
@@ -77,7 +80,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public int getSize()
     {
-        return indexedEdges.size();
+        return allEdges.size();
     }
 
     /**
@@ -152,6 +155,14 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     public String toString()
     {
         return String.valueOf( adjacencyList );
+    }
+
+    /**
+     * @return
+     */
+    protected Set<E> getAllEdges()
+    {
+        return allEdges;
     }
 
     /**
