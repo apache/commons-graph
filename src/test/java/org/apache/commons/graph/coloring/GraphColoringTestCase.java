@@ -19,7 +19,7 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
-import static org.apache.commons.graph.coloring.GraphColoring.colorNumber;
+import static org.apache.commons.graph.coloring.GraphColoring.coloring;
 import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.junit.Assert.assertEquals;
@@ -54,7 +54,7 @@ public class GraphColoringTestCase
         g.addEdge( two, new BaseLabeledEdge( "2 -> 3" ), three );
         g.addEdge( three, new BaseLabeledEdge( "3 -> 1" ), one );
 
-        assertEquals( 3, colorNumber( g ) );
+        assertEquals( 3, coloring( g ).getRequiredColors() );
     }
 
     @Test
@@ -64,7 +64,7 @@ public class GraphColoringTestCase
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 100, g1 );
 
-        assertEquals( 100, colorNumber( g1 ) );
+        assertEquals( 100, coloring( g1 ).getRequiredColors() );
     }
 
     @Test
@@ -74,7 +74,7 @@ public class GraphColoringTestCase
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildBipartedGraph( 100, g1 );
 
-        assertEquals( 2, colorNumber( g1 ) );
+        assertEquals( 2, coloring( g1 ).getRequiredColors() );
     }
 
     @Test
@@ -86,7 +86,7 @@ public class GraphColoringTestCase
             g1.addVertex( new BaseLabeledVertex( "" + i ) );
         }
 
-        assertEquals( 1, colorNumber( g1 ) );
+        assertEquals( 1, coloring( g1 ).getRequiredColors() );
     }
 
 }
