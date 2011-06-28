@@ -112,10 +112,6 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
             throw new GraphException( "Null tail Vertex not admitted" );
         }
 
-        if ( !getAllEdges().add( e ) )
-        {
-            throw new GraphException( "Edge '%s' already present in the Graph", e );
-        }
         if ( !getAdjacencyList().containsKey( head ) )
         {
             throw new GraphException( "Head Vertex '%s' not present in the Graph", head );
@@ -124,6 +120,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
         {
             throw new GraphException( "Tail Vertex '%s' not present in the Graph", tail );
         }
+
+        getAllEdges().add( e );
 
         internalAddEdge( head, e, tail );
 
