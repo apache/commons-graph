@@ -1,9 +1,7 @@
 package org.apache.commons.graph.coloring;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -39,27 +37,14 @@ public final class GraphColoring
 {
 
     /**
-     * Return the color number of the graph. The color number is the minimal number of colors needed to color each
-     * vertex such that no two adjacent vertices share the same color.
-     *
-     * @param g The graph.
-     * @return the graph color number.
-     */
-    public static <V extends Vertex, E extends Edge> int colorNumber( UndirectedGraph<V, E> g )
-    {
-        Map<V, Integer> coloredVertices = coloring( g );
-        return Collections.max( coloredVertices.values() ) + 1;
-    }
-
-    /**
      * Colors the graph such that no two adjacent vertices share the same color.
      *
      * @param g The graph.
      * @return The color - vertex association.
      */
-    public static <V extends Vertex, E extends Edge> Map<V, Integer> coloring( UndirectedGraph<V, E> g )
+    public static <V extends Vertex, E extends Edge> ColoredVertices<V> coloring( UndirectedGraph<V, E> g )
     {
-        Map<V, Integer> coloredVertices = new HashMap<V, Integer>();
+        ColoredVertices<V> coloredVertices = new ColoredVertices<V>();
         List<V> uncoloredVertices = null;
 
         // decreasing sorting all vertices by degree.
@@ -101,9 +86,9 @@ public final class GraphColoring
 
             // remove vertex from uncolored list.
             it.remove();
-            coloredVertices.put( v, currrentColorIndex );
+            coloredVertices.addColor( v, currrentColorIndex );
 
-            // color all vertex not adiacent
+            // color all vertices not adjacent
             Iterator<V> it2 = uncoloredVertices.iterator();
             while ( it2.hasNext() )
             {
@@ -112,7 +97,7 @@ public final class GraphColoring
                 {
                     // v2 is not connect to v.
                     it2.remove();
-                    coloredVertices.put( v2, currrentColorIndex );
+                    coloredVertices.addColor( v2, currrentColorIndex );
                 }
             }
 
