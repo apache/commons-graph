@@ -37,6 +37,14 @@ public class UndirectedMutableGraph<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
+    public final int getDegree( V v )
+    {
+        return getAdjacencyList().get( v ).size() * 2;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void decorateAddVertex( V v )
     {

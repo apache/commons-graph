@@ -59,6 +59,15 @@ public interface Graph<V extends Vertex, E extends Edge>
     int getSize();
 
     /**
+     * The degree (or valency) of a {@link Vertex} of a {@link Graph}
+     * is the number of {@link Edge}s incident to the {@link Vertex}.
+     *
+     * @param v the {@link Vertex} which degree has to be returned.
+     * @return the number of {@link Edge}s incident to the {@link Vertex}.
+     */
+    int getDegree( V v );
+
+    /**
      * Returns all vertices which touch this vertex.
      * 
      * @return all vertices which touch this vertex.

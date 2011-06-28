@@ -46,7 +46,23 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getInbound( V v )
+    public final int getDegree( V v )
+    {
+        return getInDegree( v ) + getOutDegree( v );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final int getInDegree( V v )
+    {
+        return inbound.get( v ).size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final Iterable<V> getInbound( V v )
     {
         return inbound.get( v );
     }
@@ -54,7 +70,15 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getOutbound( V v )
+    public final int getOutDegree( V v )
+    {
+        return outbound.get( v ).size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final Iterable<V> getOutbound( V v )
     {
         return outbound.get( v );
     }
