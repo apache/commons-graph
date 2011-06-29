@@ -78,12 +78,11 @@ public final class AStar
         // The of navigated nodes
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
 
-        // the current node
-        V current;
-
         // extract the node in openset having the lowest f_score[] value
-        while ( ( current = openSet.poll() ) != null )
+        while ( !openSet.isEmpty() )
         {
+            V current = openSet.poll();
+
             // destination reached, stop and build the path
             if ( goal.equals( current ) )
             {

@@ -68,12 +68,11 @@ public final class Dijkstra
 
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
 
-        // the current node
-        V vertex;
-
         // extract the node with the shortest distance
-        while ( ( vertex = unsettledNodes.poll() ) != null )
+        while ( !unsettledNodes.isEmpty() )
         {
+            V vertex = unsettledNodes.poll();
+
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
             {
