@@ -73,7 +73,7 @@ public final class AStar
 
         // The set of tentative nodes to be evaluated.
         final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getOrder(), fScores );
-        openSet.add( start );
+        openSet.offer( start );
 
         // The of navigated nodes
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
