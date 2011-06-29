@@ -93,7 +93,7 @@ public final class Dijkstra
                     {
                         // assign new shortest distance and mark unsettled
                         shortestDistances.setWeight( v, shortDist );
-                        unsettledNodes.add( v );
+                        unsettledNodes.offer( v );
 
                         // assign predecessor in shortest path
                         predecessors.addPredecessor( v, vertex );

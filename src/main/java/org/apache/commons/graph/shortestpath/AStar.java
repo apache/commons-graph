@@ -101,7 +101,7 @@ public final class AStar
                     WE edge = graph.getEdge( current, v );
                     Double tentativeGScore = gScores.getWeight( current ) + edge.getWeight();
 
-                    if ( openSet.add( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
+                    if ( openSet.offer( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
                     {
                         predecessors.addPredecessor( v, current );
                         gScores.setWeight( v, tentativeGScore );
