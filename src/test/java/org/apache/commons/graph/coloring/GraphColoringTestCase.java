@@ -149,7 +149,7 @@ public class GraphColoringTestCase
     {
         UndirectedMutableGraph<Vertex, Edge> g1 = GraphUtils.buildSudokuGraph();
 
-        // The true color number fot this graph is 9. but the greedy euristics is not the best and returns 11.
+        // The true color number for this graph is 9. but the greedy heuristic is not the best and returns 11.
         ColoredVertices<Vertex> sudoku = GraphColoring.coloring( g1 );
         assertEquals( 11, sudoku.getRequiredColors() );
 
