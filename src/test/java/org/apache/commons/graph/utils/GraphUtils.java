@@ -3,6 +3,8 @@ package org.apache.commons.graph.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
@@ -34,7 +36,7 @@ public class GraphUtils
 
     /**
      * Creates a complete graph with nVertices
-     *
+     * 
      * @param nVertices number of vertices
      * @param g graph
      */
@@ -107,6 +109,101 @@ public class GraphUtils
                 }
             }
         }
+    }
+
+    /**
+     * Creates a graph that contains all classic sudoku contratints.
+     *
+     * @return
+     */
+    public static UndirectedMutableGraph<Vertex, Edge> buildSudokuGraph()
+    {
+        UndirectedMutableGraph<Vertex, Edge> sudoku = new UndirectedMutableGraph<Vertex, Edge>();
+
+        BaseLabeledVertex[][] grid = new BaseLabeledVertex[9][9];
+
+        // build sudoku grid.
+        for ( int row = 0; row < 9; row++ )
+        {
+            for ( int col = 0; col < 9; col++ )
+            {
+                grid[row][col] = new BaseLabeledVertex( row + "," + col );
+                sudoku.addVertex( grid[row][col] );
+            }
+        }
+
+        int[] rowsOffsets = new int[] { 0, 3, 6 };
+        int[] colsOffsets = new int[] { 0, 3, 6 };
+
+        // build constraint.
+        for ( int rof = 0; rof < 3; rof++ )
+        {
+            for ( int cof = 0; cof < 3; cof++ )
+            {
+                List<Vertex> boxes = new ArrayList<Vertex>();
+                for ( int row = rowsOffsets[rof]; row < 3 + rowsOffsets[rof]; row++ )
+                {
+                    for ( int col = colsOffsets[cof]; col < 3 + colsOffsets[cof]; col++ )
+                    {
+                        boxes.add( grid[row][col] );
+                    }
+                }
+
+                for ( Vertex v1 : boxes )
+                {
+                    for ( Vertex v2 : boxes )
+                    {
+
+                        Edge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        if ( !v1.equals( v2 ) )
+                        {
+                            sudoku.addEdge( v1, e, v2 );
+                        }
+                    }
+                }
+            }
+        }
+
+        // create rows constraint
+        for ( int j = 0; j < 9; j++ )
+        {
+            for ( int i = 0; i < 9; i++ )
+            {
+                for ( int h = 0; h < 9; h++ )
+                {
+                    Vertex v1 = grid[j][i];
+                    Vertex v2 = grid[j][h];
+
+                    if ( !v1.equals( v2 ) )
+                    {
+                        Edge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        sudoku.addEdge( v1, e, v2 );
+                    }
+
+                }
+            }
+        }
+
+        // create cols constraint
+        for ( int j = 0; j < 9; j++ )
+        {
+            for ( int i = 0; i < 9; i++ )
+            {
+                for ( int h = 0; h < 9; h++ )
+                {
+                    Vertex v1 = grid[i][j];
+                    Vertex v2 = grid[h][j];
+
+                    if ( !v1.equals( v2 ) )
+                    {
+                        Edge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        sudoku.addEdge( v1, e, v2 );
+                    }
+
+                }
+            }
+        }
+        return sudoku;
     }
 
     /**

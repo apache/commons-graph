@@ -1,6 +1,8 @@
 package org.apache.commons.graph.coloring;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
@@ -26,14 +28,16 @@ import org.apache.commons.graph.Vertex;
  */
 
 /**
- * Contains the graph coloring implementation. http://scienceblogs.com/goodmath/2007/06/graph_coloring_algorithms_1.php
+ * Contains the graph coloring implementation. This is a greedy implementation for the graph coloring problem. This
+ * algorithm couldn't find the mimium coloring for the given graph since this is an NP-complete problem. <a
+ * href="http://scienceblogs.com/goodmath/2007/06/graph_coloring_algorithms_1.php">
  */
 public final class GraphColoring
 {
 
     /**
      * Colors the graph such that no two adjacent vertices share the same color.
-     *
+     * 
      * @param g The graph.
      * @return The color - vertex association.
      */
@@ -50,32 +54,42 @@ public final class GraphColoring
         }
 
         // search coloring
-        int currrentColorIndex = 0;
 
         Iterator<V> it = uncoloredOrderedVertices.iterator();
-        while ( it.hasNext() )
+        for ( int currentColorIndex = 0; it.hasNext(); currentColorIndex++ )
         {
-            V v = it.next();
+            // consume the vertex.
+            it.next();
 
-            // remove vertex from uncolored list.
-            it.remove();
-            coloredVertices.addColor( v, currrentColorIndex );
-
-            // color all vertices not adjacent
-            Iterator<V> it2 = uncoloredOrderedVertices.iterator();
-            while ( it2.hasNext() )
+            // this list contains all vertex colore with the current color.
+            List<V> currentColorVertices = new ArrayList<V>();
+            Iterator<V> uncoloredVtxIterator = uncoloredOrderedVertices.iterator();
+            while ( uncoloredVtxIterator.hasNext() )
             {
-                V v2 = it2.next();
-                if ( g.getEdge( v, v2 ) == null )
+                V uncoloredVtx = uncoloredVtxIterator.next();
+
+                boolean foundAnAdjacentVertex = false;
+                for ( V currentColoredVtx : currentColorVertices )
                 {
-                    // v2 is not connect to v.
-                    it2.remove();
-                    coloredVertices.addColor( v2, currrentColorIndex );
+                    if ( g.getEdge( currentColoredVtx, uncoloredVtx ) != null )
+                    {
+                        // we've found that 'uncoloredVtx' is adiacent to 'currentColoredVtx'
+                        foundAnAdjacentVertex = true;
+                        break;
+                    }
+                }
+
+                if ( !foundAnAdjacentVertex )
+                {
+                    // It's possible to color the vertex 'uncoloredVtx', it has no connected vertex into
+                    // 'currentcoloredvtx'
+                    uncoloredVtxIterator.remove();
+                    coloredVertices.addColor( uncoloredVtx, currentColorIndex );
+                    currentColorVertices.add( uncoloredVtx );
                 }
             }
 
             it = uncoloredOrderedVertices.iterator();
-            currrentColorIndex++;
         }
 
         return coloredVertices;

@@ -111,4 +111,14 @@ final class UncoloredOrderedVertices<V extends Vertex>
         };
     }
 
+    /**
+     * Returns the number of vertices degrees in the graph.
+     *
+     * @return the number of vertices degrees in the graph.
+     */
+    public int size()
+    {
+        return orderedVertices.size();
+    }
+
 }
