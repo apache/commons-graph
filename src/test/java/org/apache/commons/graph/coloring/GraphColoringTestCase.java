@@ -22,6 +22,7 @@ package org.apache.commons.graph.coloring;
 import static org.apache.commons.graph.coloring.GraphColoring.coloring;
 import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
+import static org.apache.commons.graph.utils.GraphUtils.buildSudokuGraph;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -31,7 +32,6 @@ import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.apache.commons.graph.utils.GraphUtils;
 import org.junit.Test;
 
 /**
@@ -147,7 +147,7 @@ public class GraphColoringTestCase
     public void testSudoku()
         throws Exception
     {
-        UndirectedMutableGraph<Vertex, Edge> g1 = GraphUtils.buildSudokuGraph();
+        UndirectedMutableGraph<Vertex, Edge> g1 = buildSudokuGraph();
 
         // The true color number for this graph is 9. but the greedy heuristic is not the best and returns 11.
         ColoredVertices<Vertex> sudoku = GraphColoring.coloring( g1 );
