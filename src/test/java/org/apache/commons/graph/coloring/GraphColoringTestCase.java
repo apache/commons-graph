@@ -63,7 +63,6 @@ public class GraphColoringTestCase
         assertEquals( 3, coloredVertices.getRequiredColors() );
 
         checkColoring( g, coloredVertices );
-
     }
 
     @Test
@@ -77,7 +76,6 @@ public class GraphColoringTestCase
         assertEquals( 100, coloredVertices.getRequiredColors() );
 
         checkColoring( g1, coloredVertices );
-
     }
 
     @Test
@@ -91,7 +89,6 @@ public class GraphColoringTestCase
 
         assertEquals( 2, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
-
     }
 
     @Test
@@ -108,7 +105,6 @@ public class GraphColoringTestCase
 
         assertEquals( 1, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
-
     }
 
     /**
@@ -145,14 +141,12 @@ public class GraphColoringTestCase
         assertEquals( 2, coloring( g ).getRequiredColors() );
 
         checkColoring( g, coloredVertices );
-
     }
 
     @Test
     public void testSudoku()
         throws Exception
     {
-
         UndirectedMutableGraph<Vertex, Edge> g1 = GraphUtils.buildSudokuGraph();
 
         // The true color number fot this graph is 9. but the greedy euristics is not the best and returns 11.
@@ -160,21 +154,6 @@ public class GraphColoringTestCase
         assertEquals( 11, sudoku.getRequiredColors() );
 
         checkColoring( g1, sudoku );
-
-        // for ( int i = 0; i < 9; i++ )
-        // {
-        // for ( int j = 0; j < 9; j++ )
-        // {
-        // System.out.print ( sudoku.getColor(GraphUtils.grid[i][j]) + " | " );
-        // }
-        // System.out.println();
-        // }
-
-        // Writer w = new OutputStreamWriter(System.out);
-        // GraphUtils.DOTexport(w, g1);
-        // w.flush();
-        // w.close();
-
     }
 
     /**
@@ -190,7 +169,6 @@ public class GraphColoringTestCase
         {
             VertexPair<V> vp = g.getVertices( e );
             assertTrue( coloredVertices.getColor( vp.getHead() ) != coloredVertices.getColor( vp.getTail() ) );
-
         }
     }
 
