@@ -97,7 +97,7 @@ public final class FloydWarshall
                     PredecessorsList<V, WE> predecessorsList = new PredecessorsList<V, WE>( graph );
 
                     pathReconstruction( predecessorsList, source, target, next, graph );
-                    if ( !predecessorsList.predecessors.isEmpty() )
+                    if ( !predecessorsList.isEmpty() )
                     {
                         WeightedPath<V, WE> weightedPath = predecessorsList.buildPath( source, target );
                         if ( weightedPath.size() > 0 )

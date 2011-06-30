@@ -39,9 +39,9 @@ import org.apache.commons.graph.model.InMemoryWeightedPath;
 final class PredecessorsList<V extends Vertex, WE extends WeightedEdge>
 {
 
-    final Graph<V, WE> graph;
+    private final Graph<V, WE> graph;
 
-    final Map<V, V> predecessors = new HashMap<V, V>();
+    private final Map<V, V> predecessors = new HashMap<V, V>();
 
     public PredecessorsList(Graph<V, WE> graph )
     {
@@ -86,6 +86,16 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge>
         path.addVertexInHead( source );
 
         return path;
+    }
+
+    /**
+     * Checks the predecessor list has no elements.
+     *
+     * @return true, if the predecessor list has no elements, false otherwise.
+     */
+    public boolean isEmpty()
+    {
+        return predecessors.isEmpty();
     }
 
 }
