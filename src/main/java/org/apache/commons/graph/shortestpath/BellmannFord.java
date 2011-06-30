@@ -50,30 +50,32 @@ public final class BellmannFord
      * @param target the shortest path target Vertex
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
-                                                                                                                                                              V source,
-                                                                                                                                                              V target )
+    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE> findShortestPath( G graph,
+                                                                                                                                                                         V source)
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
 
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
 
-        for ( WE edge : graph.getEdges() )
+        for ( int i = 0; i < graph.getOrder(); i++ )
         {
-            VertexPair<V> vertexPair = graph.getVertices( edge );
-            V u = vertexPair.getHead();
-            V v = vertexPair.getTail();
-
-            Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
-
-            if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+            for ( WE edge : graph.getEdges() )
             {
-                // assign new shortest distance and mark unsettled
-                shortestDistances.setWeight( v, shortDist );
+                VertexPair<V> vertexPair = graph.getVertices( edge );
+                V u = vertexPair.getHead();
+                V v = vertexPair.getTail();
 
-                // assign predecessor in shortest path
-                predecessors.addPredecessor( v, u );
+                Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
+
+                if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+                {
+                    // assign new shortest distance and mark unsettled
+                    shortestDistances.setWeight( v, shortDist );
+
+                    // assign predecessor in shortest path
+                    predecessors.addPredecessor( v, u );
+                }
             }
         }
 
@@ -93,7 +95,18 @@ public final class BellmannFord
             }
         }
 
-        return null;
+        AllVertexPairsShortestPath<V, WE> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE>();
+
+        for ( V target : graph.getVertices() )
+        {
+            if ( !source.equals( target ) )
+            {
+                WeightedPath<V, WE> weightedPath = predecessors.buildPath( source, target );
+                allVertexPairsShortestPath.addShortestPath( source, target, weightedPath );
+            }
+        }
+
+        return allVertexPairsShortestPath;
     }
 
 }
