@@ -23,7 +23,6 @@ import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Path;
@@ -92,7 +91,7 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public List<V> getVertices()
+    public Iterable<V> getVertices()
     {
         return unmodifiableList( vertices );
     }
@@ -118,7 +117,7 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public List<E> getEdges()
+    public Iterable<E> getEdges()
     {
         return unmodifiableList( edges );
     }

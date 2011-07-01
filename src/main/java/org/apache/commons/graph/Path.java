@@ -19,7 +19,6 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import java.util.List;
 
 /**
  * A {@code Path} in a {@link Graph} is a sequence of {@link Vertex} such that from each of its vertices there is an
@@ -53,7 +52,7 @@ public interface Path<V extends Vertex, E extends Edge>
      *
      * @return a list of Vertices, in order as they go from Start to End.
      */
-    List<V> getVertices();
+    Iterable<V> getVertices();
 
     /**
      * Returns the <i>order</i> of a Graph (the number of Vertices);
@@ -69,7 +68,7 @@ public interface Path<V extends Vertex, E extends Edge>
      *
      * @return a list of Edges which comprise the path.
      */
-    List<E> getEdges();
+    Iterable<E> getEdges();
 
     /**
      * Returns the <i>size</i> of a Graph (the number of Edges)
