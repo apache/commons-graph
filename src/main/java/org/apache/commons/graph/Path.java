@@ -33,30 +33,41 @@ public interface Path<V extends Vertex, E extends Edge>
 
     /**
      * Returns the source of the path.
+     *
+     * @return the source of the path.
      */
     V getSource();
 
     /**
      * Returns the target of the path.
+     *
+     * @return the target of the path.
      */
     V getTarget();
 
     /**
-     * getVertices() - This returns a list of Vertices, in order as they go from
-     * Start to End. This includes the Start and End vertex, and will have one
+     * Returns a list of Vertices, in order as they go from Start to End.
+     *
+     * This includes the Start and End vertex, and will have one
      * more entry than the Edges list.
+     *
+     * @return a list of Vertices, in order as they go from Start to End.
      */
     List<V> getVertices();
 
     /**
-     * getEdges() - This returns a list of Edges which comprise the path. It
-     * will have one less than the list of Vertices.
+     * Returns a list of Edges which comprise the path.
+     *
+     * It will have one less than the list of Vertices.
+     *
+     * @return a list of Edges which comprise the path.
      */
     List<E> getEdges();
 
     /**
-     * size() - This returns the size of the path in terms of number of
-     * verticies it visits.
+     * Returns the size of the path in terms of number of vertices it visits.
+     *
+     * @return the size of the path in terms of number of vertices it visits.
      */
     int size();
 
