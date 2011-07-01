@@ -100,7 +100,7 @@ public final class FloydWarshall
                     if ( !predecessorsList.isEmpty() )
                     {
                         WeightedPath<V, WE> weightedPath = predecessorsList.buildPath( source, target );
-                        if ( weightedPath.size() > 0 )
+                        if ( weightedPath.getOrder() > 0 )
                         {
                             shortesPaths.addShortestPath( source, target, weightedPath );
                         }

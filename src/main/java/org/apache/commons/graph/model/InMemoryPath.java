@@ -97,6 +97,14 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
         return unmodifiableList( vertices );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public int getOrder()
+    {
+        return vertices.size();
+    }
+
     public void addEdgeInHead( E edge )
     {
         edges.addFirst( edge );
@@ -118,9 +126,9 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public int size()
+    public int getSize()
     {
-        return vertices.size();
+        return edges.size();
     }
 
     /**

@@ -56,6 +56,13 @@ public interface Path<V extends Vertex, E extends Edge>
     List<V> getVertices();
 
     /**
+     * Returns the <i>order</i> of a Graph (the number of Vertices);
+     *
+     * @return the <i>order</i> of a Graph (the number of Vertices);
+     */
+    int getOrder();
+
+    /**
      * Returns a list of Edges which comprise the path.
      *
      * It will have one less than the list of Vertices.
@@ -65,10 +72,10 @@ public interface Path<V extends Vertex, E extends Edge>
     List<E> getEdges();
 
     /**
-     * Returns the size of the path in terms of number of vertices it visits.
+     * Returns the <i>size</i> of a Graph (the number of Edges)
      *
-     * @return the size of the path in terms of number of vertices it visits.
+     * @return the <i>size</i> of a Graph (the number of Edges)
      */
-    int size();
+    int getSize();
 
 }
