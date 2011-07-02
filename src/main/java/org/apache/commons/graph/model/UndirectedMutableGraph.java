@@ -39,7 +39,7 @@ public class UndirectedMutableGraph<V extends Vertex, E extends Edge>
      */
     public final int getDegree( V v )
     {
-        return getAdjacencyList().get( v ).size() * 2;
+        return getAdjacencyList().get( v ).size();
     }
 
     /**
