@@ -19,9 +19,15 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.shared.ShortestDistances;
 
 /**
  * Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a connected weighted undirected graph.
@@ -40,6 +46,43 @@ public final class Prim
     public static <V extends Vertex, WE extends WeightedEdge> WeightedGraph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph,
                                                                                                         V source )
     {
+        final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
+        shortestDistances.setWeight( source, 0D );
+
+        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestDistances );
+        unsettledNodes.offer( source );
+
+        final Set<V> settledNodes = new HashSet<V>();
+
+        // extract the node with the shortest distance
+        while ( !unsettledNodes.isEmpty() )
+        {
+            V vertex = unsettledNodes.poll();
+
+            @SuppressWarnings( "unchecked" ) // Vertex/Edge type driven by input class
+            Iterable<V> connectedVertices = ( graph instanceof DirectedGraph )
+                                            ? ( ( DirectedGraph<V, WE> ) graph ).getOutbound( vertex )
+                                            : graph.getConnectedVertices( vertex );
+
+            for ( V v : connectedVertices )
+            {
+                // skip node already settled
+                if ( !settledNodes.contains( v ) )
+                {
+                    WE edge = graph.getEdge( vertex, v );
+
+                    if ( edge.getWeight().compareTo( shortestDistances.getWeight( v ) ) < 0 )
+                    {
+                        // assign new shortest distance and mark unsettled
+                        shortestDistances.setWeight( v, edge.getWeight() );
+                        unsettledNodes.offer( v );
+
+                        // TODO assign predecessor in shortest path
+                    }
+                }
+            }
+        }
+
         return null;
     }
 
