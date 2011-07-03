@@ -98,16 +98,10 @@ public final class AStarTestCase
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( start, goal );
 
-        expected.addVertexInTail( start );
-        expected.addVertexInTail( a );
-        expected.addVertexInTail( b );
-        expected.addVertexInTail( c );
-        expected.addVertexInTail( goal );
-
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "start <-> a", 1.5D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "a <-> b", 2D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "b <-> c", 3D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "c <-> goal", 3D ) );
+        expected.addConnectionInTail( start, new BaseLabeledWeightedEdge( "start <-> a", 1.5D ), a );
+        expected.addConnectionInTail( a, new BaseLabeledWeightedEdge( "a <-> b", 2D ), b );
+        expected.addConnectionInTail( b, new BaseLabeledWeightedEdge( "b <-> c", 3D ), c );
+        expected.addConnectionInTail( c, new BaseLabeledWeightedEdge( "c <-> goal", 3D ), goal );
 
         // actual path
 

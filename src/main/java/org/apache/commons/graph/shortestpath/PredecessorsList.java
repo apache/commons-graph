@@ -77,13 +77,10 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge>
             V predecessor = predecessors.get( vertex );
             WE edge = graph.getEdge( predecessor, vertex );
 
-            path.addEdgeInHead( edge );
-            path.addVertexInHead( vertex );
+            path.addConnectionInHead( predecessor, edge, vertex );
 
             vertex = predecessor;
         }
-
-        path.addVertexInHead( source );
 
         return path;
     }

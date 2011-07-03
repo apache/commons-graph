@@ -27,6 +27,7 @@ package org.apache.commons.graph;
  * @param <E> the Graph edges type
  */
 public interface Path<V extends Vertex, E extends Edge>
+    extends Graph<V, E>
 {
 
     /**
@@ -42,38 +43,5 @@ public interface Path<V extends Vertex, E extends Edge>
      * @return the target of the path.
      */
     V getTarget();
-
-    /**
-     * Returns a list of Vertices, in order as they go from Start to End.
-     *
-     * This includes the Start and End vertex, and will have one
-     * more entry than the Edges list.
-     *
-     * @return a list of Vertices, in order as they go from Start to End.
-     */
-    Iterable<V> getVertices();
-
-    /**
-     * Returns the <i>order</i> of a Graph (the number of Vertices);
-     *
-     * @return the <i>order</i> of a Graph (the number of Vertices);
-     */
-    int getOrder();
-
-    /**
-     * Returns a list of Edges which comprise the path.
-     *
-     * It will have one less than the list of Vertices.
-     *
-     * @return a list of Edges which comprise the path.
-     */
-    Iterable<E> getEdges();
-
-    /**
-     * Returns the <i>size</i> of a Graph (the number of Edges)
-     *
-     * @return the <i>size</i> of a Graph (the number of Edges)
-     */
-    int getSize();
 
 }

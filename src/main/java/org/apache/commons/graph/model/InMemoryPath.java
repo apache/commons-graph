@@ -19,14 +19,19 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static java.util.Arrays.asList;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Path;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 
 /**
  * Support {@link Path} implementation, optimized for algorithms (such Dijkstra's) that need to rebuild the path
@@ -46,6 +51,12 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     private final LinkedList<V> vertices = new LinkedList<V>();
 
     private final LinkedList<E> edges = new LinkedList<E>();
+
+    private final Map<V, V> successors = new HashMap<V, V>();
+
+    private final Map<VertexPair<V>, E> indexedEdges = new HashMap<VertexPair<V>, E>();
+
+    private final Map<E, VertexPair<V>> indexedVertices = new HashMap<E, VertexPair<V>>();
 
     public InMemoryPath( V start, V target )
     {
@@ -78,16 +89,6 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
         return target;
     }
 
-    public void addVertexInHead( V vertex )
-    {
-        vertices.addFirst( vertex );
-    }
-
-    public void addVertexInTail( V vertex )
-    {
-        vertices.addLast( vertex );
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -104,14 +105,27 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
         return vertices.size();
     }
 
-    public void addEdgeInHead( E edge )
+    public void addConnectionInHead( V head, E edge, V tail )
     {
+        vertices.addFirst( head );
         edges.addFirst( edge );
+        addConnection( head, edge, tail );
     }
 
-    public void addEdgeInTail( E edge )
+    public void addConnectionInTail( V head, E edge, V tail )
     {
+        vertices.addLast( head );
         edges.addLast( edge );
+        addConnection( head, edge, tail );
+    }
+
+    private void addConnection( V head, E edge, V tail )
+    {
+        successors.put( head, tail );
+
+        VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
+        indexedEdges.put( vertexPair, edge );
+        indexedVertices.put( edge, vertexPair );
     }
 
     /**
@@ -128,6 +142,70 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     public int getSize()
     {
         return edges.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getDegree( V v )
+    {
+        if ( v == null )
+        {
+            throw new IllegalArgumentException( "Impossible to get the degree of a null vertex" );
+        }
+
+        if ( !successors.containsKey( v ) )
+        {
+            throw new IllegalArgumentException( "Impossible to get the degree of vertex not contained in this path" );
+        }
+
+        if ( source.equals( v ) || target.equals( v ) )
+        {
+            return 1;
+        }
+
+        return 2;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<V> getConnectedVertices( V v )
+    {
+        if ( v == null )
+        {
+            throw new IllegalArgumentException( "Impossible to get the successor of a null vertex" );
+        }
+
+        if ( target.equals( v ) )
+        {
+            return null;
+        }
+
+        if ( !successors.containsKey( v ) )
+        {
+            throw new IllegalArgumentException( "Impossible to get the successor of vertex not contained in this path" );
+        }
+
+        @SuppressWarnings( "unchecked" ) // type driven by input type
+        List<V> connected = asList( successors.get( v ) );
+        return connected;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public E getEdge( V source, V target )
+    {
+        return indexedEdges.get( new VertexPair<V>( source, target ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public VertexPair<V> getVertices( E e )
+    {
+        return indexedVertices.get( e );
     }
 
     /**

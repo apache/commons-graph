@@ -76,14 +76,9 @@ public final class DijkstraTestCase
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, five );
 
-        expected.addVertexInTail( one );
-        expected.addVertexInTail( three );
-        expected.addVertexInTail( six );
-        expected.addVertexInTail( five );
-
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "1 -> 3", 9D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "3 -> 6", 2D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "6 -> 5", 9D ) );
+        expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
+        expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
+        expected.addConnectionInTail( six, new BaseLabeledWeightedEdge( "6 -> 5", 9D ), five );
 
         // actual path
 

@@ -48,9 +48,9 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
      * {@inheritDoc}
      */
     @Override
-    public void addEdgeInHead( WE edge )
+    public void addConnectionInHead( V head, WE edge, V tail )
     {
-        super.addEdgeInHead( edge );
+        super.addConnectionInHead( head, edge, tail );
         increaseWeight( edge );
     }
 
@@ -58,9 +58,9 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
      * {@inheritDoc}
      */
     @Override
-    public void addEdgeInTail( WE edge )
+    public void addConnectionInTail( V head, WE edge, V tail )
     {
-        super.addEdgeInTail( edge );
+        super.addConnectionInTail( head, edge, tail );
         increaseWeight( edge );
     }
 

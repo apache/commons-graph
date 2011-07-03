@@ -110,12 +110,8 @@ public class FloydWarshallTestCase
             // Expected
             InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
                 new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, six );
-            expected.addVertexInTail( one );
-            expected.addVertexInTail( three );
-            expected.addVertexInTail( six );
-
-            expected.addEdgeInTail( new BaseLabeledWeightedEdge( "1 -> 3", 9D ) );
-            expected.addEdgeInTail( new BaseLabeledWeightedEdge( "3 -> 6", 2D ) );
+            expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
+            expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
 
             // Actual
             assertEquals( expected, wp );
@@ -142,12 +138,8 @@ public class FloydWarshallTestCase
 
             InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
                 new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, six );
-            expected.addVertexInTail( one );
-            expected.addVertexInTail( three );
-            expected.addVertexInTail( six );
-
-            expected.addEdgeInTail( new BaseLabeledWeightedEdge( "1 -> 3", 9D ) );
-            expected.addEdgeInTail( new BaseLabeledWeightedEdge( "3 -> 6", 2D ) );
+            expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
+            expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
 
             // Actual
             wp = p.findShortestPath( one, six );

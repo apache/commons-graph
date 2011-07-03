@@ -73,12 +73,8 @@ public final class BellmannFordTestCase
         // the expected weighted path
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, three );
-        expected.addVertexInTail( one );
-        expected.addVertexInTail( four );
-        expected.addVertexInTail( three );
-
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "1 -> 4", 7D ) );
-        expected.addEdgeInTail( new BaseLabeledWeightedEdge( "4 -> 3", -3D ) );
+        expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 4", 7D ), four );
+        expected.addConnectionInTail( four, new BaseLabeledWeightedEdge( "4 -> 3", -3D ), three );
 
         // the actual weighted path
         AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge> allVertexPairsShortestPath =
