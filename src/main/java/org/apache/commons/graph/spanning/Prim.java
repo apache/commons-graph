@@ -19,7 +19,6 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
@@ -38,7 +37,8 @@ public final class Prim
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> Graph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> WeightedGraph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph,
+                                                                                                        V source )
     {
         return null;
     }
