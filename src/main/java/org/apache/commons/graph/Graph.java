@@ -32,7 +32,10 @@ public interface Graph<V extends Vertex, E extends Edge>
 
     /**
      * Returns the total set of Vertices in the graph.
-     * 
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @return the total set of Vertices in the graph.
      */
     Iterable<V> getVertices();
@@ -40,19 +43,28 @@ public interface Graph<V extends Vertex, E extends Edge>
     /**
      * Returns the <i>order</i> of a Graph (the number of Vertices);
      *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @return the <i>order</i> of a Graph (the number of Vertices);
      */
     int getOrder();
 
     /**
      * Returns the total set of Edges in the graph.
-     * 
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @return the total set of Edges in the graph.
      */
     Iterable<E> getEdges();
 
     /**
      * Returns the <i>size</i> of a Graph (the number of Edges)
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
      *
      * @return the <i>size</i> of a Graph (the number of Edges)
      */
@@ -62,6 +74,9 @@ public interface Graph<V extends Vertex, E extends Edge>
      * The degree (or valency) of a {@link Vertex} of a {@link Graph}
      * is the number of {@link Edge}s incident to the {@link Vertex}.
      *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @param v the {@link Vertex} which degree has to be returned.
      * @return the number of {@link Edge}s incident to the {@link Vertex}.
      */
@@ -69,14 +84,20 @@ public interface Graph<V extends Vertex, E extends Edge>
 
     /**
      * Returns all vertices which touch this vertex.
-     * 
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @return all vertices which touch this vertex.
      */
     Iterable<V> getConnectedVertices( V v );
 
     /**
      * Returns the edge with vertex source and target.
-     * 
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @param source the source vertex
      * @param target the target vertex
      * @return the edge with vertex source and target.
@@ -85,7 +106,10 @@ public interface Graph<V extends Vertex, E extends Edge>
 
     /**
      * Return the set of {@link Vertex} on the input {@link Edge} (2 for normal edges, > 2 for HyperEdges)
-     * 
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
      * @return the set of {@link Vertex} on this Edge.
      */
     VertexPair<V> getVertices( E e );
