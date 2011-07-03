@@ -107,8 +107,14 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
 
     public void addConnectionInHead( V head, E edge, V tail )
     {
+        if ( target.equals( tail ) )
+        {
+            vertices.addFirst( tail );
+        }
+
         vertices.addFirst( head );
         edges.addFirst( edge );
+
         addConnection( head, edge, tail );
     }
 
@@ -116,6 +122,12 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     {
         vertices.addLast( head );
         edges.addLast( edge );
+
+        if ( target.equals( tail ) )
+        {
+            vertices.addLast( tail );
+        }
+
         addConnection( head, edge, tail );
     }
 
