@@ -57,7 +57,8 @@ public final class Prim
      * @param <WE> the Graph weighted edges type.
      * @param <G> the weighted-undirected input graph type
      * @param graph the Graph for which minimum spanning tree has to be calculated.
-     * @return  the minimum spanning tree of the input Graph.
+     * @param source the Prim's Vertex source
+     * @return the minimum spanning tree of the input Graph.
      */
     public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
                                                                                                                                                                 V source )
