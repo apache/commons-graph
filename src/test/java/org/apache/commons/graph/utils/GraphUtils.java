@@ -19,20 +19,10 @@ package org.apache.commons.graph.utils;
  * under the License.
  */
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.GraphException;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.coloring.ColoredVertices;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseMutableGraph;
@@ -46,7 +36,7 @@ public class GraphUtils
 
     /**
      * Creates a complete graph with nVertices
-     * 
+     *
      * @param nVertices number of vertices
      * @param g graph
      */
@@ -80,7 +70,7 @@ public class GraphUtils
 
     /**
      * Create a Biparted graph
-     * 
+     *
      * @param nVertices number of vertices
      * @param g graph
      */
@@ -167,7 +157,7 @@ public class GraphUtils
 
     /**
      * Creates a graph that contains all classic sudoku contratints.
-     * 
+     *
      * @return
      */
     public static BaseLabeledVertex[][] buildSudokuGraph( UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> sudoku )
@@ -276,42 +266,6 @@ public class GraphUtils
             }
         }
         return grid;
-    }
-
-    /**
-     * This method checks if all connected vertices have different colors.
-     * 
-     * @param g
-     * @param coloredVertices
-     */
-    static public <V extends Vertex, E extends Edge> void checkColoring( UndirectedMutableGraph<V, E> g,
-                                                                                               ColoredVertices<V> coloredVertices )
-    {
-        for ( E e : g.getEdges() )
-        {
-            VertexPair<V> vp = g.getVertices( e );
-            Integer h = coloredVertices.getColor( vp.getHead() );
-            Integer t = coloredVertices.getColor( vp.getTail() );
-
-            assertNotNull( h );
-            assertNotNull( t );
-            assertTrue( !h.equals( t ) );
-        }
-    }
-
-    
-    /**
-     * Retrun a random association with index and a colro strin in RGB.
-     */
-    public static Map<Integer, String> createColorMap(int numColor)
-    {
-        Map<Integer, String> colorCodes = new HashMap<Integer, String>();
-        for(int i = 0; i < 100; i++) 
-        {
-            Random rnd = new Random(i);
-            colorCodes.put( i, String.format( "\"#%2x%2x%2x\"", rnd.nextInt( 255 ), rnd.nextInt( 255 ), rnd.nextInt( 255 ) ) );
-        }
-        return colorCodes;
     }
 
     /**

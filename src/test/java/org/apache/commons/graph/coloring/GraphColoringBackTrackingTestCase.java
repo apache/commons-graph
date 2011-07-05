@@ -24,14 +24,11 @@ import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildSudokuGraph;
-import static org.apache.commons.graph.utils.GraphUtils.checkColoring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import org.apache.commons.graph.model.BaseLabeledEdge;
@@ -42,7 +39,7 @@ import org.junit.Test;
 /**
  *
  */
-public class GraphColoingBackTrackingTestCase
+public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
 {
 
     @Test
@@ -64,10 +61,10 @@ public class GraphColoingBackTrackingTestCase
         g.addEdge( two, new BaseLabeledEdge( "2 -> 3" ), three );
         g.addEdge( three, new BaseLabeledEdge( "3 -> 1" ), one );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertex = new ColoredVertices<BaseLabeledVertex>();
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertex = new ColoredVertices<BaseLabeledVertex, Integer>();
         coloredVertex.addColor( two, 2 );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices =
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             backTrackingColoring( g, createColorsList( 3 ), coloredVertex );
         assertNotNull( coloredVertices );
         assertEquals( 3, coloredVertices.getRequiredColors() );
@@ -83,8 +80,8 @@ public class GraphColoingBackTrackingTestCase
 
         buildCompleteGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices =
-            backTrackingColoring( g1, createColorsList( 100 ), new ColoredVertices<BaseLabeledVertex>() );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            backTrackingColoring( g1, createColorsList( 100 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
         assertNotNull( coloredVertices );
         assertEquals( 100, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -98,8 +95,8 @@ public class GraphColoingBackTrackingTestCase
 
         buildBipartedGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices =
-            backTrackingColoring( g1, createColorsList( 2 ), new ColoredVertices<BaseLabeledVertex>());
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            backTrackingColoring( g1, createColorsList( 2 ), new ColoredVertices<BaseLabeledVertex, Integer>());
         assertNotNull( coloredVertices );
         assertEquals( 2, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -115,8 +112,8 @@ public class GraphColoingBackTrackingTestCase
             g1.addVertex( new BaseLabeledVertex( "" + i ) );
         }
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices =
-            backTrackingColoring( g1, createColorsList( 1 ), new ColoredVertices<BaseLabeledVertex>() );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            backTrackingColoring( g1, createColorsList( 1 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
         assertNotNull( coloredVertices );
         assertEquals( 1, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -133,8 +130,8 @@ public class GraphColoingBackTrackingTestCase
 
         buildCrownGraph( 6, g );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices =
-            backTrackingColoring( g, createColorsList( 2 ), new ColoredVertices<BaseLabeledVertex>() );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            backTrackingColoring( g, createColorsList( 2 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
         assertNotNull( coloredVertices );
         assertEquals( 2, coloredVertices.getRequiredColors() );
         checkColoring( g, coloredVertices );
@@ -148,8 +145,8 @@ public class GraphColoingBackTrackingTestCase
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
 
-        ColoredVertices<BaseLabeledVertex> sudoku =
-            backTrackingColoring( g1, createColorsList( 9 ), new ColoredVertices<BaseLabeledVertex>() );
+        ColoredVertices<BaseLabeledVertex, Integer> sudoku =
+            backTrackingColoring( g1, createColorsList( 9 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
         assertNotNull( sudoku );
         checkColoring( g1, sudoku );
         assertEquals( 9, sudoku.getRequiredColors() );
@@ -177,12 +174,12 @@ public class GraphColoingBackTrackingTestCase
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
 
-        ColoredVertices<BaseLabeledVertex> predefinedColor = new ColoredVertices<BaseLabeledVertex>();
+        ColoredVertices<BaseLabeledVertex, Integer> predefinedColor = new ColoredVertices<BaseLabeledVertex, Integer>();
         predefinedColor.addColor( grid[0][0], 1 );
         predefinedColor.addColor( grid[5][5], 8 );
         predefinedColor.addColor( grid[1][2], 5 );
 
-        ColoredVertices<BaseLabeledVertex> sudoku =
+        ColoredVertices<BaseLabeledVertex, Integer> sudoku =
             backTrackingColoring( g1, createColorsList( 9 ), predefinedColor );
         assertNotNull( sudoku );
         checkColoring( g1, sudoku );
@@ -208,22 +205,6 @@ public class GraphColoingBackTrackingTestCase
         }
         Logger.getAnonymousLogger().fine( sb.toString() );
 
-    }
-
-    /**
-     * Creates a list of colors.
-     *
-     * @param colorNumber number of colors
-     * @return the list.
-     */
-    private Set<Integer> createColorsList( int colorNumber )
-    {
-        Set<Integer> colors = new HashSet<Integer>();
-        for ( int j = 0; j < colorNumber; j++ )
-        {
-            colors.add( j );
-        }
-        return colors;
     }
 
 }

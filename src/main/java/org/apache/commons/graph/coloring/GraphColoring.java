@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 
@@ -30,8 +31,8 @@ import org.apache.commons.graph.Vertex;
 
 /**
  * Contains the graph coloring implementation. This is a greedy implementation for the graph coloring problem. This
- * algorithm couldn't find the mimium coloring for the given graph since this is an NP-complete problem. <a
- * href="http://scienceblogs.com/goodmath/2007/06/graph_coloring_algorithms_1.php">
+ * algorithm couldn't find the mimium coloring for the given graph since this is an NP-complete problem. <a href=
+ * "http://scienceblogs.com/goodmath/2007/06/graph_coloring_algorithms_1.php">
  */
 public final class GraphColoring
 {
@@ -41,12 +42,14 @@ public final class GraphColoring
      *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
+     * @param <C> the Color vertices type
      * @param g The graph.
      * @return The color - vertex association.
      */
-    public static <V extends Vertex, E extends Edge> ColoredVertices<V> greedyColoring( UndirectedGraph<V, E> g )
+    public static <V extends Vertex, E extends Edge, C> ColoredVertices<V, C> greedyColoring( UndirectedGraph<V, E> g,
+                                                                                              Set<C> colors )
     {
-        final ColoredVertices<V> coloredVertices = new ColoredVertices<V>();
+        final ColoredVertices<V, C> coloredVertices = new ColoredVertices<V, C>();
 
         // decreasing sorting all vertices by degree.
         final UncoloredOrderedVertices<V> uncoloredOrderedVertices = new UncoloredOrderedVertices<V>();
@@ -57,10 +60,16 @@ public final class GraphColoring
         }
 
         // search coloring
-
         Iterator<V> it = uncoloredOrderedVertices.iterator();
-        for ( int currentColorIndex = 0; it.hasNext(); currentColorIndex++ )
+        Iterator<C> colorsIt = colors.iterator();
+        while ( it.hasNext() )
         {
+            if ( !colorsIt.hasNext() )
+            {
+                throw new GraphException( "The color set is too small." );
+            }
+            C color = colorsIt.next();
+
             // this list contains all vertex colore with the current color.
             List<V> currentColorVertices = new ArrayList<V>();
             Iterator<V> uncoloredVtxIterator = uncoloredOrderedVertices.iterator();
@@ -73,7 +82,8 @@ public final class GraphColoring
                 {
                     if ( g.getEdge( currentColoredVtx, uncoloredVtx ) != null )
                     {
-                        // we've found that 'uncoloredVtx' is adiacent to 'currentColoredVtx'
+                        // we've found that 'uncoloredVtx' is adiacent to
+                        // 'currentColoredVtx'
                         foundAnAdjacentVertex = true;
                         break;
                     }
@@ -81,10 +91,11 @@ public final class GraphColoring
 
                 if ( !foundAnAdjacentVertex )
                 {
-                    // It's possible to color the vertex 'uncoloredVtx', it has no connected vertex into
+                    // It's possible to color the vertex 'uncoloredVtx', it has
+                    // no connected vertex into
                     // 'currentcoloredvtx'
                     uncoloredVtxIterator.remove();
-                    coloredVertices.addColor( uncoloredVtx, currentColorIndex );
+                    coloredVertices.addColor( uncoloredVtx, color );
                     currentColorVertices.add( uncoloredVtx );
                 }
             }
@@ -101,17 +112,18 @@ public final class GraphColoring
      *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
+     * @param <C> the Color vertices type
      * @param g the graph.
      * @param colors the set of colors.
      * @param partialColoredVertex subset of vertices already colored.
      * @return The color - vertex association.
      */
-    public static <V extends Vertex, E extends Edge> ColoredVertices<V> backTrackingColoring( UndirectedGraph<V, E> g,
-                                                                                    Set<Integer> colors,
-                                                                                    ColoredVertices<V> partialColoredVertex )
+    public static <V extends Vertex, E extends Edge, C> ColoredVertices<V, C> backTrackingColoring( UndirectedGraph<V, E> g,
+                                                                                                    Set<C> colors,
+                                                                                                    ColoredVertices<V, C> partialColoredVertex )
     {
-        GraphColoringBacktraking<V, E> graphColoringBacktaking =
-            new GraphColoringBacktraking<V, E>( g, colors, partialColoredVertex );
+        GraphColoringBacktraking<V, E, C> graphColoringBacktaking =
+            new GraphColoringBacktraking<V, E, C>( g, colors, partialColoredVertex );
         return graphColoringBacktaking.coloring();
     }
 

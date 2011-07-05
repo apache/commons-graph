@@ -28,20 +28,21 @@ import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 
 /**
- * Graph m-coloring algorithm. This algorithm uses a bruteforce backtraking procedure to find a graph color using a
+ * Graph m-coloring algorithm. This algorithm uses a bruteforce backtracking procedure to find a graph color using a
  * predefined set of colors.
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
+ * @param <C> the Color vertices type
  */
-class GraphColoringBacktraking<V extends Vertex, E extends Edge>
+class GraphColoringBacktraking<V extends Vertex, E extends Edge, C>
 {
 
-    final private ColoredVertices<V> coloredVertices;
+    final private ColoredVertices<V, C> coloredVertices;
 
     final private UndirectedGraph<V, E> g;
 
-    final private Set<Integer> colors;
+    final private Set<C> colors;
 
     final private List<V> vertexList = new ArrayList<V>();
 
@@ -50,10 +51,11 @@ class GraphColoringBacktraking<V extends Vertex, E extends Edge>
      *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
+     * @param <C> the Color vertices type
      * @param g The graph.
      * @param colors The list of colors.
      */
-    GraphColoringBacktraking( UndirectedGraph<V, E> g, Set<Integer> colors, ColoredVertices<V> partialColoredVertex )
+    GraphColoringBacktraking( UndirectedGraph<V, E> g, Set<C> colors, ColoredVertices<V, C> partialColoredVertex )
     {
         this.coloredVertices = partialColoredVertex;
         this.g = g;
@@ -65,7 +67,7 @@ class GraphColoringBacktraking<V extends Vertex, E extends Edge>
      *
      * @return true if all vertices have been colored, false otherwise.
      */
-    ColoredVertices<V> coloring()
+    ColoredVertices<V, C> coloring()
     {
         for ( V v : g.getVertices() )
         {
@@ -84,7 +86,7 @@ class GraphColoringBacktraking<V extends Vertex, E extends Edge>
 
     /**
      * This is the recursive step.
-     * 
+     *
      * @param result The set that will be returned
      * @param element the element
      * @return true if there is a valid coloring for the graph, false otherwise.
@@ -102,7 +104,7 @@ class GraphColoringBacktraking<V extends Vertex, E extends Edge>
 
         int next = currentVertexIndex + 1;
         V nextVertex = vertexList.get( next );
-        for ( Integer color : colors )
+        for ( C color : colors )
         {
             coloredVertices.addColor( nextVertex, color );
             boolean isDone = backtraking( next );
@@ -116,8 +118,8 @@ class GraphColoringBacktraking<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Tests if there is some adiacent vertices with the same color.
-     * 
+     * Tests if there is some adjacent vertices with the same color.
+     *
      * @param currentVertex
      * @return
      */
@@ -127,13 +129,13 @@ class GraphColoringBacktraking<V extends Vertex, E extends Edge>
         {
             return false;
         }
-        Integer nextVertecColor = coloredVertices.getColor( currentVertex );
+        C nextVertecColor = coloredVertices.getColor( currentVertex );
         if ( nextVertecColor == null )
             return false;
 
         for ( V abj : g.getConnectedVertices( currentVertex ) )
         {
-            Integer adjColor = coloredVertices.getColor( abj );
+            C adjColor = coloredVertices.getColor( abj );
             if ( adjColor != null && nextVertecColor.equals( adjColor ) )
             {
                 return true;

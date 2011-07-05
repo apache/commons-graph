@@ -31,13 +31,14 @@ import org.apache.commons.graph.Vertex;
  * Maintains the color for each {@link Vertex} and the required number of colors for {@link Graph} coloring.
  *
  * @param <V> the Graph vertices type.
+ * @param <C> the Color type.
  */
-public final class ColoredVertices<V extends Vertex>
+public final class ColoredVertices<V extends Vertex, C>
 {
 
-    private final Map<V, Integer> coloredVertices = new HashMap<V, Integer>();
+    private final Map<V, C> coloredVertices = new HashMap<V, C>();
 
-    private final List<Integer> usedColor = new ArrayList<Integer>();
+    private final List<C> usedColor = new ArrayList<C>();
 
     /**
      * This class can be instantiated only inside the package
@@ -53,7 +54,7 @@ public final class ColoredVertices<V extends Vertex>
      * @param v the {@link Vertex} for which storing the color.
      * @param color the input {@link Vertex} color.
      */
-    void addColor( V v, Integer color )
+    void addColor( V v, C color )
     {
         coloredVertices.put( v, color );
         int idx = usedColor.indexOf( color );
@@ -74,7 +75,7 @@ public final class ColoredVertices<V extends Vertex>
      */
     void removeColor( V v )
     {
-        Integer color = coloredVertices.remove( v );
+        C color = coloredVertices.remove( v );
         usedColor.remove( color );
     }
 
@@ -84,7 +85,7 @@ public final class ColoredVertices<V extends Vertex>
      * @param v the {@link Vertex} for which getting the color.
      * @return the color associated to the input {@link Vertex}.
      */
-    public Integer getColor( V v )
+    public C getColor( V v )
     {
         if ( v == null )
         {

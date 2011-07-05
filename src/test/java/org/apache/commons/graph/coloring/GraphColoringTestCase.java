@@ -24,8 +24,9 @@ import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildSudokuGraph;
-import static org.apache.commons.graph.utils.GraphUtils.checkColoring;
 import static org.junit.Assert.assertEquals;
+
+import java.util.Set;
 
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -35,14 +36,18 @@ import org.junit.Test;
 /**
  *
  */
-public class GraphColoringTestCase
+public class GraphColoringTestCase extends AbstractColoringTest
 {
+
+    private Set<Integer> colors = createColorsList( 11 );
+
 
     @Test
     public void testCromaticNumber()
         throws Exception
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
         BaseLabeledVertex one = new BaseLabeledVertex( "1" );
         BaseLabeledVertex two = new BaseLabeledVertex( "2" );
@@ -56,27 +61,29 @@ public class GraphColoringTestCase
         g.addEdge( two, new BaseLabeledEdge( "2 -> 3" ), three );
         g.addEdge( three, new BaseLabeledEdge( "3 -> 1" ), one );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices = greedyColoring( g );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g, colors );
         checkColoring( g, coloredVertices );
     }
 
     @Test
     public void testCromaticNumberComplete()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices = greedyColoring( g1 );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, createColorsList( 100 ) );
         checkColoring( g1, coloredVertices );
     }
 
     @Test
     public void testCromaticNumberBiparted()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildBipartedGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices = greedyColoring( g1 );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, colors );
 
         checkColoring( g1, coloredVertices );
     }
@@ -84,13 +91,14 @@ public class GraphColoringTestCase
     @Test
     public void testCromaticNumberSparseGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         for ( int i = 0; i < 100; i++ )
         {
             g1.addVertex( new BaseLabeledVertex( "" + i ) );
         }
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices = greedyColoring( g1 );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, colors );
 
         assertEquals( 1, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -102,10 +110,11 @@ public class GraphColoringTestCase
     @Test
     public void testCrawnGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCrownGraph( 6, g );
 
-        ColoredVertices<BaseLabeledVertex> coloredVertices = greedyColoring( g );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g, colors );
         checkColoring( g, coloredVertices );
     }
 
@@ -113,10 +122,11 @@ public class GraphColoringTestCase
     public void testSudoku()
         throws Exception
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildSudokuGraph( g1 );
 
-        ColoredVertices<BaseLabeledVertex> sudoku = GraphColoring.greedyColoring( g1 );
+        ColoredVertices<BaseLabeledVertex, Integer> sudoku = GraphColoring.greedyColoring( g1, colors );
         checkColoring( g1, sudoku );
     }
 
