@@ -1,4 +1,4 @@
-package org.apache.commons.graph.shared;
+package org.apache.commons.graph.shortestpath;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,7 @@ import org.apache.commons.graph.Vertex;
  *
  * @param <V> the Graph vertices type
  */
-public final class ShortestDistances<V extends Vertex>
+final class ShortestDistances<V extends Vertex>
     implements Comparator<V>
 {
 

@@ -6,7 +6,6 @@ import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.shared.ShortestDistances;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
