@@ -1,14 +1,5 @@
 package org.apache.commons.graph.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.model.BaseLabeledEdge;
-import org.apache.commons.graph.model.BaseLabeledVertex;
-import org.apache.commons.graph.model.UndirectedMutableGraph;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -28,6 +19,25 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
  * under the License.
  */
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
+import org.apache.commons.graph.coloring.ColoredVertices;
+import org.apache.commons.graph.model.BaseLabeledEdge;
+import org.apache.commons.graph.model.BaseLabeledVertex;
+import org.apache.commons.graph.model.BaseMutableGraph;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
+
 /**
  * Utilities graph class.
  */
@@ -40,7 +50,7 @@ public class GraphUtils
      * @param nVertices number of vertices
      * @param g graph
      */
-    public static void buildCompleteGraph( int nVertices, UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
+    public static void buildCompleteGraph( int nVertices, BaseMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
     {
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
@@ -55,7 +65,14 @@ public class GraphUtils
             {
                 if ( !v1.equals( v2 ) )
                 {
-                    g.addEdge( v1, new BaseLabeledEdge( "" ), v2 );
+                    try
+                    {
+                        g.addEdge( v1, new BaseLabeledEdge( v1 + " -> " + v2 ), v2 );
+                    }
+                    catch ( GraphException e )
+                    {
+                        // ignore
+                    }
                 }
             }
         }
@@ -63,7 +80,7 @@ public class GraphUtils
 
     /**
      * Create a Biparted graph
-     *
+     * 
      * @param nVertices number of vertices
      * @param g graph
      */
@@ -105,23 +122,57 @@ public class GraphUtils
             {
                 if ( !v1.equals( v2 ) )
                 {
-                    g.addEdge( v1, new BaseLabeledEdge( "" ), v2 );
+                    try
+                    {
+                        g.addEdge( v1, new BaseLabeledEdge( v1 + " -> " + v2 ), v2 );
+                    }
+                    catch ( GraphException e )
+                    {
+                        // ignore
+                    }
                 }
+            }
+        }
+    }
+
+    public static void buildCrownGraph( int nVertices, UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
+    {
+        List<BaseLabeledVertex> tmp = new ArrayList<BaseLabeledVertex>();
+
+        for ( int i = 0; i < nVertices; i++ )
+        {
+            BaseLabeledVertex v = new BaseLabeledVertex( "" + i );
+            g.addVertex( v );
+            tmp.add( v );
+        }
+
+        for ( int i = 0; i < nVertices; i++ )
+        {
+            int next = i + 1;
+            if ( i == ( nVertices - 1 ) )
+            {
+                next = 0;
+            }
+            BaseLabeledEdge e = new BaseLabeledEdge( i + " -> " + next );
+            try
+            {
+                g.addEdge( tmp.get( i ), e, tmp.get( next ) );
+            }
+            catch ( GraphException ge )
+            {
+                // ignore
             }
         }
     }
 
     /**
      * Creates a graph that contains all classic sudoku contratints.
-     *
+     * 
      * @return
      */
-    public static UndirectedMutableGraph<Vertex, Edge> buildSudokuGraph()
+    public static BaseLabeledVertex[][] buildSudokuGraph( UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> sudoku )
     {
-        UndirectedMutableGraph<Vertex, Edge> sudoku = new UndirectedMutableGraph<Vertex, Edge>();
-
         BaseLabeledVertex[][] grid = new BaseLabeledVertex[9][9];
-
         // build sudoku grid.
         for ( int row = 0; row < 9; row++ )
         {
@@ -140,7 +191,7 @@ public class GraphUtils
         {
             for ( int cof = 0; cof < 3; cof++ )
             {
-                List<Vertex> boxes = new ArrayList<Vertex>();
+                List<BaseLabeledVertex> boxes = new ArrayList<BaseLabeledVertex>();
                 for ( int row = rowsOffsets[rof]; row < 3 + rowsOffsets[rof]; row++ )
                 {
                     for ( int col = colsOffsets[cof]; col < 3 + colsOffsets[cof]; col++ )
@@ -149,15 +200,22 @@ public class GraphUtils
                     }
                 }
 
-                for ( Vertex v1 : boxes )
+                for ( BaseLabeledVertex v1 : boxes )
                 {
-                    for ( Vertex v2 : boxes )
+                    for ( BaseLabeledVertex v2 : boxes )
                     {
 
-                        Edge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
                         if ( !v1.equals( v2 ) )
                         {
-                            sudoku.addEdge( v1, e, v2 );
+                            try
+                            {
+                                sudoku.addEdge( v1, e, v2 );
+                            }
+                            catch ( GraphException ge )
+                            {
+                                // ignore
+                            }
                         }
                     }
                 }
@@ -171,13 +229,20 @@ public class GraphUtils
             {
                 for ( int h = 0; h < 9; h++ )
                 {
-                    Vertex v1 = grid[j][i];
-                    Vertex v2 = grid[j][h];
+                    BaseLabeledVertex v1 = grid[j][i];
+                    BaseLabeledVertex v2 = grid[j][h];
 
                     if ( !v1.equals( v2 ) )
                     {
-                        Edge e = new BaseLabeledEdge( v1 + " -> " + v2 );
-                        sudoku.addEdge( v1, e, v2 );
+                        BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        try
+                        {
+                            sudoku.addEdge( v1, e, v2 );
+                        }
+                        catch ( GraphException ge )
+                        {
+                            // ignore
+                        }
                     }
 
                 }
@@ -191,19 +256,62 @@ public class GraphUtils
             {
                 for ( int h = 0; h < 9; h++ )
                 {
-                    Vertex v1 = grid[i][j];
-                    Vertex v2 = grid[h][j];
+                    BaseLabeledVertex v1 = grid[i][j];
+                    BaseLabeledVertex v2 = grid[h][j];
 
                     if ( !v1.equals( v2 ) )
                     {
-                        Edge e = new BaseLabeledEdge( v1 + " -> " + v2 );
-                        sudoku.addEdge( v1, e, v2 );
+                        BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        try
+                        {
+                            sudoku.addEdge( v1, e, v2 );
+                        }
+                        catch ( GraphException ge )
+                        {
+                            // ignore
+                        }
                     }
 
                 }
             }
         }
-        return sudoku;
+        return grid;
+    }
+
+    /**
+     * This method checks if all connected vertices have different colors.
+     * 
+     * @param g
+     * @param coloredVertices
+     */
+    static public <V extends Vertex, E extends Edge> void checkColoring( UndirectedMutableGraph<V, E> g,
+                                                                                               ColoredVertices<V> coloredVertices )
+    {
+        for ( E e : g.getEdges() )
+        {
+            VertexPair<V> vp = g.getVertices( e );
+            Integer h = coloredVertices.getColor( vp.getHead() );
+            Integer t = coloredVertices.getColor( vp.getTail() );
+
+            assertNotNull( h );
+            assertNotNull( t );
+            assertTrue( !h.equals( t ) );
+        }
+    }
+
+    
+    /**
+     * Retrun a random association with index and a colro strin in RGB.
+     */
+    public static Map<Integer, String> createColorMap(int numColor)
+    {
+        Map<Integer, String> colorCodes = new HashMap<Integer, String>();
+        for(int i = 0; i < 100; i++) 
+        {
+            Random rnd = new Random(i);
+            colorCodes.put( i, String.format( "\"#%2x%2x%2x\"", rnd.nextInt( 255 ), rnd.nextInt( 255 ), rnd.nextInt( 255 ) ) );
+        }
+        return colorCodes;
     }
 
     /**
