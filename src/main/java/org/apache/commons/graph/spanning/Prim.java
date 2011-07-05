@@ -23,11 +23,11 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.SpanningTree;
+import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
-import org.apache.commons.graph.shared.ShortestDistances;
 
 /**
  * Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a connected weighted undirected graph.
@@ -43,47 +43,39 @@ public final class Prim
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> WeightedGraph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph,
-                                                                                                        V source )
+    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
+                                                                                                                                                                V source )
     {
-        final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
-        shortestDistances.setWeight( source, 0D );
+        final ShortestEdges<V, WE> shortesEdges = new ShortestEdges<V, WE>( graph, source );
 
-        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestDistances );
+        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortesEdges );
         unsettledNodes.offer( source );
 
-        final Set<V> settledNodes = new HashSet<V>();
+        final Set<WE> settledEdges = new HashSet<WE>();
 
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
         {
             V vertex = unsettledNodes.poll();
 
-            @SuppressWarnings( "unchecked" ) // Vertex/Edge type driven by input class
-            Iterable<V> connectedVertices = ( graph instanceof DirectedGraph )
-                                            ? ( ( DirectedGraph<V, WE> ) graph ).getOutbound( vertex )
-                                            : graph.getConnectedVertices( vertex );
-
-            for ( V v : connectedVertices )
+            for ( V v : graph.getConnectedVertices( vertex ) )
             {
-                // skip node already settled
-                if ( !settledNodes.contains( v ) )
+                WE edge = graph.getEdge( vertex, v );
+
+                // if the edge has not been already visited and its weight is less then the current Vertex weight
+                if ( settledEdges.add( edge ) && edge.getWeight().compareTo( shortesEdges.getWeight( v ) ) < 0 )
                 {
-                    WE edge = graph.getEdge( vertex, v );
-
-                    if ( edge.getWeight().compareTo( shortestDistances.getWeight( v ) ) < 0 )
+                    if ( !unsettledNodes.contains( v ) )
                     {
-                        // assign new shortest distance and mark unsettled
-                        shortestDistances.setWeight( v, edge.getWeight() );
                         unsettledNodes.offer( v );
-
-                        // TODO assign predecessor in shortest path
                     }
+
+                    shortesEdges.addPredecessor( v, edge );
                 }
             }
         }
 
-        return null;
+        return shortesEdges.createSpanningTree();
     }
 
 }
