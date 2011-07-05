@@ -120,6 +120,11 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
         {
             throw new GraphException( "Tail Vertex '%s' not present in the Graph", tail );
         }
+        
+        if ( getEdge( head, tail ) != null )
+        {
+            throw new GraphException( "Edge %s is already present in the Graph", e );
+        }
 
         getAllEdges().add( e );
 
