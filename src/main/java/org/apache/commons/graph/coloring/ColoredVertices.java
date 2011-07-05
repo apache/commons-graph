@@ -19,15 +19,16 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
 /**
- * Maintains the color for each {@link Vertex} and the required number of colors
- * for {@link Graph} coloring.
+ * Maintains the color for each {@link Vertex} and the required number of colors for {@link Graph} coloring.
  *
  * @param <V> the Graph vertices type.
  */
@@ -36,7 +37,7 @@ public final class ColoredVertices<V extends Vertex>
 
     private final Map<V, Integer> coloredVertices = new HashMap<V, Integer>();
 
-    private Integer requiredColors;
+    private final List<Integer> usedColor = new ArrayList<Integer>();
 
     /**
      * This class can be instantiated only inside the package
@@ -54,11 +55,27 @@ public final class ColoredVertices<V extends Vertex>
      */
     void addColor( V v, Integer color )
     {
-        if ( requiredColors == null || color.compareTo( requiredColors ) > 0 )
-        {
-            requiredColors = color;
-        }
         coloredVertices.put( v, color );
+        int idx = usedColor.indexOf( color );
+        if ( idx == -1 )
+        {
+            usedColor.add( color );
+        }
+        else
+        {
+            usedColor.set( idx, color );
+        }
+    }
+
+    /**
+     * Remove the input {@link Vertex} color.
+     *
+     * @param v the {@link Vertex} for which storing the color.
+     */
+    void removeColor( V v )
+    {
+        Integer color = coloredVertices.remove( v );
+        usedColor.remove( color );
     }
 
     /**
@@ -84,8 +101,15 @@ public final class ColoredVertices<V extends Vertex>
      */
     public int getRequiredColors()
     {
-        // if requiredColors = 0, it would return 0, and that's wrong
-        return requiredColors + 1;
+        return usedColor.size();
+    }
+
+    /**
+     * Tests if the 'vertex' is colored.
+     */
+    public boolean containsColoredVertex( V vertex )
+    {
+        return coloredVertices.containsKey( vertex );
     }
 
 }

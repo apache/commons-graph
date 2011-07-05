@@ -3,6 +3,7 @@ package org.apache.commons.graph.coloring;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
@@ -37,11 +38,13 @@ public final class GraphColoring
 
     /**
      * Colors the graph such that no two adjacent vertices share the same color.
-     * 
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
      * @param g The graph.
      * @return The color - vertex association.
      */
-    public static <V extends Vertex, E extends Edge> ColoredVertices<V> coloring( UndirectedGraph<V, E> g )
+    public static <V extends Vertex, E extends Edge> ColoredVertices<V> greedyColoring( UndirectedGraph<V, E> g )
     {
         final ColoredVertices<V> coloredVertices = new ColoredVertices<V>();
 
@@ -58,9 +61,6 @@ public final class GraphColoring
         Iterator<V> it = uncoloredOrderedVertices.iterator();
         for ( int currentColorIndex = 0; it.hasNext(); currentColorIndex++ )
         {
-            // consume the vertex.
-            it.next();
-
             // this list contains all vertex colore with the current color.
             List<V> currentColorVertices = new ArrayList<V>();
             Iterator<V> uncoloredVtxIterator = uncoloredOrderedVertices.iterator();
@@ -93,6 +93,26 @@ public final class GraphColoring
         }
 
         return coloredVertices;
+    }
+
+    /**
+     * Graph m-coloring algorithm. This algorithm uses a bruteforce backtraking procedure to find a graph color using a
+     * predefined set of colors.
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param g the graph.
+     * @param colors the set of colors.
+     * @param partialColoredVertex subset of vertices already colored.
+     * @return The color - vertex association.
+     */
+    public static <V extends Vertex, E extends Edge> ColoredVertices<V> backTrackingColoring( UndirectedGraph<V, E> g,
+                                                                                    Set<Integer> colors,
+                                                                                    ColoredVertices<V> partialColoredVertex )
+    {
+        GraphColoringBacktraking<V, E> graphColoringBacktaking =
+            new GraphColoringBacktraking<V, E>( g, colors, partialColoredVertex );
+        return graphColoringBacktaking.coloring();
     }
 
     /**
