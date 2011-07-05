@@ -36,7 +36,22 @@ public final class Prim
 {
 
     /**
-     * Calculates the minimum spanning tree (or forest) of the input Graph.
+     * Calculates the minimum spanning tree of the input Graph,
+     * selecting the Vertex source from the input Graph.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <WE> the Graph weighted edges type.
+     * @param <G> the weighted-undirected input graph type
+     * @param graph the Graph for which minimum spanning tree has to be calculated.
+     * @return the minimum spanning tree of the input Graph.
+     */
+    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph )
+    {
+        return minimumSpanningTree( graph, graph.getVertices().iterator().next() );
+    }
+
+    /**
+     * Calculates the minimum spanning tree (or forest) of the input Graph, given a known source.
      *
      * @param <V> the Graph vertices type.
      * @param <WE> the Graph weighted edges type.
