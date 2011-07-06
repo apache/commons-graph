@@ -19,10 +19,16 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.model.MutableSpanningTree;
 
 /**
  * Kruskal's algorithm is an algorithm in graph theory that finds a minimum spanning tree
@@ -39,9 +45,46 @@ public final class Kruskal
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> Graph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> SpanningTree<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph )
     {
-        return null;
+        final Set<V> settledNodes = new HashSet<V>();
+
+        final PriorityQueue<WE> orderedEdges = new PriorityQueue<WE>( graph.getSize() );
+
+        for ( WE edge : graph.getEdges() )
+        {
+            orderedEdges.add( edge );
+        }
+
+        final DisjointSet<V> disjointSet = new DisjointSet<V>();
+
+        MutableSpanningTree<V, WE> spanningTree = new MutableSpanningTree<V, WE>();
+
+        while ( settledNodes.size() < graph.getOrder() )
+        {
+            WE edge = orderedEdges.poll();
+
+            VertexPair<V> vertices = graph.getVertices( edge );
+            V head = vertices.getHead();
+            V tail = vertices.getTail();
+
+            if ( settledNodes.add( head ) )
+            {
+                spanningTree.addVertex( head );
+            }
+            if ( settledNodes.add( tail ) )
+            {
+                spanningTree.addVertex( tail );
+            }
+
+            if ( !disjointSet.find( head ).equals( disjointSet.find( tail ) ) )
+            {
+                disjointSet.union( head, tail );
+                spanningTree.addEdge( head, edge, tail );
+            }
+        }
+
+        return spanningTree;
     }
 
 }
