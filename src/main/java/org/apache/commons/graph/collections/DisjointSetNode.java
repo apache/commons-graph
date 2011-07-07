@@ -1,4 +1,4 @@
-package org.apache.commons.graph.spanning;
+package org.apache.commons.graph.collections;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,20 +19,18 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Vertex;
-
 /**
  * The {@link DisjointSet} internal node representation.
  *
- * @param <V> the Graph vertices type.
+ * @param <E> the type of elements held in this node
  */
-final class DisjointSetNode<V extends Vertex>
-    implements Comparable<DisjointSetNode<V>>
+final class DisjointSetNode<E>
+    implements Comparable<DisjointSetNode<E>>
 {
 
-    private final V vertex;
+    private final E vertex;
 
-    private DisjointSetNode<V> parent = this;
+    private DisjointSetNode<E> parent = this;
 
     private Integer rank = 0;
 
@@ -41,22 +39,22 @@ final class DisjointSetNode<V extends Vertex>
      *
      * @param vertex
      */
-    public DisjointSetNode( V vertex )
+    public DisjointSetNode( E vertex )
     {
         this.vertex = vertex;
     }
 
-    public V getVertex()
+    public E getVertex()
     {
         return vertex;
     }
 
-    public DisjointSetNode<V> getParent()
+    public DisjointSetNode<E> getParent()
     {
         return parent;
     }
 
-    public void setParent( DisjointSetNode<V> parent )
+    public void setParent( DisjointSetNode<E> parent )
     {
         this.parent = parent;
     }
@@ -79,7 +77,7 @@ final class DisjointSetNode<V extends Vertex>
     /**
      * {@inheritDoc}
      */
-    public int compareTo( DisjointSetNode<V> o )
+    public int compareTo( DisjointSetNode<E> o )
     {
         return rank.compareTo( o.getRank() );
     }

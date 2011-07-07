@@ -1,4 +1,4 @@
-package org.apache.commons.graph.spanning;
+package org.apache.commons.graph.collections;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,17 +22,15 @@ package org.apache.commons.graph.spanning;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Vertex;
-
 /**
  * Simple <a href="http://en.wikipedia.org/wiki/Disjoint-set_data_structure">Disjoint-set</a> implementation.
  *
- * @param <V> the Graph vertices type.
+ * @param <E> the type of elements held in this collection.
  */
-final class DisjointSet<V extends Vertex>
+public final class DisjointSet<E>
 {
 
-    private final Map<V, DisjointSetNode<V>> disjointSets = new HashMap<V, DisjointSetNode<V>>();
+    private final Map<E, DisjointSetNode<E>> disjointSets = new HashMap<E, DisjointSetNode<E>>();
 
     /**
      * Performs the find applying the <i>path compression</i>.
@@ -40,9 +38,9 @@ final class DisjointSet<V extends Vertex>
      * @param vertex
      * @return
      */
-    public V find( V vertex )
+    public E find( E vertex )
     {
-        DisjointSetNode<V> vertexNode = find( getNode( vertex ) );
+        DisjointSetNode<E> vertexNode = find( getNode( vertex ) );
 
         if ( vertexNode == vertexNode.getParent() )
         {
@@ -60,7 +58,7 @@ final class DisjointSet<V extends Vertex>
      * @param node
      * @return
      */
-    private DisjointSetNode<V> find( DisjointSetNode<V> node )
+    private DisjointSetNode<E> find( DisjointSetNode<E> node )
     {
         if ( node == node.getParent() )
         {
@@ -75,10 +73,10 @@ final class DisjointSet<V extends Vertex>
      * @param u
      * @param v
      */
-    public void union( V u, V v )
+    public void union( E u, E v )
     {
-        DisjointSetNode<V> uRoot = find( getNode( u ) );
-        DisjointSetNode<V> vRoot = find( getNode( v ) );
+        DisjointSetNode<E> uRoot = find( getNode( u ) );
+        DisjointSetNode<E> vRoot = find( getNode( v ) );
 
         if ( uRoot == vRoot )
         {
@@ -101,13 +99,13 @@ final class DisjointSet<V extends Vertex>
         }
     }
 
-    private DisjointSetNode<V> getNode( V vertex )
+    private DisjointSetNode<E> getNode( E vertex )
     {
-        DisjointSetNode<V> node = disjointSets.get( vertex );
+        DisjointSetNode<E> node = disjointSets.get( vertex );
 
         if ( node == null )
         {
-            node = new DisjointSetNode<V>( vertex );
+            node = new DisjointSetNode<E>( vertex );
             disjointSets.put( vertex, node );
         }
 
