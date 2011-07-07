@@ -28,7 +28,7 @@ final class DisjointSetNode<E>
     implements Comparable<DisjointSetNode<E>>
 {
 
-    private final E vertex;
+    private final E e;
 
     private DisjointSetNode<E> parent = this;
 
@@ -37,16 +37,16 @@ final class DisjointSetNode<E>
     /**
      * 
      *
-     * @param vertex
+     * @param e
      */
-    public DisjointSetNode( E vertex )
+    public DisjointSetNode( E e )
     {
-        this.vertex = vertex;
+        this.e = e;
     }
 
-    public E getVertex()
+    public E getElement()
     {
-        return vertex;
+        return e;
     }
 
     public DisjointSetNode<E> getParent()

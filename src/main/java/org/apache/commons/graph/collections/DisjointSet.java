@@ -35,21 +35,21 @@ public final class DisjointSet<E>
     /**
      * Performs the find applying the <i>path compression</i>.
      *
-     * @param vertex
+     * @param e
      * @return
      */
-    public E find( E vertex )
+    public E find( E e )
     {
-        DisjointSetNode<E> vertexNode = find( getNode( vertex ) );
+        DisjointSetNode<E> node = find( getNode( e ) );
 
-        if ( vertexNode == vertexNode.getParent() )
+        if ( node == node.getParent() )
         {
-            return vertexNode.getVertex();
+            return node.getElement();
         }
 
-        vertexNode.setParent( find( vertexNode.getParent() ) );
+        node.setParent( find( node.getParent() ) );
 
-        return vertexNode.getParent().getVertex();
+        return node.getParent().getElement();
     }
 
     /**
@@ -70,43 +70,43 @@ public final class DisjointSet<E>
     /**
      * Performs the merge by applying the <i>union by rank</i>.
      *
-     * @param u
-     * @param v
+     * @param e1
+     * @param e2
      */
-    public void union( E u, E v )
+    public void union( E e1, E e2 )
     {
-        DisjointSetNode<E> uRoot = find( getNode( u ) );
-        DisjointSetNode<E> vRoot = find( getNode( v ) );
+        DisjointSetNode<E> e1Root = find( getNode( e1 ) );
+        DisjointSetNode<E> e2Root = find( getNode( e2 ) );
 
-        if ( uRoot == vRoot )
+        if ( e1Root == e2Root )
         {
             return;
         }
 
-        int comparison = uRoot.compareTo( vRoot );
+        int comparison = e1Root.compareTo( e2Root );
         if ( comparison < 0 )
         {
-            uRoot.setParent( vRoot );
+            e1Root.setParent( e2Root );
         }
         else if ( comparison > 0 )
         {
-            vRoot.setParent( uRoot );
+            e2Root.setParent( e1Root );
         }
         else
         {
-            vRoot.setParent( uRoot );
-            uRoot.increaseRank();
+            e2Root.setParent( e1Root );
+            e1Root.increaseRank();
         }
     }
 
-    private DisjointSetNode<E> getNode( E vertex )
+    private DisjointSetNode<E> getNode( E e )
     {
-        DisjointSetNode<E> node = disjointSets.get( vertex );
+        DisjointSetNode<E> node = disjointSets.get( e );
 
         if ( node == null )
         {
-            node = new DisjointSetNode<E>( vertex );
-            disjointSets.put( vertex, node );
+            node = new DisjointSetNode<E>( e );
+            disjointSets.put( e, node );
         }
 
         return node;
