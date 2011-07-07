@@ -72,7 +72,10 @@ public final class FibonacciHeap<E>
         }
         else
         {
-            root.setPrevious( node );
+            node.setPrevious( root );
+            node.setNext( root.getNext() );
+            root.setNext( node );
+            node.getNext().setPrevious( root );
 
             int comparison;
             if ( comparator != null )
