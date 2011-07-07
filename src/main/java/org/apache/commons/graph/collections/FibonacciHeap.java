@@ -207,9 +207,9 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean offer( E arg0 )
+    public boolean offer( E e )
     {
-        return false;
+        return add( e );
     }
 
     /**
@@ -238,6 +238,11 @@ public final class FibonacciHeap<E>
     public E remove()
     {
         return null;
+    }
+
+    private void consolidate()
+    {
+        
     }
 
 }
