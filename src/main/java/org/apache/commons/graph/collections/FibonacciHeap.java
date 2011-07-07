@@ -40,6 +40,8 @@ public final class FibonacciHeap<E>
 
     private int size = 0;
 
+    private int trees = 0;
+
     private FibonacciHeapNode<E> root;
 
     public FibonacciHeap()
@@ -47,7 +49,7 @@ public final class FibonacciHeap<E>
         this(null);
     }
 
-    public FibonacciHeap( Comparator<? super E> comparator )
+    public FibonacciHeap( /* @Nullable */Comparator<? super E> comparator )
     {
         this.comparator = comparator;
     }
@@ -62,7 +64,37 @@ public final class FibonacciHeap<E>
             throw new NullPointerException();
         }
 
-        return false;
+        FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
+
+        if ( root == null )
+        {
+            root = node;
+        }
+        else
+        {
+            root.setPrevious( node );
+
+            int comparison;
+            if ( comparator != null )
+            {
+                comparison = comparator.compare( root.getValue(), e );
+            }
+            else
+            {
+                Comparable<? super E> rootComparable = (Comparable<? super E>) root.getValue();
+                comparison = rootComparable.compareTo( e );
+            }
+
+            if ( comparison < 0 )
+            {
+                root = node;
+            }
+        }
+
+        size++;
+        trees++;
+
+        return true;
     }
 
     /**
