@@ -19,64 +19,64 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
-final class FibonacciHeapNode<T>
+final class FibonacciHeapNode<E>
 {
 
-    private final T value;
+    private final E value;
 
-    private FibonacciHeapNode<T> parent;
+    private FibonacciHeapNode<E> parent;
 
-    private FibonacciHeapNode<T> previous;
+    private FibonacciHeapNode<E> previous;
 
-    private FibonacciHeapNode<T> next;
+    private FibonacciHeapNode<E> next;
 
-    private FibonacciHeapNode<T> child;
+    private FibonacciHeapNode<E> child;
 
     private int degree = 0;
 
     private boolean marked = false;
 
-    public FibonacciHeapNode( T value )
+    public FibonacciHeapNode( E value )
     {
         this.value = value;
     }
 
-    public FibonacciHeapNode<T> getParent()
+    public FibonacciHeapNode<E> getParent()
     {
         return parent;
     }
 
-    public void setParent( FibonacciHeapNode<T> parent )
+    public void setParent( FibonacciHeapNode<E> parent )
     {
         this.parent = parent;
     }
 
-    public FibonacciHeapNode<T> getPrevious()
+    public FibonacciHeapNode<E> getPrevious()
     {
         return previous;
     }
 
-    public void setPrevious( FibonacciHeapNode<T> previous )
+    public void setPrevious( FibonacciHeapNode<E> previous )
     {
         this.previous = previous;
     }
 
-    public FibonacciHeapNode<T> getNext()
+    public FibonacciHeapNode<E> getNext()
     {
         return next;
     }
 
-    public void setNext( FibonacciHeapNode<T> next )
+    public void setNext( FibonacciHeapNode<E> next )
     {
         this.next = next;
     }
 
-    public FibonacciHeapNode<T> getChild()
+    public FibonacciHeapNode<E> getChild()
     {
         return child;
     }
 
-    public void setChild( FibonacciHeapNode<T> child )
+    public void setChild( FibonacciHeapNode<E> child )
     {
         this.child = child;
     }
@@ -101,7 +101,7 @@ final class FibonacciHeapNode<T>
         this.marked = marked;
     }
 
-    public T getValue()
+    public E getValue()
     {
         return value;
     }
