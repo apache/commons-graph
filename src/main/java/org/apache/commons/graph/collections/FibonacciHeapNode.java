@@ -127,4 +127,13 @@ final class FibonacciHeapNode<E>
         return element;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return String.valueOf( element );
+    }
+
 }
