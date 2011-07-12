@@ -285,6 +285,7 @@ public final class FibonacciHeap<E>
 
         // n[H] <- n[H] - 1
         size--;
+        trees--;
 
         return z.getElement();
     }
@@ -392,6 +393,8 @@ public final class FibonacciHeap<E>
 
         // mark[y] <- FALSE
         y.setMarked( false );
+
+        trees--;
     }
 
     /**
