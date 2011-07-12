@@ -19,9 +19,9 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
-import static java.lang.Math.sqrt;
-import static java.lang.Math.log;
 import static java.lang.Math.floor;
+import static java.lang.Math.log;
+import static java.lang.Math.sqrt;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -320,8 +320,13 @@ public final class FibonacciHeap<E>
         // -> D( n[H] ) = log( n[H] ) / log( phi )
         int arraySize = ( (int) floor( log( size ) / LOG_PHI ) ) + 1;
 
-        // A[i] <- NIL
-        List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>(arraySize);
+        // for i <- 0 to D(n[H])
+        List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>( arraySize );
+        for ( int i = 0; i < arraySize; i++ )
+        {
+            // A[i] <- NIL
+            nodeSequence.add( i, null );
+        }
 
         // for each node w in the root list of H
         for ( FibonacciHeapNode<E> w = minimumNode.getRight(); w != minimumNode ; w = w.getRight() )
