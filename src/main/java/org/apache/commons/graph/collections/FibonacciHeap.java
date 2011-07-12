@@ -257,17 +257,21 @@ public final class FibonacciHeap<E>
      */
     public E poll()
     {
+        // FIB-HEAP-EXTRACT-MIN(H)
+
         if ( isEmpty() )
         {
             return null;
         }
 
+        // z <- min[H]
         FibonacciHeapNode<E> currentMinimum = minimumNode;
 
         int degree = currentMinimum.getDegree();
         FibonacciHeapNode<E> currentChild = currentMinimum.getChild();
         FibonacciHeapNode<E> pointer;
 
+        // for each child x of z
         while ( degree > 0 )
         {
             pointer = currentChild.getRight();
@@ -280,6 +284,7 @@ public final class FibonacciHeap<E>
             minimumNode.setRight( currentChild );
             currentChild.getRight().setLeft( currentChild );
 
+            // p[x] <- NIL
             currentChild.setParent( null );
             currentChild = pointer;
             degree--;
@@ -288,16 +293,23 @@ public final class FibonacciHeap<E>
         currentMinimum.getLeft().setRight( currentMinimum.getRight() );
         currentMinimum.getRight().setLeft( currentMinimum.getLeft() );
 
+        // remove z from the root list of H
+
+        // if z = right[z]
         if ( currentMinimum == currentMinimum.getRight() )
         {
+            // min[H] <- NIL
             minimumNode = null;
         }
         else
         {
+            // min[H] <- right[z]
             minimumNode = currentMinimum.getRight();
+            // CONSOLIDATE(H)
             consolidate();
         }
 
+        // n[H] <- n[H] - 1
         size--;
 
         return currentMinimum.getElement();
