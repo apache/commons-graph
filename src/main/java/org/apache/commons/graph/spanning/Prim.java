@@ -66,14 +66,14 @@ public final class Prim
         final ShortestEdges<V, WE> shortesEdges = new ShortestEdges<V, WE>( graph, source );
 
         final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortesEdges );
-        unsettledNodes.offer( source );
+        unsettledNodes.add( source );
 
         final Set<WE> settledEdges = new HashSet<WE>();
 
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
         {
-            V vertex = unsettledNodes.poll();
+            V vertex = unsettledNodes.remove();
 
             for ( V v : graph.getConnectedVertices( vertex ) )
             {
@@ -84,7 +84,7 @@ public final class Prim
                 {
                     if ( !unsettledNodes.contains( v ) )
                     {
-                        unsettledNodes.offer( v );
+                        unsettledNodes.add( v );
                     }
 
                     shortesEdges.addPredecessor( v, edge );

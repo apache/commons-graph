@@ -62,7 +62,7 @@ public final class Dijkstra
         shortestDistances.setWeight( source, 0D );
 
         final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestDistances );
-        unsettledNodes.offer( source );
+        unsettledNodes.add( source );
 
         final Set<V> settledNodes = new HashSet<V>();
 
@@ -71,7 +71,7 @@ public final class Dijkstra
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
         {
-            V vertex = unsettledNodes.poll();
+            V vertex = unsettledNodes.remove();
 
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
@@ -93,7 +93,7 @@ public final class Dijkstra
                     {
                         // assign new shortest distance and mark unsettled
                         shortestDistances.setWeight( v, shortDist );
-                        unsettledNodes.offer( v );
+                        unsettledNodes.add( v );
 
                         // assign predecessor in shortest path
                         predecessors.addPredecessor( v, vertex );

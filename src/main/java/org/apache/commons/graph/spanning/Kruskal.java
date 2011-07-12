@@ -63,7 +63,7 @@ public final class Kruskal
 
         while ( settledNodes.size() < graph.getOrder() )
         {
-            WE edge = orderedEdges.poll();
+            WE edge = orderedEdges.remove();
 
             VertexPair<V> vertices = graph.getVertices( edge );
             V head = vertices.getHead();

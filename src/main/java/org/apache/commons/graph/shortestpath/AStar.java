@@ -73,7 +73,7 @@ public final class AStar
 
         // The set of tentative nodes to be evaluated.
         final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getOrder(), fScores );
-        openSet.offer( start );
+        openSet.add( start );
 
         // The of navigated nodes
         final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
@@ -81,7 +81,7 @@ public final class AStar
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )
         {
-            V current = openSet.poll();
+            V current = openSet.remove();
 
             // destination reached, stop and build the path
             if ( goal.equals( current ) )
@@ -101,7 +101,7 @@ public final class AStar
                     WE edge = graph.getEdge( current, v );
                     Double tentativeGScore = gScores.getWeight( current ) + edge.getWeight();
 
-                    if ( openSet.offer( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
+                    if ( openSet.add( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
                     {
                         predecessors.addPredecessor( v, current );
                         gScores.setWeight( v, tentativeGScore );
