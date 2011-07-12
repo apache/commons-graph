@@ -266,10 +266,10 @@ public final class FibonacciHeap<E>
             return null;
         }
 
-        FibonacciHeapNode<E> currentRoot = minimumNode;
+        FibonacciHeapNode<E> currentMinimum = minimumNode;
 
-        int degree = currentRoot.getDegree();
-        FibonacciHeapNode<E> currentChild = currentRoot.getChild();
+        int degree = currentMinimum.getDegree();
+        FibonacciHeapNode<E> currentChild = currentMinimum.getChild();
         FibonacciHeapNode<E> pointer;
 
         while ( degree > 0 )
@@ -289,22 +289,22 @@ public final class FibonacciHeap<E>
             degree--;
         }
 
-        currentRoot.getLeft().setRight( currentRoot.getRight() );
-        currentRoot.getRight().setLeft( currentRoot.getLeft() );
+        currentMinimum.getLeft().setRight( currentMinimum.getRight() );
+        currentMinimum.getRight().setLeft( currentMinimum.getLeft() );
 
-        if ( currentRoot == currentRoot.getRight() )
+        if ( currentMinimum == currentMinimum.getRight() )
         {
             minimumNode = null;
         }
         else
         {
-            minimumNode = currentRoot.getRight();
+            minimumNode = currentMinimum.getRight();
             consolidate();
         }
 
         size--;
 
-        return currentRoot.getElement();
+        return currentMinimum.getElement();
     }
 
     private void consolidate()
