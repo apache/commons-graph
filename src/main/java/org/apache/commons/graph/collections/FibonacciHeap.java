@@ -105,7 +105,7 @@ public final class FibonacciHeap<E>
             minimumNode.setLeft( node );
 
             // if key[x] < key[min[H]]
-            if ( compare( e, minimumNode.getValue() ) < 0 )
+            if ( compare( e, minimumNode.getElement() ) < 0 )
             {
                 // then min[H] <- x
                 minimumNode = node;
@@ -227,7 +227,7 @@ public final class FibonacciHeap<E>
         {
             return null;
         }
-        return minimumNode.getValue();
+        return minimumNode.getElement();
     }
 
     /**
@@ -304,7 +304,7 @@ public final class FibonacciHeap<E>
 
         size--;
 
-        return currentRoot.getValue();
+        return currentRoot.getElement();
     }
 
     private void consolidate()

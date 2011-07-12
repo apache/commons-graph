@@ -25,7 +25,7 @@ package org.apache.commons.graph.collections;
 final class FibonacciHeapNode<E>
 {
 
-    private final E value;
+    private final E element;
 
     private FibonacciHeapNode<E> parent;
 
@@ -52,9 +52,9 @@ final class FibonacciHeapNode<E>
      */
     private boolean marked = false;
 
-    public FibonacciHeapNode( E value )
+    public FibonacciHeapNode( E element )
     {
-        this.value = value;
+        this.element = element;
     }
 
     public FibonacciHeapNode<E> getParent()
@@ -117,9 +117,9 @@ final class FibonacciHeapNode<E>
         this.marked = marked;
     }
 
-    public E getValue()
+    public E getElement()
     {
-        return value;
+        return element;
     }
 
 }
