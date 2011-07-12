@@ -226,9 +226,9 @@ public final class FibonacciHeap<E>
     {
         if ( isEmpty() )
         {
-            return null;
+            throw new NoSuchElementException();
         }
-        return minimumNode.getElement();
+        return peek();
     }
 
     /**
@@ -244,7 +244,12 @@ public final class FibonacciHeap<E>
      */
     public E peek()
     {
-        return element();
+        if ( isEmpty() )
+        {
+            return null;
+        }
+
+        return minimumNode.getElement();
     }
 
     /**
