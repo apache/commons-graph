@@ -20,6 +20,8 @@ package org.apache.commons.graph.collections;
  */
 
 import static java.lang.Math.sqrt;
+import static java.lang.Math.log;
+import static java.lang.Math.floor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +40,7 @@ public final class FibonacciHeap<E>
     implements Queue<E>
 {
 
-    private static final int PHI = (int) ( ( 1 + sqrt( 5 ) ) / 2 );
+    private static final double LOG_PHI = log( ( 1 + sqrt( 5 ) ) / 2 );
 
     /**
      * The comparator, or null if priority queue uses elements'
@@ -93,29 +95,7 @@ public final class FibonacciHeap<E>
         // left[x] <- x
         // right[x] <- x
         // mark[x] <- FALSE
-        FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
-
-        // if min[H] = NIL
-        if ( isEmpty() )
-        {
-            // then min[H] <- x
-            minimumNode = node;
-        }
-        else
-        {
-            // concatenate the root list containing x with root list H
-            minimumNode.getLeft().setRight( node );
-            node.setLeft( minimumNode.getLeft() );
-            node.setRight( minimumNode );
-            minimumNode.setLeft( node );
-
-            // if key[x] < key[min[H]]
-            if ( compare( e, minimumNode.getElement() ) < 0 )
-            {
-                // then min[H] <- x
-                minimumNode = node;
-            }
-        }
+        addNode( new FibonacciHeapNode<E>( e ) );
 
         // n[H] <- n[H] + 1
         size++;
@@ -324,27 +304,73 @@ public final class FibonacciHeap<E>
         return poll();
     }
 
+    /**
+     * Implements the {@code CONSOLIDATE(H)} function.
+     */
     private void consolidate()
     {
-        if ( minimumNode == null )
+        if ( isEmpty() )
         {
             return;
         }
 
-        List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>();
+        // D( n[H] ) <= log_phi( n[H] )
+        // -> log_phi( n[H] ) = log( n[H] ) / log( phi )
+        // -> D( n[H] ) = log( n[H] ) / log( phi )
+        int arraySize = ( (int) floor( log( size ) / LOG_PHI ) ) + 1;
 
-        FibonacciHeapNode<E> pointer = minimumNode.getRight();
+        // A[i] <- NIL
+        List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>(arraySize);
 
-        while ( pointer != minimumNode )
+        // for each node w in the root list of H
+        for ( FibonacciHeapNode<E> w = minimumNode.getRight(); w != minimumNode ; w = w.getRight() )
         {
-            int degree = pointer.getDegree();
+            // x <- w
+            FibonacciHeapNode<E> x = w;
 
-            
+            // d <- degree[x]
+            int degree = x.getDegree();
 
-            pointer = pointer.getRight();
+            // while A[d] != NIL
+            while ( nodeSequence.get( degree ) != null )
+            {
+                // do y <- A[d]
+                FibonacciHeapNode<E> y = nodeSequence.get( degree );
+
+                // if key[x] > key[y]
+                if ( compare( x, y ) > 0 )
+                {
+                    // exchange x <-> y
+                    FibonacciHeapNode<E> pointer = y;
+                    y = x;
+                    x = pointer;
+                }
+
+                // TODO FIB-HEAP-LINK(H,y,x)
+
+                // A[d] <- NIL
+                nodeSequence.set( degree, null );
+
+                // d <- d + 1
+                degree++;
+            }
+
+            // A[d] <- x
+            nodeSequence.set( degree, x );
         }
 
-        
+        // min[H] <- NIL
+        minimumNode = null;
+
+        // for i <- 0 to D(n[H])
+        for ( FibonacciHeapNode<E> pointer : nodeSequence )
+        {
+            // if A[i] != NIL
+            if ( pointer != null )
+            {
+                addNode( pointer );
+            }
+        }
     }
 
     /**
@@ -358,14 +384,39 @@ public final class FibonacciHeap<E>
         return trees + 2 * markedNodes;
     }
 
-    private int compare( E o1, E o2 )
+    private void addNode( FibonacciHeapNode<E> node )
+    {
+        // if min[H] = NIL
+        if ( isEmpty() )
+        {
+            // then min[H] <- x
+            minimumNode = node;
+        }
+        else
+        {
+            // concatenate the root list containing x with root list H
+            minimumNode.getLeft().setRight( node );
+            node.setLeft( minimumNode.getLeft() );
+            node.setRight( minimumNode );
+            minimumNode.setLeft( node );
+
+            // if key[x] < key[min[H]]
+            if ( compare( node, minimumNode ) < 0 )
+            {
+                // then min[H] <- x
+                minimumNode = node;
+            }
+        }
+    }
+
+    private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
     {
         if ( comparator != null )
         {
-            return comparator.compare( o1, o2 );
+            return comparator.compare( o1.getElement(), o2.getElement() );
         }
-        Comparable<? super E> o1Comparable = (Comparable<? super E>) o1;
-        return o1Comparable.compareTo( o2 );
+        Comparable<? super E> o1Comparable = (Comparable<? super E>) o1.getElement();
+        return o1Comparable.compareTo( o2.getElement() );
     }
 
 }
