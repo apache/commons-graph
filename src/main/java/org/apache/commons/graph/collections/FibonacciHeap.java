@@ -418,6 +418,32 @@ public final class FibonacciHeap<E>
     }
 
     /**
+     * Implements the {@code CASCADING-CUT(H,y)} function.
+     *
+     * @param y
+     */
+    private void cascadingCut( FibonacciHeapNode<E> y )
+    {
+        // z <- p[y]
+        FibonacciHeapNode<E> z = y.getParent();
+
+        // if z <- NIL
+        if ( z != null )
+        {
+            // mark[y] = FALSE
+            if ( !y.isMarked() )
+            {
+                y.setMarked( true );
+            }
+            else
+            {
+                cut( y, z );
+                cascadingCut( z );
+            }
+        }
+    }
+
+    /**
      * The potential of Fibonacci heap {@code H} is then defined by
      * {@code t(H) + 2m(H)}.
      *
