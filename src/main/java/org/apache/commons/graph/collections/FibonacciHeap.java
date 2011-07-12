@@ -132,7 +132,10 @@ public final class FibonacciHeap<E>
      */
     public void clear()
     {
-        
+        minimumNode = null;
+        size = 0;
+        trees = 0;
+        markedNodes = 0;
     }
 
     /**
