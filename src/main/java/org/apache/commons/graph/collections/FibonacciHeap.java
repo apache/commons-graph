@@ -258,7 +258,7 @@ public final class FibonacciHeap<E>
     {
         // FIB-HEAP-EXTRACT-MIN(H)
 
-        if ( minimumNode == null )
+        if ( isEmpty() )
         {
             return null;
         }
