@@ -99,10 +99,10 @@ public final class FibonacciHeap<E>
         else
         {
             // concatenate the root list containing x with root list H
-            node.setLeft( minimumNode );
-            node.setRight( minimumNode.getRight() );
-            minimumNode.setRight( node );
-            node.getRight().setLeft( minimumNode );
+            minimumNode.getLeft().setRight( node );
+            node.setLeft( minimumNode.getLeft() );
+            node.setRight( minimumNode );
+            minimumNode.setLeft( node );
 
             // if key[x] < key[min[H]]
             if ( compare( e, minimumNode.getValue() ) < 0 )
