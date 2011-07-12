@@ -156,7 +156,7 @@ public final class FibonacciHeap<E>
      */
     public boolean isEmpty()
     {
-        return false;
+        return minimumNode == null;
     }
 
     /**
@@ -256,7 +256,9 @@ public final class FibonacciHeap<E>
      */
     public E remove()
     {
-        if ( size == 0 )
+        // FIB-HEAP-EXTRACT-MIN(H)
+
+        if ( minimumNode == null )
         {
             return null;
         }
