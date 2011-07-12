@@ -91,7 +91,7 @@ public final class FibonacciHeap<E>
         FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
 
         // if min[H] = NIL
-        if ( minimumNode == null )
+        if ( isEmpty() )
         {
             // then min[H] <- x
             minimumNode = node;
