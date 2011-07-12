@@ -19,6 +19,9 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
+/**
+ * 
+ */
 final class FibonacciHeapNode<E>
 {
 
@@ -26,14 +29,27 @@ final class FibonacciHeapNode<E>
 
     private FibonacciHeapNode<E> parent;
 
-    private FibonacciHeapNode<E> previous;
+    /**
+     * {@code left[x]}
+     */
+    private FibonacciHeapNode<E> left = this;
 
-    private FibonacciHeapNode<E> next;
+    /**
+     * {@code right[x]}
+     */
+    private FibonacciHeapNode<E> right = this;
 
     private FibonacciHeapNode<E> child;
 
+    /**
+     * The number of children in the child list of node {@code x} is stored in {@code degree[x]}.
+     */
     private int degree = 0;
 
+    /**
+     * {@code mark[x]} indicates whether node {@code x} has lost a child since
+     * the last time {@code x} was made the child of another node.
+     */
     private boolean marked = false;
 
     public FibonacciHeapNode( E value )
@@ -51,24 +67,24 @@ final class FibonacciHeapNode<E>
         this.parent = parent;
     }
 
-    public FibonacciHeapNode<E> getPrevious()
+    public FibonacciHeapNode<E> getLeft()
     {
-        return previous;
+        return left;
     }
 
-    public void setPrevious( FibonacciHeapNode<E> previous )
+    public void setLeft( FibonacciHeapNode<E> left )
     {
-        this.previous = previous;
+        this.left = left;
     }
 
-    public FibonacciHeapNode<E> getNext()
+    public FibonacciHeapNode<E> getRight()
     {
-        return next;
+        return right;
     }
 
-    public void setNext( FibonacciHeapNode<E> next )
+    public void setRight( FibonacciHeapNode<E> right )
     {
-        this.next = next;
+        this.right = right;
     }
 
     public FibonacciHeapNode<E> getChild()

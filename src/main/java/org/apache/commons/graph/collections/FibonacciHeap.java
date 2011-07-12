@@ -19,14 +19,17 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Queue;
 
 /**
  * A Fibonacci Heap implementation based on
- * <a href="http://www.cs.princeton.edu/~wayne/cs423/fibonacci/FibonacciHeapAlgorithm.html">Princeton</a> lesson.
+ * <a href="http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm">University of Science and Technology of
+ * China</a> lesson.
  */
 public final class FibonacciHeap<E>
     implements Queue<E>
@@ -38,11 +41,25 @@ public final class FibonacciHeap<E>
      */
     private final Comparator<? super E> comparator;
 
+    /**
+     * The number of nodes currently in {@code H} is kept in {@code n[H]}.
+     */
     private int size = 0;
 
+    /**
+     * {@code t(H)} the number of trees in the root list.
+     */
     private int trees = 0;
 
-    private FibonacciHeapNode<E> root;
+    /**
+     * {@code m(H)} the number of marked nodes in {@code H}.
+     */
+    private int markedNodes = 0;
+
+    /**
+     * The root of the tree containing a minimum key {@code min[H]}.
+     */
+    private FibonacciHeapNode<E> minimumNode;
 
     public FibonacciHeap()
     {
@@ -66,31 +83,20 @@ public final class FibonacciHeap<E>
 
         FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
 
-        if ( root == null )
+        if ( minimumNode == null )
         {
-            root = node;
+            minimumNode = node;
         }
         else
         {
-            node.setPrevious( root );
-            node.setNext( root.getNext() );
-            root.setNext( node );
-            node.getNext().setPrevious( root );
+            node.setLeft( minimumNode );
+            node.setRight( minimumNode.getRight() );
+            minimumNode.setRight( node );
+            node.getRight().setLeft( minimumNode );
 
-            int comparison;
-            if ( comparator != null )
+            if ( compare( minimumNode.getValue(), e ) < 0 )
             {
-                comparison = comparator.compare( root.getValue(), e );
-            }
-            else
-            {
-                Comparable<? super E> rootComparable = (Comparable<? super E>) root.getValue();
-                comparison = rootComparable.compareTo( e );
-            }
-
-            if ( comparison < 0 )
-            {
-                root = node;
+                minimumNode = node;
             }
         }
 
@@ -201,7 +207,11 @@ public final class FibonacciHeap<E>
      */
     public E element()
     {
-        return null;
+        if ( size == 0 )
+        {
+            return null;
+        }
+        return minimumNode.getValue();
     }
 
     /**
@@ -217,11 +227,7 @@ public final class FibonacciHeap<E>
      */
     public E peek()
     {
-        if ( size == 0 )
-        {
-            return null;
-        }
-        return root.getValue();
+        return element();
     }
 
     /**
@@ -229,7 +235,7 @@ public final class FibonacciHeap<E>
      */
     public E poll()
     {
-        return null;
+        return remove();
     }
 
     /**
@@ -237,12 +243,94 @@ public final class FibonacciHeap<E>
      */
     public E remove()
     {
-        return null;
+        if ( size == 0 )
+        {
+            return null;
+        }
+
+        FibonacciHeapNode<E> currentRoot = minimumNode;
+
+        int degree = currentRoot.getDegree();
+        FibonacciHeapNode<E> currentChild = currentRoot.getChild();
+        FibonacciHeapNode<E> pointer;
+
+        while ( degree > 0 )
+        {
+            pointer = currentChild.getRight();
+
+            currentChild.getLeft().setRight( currentChild.getRight() );
+            currentChild.getRight().setLeft( currentChild.getLeft() );
+
+            currentChild.setLeft( minimumNode );
+            currentChild.setRight( minimumNode.getRight() );
+            minimumNode.setRight( currentChild );
+            currentChild.getRight().setLeft( currentChild );
+
+            currentChild.setParent( null );
+            currentChild = pointer;
+            degree--;
+        }
+
+        currentRoot.getLeft().setRight( currentRoot.getRight() );
+        currentRoot.getRight().setLeft( currentRoot.getLeft() );
+
+        if ( currentRoot == currentRoot.getRight() )
+        {
+            minimumNode = null;
+        }
+        else
+        {
+            minimumNode = currentRoot.getRight();
+            consolidate();
+        }
+
+        size--;
+
+        return currentRoot.getValue();
     }
 
     private void consolidate()
     {
+        if ( minimumNode == null )
+        {
+            return;
+        }
+
+        List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>();
+
+        FibonacciHeapNode<E> pointer = minimumNode.getRight();
+
+        while ( pointer != minimumNode )
+        {
+            int degree = pointer.getDegree();
+
+            
+
+            pointer = pointer.getRight();
+        }
+
         
+    }
+
+    /**
+     * The potential of Fibonacci heap {@code H} is then defined by
+     * {@code t(H) + 2m(H)}.
+     *
+     * @return The potential of this Fibonacci heap.
+     */
+    public int potential()
+    {
+        return trees + 2 * markedNodes;
+    }
+
+    private int compare( E o1, E o2 )
+    {
+        if ( comparator != null )
+        {
+            return comparator.compare( o1, o2 );
+        }
+        Comparable<? super E> o1Comparable = (Comparable<? super E>) o1;
+        return o1Comparable.compareTo( o2 );
     }
 
 }
