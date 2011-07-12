@@ -269,7 +269,7 @@ public final class FibonacciHeap<E>
 
         // for each child x of z
         FibonacciHeapNode<E> x = z.getChild();
-        for ( int degree = z.getDegree(); degree > 0; degree-- )
+        for ( int degree = z.getDegree(); degree > 0; degree--, x = x.getRight() )
         {
             // add x to the root list of H
             z.getLeft().setRight( x );
@@ -279,8 +279,6 @@ public final class FibonacciHeap<E>
 
             // p[x] <- NIL
             x.setParent( null );
-
-            x = x.getRight();
         }
 
         // remove z from the root list of H
