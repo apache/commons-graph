@@ -346,7 +346,8 @@ public final class FibonacciHeap<E>
                     x = pointer;
                 }
 
-                // TODO FIB-HEAP-LINK(H,y,x)
+                // FIB-HEAP-LINK(H,y,x)
+                link( y, x );
 
                 // A[d] <- NIL
                 nodeSequence.set( degree, null );
@@ -371,6 +372,26 @@ public final class FibonacciHeap<E>
                 addNode( pointer );
             }
         }
+    }
+
+    /**
+     * Implements the {@code FIB-HEAP-LINK(H, y, x)} function.
+     *
+     * @param y
+     * @param x
+     */
+    private void link( FibonacciHeapNode<E> y, FibonacciHeapNode<E> x )
+    {
+        // remove y from the root list of H
+        y.getLeft().setRight( y.getRight() );
+        y.getRight().setLeft( y.getLeft() );
+
+        // make y a child of x, incrementing degree[x]
+        x.setChild( y );
+        x.incraeseDegree();
+
+        // mark[y] <- FALSE
+        y.setMarked( false );
     }
 
     /**
