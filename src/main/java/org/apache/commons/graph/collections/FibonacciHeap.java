@@ -265,38 +265,27 @@ public final class FibonacciHeap<E>
         }
 
         // z <- min[H]
-        FibonacciHeapNode<E> currentMinimum = minimumNode;
-
-        int degree = currentMinimum.getDegree();
-        FibonacciHeapNode<E> currentChild = currentMinimum.getChild();
-        FibonacciHeapNode<E> pointer;
+        FibonacciHeapNode<E> z = minimumNode;
 
         // for each child x of z
-        while ( degree > 0 )
+        for ( FibonacciHeapNode<E> x = z.getChild().getRight(); x != z.getChild(); x = x.getRight() )
         {
-            pointer = currentChild.getRight();
-
-            currentChild.getLeft().setRight( currentChild.getRight() );
-            currentChild.getRight().setLeft( currentChild.getLeft() );
-
-            currentChild.setLeft( minimumNode );
-            currentChild.setRight( minimumNode.getRight() );
-            minimumNode.setRight( currentChild );
-            currentChild.getRight().setLeft( currentChild );
+            // add x to the root list of H
+            z.getLeft().setRight( x );
+            x.setLeft( z.getLeft() );
+            z.setLeft( x );
+            x.setRight( z );
 
             // p[x] <- NIL
-            currentChild.setParent( null );
-            currentChild = pointer;
-            degree--;
+            x.setParent( null );
         }
 
-        currentMinimum.getLeft().setRight( currentMinimum.getRight() );
-        currentMinimum.getRight().setLeft( currentMinimum.getLeft() );
-
         // remove z from the root list of H
+        z.getLeft().setRight( z.getRight() );
+        z.getRight().setLeft( z.getLeft() );
 
         // if z = right[z]
-        if ( currentMinimum == currentMinimum.getRight() )
+        if ( z == z.getRight() )
         {
             // min[H] <- NIL
             minimumNode = null;
@@ -304,7 +293,7 @@ public final class FibonacciHeap<E>
         else
         {
             // min[H] <- right[z]
-            minimumNode = currentMinimum.getRight();
+            minimumNode = z.getRight();
             // CONSOLIDATE(H)
             consolidate();
         }
@@ -312,7 +301,7 @@ public final class FibonacciHeap<E>
         // n[H] <- n[H] - 1
         size--;
 
-        return currentMinimum.getElement();
+        return z.getElement();
     }
 
     /**
