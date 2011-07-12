@@ -102,9 +102,14 @@ final class FibonacciHeapNode<E>
         return degree;
     }
 
-    public void setDegree( int degree )
+    public void incraeseDegree()
     {
-        this.degree = degree;
+        degree++;
+    }
+
+    public void decraeseDegree()
+    {
+        degree--;
     }
 
     public boolean isMarked()
