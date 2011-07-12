@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 /**
@@ -251,16 +252,6 @@ public final class FibonacciHeap<E>
      */
     public E poll()
     {
-        return remove();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public E remove()
-    {
-        // FIB-HEAP-EXTRACT-MIN(H)
-
         if ( isEmpty() )
         {
             return null;
@@ -305,6 +296,21 @@ public final class FibonacciHeap<E>
         size--;
 
         return currentMinimum.getElement();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public E remove()
+    {
+        // FIB-HEAP-EXTRACT-MIN(H)
+
+        if ( isEmpty() )
+        {
+            throw new NoSuchElementException();
+        }
+
+        return poll();
     }
 
     private void consolidate()
