@@ -19,6 +19,8 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
+import static java.lang.Math.sqrt;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -35,6 +37,8 @@ import java.util.Queue;
 public final class FibonacciHeap<E>
     implements Queue<E>
 {
+
+    private static final int PHI = (int) ( ( 1 + sqrt( 5 ) ) / 2 );
 
     /**
      * The comparator, or null if priority queue uses elements'
