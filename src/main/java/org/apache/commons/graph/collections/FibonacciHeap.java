@@ -398,6 +398,26 @@ public final class FibonacciHeap<E>
     }
 
     /**
+     * Implements the {@code CUT(H,x,y)} function.
+     *
+     * @param x
+     * @param y
+     */
+    private void cut( FibonacciHeapNode<E> x, FibonacciHeapNode<E> y )
+    {
+        // remove x from the child list of y, decrementing degree[y]
+        x.getLeft().setRight( x.getRight() );
+        x.getRight().setLeft( x.getLeft() );
+        y.decraeseDegree();
+
+        // p[x] <- NIL
+        x.setParent( null );
+
+        // mark[x] <- FALSE
+        x.setMarked( false );
+    }
+
+    /**
      * The potential of Fibonacci heap {@code H} is then defined by
      * {@code t(H) + 2m(H)}.
      *
