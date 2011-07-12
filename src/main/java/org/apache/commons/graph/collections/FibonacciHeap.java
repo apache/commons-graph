@@ -81,25 +81,38 @@ public final class FibonacciHeap<E>
             throw new NullPointerException();
         }
 
+        // FIB-HEAP-INSERT(H, x)
+
+        // p[x] <- NIL
+        // child[x] <- NIL
+        // left[x] <- x
+        // right[x] <- x
+        // mark[x] <- FALSE
         FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
 
+        // if min[H] = NIL
         if ( minimumNode == null )
         {
+            // then min[H] <- x
             minimumNode = node;
         }
         else
         {
+            // concatenate the root list containing x with root list H
             node.setLeft( minimumNode );
             node.setRight( minimumNode.getRight() );
             minimumNode.setRight( node );
             node.getRight().setLeft( minimumNode );
 
-            if ( compare( minimumNode.getValue(), e ) < 0 )
+            // if key[x] < key[min[H]]
+            if ( compare( e, minimumNode.getValue() ) < 0 )
             {
+                // then min[H] <- x
                 minimumNode = node;
             }
         }
 
+        // n[H] <- n[H] + 1
         size++;
         trees++;
 
