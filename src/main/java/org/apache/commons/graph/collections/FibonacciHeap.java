@@ -223,7 +223,7 @@ public final class FibonacciHeap<E>
      */
     public E element()
     {
-        if ( size == 0 )
+        if ( isEmpty() )
         {
             return null;
         }
