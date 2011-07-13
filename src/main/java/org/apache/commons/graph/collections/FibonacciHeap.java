@@ -252,17 +252,31 @@ public final class FibonacciHeap<E>
         FibonacciHeapNode<E> z = minimumNode;
 
         // for each child x of z
-        FibonacciHeapNode<E> x = z.getChild();
-        for ( int degree = z.getDegree(); degree > 0; degree--, x = x.getRight() )
+        if ( z.getDegree() > 0 )
         {
-            // add x to the root list of H
-            z.getLeft().setRight( x );
-            x.setLeft( z.getLeft() );
-            z.setLeft( x );
-            x.setRight( z );
+            FibonacciHeapNode<E> x = z.getChild();
+            FibonacciHeapNode<E> tempRight;
 
-            // p[x] <- NIL
-            x.setParent( null );
+            do
+            {
+                tempRight = x.getRight();
+
+                // remove x from child list
+                x.getLeft().setRight( x.getRight() );
+                x.getRight().setLeft( x.getLeft() );
+
+                // add x to the root list of H
+                z.getLeft().setRight( x );
+                x.setLeft( z.getLeft() );
+                z.setLeft( x );
+                x.setRight( z );
+
+                // p[x] <- NIL
+                x.setParent( null );
+
+                x = tempRight;
+            }
+            while ( x != z.getChild() );
         }
 
         // remove z from the root list of H
@@ -318,7 +332,7 @@ public final class FibonacciHeap<E>
         // D( n[H] ) <= log_phi( n[H] )
         // -> log_phi( n[H] ) = log( n[H] ) / log( phi )
         // -> D( n[H] ) = log( n[H] ) / log( phi )
-        int arraySize = ( (int) floor( log( size ) / LOG_PHI ) ) + 1;
+        int arraySize = ( (int) floor( log( size ) / LOG_PHI ) );
 
         // for i <- 0 to D(n[H])
         List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>( arraySize );
@@ -328,12 +342,10 @@ public final class FibonacciHeap<E>
             nodeSequence.add( i, null );
         }
 
-        // for each node w in the root list of H
-        for ( FibonacciHeapNode<E> w = minimumNode.getRight(); w != minimumNode ; w = w.getRight() )
+        // for each node x in the root list of H
+        FibonacciHeapNode<E> x = minimumNode;
+        do
         {
-            // x <- w
-            FibonacciHeapNode<E> x = w;
-
             // d <- degree[x]
             int degree = x.getDegree();
 
@@ -364,7 +376,10 @@ public final class FibonacciHeap<E>
 
             // A[d] <- x
             nodeSequence.set( degree, x );
+
+            x = x.getRight();
         }
+        while ( x != minimumNode );
 
         // min[H] <- NIL
         minimumNode = null;
