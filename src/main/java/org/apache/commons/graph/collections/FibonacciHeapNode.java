@@ -20,7 +20,7 @@ package org.apache.commons.graph.collections;
  */
 
 /**
- * 
+ * @param <E> the type of elements held in the {@link FibonacciHeap} collection.
  */
 final class FibonacciHeapNode<E>
 {

@@ -37,6 +37,8 @@ import java.util.Set;
  * A Fibonacci Heap implementation based on
  * <a href="http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm">University of Science and Technology of
  * China</a> lesson.
+ *
+ * @param <E> the type of elements held in this collection.
  */
 public final class FibonacciHeap<E>
     implements Queue<E>
