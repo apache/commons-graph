@@ -26,10 +26,12 @@ import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * A Fibonacci Heap implementation based on
@@ -41,6 +43,8 @@ public final class FibonacciHeap<E>
 {
 
     private static final double LOG_PHI = log( ( 1 + sqrt( 5 ) ) / 2 );
+
+    private final Set<E> elementsIndex = new HashSet<E>();
 
     /**
      * The comparator, or null if priority queue uses elements'
@@ -97,6 +101,8 @@ public final class FibonacciHeap<E>
         // mark[x] <- FALSE
         addNode( new FibonacciHeapNode<E>( e ) );
 
+        elementsIndex.add( e );
+
         // n[H] <- n[H] + 1
         size++;
         trees++;
@@ -128,7 +134,12 @@ public final class FibonacciHeap<E>
      */
     public boolean contains( Object o )
     {
-        return false;
+        if ( o == null )
+        {
+            return false;
+        }
+
+        return elementsIndex.contains( o );
     }
 
     /**
@@ -136,7 +147,20 @@ public final class FibonacciHeap<E>
      */
     public boolean containsAll( Collection<?> c )
     {
-        return false;
+        if ( c == null )
+        {
+            return false;
+        }
+
+        for ( Object o : c )
+        {
+            if ( !contains( o ) )
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -301,7 +325,9 @@ public final class FibonacciHeap<E>
         size--;
         trees--;
 
-        return z.getElement();
+        E minimum = z.getElement();
+        elementsIndex.remove( minimum );
+        return minimum;
     }
 
     /**
