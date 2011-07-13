@@ -435,6 +435,7 @@ public final class FibonacciHeap<E>
 
         // make y a child of x, incrementing degree[x]
         x.setChild( y );
+        y.setParent( x );
         x.incraeseDegree();
 
         // mark[y] <- FALSE
