@@ -20,7 +20,7 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
@@ -28,6 +28,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.collections.FibonacciHeap;
 
 /**
  * Contains the A* shortest path algorithm implementation.
@@ -72,7 +73,7 @@ public final class AStar
         final Set<V> closedSet = new HashSet<V>();
 
         // The set of tentative nodes to be evaluated.
-        final PriorityQueue<V> openSet = new PriorityQueue<V>( graph.getOrder(), fScores );
+        final Queue<V> openSet = new FibonacciHeap<V>( fScores );
         openSet.add( start );
 
         // The of navigated nodes

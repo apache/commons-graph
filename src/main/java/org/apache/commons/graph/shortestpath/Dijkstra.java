@@ -20,7 +20,7 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
@@ -28,6 +28,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.collections.FibonacciHeap;
 
 /**
  * Contains the Dijkstra's shortest path algorithm implementation.
@@ -61,7 +62,7 @@ public final class Dijkstra
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
 
-        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestDistances );
+        final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
         unsettledNodes.add( source );
 
         final Set<V> settledNodes = new HashSet<V>();
