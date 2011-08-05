@@ -534,6 +534,7 @@ public final class FibonacciHeap<E>
         {
             return comparator.compare( o1.getElement(), o2.getElement() );
         }
+        @SuppressWarnings( "unchecked" ) // it will throw a ClassCastException at runtime
         Comparable<? super E> o1Comparable = (Comparable<? super E>) o1.getElement();
         return o1Comparable.compareTo( o2.getElement() );
     }
