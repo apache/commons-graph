@@ -39,6 +39,19 @@ public final class Tarjan
 {
 
     /**
+     * Applies the classical Tarjan's algorithm checking if there is a strongly connected component.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <E> the Graph edges type.
+     * @param graph the Graph which strongly connected component has to be verified.
+     * @return true, if the input graph has a strongly connected component, false otherwise.
+     */
+    public static <V extends Vertex, E extends Edge> boolean hasStronglyConnectedComponent( DirectedGraph<V, E> graph )
+    {
+        return !getStronglyConnectedComponent( graph ).isEmpty();
+    }
+
+    /**
      * Applies the classical Tarjan's algorithm to find the strongly connected components, if exist.
      *
      * @param <V> the Graph vertices type.
