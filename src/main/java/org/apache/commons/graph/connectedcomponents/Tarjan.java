@@ -39,6 +39,14 @@ public final class Tarjan
 {
 
     /**
+     * Hidden constructor, this class cannot be instantiated directly.
+     */
+    private Tarjan()
+    {
+        // do nothing
+    }
+
+    /**
      * Applies the classical Tarjan's algorithm checking if there is a strongly connected component.
      *
      * @param <V> the Graph vertices type.
