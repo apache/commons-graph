@@ -33,7 +33,7 @@ public final class KosarajuSharir
 {
 
     /**
-     * This class can not be instantiated directly
+     * This class can not be instantiated directly.
      */
     private KosarajuSharir()
     {
