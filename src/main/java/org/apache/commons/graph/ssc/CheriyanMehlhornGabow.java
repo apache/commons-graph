@@ -19,6 +19,9 @@ package org.apache.commons.graph.ssc;
  * under the License.
  */
 
+/**
+ * Contains the Cheriyan/Mehlhorn/Gabow's strongly connected component algorithm implementation.
+ */
 public final class CheriyanMehlhornGabow
 {
 
