@@ -19,6 +19,12 @@ package org.apache.commons.graph.ssc;
  * under the License.
  */
 
+import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
+
+import java.util.Set;
+import java.util.Stack;
+
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
@@ -33,5 +39,40 @@ import org.apache.commons.graph.visit.BaseGraphVisitHandler;
 final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
     extends BaseGraphVisitHandler<V, E>
 {
+
+    private final DirectedGraph<V, E> graph;
+
+    private final Set<V> marked;
+
+    private final Stack<V> s = new Stack<V>();
+
+    private final Stack<V> p = new Stack<V>();
+
+    public CheriyanMehlhornGabowVisitHandler( DirectedGraph<V, E> graph, Set<V> marked )
+    {
+        this.graph = graph;
+        this.marked = marked;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void discoverVertex( V vertex )
+    {
+        marked.add( vertex );
+        s.push( vertex );
+        p.push( vertex );
+
+        for ( V adjacent : graph.getOutbound( vertex ) )
+        {
+            if ( !marked.contains( adjacent ) )
+            {
+                depthFirstSearch( graph, adjacent, this );
+            }
+            // TODO else...
+        }
+    }
 
 }

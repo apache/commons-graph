@@ -23,11 +23,11 @@ import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.visit.GraphVisitHandler;
 
 /**
  * Contains the Cheriyan/Mehlhorn/Gabow's strongly connected component algorithm implementation.
@@ -53,17 +53,14 @@ public final class CheriyanMehlhornGabow
     public static <V extends Vertex, E extends Edge> void hasStronglyConnectedComponent( DirectedGraph<V, E> graph )
     {
         final Set<V> marked = new HashSet<V>();
-        final Stack<V> s = new Stack<V>();
-        final Stack<V> p = new Stack<V>();
+
+        final GraphVisitHandler<V, E> visitHandler = new CheriyanMehlhornGabowVisitHandler<V, E>( graph, marked );
 
         for ( V vertex : graph.getVertices() )
         {
-            if ( marked.add( vertex ) )
+            if ( !marked.contains( vertex ) )
             {
-                s.push( vertex );
-                p.push( vertex );
-
-                depthFirstSearch( graph, vertex, new CheriyanMehlhornGabowVisitHandler<V, E>() );
+                depthFirstSearch( graph, vertex, visitHandler );
             }
         }
     }
