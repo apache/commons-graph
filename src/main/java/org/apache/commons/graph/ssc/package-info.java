@@ -1,7 +1,7 @@
 /**
  * Strongly connected component algorithms verification.
  */
-package org.apache.commons.graph.connectedcomponents;
+package org.apache.commons.graph.ssc;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
