@@ -37,16 +37,12 @@ BREAKING CHANGES:
 DEPENDENCIES
 =============
 
-Graph 0.1 users should upgrade to the recommended dependency set below
-where possible.
-
-The Recommended Dependency Set for Graph 0.1 is:
-   TBD
+Apache Commons Graph does not have any dependency.
 
 NEW FEATURES
 =============
 
- * TBD
+ * none
 
 BUGS FROM PREVIOUS RELEASE
 ===========================
