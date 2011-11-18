@@ -22,7 +22,7 @@ package org.apache.commons.graph.connectedcomponents;
 import static java.lang.Math.min;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -50,7 +50,7 @@ public final class Tarjan
     {
         final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
         final Stack<V> s = new Stack<V>();
-        final Set<V> stronglyConnectedComponent = new HashSet<V>();
+        final Set<V> stronglyConnectedComponent = new LinkedHashSet<V>();
         Integer index = 0;
 
         for ( V vertex : graph.getVertices() )
