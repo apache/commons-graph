@@ -44,7 +44,7 @@ public final class Tarjan
      * @param <V> the Graph vertices type.
      * @param <E> the Graph edges type.
      * @param graph the Graph which strongly connected component has to be verified.
-     * @return
+     * @return the input graph strongly connected component.
      */
     public static <V extends Vertex, E extends Edge> Set<V> getStronglyConnectedComponent( DirectedGraph<V, E> graph )
     {
