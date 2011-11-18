@@ -19,9 +19,40 @@ package org.apache.commons.graph.connectedcomponents;
  * under the License.
  */
 
+import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
+
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.model.RevertedGraph;
+
+/**
+ * Contains the Kosaraju's strongly connected component algorithm implementation.
+ */
 public final class KosarajuSharir
 {
 
-    // TODO
+    /**
+     * This class can not be instantiated directly
+     */
+    private KosarajuSharir()
+    {
+        // do nothing
+    }
+
+    /**
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components, if exist.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <E> the Graph edges type.
+     * @param graph the Graph which strongly connected component has to be verified.
+     */
+    public static <V extends Vertex, E extends Edge> void hasStronglyConnectedComponent( DirectedGraph<V, E> graph ,
+                                                                                         V source)
+    {
+        depthFirstSearch( graph, source, new KosarajuSharirVisitHandler<V, E>( source ) );
+
+        DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
+    }
 
 }
