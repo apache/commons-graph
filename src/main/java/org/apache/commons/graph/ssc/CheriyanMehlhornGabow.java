@@ -22,6 +22,12 @@ package org.apache.commons.graph.ssc;
 public final class CheriyanMehlhornGabow
 {
 
-    // TODO
+    /**
+     * This class can not be instantiated directly.
+     */
+    private CheriyanMehlhornGabow()
+    {
+        // do nothing
+    }
 
 }
