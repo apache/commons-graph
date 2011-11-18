@@ -19,6 +19,16 @@ package org.apache.commons.graph.ssc;
  * under the License.
  */
 
+import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Vertex;
+
 /**
  * Contains the Cheriyan/Mehlhorn/Gabow's strongly connected component algorithm implementation.
  */
@@ -31,6 +41,31 @@ public final class CheriyanMehlhornGabow
     private CheriyanMehlhornGabow()
     {
         // do nothing
+    }
+
+    /**
+     * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <E> the Graph edges type.
+     * @param graph the Graph which strongly connected component has to be verified.
+     */
+    public static <V extends Vertex, E extends Edge> void hasStronglyConnectedComponent( DirectedGraph<V, E> graph )
+    {
+        final Set<V> marked = new HashSet<V>();
+        final Stack<V> s = new Stack<V>();
+        final Stack<V> p = new Stack<V>();
+
+        for ( V vertex : graph.getVertices() )
+        {
+            if ( marked.add( vertex ) )
+            {
+                s.push( vertex );
+                p.push( vertex );
+
+                depthFirstSearch( graph, vertex, new CheriyanMehlhornGabowVisitHandler<V, E>() );
+            }
+        }
     }
 
 }
