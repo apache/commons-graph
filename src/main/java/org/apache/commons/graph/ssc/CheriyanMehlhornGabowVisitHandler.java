@@ -21,6 +21,8 @@ package org.apache.commons.graph.ssc;
 
 import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -42,11 +44,15 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
 
     private final DirectedGraph<V, E> graph;
 
+    private final Map<V, Integer> preorder = new HashMap<V, Integer>();
+
     private final Set<V> marked;
 
     private final Stack<V> s = new Stack<V>();
 
     private final Stack<V> p = new Stack<V>();
+
+    private int preorderCounter = 0;
 
     public CheriyanMehlhornGabowVisitHandler( DirectedGraph<V, E> graph, Set<V> marked )
     {
@@ -61,6 +67,7 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
     public void discoverVertex( V vertex )
     {
         marked.add( vertex );
+        preorder.put( vertex, preorderCounter++ );
         s.push( vertex );
         p.push( vertex );
     }
