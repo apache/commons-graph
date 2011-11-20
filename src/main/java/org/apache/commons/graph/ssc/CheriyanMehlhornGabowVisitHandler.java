@@ -46,6 +46,8 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
 
     private final Map<V, Integer> preorder = new HashMap<V, Integer>();
 
+    private final Map<V, Integer> sscId = new HashMap<V, Integer>();
+
     private final Set<V> marked;
 
     private final Stack<V> s = new Stack<V>();
@@ -53,6 +55,8 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
     private final Stack<V> p = new Stack<V>();
 
     private int preorderCounter = 0;
+
+    private int sscCounter = 0;
 
     public CheriyanMehlhornGabowVisitHandler( DirectedGraph<V, E> graph, Set<V> marked )
     {
@@ -81,7 +85,27 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
         {
             depthFirstSearch( graph, tail, this );
         }
-        // TODO else...
+        else if ( !sscId.containsKey( tail ) )
+        {
+            while ( preorder.get( p.peek() ) > preorder.get( tail ) )
+            {
+                p.pop();
+            }
+        }
+
+        // found strong component containing head
+        if ( head.equals( p.peek() ) )
+        {
+            p.pop();
+            V w;
+            do
+            {
+                w = s.pop();
+                sscId.put( w, sscCounter );
+            }
+            while ( !head.equals( w ) );
+            sscCounter++;
+        }
     }
 
 }
