@@ -52,7 +52,7 @@ public class BaseGraphVisitHandler<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public void discoverEdge( E edge )
+    public void discoverEdge( V head, E edge, V tail )
     {
         // do nothing
     }
@@ -60,7 +60,7 @@ public class BaseGraphVisitHandler<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public void finishEdge( E edge )
+    public void finishEdge( V head, E edge, V tail )
     {
         // do nothing
     }

@@ -42,12 +42,12 @@ public interface GraphVisitHandler<V extends Vertex, E extends Edge>
     /**
      * Description of the Method
      */
-    void discoverEdge( E edge );
+    void discoverEdge( V head, E edge, V tail );
 
     /**
      * Description of the Method
      */
-    void finishEdge( E edge );
+    void finishEdge( V head, E edge, V tail );
 
     /**
      * Description of the Method

@@ -23,7 +23,6 @@ import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.model.BaseMutableGraph;
 import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
@@ -40,16 +39,12 @@ final class VisitGraphBuilder<V extends Vertex, E extends Edge>
 
     private BaseMutableGraph<V, E> visitGraph;
 
-    private Graph<V, E> graph;
-
     /**
      * {@inheritDoc}
      */
     @Override
     public void discoverGraph( Graph<V, E> graph )
     {
-        this.graph = graph;
-
         if ( graph instanceof DirectedGraph )
         {
             visitGraph = new DirectedMutableGraph<V, E>();
@@ -69,19 +64,9 @@ final class VisitGraphBuilder<V extends Vertex, E extends Edge>
      * {@inheritDoc}
      */
     @Override
-    public void discoverEdge( E edge )
+    public void discoverEdge( V head, E edge, V tail )
     {
-        VertexPair<V> vertexPair = graph.getVertices( edge );
-        visitGraph.addEdge( vertexPair.getHead(), edge, vertexPair.getTail() );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void finishGraph( Graph<V, E> graph )
-    {
-        this.graph = null;
+        visitGraph.addEdge( head, edge, tail );
     }
 
     /**

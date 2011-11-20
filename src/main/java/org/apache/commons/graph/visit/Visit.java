@@ -99,11 +99,11 @@ public final class Visit
                 {
                     E e = graph.getEdge( v, w );
 
-                    handler.discoverEdge( e );
+                    handler.discoverEdge( v, e, w );
 
                     vertexQueue.offer( w );
 
-                    handler.finishEdge( e );
+                    handler.finishEdge( v, e, w );
                 }
             }
 
@@ -176,11 +176,11 @@ public final class Visit
                 {
                     E e = graph.getEdge( v, w );
 
-                    handler.discoverEdge( e );
+                    handler.discoverEdge( v, e, w );
 
                     vertexStack.push( w );
 
-                    handler.finishEdge( e );
+                    handler.finishEdge( v, e, w );
                 }
             }
 
