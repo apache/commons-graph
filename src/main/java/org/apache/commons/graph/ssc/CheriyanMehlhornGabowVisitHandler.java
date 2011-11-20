@@ -54,7 +54,6 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
         this.marked = marked;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -64,15 +63,18 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
         marked.add( vertex );
         s.push( vertex );
         p.push( vertex );
+    }
 
-        for ( V adjacent : graph.getOutbound( vertex ) )
+    /**
+     * {@inheritDoc}
+     */
+    public void discoverEdge( V head, E edge, V tail )
+    {
+        if ( !marked.contains( tail ) )
         {
-            if ( !marked.contains( adjacent ) )
-            {
-                depthFirstSearch( graph, adjacent, this );
-            }
-            // TODO else...
+            depthFirstSearch( graph, tail, this );
         }
+        // TODO else...
     }
 
 }
