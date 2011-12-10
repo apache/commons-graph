@@ -21,7 +21,6 @@ package org.apache.commons.graph.model;
 
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 
 /**
  * A memory-based implementation of a mutable, undirected weighted Graph.
@@ -31,7 +30,6 @@ import org.apache.commons.graph.WeightedGraph;
  */
 public class UndirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedEdge>
     extends UndirectedMutableGraph<V, WE>
-    implements WeightedGraph<V, WE>
 {
 
 }

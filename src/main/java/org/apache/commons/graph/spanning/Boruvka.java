@@ -22,7 +22,6 @@ package org.apache.commons.graph.spanning;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 
 /**
  * Boruvka's algorithm is an algorithm for finding a minimum spanning tree in a graph
@@ -39,7 +38,7 @@ public final class Boruvka
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> Graph<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> Graph<V, WE> minimumSpanningTree( Graph<V, WE> graph )
     {
         return null;
     }

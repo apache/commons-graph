@@ -27,7 +27,6 @@ import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 
 /**
  * Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a connected weighted undirected graph.
@@ -45,7 +44,7 @@ public final class Prim
      * @param graph the Graph for which minimum spanning tree has to be calculated.
      * @return the minimum spanning tree of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph )
     {
         return minimumSpanningTree( graph, graph.getVertices().iterator().next() );
     }
@@ -60,8 +59,8 @@ public final class Prim
      * @param source the Prim's Vertex source
      * @return the minimum spanning tree of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
-                                                                                                                                                                V source )
+    public static <V extends Vertex, WE extends WeightedEdge, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
+                                                                                                                                         V source )
     {
         final ShortestEdges<V, WE> shortesEdges = new ShortestEdges<V, WE>( graph, source );
 

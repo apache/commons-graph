@@ -24,9 +24,9 @@ import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 
@@ -55,10 +55,10 @@ public final class AStar
      * @param heuristic the <i>h(x)</i> function
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge> WeightedPath<V, WE> findShortestPath( WeightedGraph<V, WE> graph,
-                                                                                                       V start,
-                                                                                                       V goal,
-                                                                                                       Heuristic<V> heuristic )
+    public static <V extends Vertex, WE extends WeightedEdge> WeightedPath<V, WE> findShortestPath( Graph<V, WE> graph,
+                                                                                                    V start,
+                                                                                                    V goal,
+                                                                                                    Heuristic<V> heuristic )
     {
         // Cost from start along best known path.
         final ShortestDistances<V> gScores = new ShortestDistances<V>();
@@ -92,7 +92,6 @@ public final class AStar
 
             closedSet.add( current );
 
-            @SuppressWarnings( "unchecked" )
             Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
                                                                        : graph.getConnectedVertices( current );
             for ( V v : connected )

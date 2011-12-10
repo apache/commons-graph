@@ -23,11 +23,11 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.collections.DisjointSet;
 import org.apache.commons.graph.model.MutableSpanningTree;
 
@@ -46,7 +46,7 @@ public final class Kruskal
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> SpanningTree<V, WE> minimumSpanningTree( WeightedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> SpanningTree<V, WE> minimumSpanningTree( Graph<V, WE> graph )
     {
         final Set<V> settledNodes = new HashSet<V>();
 

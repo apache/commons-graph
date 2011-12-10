@@ -27,7 +27,7 @@ package org.apache.commons.graph;
  * @param <WE> the Graph weighted edges type
  */
 public interface SpanningTree<V extends Vertex, WE extends WeightedEdge>
-    extends UndirectedGraph<V, WE>, WeightedGraph<V, WE>
+    extends UndirectedGraph<V, WE>
 {
 
     /**

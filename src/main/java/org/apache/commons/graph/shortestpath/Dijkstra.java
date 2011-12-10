@@ -26,7 +26,6 @@ import java.util.Set;
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 
@@ -55,9 +54,9 @@ public final class Dijkstra
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends WeightedGraph<V, WE> & DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
-                                                                                                                                                              V source,
-                                                                                                                                                              V target )
+    public static <V extends Vertex, WE extends WeightedEdge, G extends DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
+                                                                                                                                    V source,
+                                                                                                                                    V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );

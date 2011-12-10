@@ -23,9 +23,9 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static org.apache.commons.graph.shortestpath.FloydWarshall.findAllVertexPairsShortestPath;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
@@ -51,8 +51,7 @@ public class FloydWarshallTestCase
         findShortestPathAndVerify( new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>() );
     }
 
-    @SuppressWarnings( "unchecked" )
-    private void findShortestPathAndVerify( WeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> weighted )
+    private void findShortestPathAndVerify( Graph<BaseLabeledVertex, BaseLabeledWeightedEdge> weighted )
     {
         // mutable by definition, generic types driven by input graph
         MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> mutable =

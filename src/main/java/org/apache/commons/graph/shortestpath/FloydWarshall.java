@@ -22,11 +22,11 @@ package org.apache.commons.graph.shortestpath;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 
 /**
@@ -50,7 +50,7 @@ public final class FloydWarshall
      * @param <WE> the Graph weighted edges type
      * @return a data structure which contains all vertex pairs shortest path.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( WeightedGraph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( Graph<V, WE> graph )
     {
         AllVertexPairsShortestPath<V, WE> shortesPaths = new AllVertexPairsShortestPath<V, WE>();
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
@@ -115,7 +115,7 @@ public final class FloydWarshall
     private static <V extends Vertex, WE extends WeightedEdge> void pathReconstruction( PredecessorsList<V, WE> path,
                                                                                         V source, V target,
                                                                                         Map<VertexPair<V>, V> next,
-                                                                                        WeightedGraph<V, WE> graph )
+                                                                                        Graph<V, WE> graph )
     {
         V k = next.get( new VertexPair<Vertex>( source, target ) );
         if ( k == null )
