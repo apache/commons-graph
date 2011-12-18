@@ -27,7 +27,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Date;
-import java.util.Formatter;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
@@ -191,39 +190,37 @@ public final class DotExporter
             {
                 VertexPair<V> vertexPair = graph.getVertices( edge );
 
-                Formatter formatter = new Formatter().format( "  %s %s %s",
-                                                              vertexPair.getHead().hashCode(),
-                                                              connector,
-                                                              vertexPair.getTail().hashCode() );
+                printWriter.format( "  %s %s %s",
+                                    vertexPair.getHead().hashCode(),
+                                    connector,
+                                    vertexPair.getTail().hashCode() );
 
                 boolean attributesFound = false;
 
                 if ( edge instanceof Labeled )
                 {
                     attributesFound = true;
-                    formatter.format( " [label=\"%s\"", ( (Labeled) edge ).getLabel() );
+                    printWriter.format( " [label=\"%s\"", ( (Labeled) edge ).getLabel() );
                 }
                 if ( edge instanceof WeightedEdge )
                 {
-                    formatter.format( " " );
+                    printWriter.format( " " );
 
                     if ( !attributesFound )
                     {
-                        formatter.format( "[" );
+                        printWriter.format( "[" );
                         attributesFound = true;
                     }
 
-                    formatter.format( "weight=%s", ( (WeightedEdge<?>) edge ).getWeight() );
+                    printWriter.format( "weight=%s", ( (WeightedEdge<?>) edge ).getWeight() );
                 }
 
                 if ( attributesFound )
                 {
-                    formatter.format( "]" );
+                    printWriter.format( "]" );
                 }
 
-                formatter.format( "%n" );
-
-                printWriter.write( formatter.toString() );
+                printWriter.format( "%n" );
             }
 
             printWriter.write( '}' );
