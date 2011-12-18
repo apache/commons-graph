@@ -55,10 +55,10 @@ public final class AStar
      * @param heuristic the <i>h(x)</i> function
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge> WeightedPath<V, WE> findShortestPath( Graph<V, WE> graph,
-                                                                                                    V start,
-                                                                                                    V goal,
-                                                                                                    Heuristic<V> heuristic )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> WeightedPath<V, WE, Double> findShortestPath( Graph<V, WE> graph,
+                                                                                                                    V start,
+                                                                                                                    V goal,
+                                                                                                                    Heuristic<V> heuristic )
     {
         // Cost from start along best known path.
         final ShortestDistances<V> gScores = new ShortestDistances<V>();

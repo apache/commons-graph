@@ -46,7 +46,7 @@ public final class Kruskal
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> SpanningTree<V, WE> minimumSpanningTree( Graph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> SpanningTree<V, WE> minimumSpanningTree( Graph<V, WE> graph )
     {
         final Set<V> settledNodes = new HashSet<V>();
 

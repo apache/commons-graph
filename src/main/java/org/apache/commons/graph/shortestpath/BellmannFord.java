@@ -49,8 +49,8 @@ public final class BellmannFord
      * @param target the shortest path target Vertex
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE> findShortestPath( G graph,
-                                                                                                                                                  V source)
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE> findShortestPath( G graph,
+                                                                                                                                                          V source)
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );
@@ -100,7 +100,7 @@ public final class BellmannFord
         {
             if ( !source.equals( target ) )
             {
-                WeightedPath<V, WE> weightedPath = predecessors.buildPath( source, target );
+                WeightedPath<V, WE, Double> weightedPath = predecessors.buildPath( source, target );
                 allVertexPairsShortestPath.addShortestPath( source, target, weightedPath );
             }
         }

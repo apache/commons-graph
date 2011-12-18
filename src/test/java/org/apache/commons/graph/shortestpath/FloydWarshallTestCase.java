@@ -104,7 +104,7 @@ public class FloydWarshallTestCase
 
             // Verify shortest paths
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> wp = p.findShortestPath( one, six );
+            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> wp = p.findShortestPath( one, six );
 
             // Expected
             InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
@@ -124,7 +124,7 @@ public class FloydWarshallTestCase
             assertEquals( 20D, p.getShortestDistance( one, five ) );
             assertEquals( Double.POSITIVE_INFINITY, p.getShortestDistance( five, one ) );
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> wp;
+            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> wp;
             // Verify shortest paths
             try
             {

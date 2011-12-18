@@ -36,7 +36,7 @@ import org.apache.commons.graph.model.InMemoryWeightedPath;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-final class PredecessorsList<V extends Vertex, WE extends WeightedEdge>
+final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<Double>>
 {
 
     private final Graph<V, WE> graph;
@@ -67,7 +67,7 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge>
      * @param cost the path cost
      * @return the weighted path related to source to target
      */
-    public WeightedPath<V, WE> buildPath( V source, V target )
+    public WeightedPath<V, WE, Double> buildPath( V source, V target )
     {
         InMemoryWeightedPath<V, WE> path = new InMemoryWeightedPath<V, WE>( source, target );
 

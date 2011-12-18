@@ -20,20 +20,14 @@ package org.apache.commons.graph;
  */
 
 /**
- * A {@code Path} where {@link Edge} are weighted.
+ * A {@code Path} whose {@link Edge}s are {@link Weighted}.
  *
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
-public interface WeightedPath<V extends Vertex, WE extends WeightedEdge>
-    extends Path<V, WE>
+public interface WeightedPath<V extends Vertex, WE extends WeightedEdge<W>, W>
+    extends Path<V, WE>, Weighted<W>
 {
-
-    /**
-     * Gets the weight attribute of the {@code WeightedPath} object.
-     *
-     * @return the weight attribute of the {@code WeightedPath} object.
-     */
-    Double getWeight();
 
 }

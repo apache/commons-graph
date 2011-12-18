@@ -38,7 +38,7 @@ public final class Boruvka
      * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
      * @return  the minimum spanning tree (or forest) of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> Graph<V, WE> minimumSpanningTree( Graph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> Graph<V, WE> minimumSpanningTree( Graph<V, WE> graph )
     {
         return null;
     }

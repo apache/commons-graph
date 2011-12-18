@@ -50,7 +50,7 @@ public final class FloydWarshall
      * @param <WE> the Graph weighted edges type
      * @return a data structure which contains all vertex pairs shortest path.
      */
-    public static <V extends Vertex, WE extends WeightedEdge> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( Graph<V, WE> graph )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( Graph<V, WE> graph )
     {
         AllVertexPairsShortestPath<V, WE> shortesPaths = new AllVertexPairsShortestPath<V, WE>();
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
@@ -99,7 +99,7 @@ public final class FloydWarshall
                     pathReconstruction( predecessorsList, source, target, next, graph );
                     if ( !predecessorsList.isEmpty() )
                     {
-                        WeightedPath<V, WE> weightedPath = predecessorsList.buildPath( source, target );
+                        WeightedPath<V, WE, Double> weightedPath = predecessorsList.buildPath( source, target );
                         if ( weightedPath.getOrder() > 0 )
                         {
                             shortesPaths.addShortestPath( source, target, weightedPath );
@@ -112,10 +112,10 @@ public final class FloydWarshall
         return shortesPaths;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge> void pathReconstruction( PredecessorsList<V, WE> path,
-                                                                                        V source, V target,
-                                                                                        Map<VertexPair<V>, V> next,
-                                                                                        Graph<V, WE> graph )
+    private static <V extends Vertex, WE extends WeightedEdge<Double>> void pathReconstruction( PredecessorsList<V, WE> path,
+                                                                                                V source, V target,
+                                                                                                Map<VertexPair<V>, V> next,
+                                                                                                Graph<V, WE> graph )
     {
         V k = next.get( new VertexPair<Vertex>( source, target ) );
         if ( k == null )

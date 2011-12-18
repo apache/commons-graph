@@ -29,7 +29,7 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
  */
-public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge>
+public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge<Double>>
     extends UndirectedMutableGraph<V, WE>
     implements SpanningTree<V, WE>
 {

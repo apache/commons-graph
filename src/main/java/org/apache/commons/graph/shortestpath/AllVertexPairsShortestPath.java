@@ -33,10 +33,10 @@ import org.apache.commons.graph.WeightedPath;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge>
+public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge<Double>>
 {
 
-    private final Map<VertexPair<V>, WeightedPath<V, WE>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE>>();
+    private final Map<VertexPair<V>, WeightedPath<V, WE, Double>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE, Double>>();
 
     private final Map<VertexPair<V>, Double> shortestDistances = new HashMap<VertexPair<V>, Double>();
 
@@ -53,7 +53,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      * @param target
      * @param weightedPath
      */
-    void addShortestPath( V source, V target, WeightedPath<V, WE> weightedPath )
+    void addShortestPath( V source, V target, WeightedPath<V, WE, Double> weightedPath )
     {
         if ( source == null )
         {
@@ -78,7 +78,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      * @param target The target Vertex
      * @return Returns the shortest path between source and target
      */
-    public WeightedPath<V, WE> findShortestPath( V source, V target )
+    public WeightedPath<V, WE, Double> findShortestPath( V source, V target )
     {
         if ( source == null )
         {
@@ -89,7 +89,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
             throw new IllegalArgumentException( "Impossible to find the shortest path to a null target" );
         }
 
-        WeightedPath<V, WE> path = paths.get( new VertexPair<V>( source, target ) );
+        WeightedPath<V, WE, Double> path = paths.get( new VertexPair<V>( source, target ) );
 
         if ( path == null )
         {

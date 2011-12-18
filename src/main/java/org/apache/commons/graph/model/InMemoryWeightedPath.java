@@ -32,9 +32,9 @@ import org.apache.commons.graph.WeightedPath;
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
  */
-public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdge>
+public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdge<Double>>
     extends InMemoryPath<V, WE>
-    implements WeightedPath<V, WE>
+    implements WeightedPath<V, WE, Double>
 {
 
     private Double weigth = 0D;
@@ -116,7 +116,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
         }
 
         @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
-        InMemoryWeightedPath<Vertex, WeightedEdge> other = (InMemoryWeightedPath<Vertex, WeightedEdge>) obj;
+        InMemoryWeightedPath<Vertex, WeightedEdge<Double>> other = (InMemoryWeightedPath<Vertex, WeightedEdge<Double>>) obj;
         if ( !weigth.equals( other.getWeight() ) )
         {
             return false;

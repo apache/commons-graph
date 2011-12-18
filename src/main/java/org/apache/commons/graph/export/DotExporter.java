@@ -19,8 +19,6 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import static java.lang.String.format;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Date;
+import java.util.Formatter;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
@@ -190,42 +189,41 @@ public final class DotExporter
 
             for ( E edge : graph.getEdges() )
             {
-                String label = null;
+                VertexPair<V> vertexPair = graph.getVertices( edge );
+
+                Formatter formatter = new Formatter().format( "  %s %s %s",
+                                                              vertexPair.getHead().hashCode(),
+                                                              connector,
+                                                              vertexPair.getTail().hashCode() );
+
+                boolean attributesFound = false;
 
                 if ( edge instanceof Labeled )
                 {
-                    if ( edge instanceof WeightedEdge )
-                    {
-                        label =
-                            format( "'%s' (w=%s)", ( (Labeled) edge ).getLabel(), ( (WeightedEdge) edge ).getWeight() );
-                    }
-                    else
-                    {
-                        label = ( (Labeled) edge ).getLabel();
-                    }
+                    attributesFound = true;
+                    formatter.format( " [label=\"%s\"", ( (Labeled) edge ).getLabel() );
                 }
-                else if ( edge instanceof WeightedEdge )
+                if ( edge instanceof WeightedEdge )
                 {
-                    label = String.valueOf( ( (WeightedEdge) edge ).getWeight() );
+                    formatter.format( " " );
+
+                    if ( !attributesFound )
+                    {
+                        formatter.format( "[" );
+                        attributesFound = true;
+                    }
+
+                    formatter.format( "weight=%s", ( (WeightedEdge<?>) edge ).getWeight() );
                 }
 
-                VertexPair<V> vertexPair = graph.getVertices( edge );
+                if ( attributesFound )
+                {
+                    formatter.format( "]" );
+                }
 
-                if ( label != null )
-                {
-                    printWriter.format( "  %s %s %s [label=\"%s\"];%n",
-                                        vertexPair.getHead().hashCode(),
-                                        connector,
-                                        vertexPair.getTail().hashCode(),
-                                        label );
-                }
-                else
-                {
-                    printWriter.format( "  %s %s %s",
-                                        vertexPair.getHead().hashCode(),
-                                        connector,
-                                        vertexPair.getTail().hashCode() );
-                }
+                formatter.format( "%n" );
+
+                printWriter.write( formatter.toString() );
             }
 
             printWriter.write( '}' );
@@ -242,5 +240,4 @@ public final class DotExporter
             }
         }
     }
-
 }

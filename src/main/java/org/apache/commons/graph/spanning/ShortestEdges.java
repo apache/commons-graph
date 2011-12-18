@@ -39,7 +39,7 @@ import org.apache.commons.graph.model.MutableSpanningTree;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-final class ShortestEdges<V extends Vertex, WE extends WeightedEdge>
+final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<Double>>
     implements Comparator<V>
 {
 
@@ -91,7 +91,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge>
         return spanningTree;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge> void addEdgeIgnoringExceptions( V vertex,
+    private static <V extends Vertex, WE extends WeightedEdge<Double>> void addEdgeIgnoringExceptions( V vertex,
                                                                                                MutableSpanningTree<V, WE> spanningTree )
     {
         try

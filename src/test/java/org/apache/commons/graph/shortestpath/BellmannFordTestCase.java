@@ -80,7 +80,7 @@ public final class BellmannFordTestCase
         AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge> allVertexPairsShortestPath =
             findShortestPath( graph, one );
 
-        WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> actual =
+        WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> actual =
             allVertexPairsShortestPath.findShortestPath( one, three );
         assertEquals( expected, actual );
     }

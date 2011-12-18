@@ -20,18 +20,11 @@ package org.apache.commons.graph;
  */
 
 /**
- * A WeightedEdge is an {@link Edge} where a number (weight) is assigned to represent, for example,
+ * A WeightedEdge is an {@link Edge} that is assigned a weight to represent, for example,
  * costs, lengths or capacities, etc. depending on the problem.
  */
-public interface WeightedEdge
-    extends Edge, Comparable<WeightedEdge>
+public interface WeightedEdge<W>
+    extends Edge, Weighted<W>, Comparable<WeightedEdge<W>>
 {
-
-    /**
-     * Gets the weight attribute of the WeightedEdge object
-     *
-     * @return the weight attribute of the WeightedEdge object
-     */
-    Double getWeight();
 
 }

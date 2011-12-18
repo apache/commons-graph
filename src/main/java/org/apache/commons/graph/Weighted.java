@@ -20,21 +20,19 @@ package org.apache.commons.graph;
  */
 
 /**
- * A {@link SpanningTree} of a connected, undirected graph is a tree
- * composed of all the vertices and some (or perhaps all) of the edges of the Graph.
+ * A Weighted object has a property called weight, which usually denotes
+ * its relative importance within the domain of interest.
  *
- * @param <V> the Graph vertices type
- * @param <WE> the Graph weighted edges type
+ * @param <W> the type of weight
  */
-public interface SpanningTree<V extends Vertex, WE extends WeightedEdge<Double>>
-    extends UndirectedGraph<V, WE>
+public interface Weighted<W>
 {
 
     /**
-     * Gets the weight attribute of the {@code SpanningTree} object.
+     * Gets the weight of the {@code Weighted} object.
      *
-     * @return the weight attribute of the {@code SpanningTree} object.
+     * @return the weight of the {@code Weighted} object.
      */
-    Double getWeight();
+    public W getWeight();
 
 }

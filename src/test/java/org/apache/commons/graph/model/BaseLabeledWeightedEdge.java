@@ -28,7 +28,7 @@ import org.apache.commons.graph.WeightedEdge;
  */
 public class BaseLabeledWeightedEdge
     extends BaseLabeledEdge
-    implements WeightedEdge
+    implements WeightedEdge<Double>
 {
 
     private final Double weight;
@@ -46,7 +46,7 @@ public class BaseLabeledWeightedEdge
     /**
      * {@inheritDoc}
      */
-    public int compareTo( WeightedEdge other )
+    public int compareTo( WeightedEdge<Double> other )
     {
         return weight.compareTo( other.getWeight() );
     }

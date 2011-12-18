@@ -54,9 +54,9 @@ public final class Dijkstra
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends DirectedGraph<V, WE>> WeightedPath<V, WE> findShortestPath( G graph,
-                                                                                                                                    V source,
-                                                                                                                                    V target )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> WeightedPath<V, WE, Double> findShortestPath( G graph,
+                                                                                                                                                    V source,
+                                                                                                                                                    V target )
     {
         final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
         shortestDistances.setWeight( source, 0D );

@@ -44,7 +44,7 @@ public final class Prim
      * @param graph the Graph for which minimum spanning tree has to be calculated.
      * @return the minimum spanning tree of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph )
     {
         return minimumSpanningTree( graph, graph.getVertices().iterator().next() );
     }
@@ -59,8 +59,8 @@ public final class Prim
      * @param source the Prim's Vertex source
      * @return the minimum spanning tree of the input Graph.
      */
-    public static <V extends Vertex, WE extends WeightedEdge, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
-                                                                                                                                         V source )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
+                                                                                                                                                 V source )
     {
         final ShortestEdges<V, WE> shortesEdges = new ShortestEdges<V, WE>( graph, source );
 
