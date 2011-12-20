@@ -65,8 +65,16 @@
   </developers>
   <contributors>
     <contributor>
+      <name>Claudio Squarcella</name>
+      <email>squarcel AT dia DOT uniroma3 DOT it</email>
+    </contributor>
+    <contributor>
       <name>Marco Speranza</name>
       <email>marco DOT speranza79 AT gmail DOT com</email>
+    </contributor>
+    <contributor>
+      <name>Matthew Pocock</name>
+      <email>turingatemyhamster AT gmail DOT com</email>
     </contributor>
   </contributors>
 
