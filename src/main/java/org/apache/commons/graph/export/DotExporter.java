@@ -204,15 +204,20 @@ public final class DotExporter
                 }
                 if ( edge instanceof WeightedEdge )
                 {
-                    printWriter.format( " " );
+                    Object weight = ( (WeightedEdge<?>) edge ).getWeight();
 
-                    if ( !attributesFound )
+                    if( weight instanceof Number )
                     {
-                        printWriter.format( "[" );
-                        attributesFound = true;
-                    }
+                        printWriter.format( " " );
 
-                    printWriter.format( "weight=%s", ( (WeightedEdge<?>) edge ).getWeight() );
+                        if ( !attributesFound )
+                        {
+                            printWriter.format( "[" );
+                            attributesFound = true;
+                        }
+
+                        printWriter.format( "weight=%f", ( (Number) weight ).doubleValue() );
+                    }
                 }
 
                 if ( attributesFound )
