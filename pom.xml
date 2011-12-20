@@ -83,6 +83,10 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/sandbox/graph/trunk</developerConnection>
     <url>http://svn.apache.org/viewvc/commons/sandbox/graph/trunk</url>
   </scm>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>https://issues.apache.org/jira/browse/SANDBOX</url>
+  </issueManagement>
   <distributionManagement>
     <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
     <site>
