@@ -29,6 +29,15 @@
       <item name="Mailing Lists"           href="/mail-lists.html"/>
       <item name="Issue Tracking"          href="/issue-tracking.html"/>
     </menu>
+
+    <menu name="Graph Algorithms">
+      <item name="Coloring"                      href="/algorithms/coloring.html" />
+      <item name="Flow"                          href="/algorithms/flow.html" />
+      <item name="Strongly Connected Components" href="/algorithms/scc.html" />
+      <item name="Shortest Paths"                href="/algorithms/shortestpath.html" />
+      <item name="Spanning Tree"                 href="/algorithms/spanning.html" />
+      <item name="Graph Visitor"                 href="/algorithms/visit.html" />
+    </menu>
   </body>
 
 </project>
