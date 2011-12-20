@@ -206,7 +206,7 @@ public final class DotExporter
                 {
                     Object weight = ( (WeightedEdge<?>) edge ).getWeight();
 
-                    if( weight instanceof Number )
+                    if ( weight instanceof Number )
                     {
                         printWriter.format( " " );
 
