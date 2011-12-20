@@ -1,5 +1,5 @@
 /**
- * Main APIs that describe Graph data structure.
+ * The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
  */
 package org.apache.commons.graph;
 
