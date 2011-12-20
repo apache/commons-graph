@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Licensed to the Apache Software Foundation (ASF) under one or more
+     contributor license agreements.  See the NOTICE file distributed with
+     this work for additional information regarding copyright ownership.
+     The ASF licenses this file to You under the Apache License, Version 2.0
+     (the "License"); you may not use this file except in compliance with
+     the License.  You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+  -->
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+  <properties>
+    <title>Apache Commons Graph - Changes</title>
+  </properties>
+  <body>
+  <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="update" issue="SANDBOX-346">
+      DotExporter only exports weights that extend Number - patch provided by Claudio Squarcella
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-345">
+      Weighted as an interface with generic weight type - patch provided by Claudio Squarcella
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-344">
+      No WeightedGraph in current method signatures - patch provided by Claudio Squarcella
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-338">
+      Generic iterable set of color - patch provided by Marco Speranza
+    </action>
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-337">
+      Wrong value for Vertex degree - patch provided by Marco Speranza
+    </action>
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-336">
+      Duplicate Edge - patch provided by Marco Speranza
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-335">
+      Graph Coloring: Backtracking algorithm - patch provided by Marco Speranza
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-334">
+      Bad coloring for crawn graph - patch provided by Marco Speranza
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-333">
+      Graph coloring implementation - patch provided by Marco Speranza
+    </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-332">
+      add FloydWarshall algorithm implementation - patch provided by Marco Speranza
+    </action>
+  </release>
+  </body>
+</document>
