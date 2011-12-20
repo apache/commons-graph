@@ -1,4 +1,4 @@
-package org.apache.commons.graph.ssc;
+package org.apache.commons.graph.scc;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

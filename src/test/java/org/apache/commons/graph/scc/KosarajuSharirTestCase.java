@@ -1,4 +1,4 @@
-package org.apache.commons.graph.ssc;
+package org.apache.commons.graph.scc;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,7 +19,7 @@ package org.apache.commons.graph.ssc;
  * under the License.
  */
 
-import static org.apache.commons.graph.ssc.KosarajuSharir.hasStronglyConnectedComponent;
+import static org.apache.commons.graph.scc.KosarajuSharir.hasStronglyConnectedComponent;
 
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
