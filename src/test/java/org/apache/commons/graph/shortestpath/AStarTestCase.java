@@ -30,6 +30,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 public final class AStarTestCase
@@ -95,8 +96,8 @@ public final class AStarTestCase
 
         // expected path
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( start, goal );
+        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( start, goal, new DoubleWeight() );
 
         expected.addConnectionInTail( start, new BaseLabeledWeightedEdge( "start <-> a", 1.5D ), a );
         expected.addConnectionInTail( a, new BaseLabeledWeightedEdge( "a <-> b", 2D ), b );

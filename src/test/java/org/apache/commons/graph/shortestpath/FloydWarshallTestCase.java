@@ -20,6 +20,7 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.fail;
 import static org.apache.commons.graph.shortestpath.FloydWarshall.findAllVertexPairsShortestPath;
 
@@ -32,6 +33,7 @@ import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 /**
@@ -86,7 +88,7 @@ public class FloydWarshallTestCase
         mutable.addEdge( four, new BaseLabeledWeightedEdge( "4 -> 5", 6D ), five );
         mutable.addEdge( six, new BaseLabeledWeightedEdge( "6 -> 5", 9D ), five );
 
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge> p =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> p =
             findAllVertexPairsShortestPath( weighted );
 
         if ( weighted instanceof UndirectedGraph )
@@ -107,8 +109,8 @@ public class FloydWarshallTestCase
             WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> wp = p.findShortestPath( one, six );
 
             // Expected
-            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, six );
+            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, six, new DoubleWeight() );
             expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
             expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
 
@@ -122,7 +124,7 @@ public class FloydWarshallTestCase
             assertEquals( 6D, p.getShortestDistance( four, five ) );
 
             assertEquals( 20D, p.getShortestDistance( one, five ) );
-            assertEquals( Double.POSITIVE_INFINITY, p.getShortestDistance( five, one ) );
+            assertFalse( p.hasShortestDistance( five, one ) );
 
             WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> wp;
             // Verify shortest paths
@@ -135,8 +137,8 @@ public class FloydWarshallTestCase
                 // wallow it
             }
 
-            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, six );
+            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, six, new DoubleWeight() );
             expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
             expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
 

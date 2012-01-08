@@ -28,6 +28,8 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
  * Contains the Floyd-Warshall's shortest paths algorithm implementation.
@@ -45,25 +47,28 @@ public final class FloydWarshall
 
     /**
      * Applies the classical Floyd-Warshall's algorithm to find all vertex shortest path
-     * 
+     *
      * @param <V> the Graph vertices type.
      * @param <WE> the Graph weighted edges type
+     * @param <W> the weight type
+     * @param graph the input graph
+     * @param orderedMonoid the {@link OrderedMonoid} needed to handle operations on weights
      * @return a data structure which contains all vertex pairs shortest path.
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> AllVertexPairsShortestPath<V, WE> findAllVertexPairsShortestPath( Graph<V, WE> graph )
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>> AllVertexPairsShortestPath<V, WE, W> findAllVertexPairsShortestPath( Graph<V, WE> graph, OrderedMonoid<W> orderedMonoid )
     {
-        AllVertexPairsShortestPath<V, WE> shortesPaths = new AllVertexPairsShortestPath<V, WE>();
+        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( orderedMonoid );
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
 
         // init
         for ( WE we : graph.getEdges() )
         {
             VertexPair<V> vertexPair = graph.getVertices( we );
-            shortesPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), we.getWeight() );
+            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), we.getWeight() );
 
             if ( graph instanceof UndirectedGraph )
             {
-                shortesPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), we.getWeight() );
+                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), we.getWeight() );
             }
         }
 
@@ -74,15 +79,19 @@ public final class FloydWarshall
             {
                 for ( V j : graph.getVertices() )
                 {
-                    Double newDistance =
-                        shortesPaths.getShortestDistance( i, k ) + shortesPaths.getShortestDistance( k, j );
-                    if ( newDistance.compareTo( shortesPaths.getShortestDistance( i, j ) ) < 0 )
+                    if ( shortestPaths.hasShortestDistance( i, k ) && shortestPaths.hasShortestDistance( k, j ) )
                     {
-                        shortesPaths.addShortestDistance( i, j, newDistance );
+                        W newDistance = orderedMonoid.append( shortestPaths.getShortestDistance( i, k ), shortestPaths.getShortestDistance( k, j ) );
+                        if ( !shortestPaths.hasShortestDistance( i, j )
+                                || orderedMonoid.compare( newDistance, shortestPaths.getShortestDistance( i, j ) ) < 0 )
+                        {
+                            shortestPaths.addShortestDistance( i, j, newDistance );
 
-                        // store the intermediate vertex
-                        next.put( new VertexPair<V>( i, j ), k );
+                            // store the intermediate vertex
+                            next.put( new VertexPair<V>( i, j ), k );
+                        }
                     }
+
                 }
             }
         }
@@ -94,25 +103,39 @@ public final class FloydWarshall
             {
                 if ( !source.equals( target ) )
                 {
-                    PredecessorsList<V, WE> predecessorsList = new PredecessorsList<V, WE>( graph );
+                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
 
                     pathReconstruction( predecessorsList, source, target, next, graph );
                     if ( !predecessorsList.isEmpty() )
                     {
-                        WeightedPath<V, WE, Double> weightedPath = predecessorsList.buildPath( source, target );
+                        WeightedPath<V, WE, W> weightedPath = predecessorsList.buildPath( source, target );
                         if ( weightedPath.getOrder() > 0 )
                         {
-                            shortesPaths.addShortestPath( source, target, weightedPath );
+                            shortestPaths.addShortestPath( source, target, weightedPath );
                         }
                     }
                 }
             }
         }
 
-        return shortesPaths;
+        return shortestPaths;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge<Double>> void pathReconstruction( PredecessorsList<V, WE> path,
+    /**
+     * Applies the classical Floyd-Warshall's algorithm to an edge weighted graph with weights of type Double
+     * to find all vertex shortest path.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <WE> the Graph weighted edges type
+     * @param graph the input graph
+     * @return a data structure which contains all vertex pairs shortest path.
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> AllVertexPairsShortestPath<V, WE, Double> findAllVertexPairsShortestPath( Graph<V, WE> graph )
+    {
+        return findAllVertexPairsShortestPath( graph, new DoubleWeight() );
+    }
+
+    private static <V extends Vertex, WE extends WeightedEdge<W>, W> void pathReconstruction( PredecessorsList<V, WE, W> path,
                                                                                                 V source, V target,
                                                                                                 Map<VertexPair<V>, V> next,
                                                                                                 Graph<V, WE> graph )

@@ -26,26 +26,30 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.
- * 
+ *
  * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
-public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge<Double>>
+public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge<W>, W>
 {
 
-    private final Map<VertexPair<V>, WeightedPath<V, WE, Double>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE, Double>>();
+    private final Map<VertexPair<V>, WeightedPath<V, WE, W>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE, W>>();
 
-    private final Map<VertexPair<V>, Double> shortestDistances = new HashMap<VertexPair<V>, Double>();
+    private final Map<VertexPair<V>, W> shortestDistances = new HashMap<VertexPair<V>, W>();
+
+    private final OrderedMonoid<W> orderedMonoid;
 
     /**
      * Constructor visible only inside the package
      */
-    AllVertexPairsShortestPath()
+    AllVertexPairsShortestPath( OrderedMonoid<W> orderedMonoid )
     {
-        // do nothing
+        this.orderedMonoid = orderedMonoid;
     }
 
     /**
@@ -53,7 +57,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      * @param target
      * @param weightedPath
      */
-    void addShortestPath( V source, V target, WeightedPath<V, WE, Double> weightedPath )
+    void addShortestPath( V source, V target, WeightedPath<V, WE, W> weightedPath )
     {
         if ( source == null )
         {
@@ -73,12 +77,12 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
 
     /**
      * Returns the shortest path between source and target
-     * 
+     *
      * @param source The source Vertex
      * @param target The target Vertex
      * @return Returns the shortest path between source and target
      */
-    public WeightedPath<V, WE, Double> findShortestPath( V source, V target )
+    public WeightedPath<V, WE, W> findShortestPath( V source, V target )
     {
         if ( source == null )
         {
@@ -89,7 +93,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
             throw new IllegalArgumentException( "Impossible to find the shortest path to a null target" );
         }
 
-        WeightedPath<V, WE, Double> path = paths.get( new VertexPair<V>( source, target ) );
+        WeightedPath<V, WE, W> path = paths.get( new VertexPair<V>( source, target ) );
 
         if ( path == null )
         {
@@ -104,7 +108,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      * @param target
      * @param distance
      */
-    void addShortestDistance( V source, V target, Double distance )
+    void addShortestDistance( V source, V target, W distance )
     {
         if ( source == null )
         {
@@ -124,12 +128,12 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
 
     /**
      * Returns the shortest distance between source and target.
-     * 
+     *
      * @param source The source Vertex
      * @param target The target Vertex
      * @return Returns the shortest distance between source and target.
      */
-    Double getShortestDistance( V source, V target )
+    W getShortestDistance( V source, V target )
     {
         if ( source == null )
         {
@@ -142,17 +146,36 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
 
         if ( source.equals( target ) )
         {
-            return 0D;
+            return orderedMonoid.zero();
         }
 
-        Double distance = shortestDistances.get( new VertexPair<V>( source, target ) );
+        return shortestDistances.get( new VertexPair<V>( source, target ) );
+    }
 
-        if ( distance == null )
+    /**
+     * Checks if there is a shortest distance between source and target.
+     *
+     * @param source The source Vertex
+     * @param target The target Vertex
+     * @return Returns true if there is a shortest distance between source and target, false otherwise.
+     */
+    boolean hasShortestDistance( V source, V target )
+    {
+        if ( source == null )
         {
-            return Double.POSITIVE_INFINITY;
+            throw new IllegalArgumentException( "Impossible to get the shortest distance from a null source" );
+        }
+        if ( target == null )
+        {
+            throw new IllegalArgumentException( "Impossible to get the shortest distance to a null target" );
         }
 
-        return distance;
+        if ( source.equals( target ) )
+        {
+            return true;
+        }
+
+        return shortestDistances.containsKey( new VertexPair<V>( source, target ) );
     }
 
     @Override

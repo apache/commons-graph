@@ -22,30 +22,34 @@ package org.apache.commons.graph.shortestpath;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * The predecessor list is a list of {@link Vertex} of a {@link org.apache.commons.graph.Graph}.
  * Each {@link Vertex}' entry contains the index of its predecessor in a path through the graph.
  *
  * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
-final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<Double>>
+final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>, W>
 {
 
     private final Graph<V, WE> graph;
+    
+    private final Monoid<W> monoid;
 
     private final Map<V, V> predecessors = new HashMap<V, V>();
 
-    public PredecessorsList(Graph<V, WE> graph )
+    public PredecessorsList( Graph<V, WE> graph, Monoid<W> monoid )
     {
         this.graph = graph;
+        this.monoid = monoid;
     }
 
     /**
@@ -67,9 +71,9 @@ final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<Double>>
      * @param cost the path cost
      * @return the weighted path related to source to target
      */
-    public WeightedPath<V, WE, Double> buildPath( V source, V target )
+    public WeightedPath<V, WE, W> buildPath( V source, V target )
     {
-        InMemoryWeightedPath<V, WE> path = new InMemoryWeightedPath<V, WE>( source, target );
+        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, monoid );
 
         V vertex = target;
         while ( !source.equals( vertex ) )

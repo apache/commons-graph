@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.weight;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -20,19 +20,22 @@ package org.apache.commons.graph;
  */
 
 /**
- * A Weighted object has a property called weight, which usually denotes
- * its relative importance within the domain of interest.
+ * A {@link Semigroup} defines an associative binary operation
+ * on a set of elements of the same type.
  *
- * @param <W> the type of weight
+ * @param <S> the type of the elements in the {@link Semigroup}
  */
-public interface Weighted<W>
+public interface Semigroup<S>
 {
 
     /**
-     * Gets the weight of the {@code Weighted} object.
+     * Returns the result of the associative binary operation defined by this
+     * {@link Semigroup} between two elements of appropriate type.
      *
-     * @return the weight of the {@code Weighted} object.
+     * @param s1 the first element
+     * @param s2 the second element
+     * @return the result of the associative binary operation
      */
-    W getWeight();
+    S append( S s1, S s2 );
 
 }

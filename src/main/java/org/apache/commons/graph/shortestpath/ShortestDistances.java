@@ -24,36 +24,52 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Stores and compares Graph Vertices weights.
  *
  * @param <V> the Graph vertices type
+ * @param <W> the weight type
  */
-final class ShortestDistances<V extends Vertex>
+final class ShortestDistances<V extends Vertex, W>
     implements Comparator<V>
 {
 
     private static final long serialVersionUID = 568538689459177637L;
 
-    private final Map<V, Double> distances = new HashMap<V, Double>();
+    private final Map<V, W> distances = new HashMap<V, W>();
+
+    private final OrderedMonoid<W> orderedMonoid;
+
+    public ShortestDistances( OrderedMonoid<W> orderedMonoid )
+    {
+        this.orderedMonoid = orderedMonoid;
+    }
 
     /**
-     * Returns the distance related to input vertex, or {@code INFINITY} if it wasn't previously visited.
+     * Returns the distance related to input vertex, or null if it wasn't previously visited.
      *
-     * @param vertex the vertex for which the distance has to be retrieved
-     * @return the distance related to input vertex, or {@code INFINITY} if it wasn't previously visited.
+     * <b>NOTE</b>: the method {@link alreadyVisited} should be used first to check if
+     * the input vertex was already visited and a distance value is available for it.
+     *
+     * @param vertex the vertex whose distance has to be retrieved
+     * @return the distance related to input vertex, or null if it wasn't previously visited.
      */
-    public Double getWeight( V vertex )
+    public W getWeight( V vertex )
     {
-        Double distance = distances.get( vertex );
+        return distances.get( vertex );
+    }
 
-        if ( distance == null )
-        {
-            return Double.POSITIVE_INFINITY;
-        }
-
-        return distance;
+    /**
+     * Checks if the input {@code Vertex} was already visited.
+     *
+     * @param vertex the input {@code Vertex}
+     * @return true if the input {@code Vertex} was already visited, false otherwise.
+     */
+    public boolean alreadyVisited( V vertex )
+    {
+        return distances.containsKey( vertex );
     }
 
     /**
@@ -62,7 +78,7 @@ final class ShortestDistances<V extends Vertex>
      * @param vertex the vertex for which the distance has to be updated
      * @param distance the new input vertex distance
      */
-    public void setWeight( V vertex, Double distance )
+    public void setWeight( V vertex, W distance )
     {
         distances.put( vertex, distance );
     }
@@ -72,7 +88,19 @@ final class ShortestDistances<V extends Vertex>
      */
     public int compare( V left, V right )
     {
-        return getWeight( left ).compareTo( getWeight( right ) );
+        if ( !alreadyVisited( left ) && !alreadyVisited( right ) )
+        {
+            return 0;
+        }
+        else if ( !alreadyVisited( left ) )
+        {
+            return 1;
+        }
+        else if ( !alreadyVisited( right ) )
+        {
+            return -1;
+        }
+        return orderedMonoid.compare( getWeight( left ), getWeight( right ) );
     }
 
 }

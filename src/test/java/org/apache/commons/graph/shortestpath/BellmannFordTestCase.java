@@ -27,6 +27,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 public final class BellmannFordTestCase
@@ -71,13 +72,13 @@ public final class BellmannFordTestCase
         graph.addEdge( five, new BaseLabeledWeightedEdge( "5 -> 1", 2D ), one );
 
         // the expected weighted path
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, three );
+        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, three, new DoubleWeight() );
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 4", 7D ), four );
         expected.addConnectionInTail( four, new BaseLabeledWeightedEdge( "4 -> 3", -3D ), three );
 
         // the actual weighted path
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge> allVertexPairsShortestPath =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> allVertexPairsShortestPath =
             findShortestPath( graph, one );
 
         WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> actual =

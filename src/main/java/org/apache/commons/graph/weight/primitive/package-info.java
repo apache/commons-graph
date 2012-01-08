@@ -1,4 +1,7 @@
-package org.apache.commons.graph;
+/**
+ * Primitive weight implementations.
+ */
+package org.apache.commons.graph.weight.primitive;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -18,21 +21,3 @@ package org.apache.commons.graph;
  * specific language governing permissions and limitations
  * under the License.
  */
-
-/**
- * A Weighted object has a property called weight, which usually denotes
- * its relative importance within the domain of interest.
- *
- * @param <W> the type of weight
- */
-public interface Weighted<W>
-{
-
-    /**
-     * Gets the weight of the {@code Weighted} object.
-     *
-     * @return the weight of the {@code Weighted} object.
-     */
-    W getWeight();
-
-}

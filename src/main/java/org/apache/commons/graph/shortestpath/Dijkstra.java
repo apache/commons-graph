@@ -28,6 +28,8 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
+import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
  * Contains the Dijkstra's shortest path algorithm implementation.
@@ -46,27 +48,31 @@ public final class Dijkstra
     /**
      * Applies the classical Dijkstra's algorithm to find the shortest path from the source to the target, if exists.
      *
-     * @param <V> the Graph vertices type.
+     * @param <V> the Graph vertices type
+     * @param <W> the weight type
      * @param <WE> the Graph weighted edges type
-     * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
+     * @param <G> the Graph type
+     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
      * @param source the shortest path source Vertex
      * @param target the shortest path target Vertex
+     * @param orderedMonoid the {@link OrderedMonoid} needed to handle operations on weights
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> WeightedPath<V, WE, Double> findShortestPath( G graph,
-                                                                                                                                                    V source,
-                                                                                                                                                    V target )
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> WeightedPath<V, WE, W> findShortestPath( G graph,
+                                                                                                                                             V source,
+                                                                                                                                             V target,
+                                                                                                                                             OrderedMonoid<W> orderedMonoid )
     {
-        final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
-        shortestDistances.setWeight( source, 0D );
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
+        shortestDistances.setWeight( source, orderedMonoid.zero() );
 
         final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
         unsettledNodes.add( source );
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
 
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
@@ -87,22 +93,47 @@ public final class Dijkstra
                 if ( !settledNodes.contains( v ) )
                 {
                     WE edge = graph.getEdge( vertex, v );
-                    Double shortDist = shortestDistances.getWeight( vertex ) + edge.getWeight();
-
-                    if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+                    if ( shortestDistances.alreadyVisited( vertex ) )
                     {
-                        // assign new shortest distance and mark unsettled
-                        shortestDistances.setWeight( v, shortDist );
-                        unsettledNodes.add( v );
+                        W shortDist = orderedMonoid.append( shortestDistances.getWeight( vertex ), edge.getWeight() );
 
-                        // assign predecessor in shortest path
-                        predecessors.addPredecessor( v, vertex );
+                        if ( !shortestDistances.alreadyVisited( v ) 
+                                || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                        {
+                            // assign new shortest distance and mark unsettled
+                            shortestDistances.setWeight( v, shortDist );
+                            unsettledNodes.add( v );
+
+                            // assign predecessor in shortest path
+                            predecessors.addPredecessor( v, vertex );
+                        }
                     }
+
                 }
             }
         }
 
         throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph );
+    }
+
+    /**
+     * Applies the classical Dijkstra's algorithm to an edge weighted graph with weights of type Double
+     * to find the shortest path from the source to the target, if exists.
+     *
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param <G> the Graph type
+     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
+     * @param source the shortest path source Vertex
+     * @param target the shortest path target Vertex
+     * @return a path which describes the shortest path, if any,
+     *         otherwise a {@link PathNotFoundException} will be thrown
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> WeightedPath<V, WE, Double> findShortestPath( G graph,
+                                                                                                                                                    V source,
+                                                                                                                                                    V target )
+    {
+        return findShortestPath( graph, source, target, new DoubleWeight() );
     }
 
 }

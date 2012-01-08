@@ -24,6 +24,7 @@ import static java.lang.String.format;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * Support {@link WeightedPath} implementation, optimized for algorithms (such Dijkstra's) that need to rebuild the path
@@ -31,17 +32,21 @@ import org.apache.commons.graph.WeightedPath;
  *
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
-public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdge<Double>>
+public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdge<W>, W>
     extends InMemoryPath<V, WE>
-    implements WeightedPath<V, WE, Double>
+    implements WeightedPath<V, WE, W>
 {
 
-    private Double weigth = 0D;
+    private W weight;
+    private Monoid<W> monoid;
 
-    public InMemoryWeightedPath( V start, V target )
+    public InMemoryWeightedPath( V start, V target, Monoid<W> monoid )
     {
         super( start, target );
+        this.monoid = monoid;
+        this.weight = monoid.zero();
     }
 
     /**
@@ -65,21 +70,21 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
     }
 
     /**
-     * Increase the path weight
+     * Increase the path weight with the weight of the input weighted edge.
      *
-     * @param edge the edge which weigth increase the path weigth
+     * @param edge the edge whose weight is used to increase the path weight
      */
     private void increaseWeight( WE edge )
     {
-        weigth = edge.getWeight().doubleValue() + weigth.doubleValue();
+        weight = monoid.append( edge.getWeight(), weight );
     }
 
     /**
      * {@inheritDoc}
      */
-    public Double getWeight()
+    public W getWeight()
     {
-        return weigth;
+        return weight;
     }
 
     /**
@@ -90,7 +95,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
     {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ( ( weigth == null ) ? 0 : weigth.hashCode() );
+        result = prime * result + ( ( weight == null ) ? 0 : weight.hashCode() );
         return result;
     }
 
@@ -116,8 +121,8 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
         }
 
         @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
-        InMemoryWeightedPath<Vertex, WeightedEdge<Double>> other = (InMemoryWeightedPath<Vertex, WeightedEdge<Double>>) obj;
-        if ( !weigth.equals( other.getWeight() ) )
+        InMemoryWeightedPath<Vertex, WeightedEdge<W>, W> other = (InMemoryWeightedPath<Vertex, WeightedEdge<W>, W>) obj;
+        if ( !weight.equals( other.getWeight() ) )
         {
             return false;
         }
@@ -130,7 +135,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
     @Override
     public String toString()
     {
-        return format( "InMemoryPath [weigth=%s, vertices=%s, edges=%s]", weigth, getVertices(), getEdges() );
+        return format( "InMemoryPath [weigth=%s, vertices=%s, edges=%s]", weight, getVertices(), getEdges() );
     }
 
 }

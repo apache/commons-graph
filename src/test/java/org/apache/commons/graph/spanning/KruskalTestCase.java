@@ -95,7 +95,7 @@ public final class KruskalTestCase
         // Actual
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = minimumSpanningTree( input );
-
+        
         // assert!
 
         assertEquals( expected, actual );

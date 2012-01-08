@@ -27,6 +27,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 public final class DijkstraTestCase
@@ -73,8 +74,8 @@ public final class DijkstraTestCase
 
         // expected path
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge>( one, five );
+        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, five, new DoubleWeight() );
 
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
         expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );

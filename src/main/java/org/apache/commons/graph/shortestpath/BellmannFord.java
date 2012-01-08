@@ -1,11 +1,5 @@
 package org.apache.commons.graph.shortestpath;
 
-import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedPath;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -25,6 +19,14 @@ import org.apache.commons.graph.WeightedPath;
  * under the License.
  */
 
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
+import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
+
 /**
  * Contains the Bellman–Ford's shortest path algorithm implementation.
  */
@@ -42,20 +44,23 @@ public final class BellmannFord
     /**
      * Applies the classical Bellman–Ford's algorithm to find the shortest path from the source to the target, if exists.
      *
-     * @param <V> the Graph vertices type.
+     * @param <V> the Graph vertices type
      * @param <WE> the Graph weighted edges type
-     * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
+     * @param <W> the weight type
+     * @param <G> the Graph type
+     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
      * @param source the shortest path source Vertex
-     * @param target the shortest path target Vertex
+     * @param orderedMonoid the {@code OrderedMonoid} needed to handle weights
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE> findShortestPath( G graph,
-                                                                                                                                                          V source)
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE, W> findShortestPath( G graph,
+                                                                                                                                                           V source,
+                                                                                                                                                           OrderedMonoid<W> orderedMonoid )
     {
-        final ShortestDistances<V> shortestDistances = new ShortestDistances<V>();
-        shortestDistances.setWeight( source, 0D );
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
+        shortestDistances.setWeight( source, orderedMonoid.zero() );
 
-        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
 
         for ( int i = 0; i < graph.getOrder(); i++ )
         {
@@ -65,15 +70,19 @@ public final class BellmannFord
                 V u = vertexPair.getHead();
                 V v = vertexPair.getTail();
 
-                Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
-
-                if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+                if ( shortestDistances.alreadyVisited( u ) )
                 {
-                    // assign new shortest distance and mark unsettled
-                    shortestDistances.setWeight( v, shortDist );
+                    W shortDist = orderedMonoid.append( shortestDistances.getWeight( u ), edge.getWeight() );
 
-                    // assign predecessor in shortest path
-                    predecessors.addPredecessor( v, u );
+                    if ( !shortestDistances.alreadyVisited( v )
+                            || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                    {
+                        // assign new shortest distance and mark unsettled
+                        shortestDistances.setWeight( v, shortDist );
+
+                        // assign predecessor in shortest path
+                        predecessors.addPredecessor( v, u );
+                    }
                 }
             }
         }
@@ -84,28 +93,49 @@ public final class BellmannFord
             V u = vertexPair.getHead();
             V v = vertexPair.getTail();
 
-            Double shortDist = shortestDistances.getWeight( u ) + edge.getWeight();
-
-            if ( shortDist.compareTo( shortestDistances.getWeight( v ) ) < 0 )
+            if ( shortestDistances.alreadyVisited( u ) )
             {
-                // TODO it would be nice printing the cycle
-                throw new NegativeWeightedCycleException( "Graph contains a negative-weight cycle in vertex %s",
-                                                          v, graph );
+                W shortDist = orderedMonoid.append( shortestDistances.getWeight( u ), edge.getWeight() );
+
+                if ( !shortestDistances.alreadyVisited( v )
+                        || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                {
+                    // TODO it would be nice printing the cycle
+                    throw new NegativeWeightedCycleException( "Graph contains a negative-weight cycle in vertex %s",
+                                                              v, graph );
+                }
             }
         }
 
-        AllVertexPairsShortestPath<V, WE> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE>();
+        AllVertexPairsShortestPath<V, WE, W> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W>( orderedMonoid );
 
         for ( V target : graph.getVertices() )
         {
             if ( !source.equals( target ) )
             {
-                WeightedPath<V, WE, Double> weightedPath = predecessors.buildPath( source, target );
+                WeightedPath<V, WE, W> weightedPath = predecessors.buildPath( source, target );
                 allVertexPairsShortestPath.addShortestPath( source, target, weightedPath );
             }
         }
 
         return allVertexPairsShortestPath;
+    }
+
+    /**
+     * Applies the classical Bellman–Ford's algorithm to an edge weighted graph with weights of type Double
+     * to find the shortest path from the source to the target, if exists.
+     *
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param <G> the Graph type
+     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
+     * @param source the shortest path source Vertex
+     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE, Double> findShortestPath( G graph,
+                                                                                                                                                                  V source )
+    {
+        return findShortestPath( graph, source, new DoubleWeight() );
     }
 
 }

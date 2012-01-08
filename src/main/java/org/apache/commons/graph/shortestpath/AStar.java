@@ -29,12 +29,15 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
  * Contains the A* shortest path algorithm implementation.
  */
 public final class AStar
 {
+
+    private static final DoubleWeight DOUBLE_WEIGHT = new DoubleWeight();
 
     /**
      * This class can not be instantiated directly
@@ -61,11 +64,11 @@ public final class AStar
                                                                                                                     Heuristic<V> heuristic )
     {
         // Cost from start along best known path.
-        final ShortestDistances<V> gScores = new ShortestDistances<V>();
+        final ShortestDistances<V, Double> gScores = new ShortestDistances<V, Double>( DOUBLE_WEIGHT );
         gScores.setWeight( start, 0D );
 
         // Estimated total cost from start to goal through y.
-        final ShortestDistances<V> fScores = new ShortestDistances<V>();
+        final ShortestDistances<V, Double> fScores = new ShortestDistances<V, Double>( DOUBLE_WEIGHT );
         Double hScore = heuristic.applyHeuristic( start, goal );
         fScores.setWeight( start, hScore );
 
@@ -77,7 +80,7 @@ public final class AStar
         openSet.add( start );
 
         // The of navigated nodes
-        final PredecessorsList<V, WE> predecessors = new PredecessorsList<V, WE>( graph );
+        final PredecessorsList<V, WE, Double> predecessors = new PredecessorsList<V, WE, Double>( graph, DOUBLE_WEIGHT );
 
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )
@@ -99,8 +102,10 @@ public final class AStar
                 if ( !closedSet.contains( v ) )
                 {
                     WE edge = graph.getEdge( current, v );
+                    // note that the weight of current can never be undefined
                     Double tentativeGScore = gScores.getWeight( current ) + edge.getWeight();
 
+                    // if the first condition fails, v has already been visited (its weight is defined)
                     if ( openSet.add( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
                     {
                         predecessors.addPredecessor( v, current );

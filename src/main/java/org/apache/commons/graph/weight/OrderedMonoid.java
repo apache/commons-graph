@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.weight;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,20 +19,15 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-/**
- * A Weighted object has a property called weight, which usually denotes
- * its relative importance within the domain of interest.
- *
- * @param <W> the type of weight
- */
-public interface Weighted<W>
-{
+import java.util.Comparator;
 
-    /**
-     * Gets the weight of the {@code Weighted} object.
-     *
-     * @return the weight of the {@code Weighted} object.
-     */
-    W getWeight();
+/**
+ * An {@link OrderedMonoid} is a {@link Monoid} with a total order defined on it.
+ *
+ * @param <M> the type of the elements in the {@link OrderedMonoid}
+ */
+public interface OrderedMonoid<M>
+    extends Monoid<M>, Comparator<M>
+{
 
 }

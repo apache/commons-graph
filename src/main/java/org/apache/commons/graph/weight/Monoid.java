@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.weight;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -20,19 +20,12 @@ package org.apache.commons.graph;
  */
 
 /**
- * A Weighted object has a property called weight, which usually denotes
- * its relative importance within the domain of interest.
+ * A {@link Monoid} is a {@link Semigroup} with an identity value.
  *
- * @param <W> the type of weight
+ * @param <M> the type of the elements in the {@link Monoid}
  */
-public interface Weighted<W>
+public interface Monoid<M>
+    extends Zero<M>, Semigroup<M>
 {
-
-    /**
-     * Gets the weight of the {@code Weighted} object.
-     *
-     * @return the weight of the {@code Weighted} object.
-     */
-    W getWeight();
 
 }

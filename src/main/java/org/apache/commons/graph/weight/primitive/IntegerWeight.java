@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.weight.primitive;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,20 +19,42 @@ package org.apache.commons.graph;
  * under the License.
  */
 
+import org.apache.commons.graph.weight.OrderedMonoid;
+
 /**
- * A Weighted object has a property called weight, which usually denotes
- * its relative importance within the domain of interest.
- *
- * @param <W> the type of weight
+ * A {@link IntegerWeight} provides operations and properties 
+ * for weights of type {@link Integer}.
  */
-public interface Weighted<W>
+public class IntegerWeight
+    implements OrderedMonoid<Integer>
 {
 
     /**
-     * Gets the weight of the {@code Weighted} object.
-     *
-     * @return the weight of the {@code Weighted} object.
+     * {@inheritDoc}
      */
-    W getWeight();
+    public Integer zero()
+    {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Integer append( Integer s1, Integer s2 )
+    {
+        if ( s1 == null || s2 == null )
+        {
+            return null;
+        }
+        return s1 + s2;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int compare( Integer o1, Integer o2 )
+    {
+        return o1.compareTo( o2 );
+    }
 
 }
