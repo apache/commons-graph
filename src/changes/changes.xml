@@ -24,7 +24,7 @@
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
     <action dev="simonetripodi" type="update" issue="SANDBOX-356">
-      Generic weight types and updated shortest path implementations - patch provided by Claudio Squarcella
+      Generic weight types and algorithms implementations based on wighted graphes - patch provided by Claudio Squarcella
     </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-346">
       DotExporter only exports weights that extend Number - patch provided by Claudio Squarcella
