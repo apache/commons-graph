@@ -25,9 +25,10 @@ import org.apache.commons.graph.Vertex;
  * An {@link Heuristic} instance is an admissible "heuristic estimate" of the distance to the goal
  * (usually denoted <i>h(x)</i>).
  *
- * @param <V> the Graph vertices type.
+ * @param <V> the Graph vertices type
+ * @param <W> the weight type
  */
-public interface Heuristic<V extends Vertex>
+public interface Heuristic<V extends Vertex, W>
 {
 
     /**
@@ -37,6 +38,6 @@ public interface Heuristic<V extends Vertex>
      * @param goal the goal of the Graph visit.
      * @return the "heuristic estimate" of the distance from the start to the goal.
      */
-    Double applyHeuristic( V current, V goal );
+    W applyHeuristic( V current, V goal );
 
 }

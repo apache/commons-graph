@@ -84,7 +84,7 @@ public final class AStarTestCase
         heuristics.put( e, 2D );
         heuristics.put( goal, 6D );
 
-        Heuristic<BaseLabeledVertex> heuristic = new Heuristic<BaseLabeledVertex>()
+        Heuristic<BaseLabeledVertex, Double> heuristic = new Heuristic<BaseLabeledVertex, Double>()
         {
 
             public Double applyHeuristic( BaseLabeledVertex current, BaseLabeledVertex goal )

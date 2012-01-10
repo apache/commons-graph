@@ -29,6 +29,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
+import org.apache.commons.graph.weight.OrderedMonoid;
 import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
@@ -36,8 +37,6 @@ import org.apache.commons.graph.weight.primitive.DoubleWeight;
  */
 public final class AStar
 {
-
-    private static final DoubleWeight DOUBLE_WEIGHT = new DoubleWeight();
 
     /**
      * This class can not be instantiated directly
@@ -50,26 +49,29 @@ public final class AStar
     /**
      * Applies the classical A* algorithm to find the shortest path from the source to the target, if exists.
      *
-     * @param <V> the Graph vertices type.
+     * @param <V> the Graph vertices type
      * @param <WE> the Graph weighted edges type
+     * @param <W> the weight type
      * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
      * @param start the shortest path source Vertex
      * @param goal the shortest path target Vertex
      * @param heuristic the <i>h(x)</i> function
+     * @param orderedMonoid the ordered monoid needed to handle operations on weights
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> WeightedPath<V, WE, Double> findShortestPath( Graph<V, WE> graph,
-                                                                                                                    V start,
-                                                                                                                    V goal,
-                                                                                                                    Heuristic<V> heuristic )
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>> WeightedPath<V, WE, W> findShortestPath( Graph<V, WE> graph,
+                                                                                                             V start,
+                                                                                                             V goal,
+                                                                                                             Heuristic<V, W> heuristic,
+                                                                                                             OrderedMonoid<W> orderedMonoid )
     {
         // Cost from start along best known path.
-        final ShortestDistances<V, Double> gScores = new ShortestDistances<V, Double>( DOUBLE_WEIGHT );
-        gScores.setWeight( start, 0D );
+        final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( orderedMonoid );
+        gScores.setWeight( start, orderedMonoid.zero() );
 
         // Estimated total cost from start to goal through y.
-        final ShortestDistances<V, Double> fScores = new ShortestDistances<V, Double>( DOUBLE_WEIGHT );
-        Double hScore = heuristic.applyHeuristic( start, goal );
+        final ShortestDistances<V, W> fScores = new ShortestDistances<V, W>( orderedMonoid );
+        W hScore = heuristic.applyHeuristic( start, goal );
         fScores.setWeight( start, hScore );
 
         // The set of nodes already evaluated.
@@ -80,7 +82,7 @@ public final class AStar
         openSet.add( start );
 
         // The of navigated nodes
-        final PredecessorsList<V, WE, Double> predecessors = new PredecessorsList<V, WE, Double>( graph, DOUBLE_WEIGHT );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
 
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )
@@ -103,21 +105,41 @@ public final class AStar
                 {
                     WE edge = graph.getEdge( current, v );
                     // note that the weight of current can never be undefined
-                    Double tentativeGScore = gScores.getWeight( current ) + edge.getWeight();
+                    W tentativeGScore = orderedMonoid.append( gScores.getWeight( current ), edge.getWeight() );
 
                     // if the first condition fails, v has already been visited (its weight is defined)
-                    if ( openSet.add( v ) || tentativeGScore.compareTo( gScores.getWeight( v ) ) < 0 )
+                    if ( openSet.add( v ) || orderedMonoid.compare( tentativeGScore, gScores.getWeight( v ) ) < 0 )
                     {
                         predecessors.addPredecessor( v, current );
                         gScores.setWeight( v, tentativeGScore );
                         hScore = heuristic.applyHeuristic( v, goal );
-                        fScores.setWeight( v, gScores.getWeight( v ) + hScore );
+                        fScores.setWeight( v, orderedMonoid.append( gScores.getWeight( v ), hScore ) );
                     }
                 }
             }
         }
 
         throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", start, goal, graph );
+    }
+    
+    /**
+     * Applies the classical A* algorithm to an edge weighted graph with weights of type Double
+     * to find the shortest path from the source to the target, if exists.
+     *
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
+     * @param start the shortest path source Vertex
+     * @param goal the shortest path target Vertex
+     * @param heuristic the <i>h(x)</i> function
+     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> WeightedPath<V, WE, Double> findShortestPath( Graph<V, WE> graph,
+                                                                                                                    V start,
+                                                                                                                    V goal,
+                                                                                                                    Heuristic<V, Double> heuristic )
+    {
+        return findShortestPath( graph, start, goal, heuristic, new DoubleWeight() );
     }
 
 }
