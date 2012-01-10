@@ -23,38 +23,38 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
-    <action dev="simonetripodi" type="update" issue="SANDBOX-356">
-      Generic weight types and algorithms implementations based on wighted graphes - patch provided by Claudio Squarcella
+    <action dev="simonetripodi" type="update" issue="SANDBOX-356" due-to="Claudio Squarcella">
+      Generic weight types and algorithms implementations based on wighted graphes.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-346">
-      DotExporter only exports weights that extend Number - patch provided by Claudio Squarcella
+    <action dev="simonetripodi" type="update" issue="SANDBOX-346" due-to="Claudio Squarcella">
+      DotExporter only exports weights that extend Number.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-345">
-      Weighted as an interface with generic weight type - patch provided by Claudio Squarcella
+    <action dev="simonetripodi" type="update" issue="SANDBOX-345" due-to="Claudio Squarcella">
+      Weighted as an interface with generic weight type.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-344">
-      No WeightedGraph in current method signatures - patch provided by Claudio Squarcella
+    <action dev="simonetripodi" type="update" issue="SANDBOX-344" due-to="Claudio Squarcella">
+      No WeightedGraph in current method signatures.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-338">
-      Generic iterable set of color - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="update" issue="SANDBOX-338" due-to="Marco Speranza">
+      Generic iterable set of color.
     </action>
-    <action dev="simonetripodi" type="fix" issue="SANDBOX-337">
-      Wrong value for Vertex degree - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-337" due-to="Marco Speranza">
+      Wrong value for Vertex degree.
     </action>
-    <action dev="simonetripodi" type="fix" issue="SANDBOX-336">
-      Duplicate Edge - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-336" due-to="Marco Speranza">
+      Duplicate Edge.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-335">
-      Graph Coloring: Backtracking algorithm - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="update" issue="SANDBOX-335" due-to="Marco Speranza">
+      Graph Coloring: Backtracking algorithm.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-334">
-      Bad coloring for crawn graph - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="update" issue="SANDBOX-334" due-to="Marco Speranza">
+      Bad coloring for crawn graph.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-333">
-      Graph coloring implementation - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="update" issue="SANDBOX-333" due-to="Marco Speranza">
+      Graph coloring implementation.
     </action>
-    <action dev="simonetripodi" type="update" issue="SANDBOX-332">
-      add FloydWarshall algorithm implementation - patch provided by Marco Speranza
+    <action dev="simonetripodi" type="update" issue="SANDBOX-332" due-to="Marco Speranza">
+      add FloydWarshall algorithm implementation.
     </action>
   </release>
   </body>
