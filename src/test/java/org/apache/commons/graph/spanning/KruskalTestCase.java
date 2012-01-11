@@ -27,6 +27,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 public final class KruskalTestCase
@@ -77,8 +78,8 @@ public final class KruskalTestCase
 
         // expected
 
-        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge>();
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( new DoubleWeight() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -94,7 +95,7 @@ public final class KruskalTestCase
 
         // Actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = minimumSpanningTree( input );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> actual = minimumSpanningTree( input );
         
         // assert!
 

@@ -27,44 +27,52 @@ import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
  * Prim's algorithm is a greedy algorithm that finds a minimum spanning tree for a connected weighted undirected graph.
  */
 public final class Prim
 {
-
+    
     /**
      * Calculates the minimum spanning tree of the input Graph,
      * selecting the Vertex source from the input Graph.
      *
-     * @param <V> the Graph vertices type.
-     * @param <WE> the Graph weighted edges type.
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param <W> the weight type
      * @param <G> the weighted-undirected input graph type
-     * @param graph the Graph for which minimum spanning tree has to be calculated.
-     * @return the minimum spanning tree of the input Graph.
+     * @param graph the Graph for which minimum spanning tree has to be calculated
+     * @param orderedMonoid the OrderedMonoid needed to handle operations on weights
+     * @return the minimum spanning tree of the input Graph
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE, W> minimumSpanningTree( G graph,
+                                                                                                                                                  OrderedMonoid<W> orderedMonoid)
     {
-        return minimumSpanningTree( graph, graph.getVertices().iterator().next() );
+        return minimumSpanningTree( graph, graph.getVertices().iterator().next(), orderedMonoid );
     }
 
     /**
      * Calculates the minimum spanning tree of the input Graph, given a known Vertex source.
      *
-     * @param <V> the Graph vertices type.
-     * @param <WE> the Graph weighted edges type.
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param <W> the weight type
      * @param <G> the weighted-undirected input graph type
-     * @param graph the Graph for which minimum spanning tree has to be calculated.
+     * @param graph the Graph for which minimum spanning tree has to be calculated
      * @param source the Prim's Vertex source
-     * @return the minimum spanning tree of the input Graph.
+     * @param orderedMonoid the OrderedMonoid needed to handle operations on weights
+     * @return the minimum spanning tree of the input Graph
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE> minimumSpanningTree( G graph,
-                                                                                                                                                 V source )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE, W> minimumSpanningTree( G graph,
+                                                                                                                                                  V source,
+                                                                                                                                                  OrderedMonoid<W> orderedMonoid )
     {
-        final ShortestEdges<V, WE> shortesEdges = new ShortestEdges<V, WE>( graph, source );
+        final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, orderedMonoid );
 
-        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortesEdges );
+        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestEdges );
         unsettledNodes.add( source );
 
         final Set<WE> settledEdges = new HashSet<WE>();
@@ -79,19 +87,53 @@ public final class Prim
                 WE edge = graph.getEdge( vertex, v );
 
                 // if the edge has not been already visited and its weight is less then the current Vertex weight
-                if ( settledEdges.add( edge ) && edge.getWeight().compareTo( shortesEdges.getWeight( v ) ) < 0 )
+                boolean weightLessThanCurrent = !shortestEdges.hasWeight( v )
+                        || orderedMonoid.compare( edge.getWeight(), shortestEdges.getWeight( v ) ) < 0;
+                if ( settledEdges.add( edge ) && weightLessThanCurrent )
                 {
                     if ( !unsettledNodes.contains( v ) )
                     {
                         unsettledNodes.add( v );
                     }
 
-                    shortesEdges.addPredecessor( v, edge );
+                    shortestEdges.addPredecessor( v, edge );
                 }
             }
         }
 
-        return shortesEdges.createSpanningTree();
+        return shortestEdges.createSpanningTree();
+    }
+    
+    /**
+     * Calculates the minimum spanning tree of the input edge weighted Graph with weights of type Double,
+     * selecting the Vertex source from the input Graph.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <WE> the Graph weighted edges type.
+     * @param <G> the weighted-undirected input graph type
+     * @param graph the Graph for which minimum spanning tree has to be calculated.
+     * @return the minimum spanning tree of the input Graph.
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE, Double> minimumSpanningTree( G graph )
+    {
+        return minimumSpanningTree( graph, graph.getVertices().iterator().next(), new DoubleWeight() );
+    }
+    
+    /**
+     * Calculates the minimum spanning tree of the input edge weighted Graph with weights of type Double, 
+     * given a known Vertex source.
+     *
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param <G> the weighted-undirected input graph type
+     * @param graph the Graph for which minimum spanning tree has to be calculated
+     * @param source the Prim's Vertex source
+     * @return the minimum spanning tree of the input Graph
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends UndirectedGraph<V, WE>> SpanningTree<V, WE, Double> minimumSpanningTree( G graph,
+                                                                                                                                                         V source )
+    {
+        return minimumSpanningTree( graph, source, new DoubleWeight() );
     }
 
 }

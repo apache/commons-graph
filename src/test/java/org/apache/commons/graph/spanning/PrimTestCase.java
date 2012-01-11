@@ -27,6 +27,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 public final class PrimTestCase
@@ -74,8 +75,8 @@ public final class PrimTestCase
 
         // expected
 
-        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge>();
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( new DoubleWeight() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -140,8 +141,8 @@ public final class PrimTestCase
 
         // expected
 
-        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge>();
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( new DoubleWeight() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -160,11 +161,11 @@ public final class PrimTestCase
 
     private static void internalPrimAssertion( UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> input,
                                                BaseLabeledVertex source,
-                                               MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> expected )
+                                               MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected )
     {
      // actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = minimumSpanningTree( input, source );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> actual = minimumSpanningTree( input, source );
 
         // assert!
 

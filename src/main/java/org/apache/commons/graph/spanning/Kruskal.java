@@ -30,6 +30,8 @@ import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.collections.DisjointSet;
 import org.apache.commons.graph.model.MutableSpanningTree;
+import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
  * Kruskal's algorithm is an algorithm in graph theory that finds a minimum spanning tree
@@ -41,12 +43,15 @@ public final class Kruskal
     /**
      * Calculates the minimum spanning tree (or forest) of the input Graph.
      *
-     * @param <V> the Graph vertices type.
-     * @param <WE> the Graph weighted edges type.
-     * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
-     * @return  the minimum spanning tree (or forest) of the input Graph.
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph weighted edges type
+     * @param <W> the weight type
+     * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated
+     * @param orderedMonoid the OrderedMonoid needed for operations on weights
+     * @return  the minimum spanning tree (or forest) of the input Graph
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> SpanningTree<V, WE> minimumSpanningTree( Graph<V, WE> graph )
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>> SpanningTree<V, WE, W> minimumSpanningTree( Graph<V, WE> graph,
+                                                                                                                OrderedMonoid<W> orderedMonoid)
     {
         final Set<V> settledNodes = new HashSet<V>();
 
@@ -59,7 +64,7 @@ public final class Kruskal
 
         final DisjointSet<V> disjointSet = new DisjointSet<V>();
 
-        MutableSpanningTree<V, WE> spanningTree = new MutableSpanningTree<V, WE>();
+        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
 
         while ( settledNodes.size() < graph.getOrder() )
         {
@@ -86,6 +91,19 @@ public final class Kruskal
         }
 
         return spanningTree;
+    }
+    
+    /**
+     * Calculates the minimum spanning tree (or forest) of the input Graph.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <WE> the Graph weighted edges type.
+     * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
+     * @return  the minimum spanning tree (or forest) of the input Graph.
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> SpanningTree<V, WE, Double> minimumSpanningTree( Graph<V, WE> graph )
+    {
+        return minimumSpanningTree( graph, new DoubleWeight() );
     }
 
 }

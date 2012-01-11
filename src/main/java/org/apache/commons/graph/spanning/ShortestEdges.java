@@ -31,6 +31,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * The predecessor list is a list of {@link Vertex} of a {@link org.apache.commons.graph.Graph}.
@@ -38,21 +39,25 @@ import org.apache.commons.graph.model.MutableSpanningTree;
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
+ * @param <W> the weight type
  */
-final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<Double>>
+final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
     implements Comparator<V>
 {
 
     private final Map<V, WE> predecessors = new HashMap<V, WE>();
 
+    private final OrderedMonoid<W> orderedMonoid;
+    
     private final Graph<V, WE> graph;
 
     private final V source;
 
-    public ShortestEdges(Graph<V, WE> graph, V source )
+    public ShortestEdges(Graph<V, WE> graph, V source, OrderedMonoid<W> orderedMonoid )
     {
         this.graph = graph;
         this.source = source;
+        this.orderedMonoid = orderedMonoid;
     }
 
     /**
@@ -67,13 +72,13 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<Double>>
     }
 
     /**
-     * 
+     * Creates a spanning tree using the current data.
      *
-     * @return
+     * @return a spanning tree using current data
      */
-    public SpanningTree<V, WE> createSpanningTree()
+    public SpanningTree<V, WE, W> createSpanningTree()
     {
-        MutableSpanningTree<V, WE> spanningTree = new MutableSpanningTree<V, WE>();
+        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
 
         for ( WE edge : this.predecessors.values() )
         {
@@ -91,8 +96,8 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<Double>>
         return spanningTree;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge<Double>> void addEdgeIgnoringExceptions( V vertex,
-                                                                                               MutableSpanningTree<V, WE> spanningTree )
+    private static <V extends Vertex, WE extends WeightedEdge<W>, W> void addEdgeIgnoringExceptions( V vertex,
+                                                                                                       MutableSpanningTree<V, WE, W> spanningTree )
     {
         try
         {
@@ -115,26 +120,40 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<Double>>
     }
 
     /**
-     * Returns the distance related to input vertex, or {@code INFINITY} if it wasn't previously visited.
+     * Returns the distance related to input vertex, or null if it does not exist.
+     * 
+     * <b>NOTE</b>: the method {@link hasWeight} should be used first to check if
+     * the input vertex has an assiged weight.
      *
      * @param vertex the vertex for which the distance has to be retrieved
-     * @return the distance related to input vertex, or {@code INFINITY} if it wasn't previously visited.
+     * @return the distance related to input vertex, or null if it does not exist
      */
-    public Double getWeight( V vertex )
+    public W getWeight( V vertex )
     {
         if ( source.equals( vertex ) )
         {
-            return 0D;
+            return orderedMonoid.zero();
         }
 
         WE edge = predecessors.get( vertex );
 
         if ( edge == null )
         {
-            return Double.POSITIVE_INFINITY;
+            return null;
         }
 
         return edge.getWeight();
+    }
+    
+    /**
+     * Checks if there is a weight related to the input {@code Vertex}.
+     *
+     * @param vertex the input {@code Vertex}
+     * @return true if there is a weight for the input {@code Vertex}, false otherwise
+     */
+    public boolean hasWeight( V vertex )
+    {
+        return predecessors.containsKey( vertex );
     }
 
     /**
@@ -142,7 +161,19 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<Double>>
      */
     public int compare( V left, V right )
     {
-        return getWeight( left ).compareTo( getWeight( right ) );
+        if ( !hasWeight( left ) && !hasWeight( right ) )
+        {
+            return 0;
+        }
+        else if ( !hasWeight( left ) )
+        {
+            return 1;
+        }
+        else if ( !hasWeight( right ) )
+        {
+            return -1;
+        }
+        return orderedMonoid.compare( getWeight( left ), getWeight( right ) );
     }
 
     /**

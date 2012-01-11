@@ -22,7 +22,7 @@ package org.apache.commons.graph.weight.primitive;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
- * A {@link IntegerWeight} provides operations and properties 
+ * An {@link IntegerWeight} provides operations and properties 
  * for weights of type {@link Integer}.
  */
 public class IntegerWeight
@@ -47,6 +47,14 @@ public class IntegerWeight
             return null;
         }
         return s1 + s2;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Integer inverse( Integer element )
+    {
+        return -element;
     }
 
     /**

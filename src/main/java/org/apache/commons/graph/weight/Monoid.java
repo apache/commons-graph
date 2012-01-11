@@ -28,4 +28,11 @@ public interface Monoid<M>
     extends Zero<M>, Semigroup<M>
 {
 
+    /**
+     * Returns the inverse of the input element.
+     * @param element
+     * @return the inverse of the input element 
+     */
+    public M inverse( M element );
+
 }

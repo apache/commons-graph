@@ -25,16 +25,12 @@ package org.apache.commons.graph;
  *
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
-public interface SpanningTree<V extends Vertex, WE extends WeightedEdge<Double>>
-    extends UndirectedGraph<V, WE>
+public interface SpanningTree<V extends Vertex, WE extends WeightedEdge<W>, W>
+    extends UndirectedGraph<V, WE>, Weighted<W>
 {
 
-    /**
-     * Gets the weight attribute of the {@code SpanningTree} object.
-     *
-     * @return the weight attribute of the {@code SpanningTree} object.
-     */
-    Double getWeight();
+
 
 }

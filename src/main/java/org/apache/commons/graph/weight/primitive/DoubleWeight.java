@@ -48,6 +48,14 @@ public class DoubleWeight
         }
         return s1 + s2;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Double inverse( Double element )
+    {
+        return -element;
+    }
 
     /**
      * {@inheritDoc}

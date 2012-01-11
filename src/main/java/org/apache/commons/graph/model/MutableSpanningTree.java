@@ -22,24 +22,34 @@ package org.apache.commons.graph.model;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * A memory-based implementation of a mutable spanning tree.
  *
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
-public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge<Double>>
+public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge<W>, W>
     extends UndirectedMutableGraph<V, WE>
-    implements SpanningTree<V, WE>
+    implements SpanningTree<V, WE, W>
 {
 
-    private Double weight = 0D;
+    private Monoid<W> monoid;
+    private W weight;
+    
+    public MutableSpanningTree(Monoid<W> monoid) {
+        this.monoid = monoid;
+        this.weight = monoid.zero();
+    }
+    
+
 
     /**
      * {@inheritDoc}
      */
-    public Double getWeight()
+    public W getWeight()
     {
         return weight;
     }
@@ -51,7 +61,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     protected void decorateAddEdge( V head, WE e, V tail )
     {
         super.decorateAddEdge( head, e, tail );
-        weight += e.getWeight();
+        weight = monoid.append( weight, e.getWeight() );
     }
 
     /**
@@ -60,7 +70,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     @Override
     protected void decorateRemoveEdge( WE e )
     {
-        weight -= e.getWeight();
+        weight = monoid.append( weight, monoid.inverse( e.getWeight() ) );
     }
 
 }
