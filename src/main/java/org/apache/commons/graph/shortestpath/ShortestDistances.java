@@ -36,8 +36,6 @@ final class ShortestDistances<V extends Vertex, W>
     implements Comparator<V>
 {
 
-    private static final long serialVersionUID = 568538689459177637L;
-
     private final Map<V, W> distances = new HashMap<V, W>();
 
     private final OrderedMonoid<W> orderedMonoid;
