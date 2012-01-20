@@ -44,33 +44,37 @@ public class BaseGraphVisitHandler<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public void discoverVertex( V vertex )
+    public boolean discoverVertex( V vertex )
     {
         // do nothing
+        return true;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void discoverEdge( V head, E edge, V tail )
+    public boolean discoverEdge( V head, E edge, V tail )
     {
         // do nothing
+        return true;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void finishEdge( V head, E edge, V tail )
+    public boolean finishEdge( V head, E edge, V tail )
     {
         // do nothing
+        return false;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void finishVertex( V vertex )
+    public boolean finishVertex( V vertex )
     {
         // do nothing
+        return false;
     }
 
     /**

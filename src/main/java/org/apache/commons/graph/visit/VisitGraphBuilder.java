@@ -64,9 +64,10 @@ final class VisitGraphBuilder<V extends Vertex, E extends Edge>
      * {@inheritDoc}
      */
     @Override
-    public void discoverEdge( V head, E edge, V tail )
+    public boolean discoverEdge( V head, E edge, V tail )
     {
         visitGraph.addEdge( head, edge, tail );
+        return true;
     }
 
     /**

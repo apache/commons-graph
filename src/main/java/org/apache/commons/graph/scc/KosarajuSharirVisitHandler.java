@@ -49,12 +49,13 @@ final class KosarajuSharirVisitHandler<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public void finishVertex( V vertex )
+    public boolean finishVertex( V vertex )
     {
         if ( !startVisit.equals( vertex ) )
         {
             vertices.add( vertex );
         }
+        return false;
     }
 
     @Override

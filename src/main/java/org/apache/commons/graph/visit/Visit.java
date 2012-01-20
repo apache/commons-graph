@@ -20,6 +20,7 @@ package org.apache.commons.graph.visit;
  */
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -82,32 +83,45 @@ public final class Visit
         Queue<V> vertexQueue = new LinkedList<V>();
         vertexQueue.add( source );
 
-        Set<V> visitedVetices = new HashSet<V>();
-        visitedVetices.add( source );
+        Set<V> visitedVertices = new HashSet<V>();
+        visitedVertices.add( source );
 
-        while ( !vertexQueue.isEmpty() )
+        boolean visitingGraph = true;
+        
+        while ( visitingGraph && !vertexQueue.isEmpty() )
         {
             V v = vertexQueue.remove();
 
-            handler.discoverVertex( v );
-
-            Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
-                                                                       : graph.getConnectedVertices( v );
-            for ( V w : connected )
-            {
-                if ( visitedVetices.add( w ) )
+            if ( handler.discoverVertex( v ) ) {
+                
+                Iterator<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
+                                : graph.getConnectedVertices( v ).iterator();
+                
+                while ( connected.hasNext() )
                 {
-                    E e = graph.getEdge( v, w );
+                    V w = connected.next();
+                    if ( visitedVertices.add( w ) )
+                    {
+                        E e = graph.getEdge( v, w );
 
-                    handler.discoverEdge( v, e, w );
+                        if ( handler.discoverEdge( v, e, w ) )
+                        {
+                            vertexQueue.offer( w );
+                        }
 
-                    vertexQueue.offer( w );
-
-                    handler.finishEdge( v, e, w );
+                        if ( handler.finishEdge( v, e, w ) )
+                        {
+                            visitingGraph = false;
+                        }
+                    }
                 }
+
             }
 
-            handler.finishVertex( v );
+            if ( handler.finishVertex( v ) )
+            {
+                visitingGraph = false;
+            }
         }
 
         handler.finishGraph( graph );
@@ -159,32 +173,43 @@ public final class Visit
         Stack<V> vertexStack = new Stack<V>();
         vertexStack.push( source );
 
-        Set<V> visitedVetices = new HashSet<V>();
-        visitedVetices.add( source );
+        Set<V> visitedVertices = new HashSet<V>();
+        visitedVertices.add( source );
 
-        while ( !vertexStack.isEmpty() )
+        boolean visitingGraph = true;
+        
+        while ( visitingGraph && !vertexStack.isEmpty() )
         {
             V v = vertexStack.pop();
 
-            handler.discoverVertex( v );
-
-            Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v )
-                            : graph.getConnectedVertices( v );
-            for ( V w : connected )
+            if ( handler.discoverVertex( v ) )
             {
-                if ( visitedVetices.add( w ) )
+                Iterator<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
+                                : graph.getConnectedVertices( v ).iterator();
+                
+                while ( connected.hasNext() )
                 {
-                    E e = graph.getEdge( v, w );
+                    V w = connected.next();
+                    if ( visitedVertices.add( w ) )
+                    {
+                        E e = graph.getEdge( v, w );
 
-                    handler.discoverEdge( v, e, w );
+                        if ( handler.discoverEdge( v, e, w ) )
+                        {
+                            vertexStack.push( w );
+                        }
 
-                    vertexStack.push( w );
-
-                    handler.finishEdge( v, e, w );
+                        if ( handler.finishEdge( v, e, w ) ) {
+                            visitingGraph = false;
+                        }
+                    }
                 }
             }
 
-            handler.finishVertex( v );
+            if ( handler.finishVertex( v ) )
+            {
+                visitingGraph = false;
+            }
         }
 
         handler.finishGraph( graph );

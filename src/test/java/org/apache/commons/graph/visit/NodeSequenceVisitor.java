@@ -37,9 +37,10 @@ public final class NodeSequenceVisitor<V extends Vertex, E extends Edge>
      * {@inheritDoc}
      */
     @Override
-    public void discoverVertex( V vertex )
+    public boolean discoverVertex( V vertex )
     {
         vertices.add( vertex );
+        return true;
     }
 
     /**

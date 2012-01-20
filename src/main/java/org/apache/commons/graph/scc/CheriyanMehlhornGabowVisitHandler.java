@@ -68,18 +68,19 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
      * {@inheritDoc}
      */
     @Override
-    public void discoverVertex( V vertex )
+    public boolean discoverVertex( V vertex )
     {
         marked.add( vertex );
         preorder.put( vertex, preorderCounter++ );
         s.push( vertex );
         p.push( vertex );
+        return true;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void discoverEdge( V head, E edge, V tail )
+    public boolean discoverEdge( V head, E edge, V tail )
     {
         if ( !marked.contains( tail ) )
         {
@@ -106,6 +107,8 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
             while ( !head.equals( w ) );
             sscCounter++;
         }
+        
+        return true;
     }
 
 }

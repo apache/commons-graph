@@ -24,38 +24,47 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
 /**
- * Description of the Interface
+ * A {@link GraphVisitHandler} controls the execution of breadth-first and depth-first search
+ * algorithms in {@link Visit}.
  */
 public interface GraphVisitHandler<V extends Vertex, E extends Edge>
 {
 
     /**
-     * Description of the Method
+     * Called at the beginning of breadth-first and depth-first search.
      */
     void discoverGraph( Graph<V, E> graph );
 
     /**
-     * Description of the Method
+     * Performs operations on the input {@link Vertex} and checks if it should be expanded
+     * in the search algorithm.
+     * @return true if the input {@link Vertex} should be expanded, false otherwise
      */
-    void discoverVertex( V vertex );
+    boolean discoverVertex( V vertex );
 
     /**
-     * Description of the Method
+     * Performs operations on the input {@link Edge} and checks if it should be expanded
+     * in the search algorithm.
+     * @return true if the input {@link Edge} should be expanded, false otherwise
      */
-    void discoverEdge( V head, E edge, V tail );
+    boolean discoverEdge( V head, E edge, V tail );
 
     /**
-     * Description of the Method
+     * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
+     * visiting the input {@link Edge}.
+     * @return true if the search algorithm should be terminated after visiting the input {@link Edge}, false otherwise
      */
-    void finishEdge( V head, E edge, V tail );
+    boolean finishEdge( V head, E edge, V tail );
 
     /**
-     * Description of the Method
+     * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
+     * visiting the input {@link Vertex}.
+     * @return true if the search algorithm should be terminated after visiting the input {@link Vertex}, false otherwise
      */
-    void finishVertex( V vertex );
+    boolean finishVertex( V vertex );
 
     /**
-     * Description of the Method
+     * Called upon termination of the search algorithm.
      */
     void finishGraph( Graph<V, E> graph );
 
