@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="update" issue="SANDBOX-361">
+      Add fluent APIs to build mutable Graphes
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-356" due-to="Claudio Squarcella">
       Generic weight types and algorithms implementations based on wighted graphes.
     </action>
