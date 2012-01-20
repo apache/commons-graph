@@ -19,6 +19,8 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -65,18 +67,9 @@ public final class Visit
     public static final <V extends Vertex, E extends Edge> void breadthFirstSearch( Graph<V, E> graph, V source,
                                                                                        GraphVisitHandler<V, E> handler )
     {
-        if ( graph == null )
-        {
-            throw new IllegalArgumentException( "Graph has to be visited can not be null." );
-        }
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Root node the search begins from can not be null." );
-        }
-        if ( handler == null )
-        {
-            throw new IllegalArgumentException( "Graph visitor handler can not be null." );
-        }
+        graph = checkNotNull( graph, "Graph has to be visited can not be null." );
+        source = checkNotNull( source, "Root node the search begins from can not be null." );
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
         handler.discoverGraph( graph );
 
@@ -87,16 +80,16 @@ public final class Visit
         visitedVertices.add( source );
 
         boolean visitingGraph = true;
-        
+
         while ( visitingGraph && !vertexQueue.isEmpty() )
         {
             V v = vertexQueue.remove();
 
             if ( handler.discoverVertex( v ) ) {
-                
+
                 Iterator<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
                                 : graph.getConnectedVertices( v ).iterator();
-                
+
                 while ( connected.hasNext() )
                 {
                     V w = connected.next();
@@ -177,7 +170,7 @@ public final class Visit
         visitedVertices.add( source );
 
         boolean visitingGraph = true;
-        
+
         while ( visitingGraph && !vertexStack.isEmpty() )
         {
             V v = vertexStack.pop();
@@ -186,7 +179,7 @@ public final class Visit
             {
                 Iterator<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
                                 : graph.getConnectedVertices( v ).iterator();
-                
+
                 while ( connected.hasNext() )
                 {
                     V w = connected.next();

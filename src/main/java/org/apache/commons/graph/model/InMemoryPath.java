@@ -19,6 +19,8 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.*;
+
 import static java.util.Arrays.asList;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableList;
@@ -60,17 +62,8 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
 
     public InMemoryPath( V start, V target )
     {
-        if ( start == null )
-        {
-            throw new IllegalArgumentException( "Path source cannot be null" );
-        }
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Path target cannot be null" );
-        }
-
-        this.source = start;
-        this.target = target;
+        this.source = checkNotNull( start, "Path source cannot be null" );
+        this.target = checkNotNull( target, "Path target cannot be null" );
     }
 
     /**
@@ -161,15 +154,9 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
      */
     public int getDegree( V v )
     {
-        if ( v == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the degree of a null vertex" );
-        }
-
-        if ( !successors.containsKey( v ) )
-        {
-            throw new IllegalArgumentException( "Impossible to get the degree of vertex not contained in this path" );
-        }
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+        checkArgument( successors.containsKey( v ),
+                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
 
         if ( source.equals( v ) || target.equals( v ) )
         {
@@ -184,20 +171,15 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
      */
     public Iterable<V> getConnectedVertices( V v )
     {
-        if ( v == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the successor of a null vertex" );
-        }
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
 
         if ( target.equals( v ) )
         {
             return null;
         }
 
-        if ( !successors.containsKey( v ) )
-        {
-            throw new IllegalArgumentException( "Impossible to get the successor of vertex not contained in this path" );
-        }
+        checkArgument( successors.containsKey( v ),
+                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
 
         @SuppressWarnings( "unchecked" ) // type driven by input type
         List<V> connected = asList( successors.get( v ) );

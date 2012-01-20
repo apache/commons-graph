@@ -19,6 +19,8 @@ package org.apache.commons.graph;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import static java.lang.String.format;
 
 /**
@@ -41,16 +43,8 @@ public final class VertexPair<V extends Vertex>
      */
     public VertexPair( V head, V tail )
     {
-        if ( head == null )
-        {
-            throw new IllegalArgumentException( "Impossible to construct a Vertex with a null head" );
-        }
-        if ( tail == null )
-        {
-            throw new IllegalArgumentException( "Impossible to construct a Vertex with a null tail" );
-        }
-        this.head = head;
-        this.tail = tail;
+        this.head = checkNotNull( head, "Impossible to construct a Vertex with a null head" );
+        this.tail = checkNotNull( tail, "Impossible to construct a Vertex with a null tail" );
     }
 
     /**

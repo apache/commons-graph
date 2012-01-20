@@ -19,6 +19,8 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,10 +89,7 @@ public final class ColoredVertices<V extends Vertex, C>
      */
     public C getColor( V v )
     {
-        if ( v == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the color for a null Vertex" );
-        }
+        v = checkNotNull( v, "Impossible to get the color for a null Vertex" );
 
         return coloredVertices.get( v );
     }

@@ -19,6 +19,8 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -79,10 +81,7 @@ public final class DotExporter
                                                                      File outputFile )
         throws IOException
     {
-        if ( outputFile == null )
-        {
-            throw new IllegalArgumentException( "DOT exporter requires a not null file" );
-        }
+        outputFile = checkNotNull( outputFile, "DOT exporter requires a not null file" );
         dotExport( graph, new FileOutputStream( outputFile ) );
     }
 
@@ -115,10 +114,7 @@ public final class DotExporter
                                                                      OutputStream outputStream )
         throws IOException
     {
-        if ( outputStream == null )
-        {
-            throw new IllegalArgumentException( "DOT exporter requires a not null output stream" );
-        }
+        outputStream = checkNotNull( outputStream, "DOT exporter requires a not null output stream" );
         dotExport( graph, new OutputStreamWriter( outputStream ) );
     }
 
@@ -150,14 +146,8 @@ public final class DotExporter
     public static <V extends Vertex, E extends Edge> void dotExport( Graph<V, E> graph, String name, Writer writer )
         throws IOException
     {
-        if ( graph == null )
-        {
-            throw new IllegalArgumentException( "Impossible to export a null Graph to DOT notation" );
-        }
-        if ( writer == null )
-        {
-            throw new IllegalArgumentException( "DOT exporter requires a not null writer" );
-        }
+        graph = checkNotNull( graph, "Impossible to export a null Graph to DOT notation" );
+        writer = checkNotNull( writer, "DOT exporter requires a not null writer" );
 
         String graphDeclaration;
         String connector;

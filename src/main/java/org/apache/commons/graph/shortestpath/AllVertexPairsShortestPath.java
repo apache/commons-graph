@@ -19,6 +19,8 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,18 +61,9 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      */
     void addShortestPath( V source, V target, WeightedPath<V, WE, W> weightedPath )
     {
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Impossible to add a shortest path from a null source" );
-        }
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Impossible to add a shortest path to a null target" );
-        }
-        if ( weightedPath == null )
-        {
-            throw new IllegalArgumentException( "Impossible to add a null weightedPath path to a null target" );
-        }
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+        weightedPath = checkNotNull( weightedPath, "Impossible to add a null weightedPath path to a null target" );
 
         paths.put( new VertexPair<V>( source, target ), weightedPath );
     }
@@ -84,14 +77,8 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      */
     public WeightedPath<V, WE, W> findShortestPath( V source, V target )
     {
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Impossible to find the shortest path from a null source" );
-        }
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Impossible to find the shortest path to a null target" );
-        }
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
         WeightedPath<V, WE, W> path = paths.get( new VertexPair<V>( source, target ) );
 
@@ -110,18 +97,9 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      */
     void addShortestDistance( V source, V target, W distance )
     {
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Impossible to add a shortest distance with a null source" );
-        }
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Impossible to add a shortest distance with a null target" );
-        }
-        if ( distance == null )
-        {
-            throw new IllegalArgumentException( "Impossible to add a shortest distance with a null distance" );
-        }
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+        distance = checkNotNull( distance, "Impossible to add a shortest distance with a null distance" );
 
         shortestDistances.put( new VertexPair<V>( source, target ), distance );
     }
@@ -135,14 +113,8 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      */
     W getShortestDistance( V source, V target )
     {
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the shortest distance from a null source" );
-        }
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the shortest distance to a null target" );
-        }
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
         if ( source.equals( target ) )
         {
@@ -161,14 +133,8 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
      */
     boolean hasShortestDistance( V source, V target )
     {
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the shortest distance from a null source" );
-        }
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Impossible to get the shortest distance to a null target" );
-        }
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
         if ( source.equals( target ) )
         {
