@@ -33,35 +33,29 @@ import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 public final class GraphBuilder<V extends Vertex, E extends Edge>
 {
 
-    public static <V extends Vertex, E extends Edge> DirectedMutableGraph<V, E> newDirectedMutableGraph( GraphConnection<V, E> configuration )
+    public static <V extends Vertex, E extends Edge> DirectedMutableGraph<V, E> newDirectedMutableGraph( GraphConnection<V, E> graphConnection )
     {
-        return populate( new DirectedMutableGraph<V, E>(), configuration );
+        return populate( new DirectedMutableGraph<V, E>() ).withConnections( graphConnection );
     }
 
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> DirectedMutableWeightedGraph<V, WE> newDirectedMutableWeightedGraph( GraphConnection<V, WE> configuration )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> DirectedMutableWeightedGraph<V, WE> newDirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
     {
-        return populate( new DirectedMutableWeightedGraph<V, WE>(), configuration );
+        return populate( new DirectedMutableWeightedGraph<V, WE>() ).withConnections( graphConnection );
     }
 
-    public static <V extends Vertex, E extends Edge> UndirectedMutableGraph<V, E> newUndirectedMutableGraph( GraphConnection<V, E> configuration )
+    public static <V extends Vertex, E extends Edge> UndirectedMutableGraph<V, E> newUndirectedMutableGraph( GraphConnection<V, E> graphConnection )
     {
-        return populate( new UndirectedMutableGraph<V, E>(), configuration );
+        return populate( new UndirectedMutableGraph<V, E>() ).withConnections( graphConnection );
     }
 
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> UndirectedMutableWeightedGraph<V, WE> newUndirectedMutableWeightedGraph( GraphConnection<V, WE> configuration )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>> UndirectedMutableWeightedGraph<V, WE> newUndirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
     {
-        return populate( new UndirectedMutableWeightedGraph<V, WE>(), configuration );
+        return populate( new UndirectedMutableWeightedGraph<V, WE>() ).withConnections( graphConnection );
     }
 
-    public static <V extends Vertex, E extends Edge, G extends MutableGraph<V, E>> G populate( G graph, GraphConnection<V, E> configuration )
+    public static <V extends Vertex, E extends Edge, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate( G graph )
     {
-        graph = checkNotNull( graph, "Impossible to configure null graph!" );
-        configuration = checkNotNull( configuration, "Input graph cannot be configured with null configuration" );
-
-        GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
-        configuration.connect( grapher );
-
-        return graph;
+        return new DefaultLinkedConnectionBuilder<V, E, G>( checkNotNull( graph, "Impossible to configure null graph!" ) );
     }
 
     /**
