@@ -33,7 +33,7 @@ public class BaseLabeledVertex
 
     public BaseLabeledVertex( String label )
     {
-        this.label = checkNotNull( label, "Argument 'label' must not be null" );;
+        this.label = checkNotNull( label, "Argument 'label' must not be null" );
     }
 
     /**
