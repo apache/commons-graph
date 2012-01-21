@@ -20,11 +20,12 @@ package org.apache.commons.graph.model;
  */
 
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.WeightedEdge;
 
 /**
- * 
+ *
  */
 public class BaseLabeledWeightedEdge
     extends BaseLabeledEdge
@@ -36,11 +37,7 @@ public class BaseLabeledWeightedEdge
     public BaseLabeledWeightedEdge( String label, Double weight )
     {
         super( label );
-        if ( weight == null )
-        {
-            throw new IllegalArgumentException( "Argument 'weight' must not be null" );
-        }
-        this.weight = weight;
+        this.weight = checkNotNull( weight, "Argument 'weight' must not be null" );
     }
 
     /**
@@ -67,7 +64,7 @@ public class BaseLabeledWeightedEdge
     {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ( ( weight == null ) ? 0 : weight.hashCode() );
+        result = prime * result + weight.hashCode();
         return result;
     }
 
