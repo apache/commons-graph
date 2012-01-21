@@ -20,6 +20,7 @@ package org.apache.commons.graph.model;
  */
 
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Labeled;
@@ -32,11 +33,7 @@ public class BaseLabeledEdge
 
     public BaseLabeledEdge( String label )
     {
-        if ( label == null )
-        {
-            throw new IllegalArgumentException( "Argument 'label' must not be null" );
-        }
-        this.label = label;
+        this.label = checkNotNull( label, "Argument 'label' must not be null" );
     }
 
     /**
@@ -55,7 +52,7 @@ public class BaseLabeledEdge
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ( ( label == null ) ? 0 : label.hashCode() );
+        result = prime * result + label.hashCode();
         return result;
     }
 
