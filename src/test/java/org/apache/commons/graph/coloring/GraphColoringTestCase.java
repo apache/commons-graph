@@ -95,7 +95,7 @@ public class GraphColoringTestCase extends AbstractColoringTest
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         for ( int i = 0; i < 100; i++ )
         {
-            g1.addVertex( new BaseLabeledVertex( "" + i ) );
+            g1.addVertex( new BaseLabeledVertex( String.valueOf( i ) ) );
         }
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, colors );

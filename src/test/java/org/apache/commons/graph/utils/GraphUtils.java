@@ -45,7 +45,7 @@ public class GraphUtils
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( "" + i );
+            BaseLabeledVertex v = new BaseLabeledVertex( String.valueOf( i ) );
             g.addVertex( v );
         }
 
@@ -79,7 +79,7 @@ public class GraphUtils
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( "" + i );
+            BaseLabeledVertex v = new BaseLabeledVertex( String.valueOf( i ) );
             g.addVertex( v );
         }
 
@@ -131,7 +131,7 @@ public class GraphUtils
 
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( "" + i );
+            BaseLabeledVertex v = new BaseLabeledVertex( String.valueOf( i ) );
             g.addVertex( v );
             tmp.add( v );
         }
