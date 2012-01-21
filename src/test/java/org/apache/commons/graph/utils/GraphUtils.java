@@ -19,6 +19,9 @@ package org.apache.commons.graph.utils;
  * under the License.
  */
 
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class GraphUtils
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( String.valueOf( i ) );
+            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
         }
 
@@ -57,7 +60,7 @@ public class GraphUtils
                 {
                     try
                     {
-                        g.addEdge( v1, new BaseLabeledEdge( v1 + " -> " + v2 ), v2 );
+                        g.addEdge( v1, new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ), v2 );
                     }
                     catch ( GraphException e )
                     {
@@ -79,7 +82,7 @@ public class GraphUtils
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( String.valueOf( i ) );
+            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
         }
 
@@ -114,7 +117,7 @@ public class GraphUtils
                 {
                     try
                     {
-                        g.addEdge( v1, new BaseLabeledEdge( v1 + " -> " + v2 ), v2 );
+                        g.addEdge( v1, new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ), v2 );
                     }
                     catch ( GraphException e )
                     {
@@ -131,7 +134,7 @@ public class GraphUtils
 
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( String.valueOf( i ) );
+            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
             tmp.add( v );
         }
@@ -143,7 +146,7 @@ public class GraphUtils
             {
                 next = 0;
             }
-            BaseLabeledEdge e = new BaseLabeledEdge( i + " -> " + next );
+            BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", i, next ) );
             try
             {
                 g.addEdge( tmp.get( i ), e, tmp.get( next ) );
@@ -168,7 +171,7 @@ public class GraphUtils
         {
             for ( int col = 0; col < 9; col++ )
             {
-                grid[row][col] = new BaseLabeledVertex( row + "," + col );
+                grid[row][col] = new BaseLabeledVertex( format( "%s, %s", row, col ) );
                 sudoku.addVertex( grid[row][col] );
             }
         }
@@ -195,7 +198,7 @@ public class GraphUtils
                     for ( BaseLabeledVertex v2 : boxes )
                     {
 
-                        BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
                         if ( !v1.equals( v2 ) )
                         {
                             try
@@ -224,7 +227,7 @@ public class GraphUtils
 
                     if ( !v1.equals( v2 ) )
                     {
-                        BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
                         try
                         {
                             sudoku.addEdge( v1, e, v2 );
@@ -251,7 +254,7 @@ public class GraphUtils
 
                     if ( !v1.equals( v2 ) )
                     {
-                        BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                        BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
                         try
                         {
                             sudoku.addEdge( v1, e, v2 );
