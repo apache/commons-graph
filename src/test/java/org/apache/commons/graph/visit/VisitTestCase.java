@@ -115,8 +115,6 @@ public final class VisitTestCase
 
         Graph<BaseLabeledVertex, BaseLabeledEdge> actual = on( input ).visit().from( new BaseLabeledVertex( "s" ) ).applyingBreadthFirstSearch();
 
-        // Graph<BaseLabeledVertex, BaseLabeledEdge> actual = breadthFirstSearch( input, s );
-
         // assertion
 
         assertEquals( expected, actual );
