@@ -34,8 +34,8 @@ public final class GraphBuilderTestCase
     @Test
     public void verifyProducedGraphesAreEquals()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> expected =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>();
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         // building Graph with traditional APIs...
 
@@ -55,20 +55,20 @@ public final class GraphBuilderTestCase
         expected.addVertex( e );
         expected.addVertex( goal );
 
-        expected.addEdge( start, new BaseLabeledWeightedEdge( "start <-> a", 1.5D ), a );
-        expected.addEdge( start, new BaseLabeledWeightedEdge( "start <-> d", 2D ), d );
+        expected.addEdge( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
+        expected.addEdge( start, new BaseLabeledWeightedEdge<Double>( "start <-> d", 2D ), d );
 
-        expected.addEdge( a, new BaseLabeledWeightedEdge( "a <-> b", 2D ), b );
-        expected.addEdge( b, new BaseLabeledWeightedEdge( "b <-> c", 3D ), c );
-        expected.addEdge( c, new BaseLabeledWeightedEdge( "c <-> goal", 3D ), goal );
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );
+        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ), c );
+        expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ), goal );
 
-        expected.addEdge( d, new BaseLabeledWeightedEdge( "d <-> e", 3D ), e );
-        expected.addEdge( e, new BaseLabeledWeightedEdge( "e <-> goal", 2D ), goal );
+        expected.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> e", 3D ), e );
+        expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> goal", 2D ), goal );
 
         // ... and using the EDSL :)
 
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> actual =
-        newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge>()
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+        newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
 
             public void connect()
@@ -81,15 +81,15 @@ public final class GraphBuilderTestCase
                 BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "e" ) );
                 BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
 
-                addEdge( new BaseLabeledWeightedEdge( "start <-> a", 1.5D ) ).from( start ).to( a );
-                addEdge( new BaseLabeledWeightedEdge( "start <-> d", 2D ) ).from( start ).to( d );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ) ).from( start ).to( a );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> d", 2D ) ).from( start ).to( d );
 
-                addEdge( new BaseLabeledWeightedEdge( "a <-> b", 2D ) ).from( a ).to( b );
-                addEdge( new BaseLabeledWeightedEdge( "b <-> c", 3D ) ).from( b ).to( c );
-                addEdge( new BaseLabeledWeightedEdge( "c <-> goal", 3D ) ).from( c ).to( goal );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ) ).from( a ).to( b );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ) ).from( b ).to( c );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ) ).from( c ).to( goal );
 
-                addEdge( new BaseLabeledWeightedEdge( "d <-> e", 3D ) ).from( d ).to( e );
-                addEdge( new BaseLabeledWeightedEdge( "e <-> goal", 2D ) ).from( e ).to( goal );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "d <-> e", 3D ) ).from( d ).to( e );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "e <-> goal", 2D ) ).from( e ).to( goal );
             }
 
         } );

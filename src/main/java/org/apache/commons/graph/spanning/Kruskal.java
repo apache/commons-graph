@@ -19,6 +19,7 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -51,11 +52,12 @@ public final class Kruskal
      * @return  the minimum spanning tree (or forest) of the input Graph
      */
     public static <V extends Vertex, W, WE extends WeightedEdge<W>> SpanningTree<V, WE, W> minimumSpanningTree( Graph<V, WE> graph,
-                                                                                                                OrderedMonoid<W> orderedMonoid)
+                                                                                                                final OrderedMonoid<W> orderedMonoid)
     {
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PriorityQueue<WE> orderedEdges = new PriorityQueue<WE>( graph.getSize() );
+        final PriorityQueue<WE> orderedEdges = new PriorityQueue<WE>( graph.getSize(),
+                                                                      new WeightedEdgesComparator<W, WE>( orderedMonoid ) );
 
         for ( WE edge : graph.getEdges() )
         {
@@ -92,7 +94,7 @@ public final class Kruskal
 
         return spanningTree;
     }
-    
+
     /**
      * Calculates the minimum spanning tree (or forest) of the input Graph.
      *
@@ -104,6 +106,23 @@ public final class Kruskal
     public static <V extends Vertex, WE extends WeightedEdge<Double>> SpanningTree<V, WE, Double> minimumSpanningTree( Graph<V, WE> graph )
     {
         return minimumSpanningTree( graph, new DoubleWeight() );
+    }
+
+    private static class WeightedEdgesComparator<W, WE extends WeightedEdge<W>> implements Comparator<WE>
+    {
+
+        private final OrderedMonoid<W> orderedMonoid;
+
+        public WeightedEdgesComparator( OrderedMonoid<W> orderedMonoid )
+        {
+            this.orderedMonoid = orderedMonoid;
+        }
+
+        public int compare( WE o1, WE o2 )
+        {
+            return orderedMonoid.compare( o1.getWeight(), o2.getWeight() );
+        }
+
     }
 
 }

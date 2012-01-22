@@ -40,8 +40,8 @@ public final class KruskalTestCase
     @Test
     public void verifyWikipediaMinimumSpanningTree()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> input
-            = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>();
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input
+            = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         BaseLabeledVertex b = new BaseLabeledVertex( "B" );
@@ -59,43 +59,43 @@ public final class KruskalTestCase
         input.addVertex( f );
         input.addVertex( g );
 
-        input.addEdge( a, new BaseLabeledWeightedEdge( "a <-> b", 7D ), b );
-        input.addEdge( a, new BaseLabeledWeightedEdge( "a <-> d", 5D ), d );
+        input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
+        input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> d", 5D ), d );
 
-        input.addEdge( b, new BaseLabeledWeightedEdge( "b <-> c", 8D ), c );
-        input.addEdge( b, new BaseLabeledWeightedEdge( "b <-> d", 9D ), d );
-        input.addEdge( b, new BaseLabeledWeightedEdge( "b <-> e", 7D ), e );
+        input.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 8D ), c );
+        input.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> d", 9D ), d );
+        input.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> e", 7D ), e );
 
-        input.addEdge( c, new BaseLabeledWeightedEdge( "c <-> e", 5D ), e );
+        input.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> e", 5D ), e );
 
-        input.addEdge( d, new BaseLabeledWeightedEdge( "d <-> e", 15D ), e );
-        input.addEdge( d, new BaseLabeledWeightedEdge( "d <-> f", 6D ), f );
+        input.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> e", 15D ), e );
+        input.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> f", 6D ), f );
 
-        input.addEdge( e, new BaseLabeledWeightedEdge( "e <-> f", 8D ), f );
-        input.addEdge( e, new BaseLabeledWeightedEdge( "e <-> g", 9D ), g );
+        input.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> f", 8D ), f );
+        input.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> g", 9D ), g );
 
-        input.addEdge( f, new BaseLabeledWeightedEdge( "f <-> g", 11D ), g );
+        input.addEdge( f, new BaseLabeledWeightedEdge<Double>( "f <-> g", 11D ), g );
 
         // expected
 
-        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( new DoubleWeight() );
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
             expected.addVertex( vertex );
         }
 
-        expected.addEdge( a, new BaseLabeledWeightedEdge( "a <-> b", 7D ), b );
-        expected.addEdge( a, new BaseLabeledWeightedEdge( "a <-> d", 5D ), d );
-        expected.addEdge( b, new BaseLabeledWeightedEdge( "b <-> e", 9D ), e );
-        expected.addEdge( c, new BaseLabeledWeightedEdge( "c <-> e", 5D ), e );
-        expected.addEdge( d, new BaseLabeledWeightedEdge( "d <-> f", 6D ), f );
-        expected.addEdge( e, new BaseLabeledWeightedEdge( "e <-> g", 9D ), g );
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> d", 5D ), d );
+        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> e", 9D ), e );
+        expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> e", 5D ), e );
+        expected.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> f", 6D ), f );
+        expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> g", 9D ), g );
 
         // Actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> actual = minimumSpanningTree( input );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input );
         
         // assert!
 

@@ -44,20 +44,20 @@ public class FloydWarshallTestCase
     @Test
     public void undirectedShortestPath()
     {
-        findShortestPathAndVerify( new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>() );
+        findShortestPathAndVerify( new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>() );
     }
 
     @Test
     public void directedShortestPath()
     {
-        findShortestPathAndVerify( new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>() );
+        findShortestPathAndVerify( new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>() );
     }
 
-    private void findShortestPathAndVerify( Graph<BaseLabeledVertex, BaseLabeledWeightedEdge> weighted )
+    private void findShortestPathAndVerify( Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> weighted )
     {
         // mutable by definition, generic types driven by input graph
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> mutable =
-            (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>) weighted;
+        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> mutable =
+            (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) weighted;
 
         // building Graph
 
@@ -75,20 +75,20 @@ public class FloydWarshallTestCase
         mutable.addVertex( five );
         mutable.addVertex( six );
 
-        mutable.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 6", 14D ), six );
-        mutable.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
-        mutable.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 2", 7D ), two );
+        mutable.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 6", 14D ), six );
+        mutable.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
+        mutable.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 2", 7D ), two );
 
-        mutable.addEdge( two, new BaseLabeledWeightedEdge( "2 -> 3", 10D ), three );
-        mutable.addEdge( two, new BaseLabeledWeightedEdge( "2 -> 4", 15D ), four );
+        mutable.addEdge( two, new BaseLabeledWeightedEdge<Double>( "2 -> 3", 10D ), three );
+        mutable.addEdge( two, new BaseLabeledWeightedEdge<Double>( "2 -> 4", 15D ), four );
 
-        mutable.addEdge( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
-        mutable.addEdge( three, new BaseLabeledWeightedEdge( "3 -> 4", 11D ), four );
+        mutable.addEdge( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
+        mutable.addEdge( three, new BaseLabeledWeightedEdge<Double>( "3 -> 4", 11D ), four );
 
-        mutable.addEdge( four, new BaseLabeledWeightedEdge( "4 -> 5", 6D ), five );
-        mutable.addEdge( six, new BaseLabeledWeightedEdge( "6 -> 5", 9D ), five );
+        mutable.addEdge( four, new BaseLabeledWeightedEdge<Double>( "4 -> 5", 6D ), five );
+        mutable.addEdge( six, new BaseLabeledWeightedEdge<Double>( "6 -> 5", 9D ), five );
 
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> p =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
             findAllVertexPairsShortestPath( weighted );
 
         if ( weighted instanceof UndirectedGraph )
@@ -106,13 +106,13 @@ public class FloydWarshallTestCase
 
             // Verify shortest paths
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> wp = p.findShortestPath( one, six );
+            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> wp = p.findShortestPath( one, six );
 
             // Expected
-            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
-                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, six, new DoubleWeight() );
-            expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
-            expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
+            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, six, new DoubleWeight() );
+            expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
+            expected.addConnectionInTail( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
 
             // Actual
             assertEquals( expected, wp );
@@ -126,7 +126,7 @@ public class FloydWarshallTestCase
             assertEquals( 20D, p.getShortestDistance( one, five ) );
             assertFalse( p.hasShortestDistance( five, one ) );
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> wp;
+            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> wp;
             // Verify shortest paths
             try
             {
@@ -137,10 +137,10 @@ public class FloydWarshallTestCase
                 // wallow it
             }
 
-            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
-                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, six, new DoubleWeight() );
-            expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
-            expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
+            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+                new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, six, new DoubleWeight() );
+            expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
+            expected.addConnectionInTail( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
 
             // Actual
             wp = p.findShortestPath( one, six );

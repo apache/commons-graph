@@ -40,8 +40,8 @@ public final class DijkstraTestCase
     @Test
     public void findShortestPathAndVerify()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge>();
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         // building Graph
 
@@ -59,31 +59,31 @@ public final class DijkstraTestCase
         graph.addVertex( five );
         graph.addVertex( six );
 
-        graph.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 6", 14D ), six );
-        graph.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
-        graph.addEdge( one, new BaseLabeledWeightedEdge( "1 -> 2", 7D ), two );
+        graph.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 6", 14D ), six );
+        graph.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
+        graph.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 2", 7D ), two );
 
-        graph.addEdge( two, new BaseLabeledWeightedEdge( "2 -> 3", 10D ), three );
-        graph.addEdge( two, new BaseLabeledWeightedEdge( "2 -> 4", 15D ), four );
+        graph.addEdge( two, new BaseLabeledWeightedEdge<Double>( "2 -> 3", 10D ), three );
+        graph.addEdge( two, new BaseLabeledWeightedEdge<Double>( "2 -> 4", 15D ), four );
 
-        graph.addEdge( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
-        graph.addEdge( three, new BaseLabeledWeightedEdge( "3 -> 4", 11D ), four );
+        graph.addEdge( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
+        graph.addEdge( three, new BaseLabeledWeightedEdge<Double>( "3 -> 4", 11D ), four );
 
-        graph.addEdge( four, new BaseLabeledWeightedEdge( "4 -> 5", 6D ), five );
-        graph.addEdge( six, new BaseLabeledWeightedEdge( "6 -> 5", 9D ), five );
+        graph.addEdge( four, new BaseLabeledWeightedEdge<Double>( "4 -> 5", 6D ), five );
+        graph.addEdge( six, new BaseLabeledWeightedEdge<Double>( "6 -> 5", 9D ), five );
 
         // expected path
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge, Double>( one, five, new DoubleWeight() );
+        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, five, new DoubleWeight() );
 
-        expected.addConnectionInTail( one, new BaseLabeledWeightedEdge( "1 -> 3", 9D ), three );
-        expected.addConnectionInTail( three, new BaseLabeledWeightedEdge( "3 -> 6", 2D ), six );
-        expected.addConnectionInTail( six, new BaseLabeledWeightedEdge( "6 -> 5", 9D ), five );
+        expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
+        expected.addConnectionInTail( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
+        expected.addConnectionInTail( six, new BaseLabeledWeightedEdge<Double>( "6 -> 5", 9D ), five );
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge> actual = findShortestPath( graph, one, five );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph, one, five );
 
         // assert!
 

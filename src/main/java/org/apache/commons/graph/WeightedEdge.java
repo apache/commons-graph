@@ -26,7 +26,7 @@ package org.apache.commons.graph;
  * @param <W> the weight type
  */
 public interface WeightedEdge<W>
-    extends Edge, Weighted<W>, Comparable<WeightedEdge<W>>
+    extends Edge, Weighted<W>
 {
 
 }

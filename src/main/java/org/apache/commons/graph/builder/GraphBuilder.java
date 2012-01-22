@@ -38,9 +38,9 @@ public final class GraphBuilder<V extends Vertex, E extends Edge>
         return populate( new DirectedMutableGraph<V, E>() ).withConnections( graphConnection );
     }
 
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> DirectedMutableWeightedGraph<V, WE> newDirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W> DirectedMutableWeightedGraph<V, WE, W> newDirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
     {
-        return populate( new DirectedMutableWeightedGraph<V, WE>() ).withConnections( graphConnection );
+        return populate( new DirectedMutableWeightedGraph<V, WE, W>() ).withConnections( graphConnection );
     }
 
     public static <V extends Vertex, E extends Edge> UndirectedMutableGraph<V, E> newUndirectedMutableGraph( GraphConnection<V, E> graphConnection )
@@ -48,9 +48,9 @@ public final class GraphBuilder<V extends Vertex, E extends Edge>
         return populate( new UndirectedMutableGraph<V, E>() ).withConnections( graphConnection );
     }
 
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> UndirectedMutableWeightedGraph<V, WE> newUndirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W> UndirectedMutableWeightedGraph<V, WE, W> newUndirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
     {
-        return populate( new UndirectedMutableWeightedGraph<V, WE>() ).withConnections( graphConnection );
+        return populate( new UndirectedMutableWeightedGraph<V, WE, W>() ).withConnections( graphConnection );
     }
 
     public static <V extends Vertex, E extends Edge, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate( G graph )

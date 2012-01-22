@@ -27,14 +27,14 @@ import org.apache.commons.graph.WeightedEdge;
 /**
  *
  */
-public class BaseLabeledWeightedEdge
+public class BaseLabeledWeightedEdge<W>
     extends BaseLabeledEdge
-    implements WeightedEdge<Double>
+    implements WeightedEdge<W>
 {
 
-    private final Double weight;
+    private final W weight;
 
-    public BaseLabeledWeightedEdge( String label, Double weight )
+    public BaseLabeledWeightedEdge( String label, W weight )
     {
         super( label );
         this.weight = checkNotNull( weight, "Argument 'weight' must not be null" );
@@ -43,15 +43,7 @@ public class BaseLabeledWeightedEdge
     /**
      * {@inheritDoc}
      */
-    public int compareTo( WeightedEdge<Double> other )
-    {
-        return weight.compareTo( other.getWeight() );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Double getWeight()
+    public W getWeight()
     {
         return weight;
     }
@@ -88,8 +80,8 @@ public class BaseLabeledWeightedEdge
         {
             return false;
         }
-
-        BaseLabeledWeightedEdge other = (BaseLabeledWeightedEdge) obj;
+        @SuppressWarnings( "unchecked" )
+        BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
         if ( !weight.equals( other.getWeight() ) )
         {
             return false;
