@@ -19,7 +19,7 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
+import static org.apache.commons.graph.CommonsGraph.on;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
@@ -50,7 +50,7 @@ public final class KosarajuSharir
     public static <V extends Vertex, E extends Edge> void hasStronglyConnectedComponent( DirectedGraph<V, E> graph ,
                                                                                          V source)
     {
-        depthFirstSearch( graph, source, new KosarajuSharirVisitHandler<V, E>( source ) );
+        on( graph ).visit().from( source ).applyingDepthFirstSearch( new KosarajuSharirVisitHandler<V, E>( source ) );
 
         DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
     }

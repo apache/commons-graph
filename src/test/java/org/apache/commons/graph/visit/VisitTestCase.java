@@ -19,8 +19,7 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
-import static org.apache.commons.graph.visit.Visit.breadthFirstSearch;
-import static org.apache.commons.graph.visit.Visit.depthFirstSearch;
+import static org.apache.commons.graph.CommonsGraph.on;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -101,7 +100,9 @@ public final class VisitTestCase
 
         // actual graph
 
-        Graph<BaseLabeledVertex, BaseLabeledEdge> actual = breadthFirstSearch( input, s );
+        Graph<BaseLabeledVertex, BaseLabeledEdge> actual = on( input ).visit().from( s ).applyingBreadthFirstSearch();
+
+        // Graph<BaseLabeledVertex, BaseLabeledEdge> actual = breadthFirstSearch( input, s );
 
         // assertion
 
@@ -172,7 +173,9 @@ public final class VisitTestCase
 
         NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge> visitor =
             new NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge>();
-        depthFirstSearch( input, s, visitor );
+
+        on( input ).visit().from( s ).applyingDepthFirstSearch( visitor );
+
         final List<BaseLabeledVertex> actual = visitor.getVertices();
 
         // assertion

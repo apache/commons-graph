@@ -34,41 +34,51 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
 /**
- * Contains different implementations of Graph visitor algorithms.
+ * {@link VisitAlgorithmsSelector} implementation.
+ *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ * @param <G> the Graph type
  */
-public final class Visit
+final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+    implements VisitAlgorithmsSelector<V, E, G>
 {
 
+    private final G graph;
+
+    private final V source;
+
+    public DefaultVisitAlgorithmsSelector( G graph, V source )
+    {
+        this.graph = graph;
+        this.source = source;
+    }
+
     /**
-     * Breadth-first search algorithm implementation.
-     *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param graph the Graph instance has to be visited
-     * @param source the root node the search begins from
-     * @return the breadth first search tree
+     * {@inheritDoc}
      */
-    public static final <V extends Vertex, E extends Edge> Graph<V, E> breadthFirstSearch( Graph<V, E> graph, V source )
+    public Graph<V, E> applyingBreadthFirstSearch()
     {
         VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
-        breadthFirstSearch( graph, source, visitGraphBuilder );
+        applyingBreadthFirstSearch( visitGraphBuilder );
         return visitGraphBuilder.getVisitGraph();
     }
 
     /**
-     * Breadth-first search algorithm implementation.
-     *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param graph the Graph instance has to be visited
-     * @param source the root node the search begins from
-     * @param handler the handler intercepts visit actions
+     * {@inheritDoc}
      */
-    public static final <V extends Vertex, E extends Edge> void breadthFirstSearch( Graph<V, E> graph, V source,
-                                                                                       GraphVisitHandler<V, E> handler )
+    public Graph<V, E> applyingDepthFirstSearch()
     {
-        graph = checkNotNull( graph, "Graph has to be visited can not be null." );
-        source = checkNotNull( source, "Root node the search begins from can not be null." );
+        VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
+        applyingDepthFirstSearch( visitGraphBuilder );
+        return visitGraphBuilder.getVisitGraph();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void applyingBreadthFirstSearch( GraphVisitHandler<V, E> handler )
+    {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
         handler.discoverGraph( graph );
@@ -121,45 +131,11 @@ public final class Visit
     }
 
     /**
-     * Depth-first search algorithm implementation.
-     *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param graph the Graph instance has to be visited
-     * @param source the root node the search begins from
-     * @return the depth first search tree
+     * {@inheritDoc}
      */
-    public static final <V extends Vertex, E extends Edge> Graph<V, E> depthFirstSearch( Graph<V, E> graph, V source )
+    public void applyingDepthFirstSearch( GraphVisitHandler<V, E> handler )
     {
-        VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
-        depthFirstSearch( graph, source, visitGraphBuilder );
-        return visitGraphBuilder.getVisitGraph();
-    }
-
-    /**
-     * Depth-first search algorithm implementation.
-     *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param graph the Graph instance has to be visited
-     * @param source the root node the search begins from
-     * @param handler the handler intercepts visit actions
-     */
-    public static final <V extends Vertex, E extends Edge> void depthFirstSearch( Graph<V, E> graph, V source,
-                                                                                     GraphVisitHandler<V, E> handler )
-    {
-        if ( graph == null )
-        {
-            throw new IllegalArgumentException( "Graph has to be visited can not be null." );
-        }
-        if ( source == null )
-        {
-            throw new IllegalArgumentException( "Root node the search begins from can not be null." );
-        }
-        if ( handler == null )
-        {
-            throw new IllegalArgumentException( "Graph visitor handler can not be null." );
-        }
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
         handler.discoverGraph( graph );
 
@@ -206,14 +182,6 @@ public final class Visit
         }
 
         handler.finishGraph( graph );
-    }
-
-    /**
-     * Hidden constructor, this class can't be instantiated
-     */
-    private Visit()
-    {
-        // do nothing
     }
 
 }
