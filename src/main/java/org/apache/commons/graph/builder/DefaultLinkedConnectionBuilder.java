@@ -25,7 +25,7 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.Vertex;
 
-final class DefaultLinkedConnectionBuilder<V extends Vertex, E extends Edge, G extends MutableGraph<V, E>>
+public final class DefaultLinkedConnectionBuilder<V extends Vertex, E extends Edge, G extends MutableGraph<V, E>>
     implements LinkedConnectionBuilder<V, E, G>
 {
 

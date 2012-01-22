@@ -19,7 +19,7 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-import static org.apache.commons.graph.builder.GraphBuilder.newUndirectedMutableWeightedGraph;
+import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableWeightedGraph;
 
 import static org.junit.Assert.assertEquals;
 
