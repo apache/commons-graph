@@ -46,10 +46,10 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the Graph instance to apply graph algorithms
      * @return the graph algorithms selector
      */
-    public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> CommonsGraph<V, E, G> on( G graph )
+    public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
     {
         graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
-        return new CommonsGraph<V, E, G>( graph );
+        return new DefaultVisitSourceSelector<V, E, G>( graph );
     }
 
     /**
@@ -112,26 +112,11 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     }
 
     /**
-     * The Graph instance to apply graph algorithms.
-     */
-    private final G graph;
-
-    /**
      * Hidden constructor, this class cannot be instantiated.
      */
-    private CommonsGraph( G graph )
+    private CommonsGraph()
     {
-        this.graph = graph;
-    }
-
-    /**
-     * Applies graph visit algorithms on input graph.
-     *
-     * @return the graph visit algorithms selector
-     */
-    public VisitSourceSelector<V, E, G> visit()
-    {
-        return new DefaultVisitSourceSelector<V, E, G>( graph );
+        // do nothing
     }
 
 }

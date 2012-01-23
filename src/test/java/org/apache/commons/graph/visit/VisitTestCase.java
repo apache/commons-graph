@@ -20,7 +20,7 @@ package org.apache.commons.graph.visit;
  */
 
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
-import static org.apache.commons.graph.CommonsGraph.on;
+import static org.apache.commons.graph.CommonsGraph.visit;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -113,7 +113,7 @@ public final class VisitTestCase
 
         // actual graph
 
-        Graph<BaseLabeledVertex, BaseLabeledEdge> actual = on( input ).visit().from( new BaseLabeledVertex( "s" ) ).applyingBreadthFirstSearch();
+        Graph<BaseLabeledVertex, BaseLabeledEdge> actual = visit( input ).from( new BaseLabeledVertex( "s" ) ).applyingBreadthFirstSearch();
 
         // assertion
 
@@ -180,7 +180,7 @@ public final class VisitTestCase
         NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge> visitor =
             new NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge>();
 
-        on( input ).visit().from( new BaseLabeledVertex( "S" ) ).applyingDepthFirstSearch( visitor );
+        visit( input ).from( new BaseLabeledVertex( "S" ) ).applyingDepthFirstSearch( visitor );
 
         final List<BaseLabeledVertex> actual = visitor.getVertices();
 

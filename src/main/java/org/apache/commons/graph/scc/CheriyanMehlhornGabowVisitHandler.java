@@ -19,7 +19,7 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import static org.apache.commons.graph.CommonsGraph.on;
+import static org.apache.commons.graph.CommonsGraph.visit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +84,7 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
     {
         if ( !marked.contains( tail ) )
         {
-            on( graph ).visit().from( tail ).applyingDepthFirstSearch( this );
+            visit( graph ).from( tail ).applyingDepthFirstSearch( this );
         }
         else if ( !sscId.containsKey( tail ) )
         {

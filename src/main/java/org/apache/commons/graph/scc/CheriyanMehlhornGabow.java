@@ -19,7 +19,7 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import static org.apache.commons.graph.CommonsGraph.on;
+import static org.apache.commons.graph.CommonsGraph.visit;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +60,7 @@ public final class CheriyanMehlhornGabow
         {
             if ( !marked.contains( vertex ) )
             {
-                on( graph ).visit().from( vertex ).applyingDepthFirstSearch( visitHandler );
+                visit( graph ).from( vertex ).applyingDepthFirstSearch( visitHandler );
             }
         }
     }
