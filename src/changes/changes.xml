@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="update" issue="SANDBOX-367" due-to="Claudio Squarcella">
+      Move base implementations from test to main
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-366">
       Move Graph algorithms APIs to fluent APIs
     </action>
