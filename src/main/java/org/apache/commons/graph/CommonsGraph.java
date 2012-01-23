@@ -24,6 +24,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.builder.DefaultLinkedConnectionBuilder;
 import org.apache.commons.graph.builder.GraphConnection;
 import org.apache.commons.graph.builder.LinkedConnectionBuilder;
+import org.apache.commons.graph.export.DefaultToStreamBuilder;
 import org.apache.commons.graph.export.ToStreamBuilder;
 import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
@@ -41,7 +42,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> ToStreamBuilder<V, E, G> export( G graph )
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
-        return null;
+        return new DefaultToStreamBuilder<V, E, G>( graph );
     }
 
     /**

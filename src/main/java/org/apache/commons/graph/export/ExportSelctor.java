@@ -26,6 +26,9 @@ import org.apache.commons.graph.Vertex;
 public interface ExportSelctor<V extends Vertex, E extends Edge, G extends Graph<V, E>>
 {
 
+    /**
+     * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
+     */
     void usingDotNotation();
 
 }

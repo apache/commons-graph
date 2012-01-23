@@ -21,7 +21,6 @@ package org.apache.commons.graph.export;
 
 import java.io.File;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.Writer;
 
 import org.apache.commons.graph.Edge;
@@ -31,12 +30,28 @@ import org.apache.commons.graph.Vertex;
 public interface ToStreamBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
 {
 
+    /**
+     * Export the input Graph to a {@link File}.
+     *
+     * @param outputFile the file where exporting the Graph to
+     * @return
+     */
     NamedExportSelctor<V, E, G> to( File outputFile );
 
+    /**
+     * Export the input Graph to an {@link OutputStream}.
+     *
+     * @param outputStream the output stream where exporting the Graph to
+     * @return
+     */
     NamedExportSelctor<V, E, G> to( OutputStream outputStream );
 
+    /**
+     * Export the input Graph to a {@link Writer}.
+     *
+     * @param writer the writer where exporting the Graph to
+     * @return
+     */
     NamedExportSelctor<V, E, G> to( Writer writer );
-
-    NamedExportSelctor<V, E, G> to( PrintStream printStream );
 
 }
