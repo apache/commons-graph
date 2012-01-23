@@ -19,7 +19,7 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
-import static org.apache.commons.graph.coloring.GraphColoring.backTrackingColoring;
+import static org.apache.commons.graph.CommonsGraph.coloring;
 import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
@@ -65,7 +65,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         coloredVertex.addColor( two, 2 );
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            backTrackingColoring( g, createColorsList( 3 ), coloredVertex );
+                        coloring( g ).withColors( createColorsList( 3 ) ).applyingBackTrackingAlgorithm( coloredVertex );
         assertNotNull( coloredVertices );
         assertEquals( 3, coloredVertices.getRequiredColors() );
         assertEquals( new Integer( 2 ), coloredVertices.getColor( two ) );
@@ -81,7 +81,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         buildCompleteGraph( 100, g1 );
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            backTrackingColoring( g1, createColorsList( 100 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
+                        coloring( g1 ).withColors( createColorsList( 100 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 100, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -96,7 +96,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         buildBipartedGraph( 100, g1 );
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            backTrackingColoring( g1, createColorsList( 2 ), new ColoredVertices<BaseLabeledVertex, Integer>());
+                        coloring( g1 ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 2, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -113,7 +113,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         }
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            backTrackingColoring( g1, createColorsList( 1 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
+                        coloring( g1 ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 1, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -131,7 +131,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         buildCrownGraph( 6, g );
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            backTrackingColoring( g, createColorsList( 2 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
+                        coloring( g ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 2, coloredVertices.getRequiredColors() );
         checkColoring( g, coloredVertices );
@@ -146,7 +146,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
 
         ColoredVertices<BaseLabeledVertex, Integer> sudoku =
-            backTrackingColoring( g1, createColorsList( 9 ), new ColoredVertices<BaseLabeledVertex, Integer>() );
+                        coloring( g1 ).withColors( createColorsList( 9 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( sudoku );
         checkColoring( g1, sudoku );
         assertEquals( 9, sudoku.getRequiredColors() );
@@ -180,7 +180,7 @@ public class GraphColoringBackTrackingTestCase extends AbstractColoringTest
         predefinedColor.addColor( grid[1][2], 5 );
 
         ColoredVertices<BaseLabeledVertex, Integer> sudoku =
-            backTrackingColoring( g1, createColorsList( 9 ), predefinedColor );
+                        coloring( g1 ).withColors( createColorsList( 9 ) ).applyingBackTrackingAlgorithm( predefinedColor );
         assertNotNull( sudoku );
         checkColoring( g1, sudoku );
         assertEquals( 9, sudoku.getRequiredColors() );

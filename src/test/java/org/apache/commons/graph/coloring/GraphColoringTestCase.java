@@ -19,7 +19,7 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
-import static org.apache.commons.graph.coloring.GraphColoring.greedyColoring;
+import static org.apache.commons.graph.CommonsGraph.coloring;
 import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
@@ -61,7 +61,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
         g.addEdge( two, new BaseLabeledEdge( "2 -> 3" ), three );
         g.addEdge( three, new BaseLabeledEdge( "3 -> 1" ), one );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g, colors );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+                        coloring( g ).withColors( colors ).applyingGreedyAlgorithm();
         checkColoring( g, coloredVertices );
     }
 
@@ -72,7 +73,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, createColorsList( 100 ) );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+                        coloring( g1 ).withColors( createColorsList( 100 ) ).applyingGreedyAlgorithm();
         checkColoring( g1, coloredVertices );
     }
 
@@ -83,7 +85,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildBipartedGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, colors );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+                        coloring( g1 ).withColors( colors ).applyingGreedyAlgorithm();
 
         checkColoring( g1, coloredVertices );
     }
@@ -98,7 +101,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
             g1.addVertex( new BaseLabeledVertex( String.valueOf( i ) ) );
         }
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g1, colors );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+                        coloring( g1 ).withColors( colors ).applyingGreedyAlgorithm();
 
         assertEquals( 1, coloredVertices.getRequiredColors() );
         checkColoring( g1, coloredVertices );
@@ -114,7 +118,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCrownGraph( 6, g );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = greedyColoring( g, colors );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+                        coloring( g ).withColors( colors ).applyingGreedyAlgorithm();
         checkColoring( g, coloredVertices );
     }
 
@@ -126,7 +131,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildSudokuGraph( g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> sudoku = GraphColoring.greedyColoring( g1, colors );
+        ColoredVertices<BaseLabeledVertex, Integer> sudoku =
+                        coloring( g1 ).withColors( colors ).applyingGreedyAlgorithm();
         checkColoring( g1, sudoku );
     }
 

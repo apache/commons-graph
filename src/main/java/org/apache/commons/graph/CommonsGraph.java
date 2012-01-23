@@ -24,6 +24,8 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.builder.DefaultLinkedConnectionBuilder;
 import org.apache.commons.graph.builder.GraphConnection;
 import org.apache.commons.graph.builder.LinkedConnectionBuilder;
+import org.apache.commons.graph.coloring.ColorsBuilder;
+import org.apache.commons.graph.coloring.DefaultColorsBuilder;
 import org.apache.commons.graph.export.DefaultToStreamBuilder;
 import org.apache.commons.graph.export.ToStreamBuilder;
 import org.apache.commons.graph.model.DirectedMutableGraph;
@@ -43,6 +45,17 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
         return new DefaultToStreamBuilder<V, E, G>( graph );
+    }
+
+    /**
+     *
+     *
+     * @param graph
+     */
+    public static <V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E, G> coloring( G graph )
+    {
+        graph = checkNotNull( graph, "Null graph can not be exported" );
+        return new DefaultColorsBuilder<V, E, G>( graph );
     }
 
     /**
