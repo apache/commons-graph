@@ -20,6 +20,7 @@ package org.apache.commons.graph.coloring;
  */
 
 import static org.apache.commons.graph.CommonsGraph.coloring;
+import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
@@ -28,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Set;
 
+import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
@@ -47,19 +49,22 @@ public class GraphColoringTestCase extends AbstractColoringTest
         throws Exception
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+        {
 
-        BaseLabeledVertex one = new BaseLabeledVertex( "1" );
-        BaseLabeledVertex two = new BaseLabeledVertex( "2" );
-        BaseLabeledVertex three = new BaseLabeledVertex( "3" );
+            @Override
+            public void connect()
+            {
+                BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
+                BaseLabeledVertex two = addVertex( new BaseLabeledVertex( "2" ) );
+                BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
 
-        g.addVertex( one );
-        g.addVertex( two );
-        g.addVertex( three );
+                addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
+                addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
+                addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
+            }
 
-        g.addEdge( one, new BaseLabeledEdge( "1 -> 2" ), two );
-        g.addEdge( two, new BaseLabeledEdge( "2 -> 3" ), three );
-        g.addEdge( three, new BaseLabeledEdge( "3 -> 1" ), one );
+        } );
 
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
                         coloring( g ).withColors( colors ).applyingGreedyAlgorithm();
