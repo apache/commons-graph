@@ -37,11 +37,11 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type
  */
-final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>, W>
+public final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>, W>
 {
 
     private final Graph<V, WE> graph;
-    
+
     private final Monoid<W> monoid;
 
     private final Map<V, V> predecessors = new HashMap<V, V>();

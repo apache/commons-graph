@@ -35,6 +35,9 @@
     <action dev="simonetripodi" type="update" issue="SANDBOX-361">
       Add fluent APIs to build mutable Graphes
     </action>
+    <action dev="simonetripodi" type="update" issue="SANDBOX-355" due-to="Claudio Squarcella">
+      Provide Flow algorithms
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-358" due-to="Claudio Squarcella">
       Early return/termination for graph visit.
     </action>
