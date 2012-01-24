@@ -19,50 +19,42 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import static org.apache.commons.graph.CommonsGraph.visit;
-
-import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.visit.GraphVisitHandler;
 
 /**
- * Contains the Cheriyan/Mehlhorn/Gabow's strongly connected component algorithm implementation.
+ * Allows selecting the algorithm for calculating the strongly connected component.
+ *
+ * @param <V> the Graph vertices type.
+ * @param <E> the Graph edges type.
  */
-public final class CheriyanMehlhornGabow
+public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
 {
 
     /**
-     * This class can not be instantiated directly.
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components, if exist.
+     *
+     * @param source the source vertex to start the search from
+     * @return the input graph strongly connected component.
      */
-    private CheriyanMehlhornGabow()
-    {
-        // do nothing
-    }
+    Set<V> applyingKosarajuSharir( V source );
 
     /**
      * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
      *
-     * @param <V> the Graph vertices type.
-     * @param <E> the Graph edges type.
-     * @param graph the Graph which strongly connected component has to be verified.
+     * @return the input graph strongly connected component.
      */
-    public static <V extends Vertex, E extends Edge> void hasStronglyConnectedComponent( DirectedGraph<V, E> graph )
-    {
-        final Set<V> marked = new HashSet<V>();
+    Set<V> applyingCheriyanMehlhornGabow();
 
-        final GraphVisitHandler<V, E> visitHandler = new CheriyanMehlhornGabowVisitHandler<V, E>( graph, marked );
-
-        for ( V vertex : graph.getVertices() )
-        {
-            if ( !marked.contains( vertex ) )
-            {
-                visit( graph ).from( vertex ).applyingDepthFirstSearch( visitHandler );
-            }
-        }
-    }
+    /**
+     * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding
+     * strongly-connected components in a directed graph.
+     *
+     * @return the input graph strongly connected component.
+     */
+    Set<V> applyingTarjan();
 
 }

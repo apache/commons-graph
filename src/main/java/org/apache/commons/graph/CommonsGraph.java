@@ -33,6 +33,8 @@ import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
+import org.apache.commons.graph.scc.SccAlgorithmSelector;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
 import org.apache.commons.graph.visit.VisitSourceSelector;
 
@@ -72,6 +74,21 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, W, WE, G> findMaxFlow( final G graph )
     {
         return null;
+    }
+
+    /**
+     * Calculates the input graph Strongly Connected Component.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <E> the Graph edges type.
+     * @param <G> the directed graph type
+     * @param graph the Graph which strongly connected component has to be verified.
+     * @return the SCC algoritm selector
+     */
+    public static <V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E, G> calculateStronglyConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a nulla graph" );
+        return new DefaultSccAlgorithmSelector<V, E, G>( graph );
     }
 
     /**

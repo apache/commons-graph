@@ -20,8 +20,11 @@ package org.apache.commons.graph.scc;
  */
 
 import static java.lang.Math.min;
+import static org.apache.commons.graph.CommonsGraph.visit;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -30,44 +33,69 @@ import java.util.Stack;
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.model.RevertedGraph;
+import org.apache.commons.graph.visit.GraphVisitHandler;
 
 /**
- * Tarjan's algorithm is a variation (slightly faster) on {@link KosarajuSharir}'s algorithm for finding
- * strongly-connected components in a directed graph.
+ * {@link SccAlgorithmSelector} implementation
+ *
+ * @param <V> the Graph vertices type.
+ * @param <E> the Graph edges type.
+ * @param <G> the directed graph type
  */
-public final class Tarjan
+public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+    implements SccAlgorithmSelector<V, E, G>
 {
 
-    /**
-     * Hidden constructor, this class cannot be instantiated directly.
-     */
-    private Tarjan()
+    private final G graph;
+
+    public DefaultSccAlgorithmSelector( G graph )
     {
-        // do nothing
+        this.graph = graph;
     }
 
     /**
-     * Applies the classical Tarjan's algorithm checking if there is a strongly connected component.
-     *
-     * @param <V> the Graph vertices type.
-     * @param <E> the Graph edges type.
-     * @param graph the Graph which strongly connected component has to be verified.
-     * @return true, if the input graph has a strongly connected component, false otherwise.
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, E extends Edge> boolean hasStronglyConnectedComponent( DirectedGraph<V, E> graph )
+    public Set<V> applyingKosarajuSharir( V source )
     {
-        return !getStronglyConnectedComponent( graph ).isEmpty();
+        source = checkNotNull( source, "KosarajuSharir algorithm requires a non-null source vertex" );
+
+        visit( graph ).from( source ).applyingDepthFirstSearch( new KosarajuSharirVisitHandler<V, E>( source ) );
+
+        DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
+
+        // TODO FILL ME, algorithm is incomplete
+
+        return null;
     }
 
     /**
-     * Applies the classical Tarjan's algorithm to find the strongly connected components, if exist.
-     *
-     * @param <V> the Graph vertices type.
-     * @param <E> the Graph edges type.
-     * @param graph the Graph which strongly connected component has to be verified.
-     * @return the input graph strongly connected component.
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, E extends Edge> Set<V> getStronglyConnectedComponent( DirectedGraph<V, E> graph )
+    public Set<V> applyingCheriyanMehlhornGabow()
+    {
+        final Set<V> marked = new HashSet<V>();
+
+        final GraphVisitHandler<V, E> visitHandler = new CheriyanMehlhornGabowVisitHandler<V, E>( graph, marked );
+
+        for ( V vertex : graph.getVertices() )
+        {
+            if ( !marked.contains( vertex ) )
+            {
+                visit( graph ).from( vertex ).applyingDepthFirstSearch( visitHandler );
+            }
+        }
+
+        // TODO FILL ME, algorithm is incomplete
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<V> applyingTarjan()
     {
         final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
         final Stack<V> s = new Stack<V>();
