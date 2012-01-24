@@ -28,6 +28,7 @@ import org.apache.commons.graph.coloring.ColorsBuilder;
 import org.apache.commons.graph.coloring.DefaultColorsBuilder;
 import org.apache.commons.graph.export.DefaultToStreamBuilder;
 import org.apache.commons.graph.export.ToStreamBuilder;
+import org.apache.commons.graph.flow.FromHeadBuilder;
 import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
@@ -56,6 +57,21 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
         return new DefaultColorsBuilder<V, E, G>( graph );
+    }
+
+    /**
+     * Find the maximum flow on the input {@link Graph}.
+     *
+     * @param <V>
+     * @param <W>
+     * @param <WE>
+     * @param <G>
+     * @param graph the input edge-weighted graph
+     * @return
+     */
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, W, WE, G> findMaxFlow( final G graph )
+    {
+        return null;
     }
 
     /**
