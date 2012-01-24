@@ -23,7 +23,6 @@ import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGr
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
-import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
