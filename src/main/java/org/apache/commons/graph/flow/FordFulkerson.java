@@ -55,13 +55,34 @@ public final class FordFulkerson
      * @param orderedMonoid the ordered monoid needed for operations on edge weights
      * @return the maximum flow between source and target
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> W findMaxFlow( G graph,
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> W findMaxFlow( final G graph,
                                                                                                                    V source,
                                                                                                                    V target,
-                                                                                                                   OrderedMonoid<W> orderedMonoid )
+                                                                                                                   final OrderedMonoid<W> orderedMonoid )
     {
         // create flow network
-        DirectedGraph<V, WE> flowNetwork = createFlowNetwork( graph, orderedMonoid );
+        DirectedGraph<V, WE> flowNetwork = newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WE>()
+        {
+            @SuppressWarnings( "unchecked" )
+            @Override
+            public void connect()
+            {
+                // vertices
+                for ( V vertex : graph.getVertices() )
+                {
+                    addVertex( vertex );
+                }
+                // edges
+                for ( WE edge : graph.getEdges() )
+                {
+                    VertexPair<V> edgeVertices = graph.getVertices( edge );
+                    V head = edgeVertices.getHead();
+                    V tail = edgeVertices.getTail();
+                    addEdge( edge ).from( head ).to( tail );
+                    addEdge( (WE) new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge.toString(), orderedMonoid.zero() ) );
+                }
+            }
+        } );
 
         // create flow network handler
         FlowNetworkHandler<V, WE, W> flowNetworkHandler =
@@ -94,36 +115,6 @@ public final class FordFulkerson
                                                                                                                             V target )
     {
         return findMaxFlow( graph, source, target, new IntegerWeight() );
-    }
-
-    private static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>> DirectedGraph<V, WE> createFlowNetwork( final G graph,
-                                                                                                                                             final OrderedMonoid<W> orderedMonoid )
-    {
-        DirectedGraph<V, WE> flowNetwork =
-        newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WE>()
-        {
-            @SuppressWarnings( "unchecked" )
-            @Override
-            public void connect()
-            {
-                // vertices
-                for ( V vertex : graph.getVertices() )
-                {
-                    addVertex( vertex );
-                }
-                // edges
-                for ( WE edge : graph.getEdges() )
-                {
-                    VertexPair<V> edgeVertices = graph.getVertices( edge );
-                    V head = edgeVertices.getHead();
-                    V tail = edgeVertices.getTail();
-                    addEdge( edge ).from( head ).to( tail );
-                    addEdge( (WE) new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge.toString(), orderedMonoid.zero() ) );
-                }
-            }
-        } );
-
-        return flowNetwork;
     }
 
 }
