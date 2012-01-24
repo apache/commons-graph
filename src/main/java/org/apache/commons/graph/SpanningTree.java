@@ -31,6 +31,4 @@ public interface SpanningTree<V extends Vertex, WE extends WeightedEdge<W>, W>
     extends UndirectedGraph<V, WE>, Weighted<W>
 {
 
-
-
 }
