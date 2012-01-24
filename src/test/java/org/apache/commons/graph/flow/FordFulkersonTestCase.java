@@ -19,8 +19,11 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
 
+import org.apache.commons.graph.builder.AbstractGraphConnection;
+import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
@@ -37,29 +40,32 @@ public final class FordFulkersonTestCase
     @Test
     public void findMaxFlowAndVerify()
     {
+        final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+
         DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        {
 
-        // building Graph
-        BaseLabeledVertex a = new BaseLabeledVertex("A");
-        BaseLabeledVertex b = new BaseLabeledVertex("B");
-        BaseLabeledVertex c = new BaseLabeledVertex("C");
-        BaseLabeledVertex d = new BaseLabeledVertex("D");
+            @Override
+            public void connect()
+            {
+                addVertex( a );
+                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                addVertex( d );
 
-        graph.addVertex( a );
-        graph.addVertex( b );
-        graph.addVertex( c );
-        graph.addVertex( d );
+                addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 1000 ) ).from( a ).to( b );
+                addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> C", 1000 ) ).from( a ).to( c );
+                addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> C", 1 ) ).from( b ).to( c );
+                addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> D", 1000 ) ).from( b ).to( d );
+                addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> D", 1000 ) ).from( c ).to( d );
+            }
 
-        graph.addEdge( a, new BaseLabeledWeightedEdge<Integer>( "A -> B", 1000 ), b );
-        graph.addEdge( a, new BaseLabeledWeightedEdge<Integer>( "A -> C", 1000 ), c );
-        graph.addEdge( b, new BaseLabeledWeightedEdge<Integer>( "B -> C", 1 ), c );
-        graph.addEdge( b, new BaseLabeledWeightedEdge<Integer>( "B -> D", 1000 ), d );
-        graph.addEdge( c, new BaseLabeledWeightedEdge<Integer>( "C -> D", 1000 ), d );
-
+        } );
 
         // expected max flow
-        Integer expected = 2000;
+        final Integer expected = 2000;
 
         // actual max flow
         Integer actual = FordFulkerson.findMaxFlow( graph, a, d );
