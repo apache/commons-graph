@@ -19,6 +19,7 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
 
@@ -26,6 +27,7 @@ import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
+import org.apache.commons.graph.weight.primitive.IntegerWeight;
 import org.junit.Test;
 
 /**
@@ -67,7 +69,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 2000;
 
         // actual max flow
-        Integer actual = FordFulkerson.findMaxFlow( graph, a, d );
+        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
 
         assertEquals( actual, expected );
     }

@@ -21,6 +21,7 @@ package org.apache.commons.graph.flow;
 
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.apache.commons.graph.CommonsGraph.visit;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
@@ -29,37 +30,39 @@ import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.weight.OrderedMonoid;
-import org.apache.commons.graph.weight.primitive.IntegerWeight;
 
 /**
- * Contains the implementation of the algorithm of Ford and Fulkerson
- * to calculate the maximum allowed flow in a graph.
+ * {@link MaxFlowAlgorithmSelector} implementation.
+ *
+ * @param <V>
+ * @param <W>
+ * @param <WE>
+ * @param <G>
  */
-public final class FordFulkerson
+final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>>
+    implements MaxFlowAlgorithmSelector<V, W, WE, G>
 {
 
-    /**
-     * This class can not be instantiated directly
-     */
-    private FordFulkerson()
+    private final G graph;
+
+    private final V source;
+
+    private final V target;
+
+    public DefaultMaxFlowAlgorithmSelector( G graph, V source, V target )
     {
-        // do nothing
+        this.graph = graph;
+        this.source = source;
+        this.target = target;
     }
 
     /**
-     * Applies the algorithm of Ford and Fulkerson to find the maximum flow on the input {@link Graph},
-     * given a source and a target {@link Vertex}.
-     * @param graph the input edge-weighted graph
-     * @param source the source vertex
-     * @param target the target vertex
-     * @param orderedMonoid the ordered monoid needed for operations on edge weights
-     * @return the maximum flow between source and target
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> W findMaxFlow( final G graph,
-                                                                                                                   V source,
-                                                                                                                   V target,
-                                                                                                                   final OrderedMonoid<W> orderedMonoid )
+    public <OM extends OrderedMonoid<W>> W applyingFordFulkerson( OM orderedMonoid )
     {
+        final OrderedMonoid<W> monoid = checkNotNull( orderedMonoid, "Wight monoid can not be null to find the max flow in the graph" );
+
         // create flow network
         // note: use edges of more generic type WeightedEdge<W> to allow for newly created edges
         DirectedGraph<V, WeightedEdge<W>> flowNetwork = newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
@@ -84,7 +87,7 @@ public final class FordFulkerson
                     if ( graph.getEdge( tail, head ) == null )
                     {
                         // complete the flow network with a zero-capacity inverse edge
-                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, orderedMonoid.zero() ) )
+                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, monoid.zero() ) )
                             .from( tail ).to( head );
                     }
                 }
@@ -93,7 +96,7 @@ public final class FordFulkerson
 
         // create flow network handler
         FlowNetworkHandler<V, WeightedEdge<W>, W> flowNetworkHandler =
-                        new FlowNetworkHandler<V, WeightedEdge<W>, W>( flowNetwork, source, target, orderedMonoid );
+                        new FlowNetworkHandler<V, WeightedEdge<W>, W>( flowNetwork, source, target, monoid );
 
         // perform depth first search
         visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
@@ -110,18 +113,13 @@ public final class FordFulkerson
     }
 
     /**
-     * Applies the algorithm of Ford and Fulkerson to find the maximum flow on the input {@link Graph}
-     * whose edges have weights of type Integer, given a source and a target {@link Vertex}.
-     * @param graph the input edge-weighted graph
-     * @param source the source vertex
-     * @param target the target vertex
-     * @return the maximum flow between source and target
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Integer>, G extends DirectedGraph<V, WE>> Integer findMaxFlow( G graph,
-                                                                                                                            V source,
-                                                                                                                            V target )
+    public <OM extends OrderedMonoid<W>> W applyingEdmondsKarp( OM orderedMonoid )
     {
-        return findMaxFlow( graph, source, target, new IntegerWeight() );
+        orderedMonoid = checkNotNull( orderedMonoid, "Wight monoid can not be null to find the max flow in the graph" );
+        // TODO add missing implementation!
+        return null;
     }
 
 }

@@ -29,9 +29,9 @@ public interface ToTailBuilder<V extends Vertex, W, WE extends WeightedEdge<W>, 
     /**
      *
      *
-     * @param head
+     * @param tail
      * @return
      */
-    MaxFlowAlgorithmSelector<V, W, WE, G> to( V head );
+    MaxFlowAlgorithmSelector<V, W, WE, G> to( V tail );
 
 }

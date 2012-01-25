@@ -19,28 +19,38 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.OrderedMonoid;
 
-public interface MaxFlowAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>>
+/**
+ * {@link DefaultToTailBuilder} implementation.
+ *
+ * @param <V>
+ * @param <W>
+ * @param <WE>
+ * @param <G>
+ */
+final class DefaultToTailBuilder<V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>>
+    implements ToTailBuilder<V, W, WE, G>
 {
 
-    /**
-     *
-     *
-     * @param orderedMonoid
-     * @return
-     */
-    <OM extends OrderedMonoid<W>> W applyingFordFulkerson( OM orderedMonoid );
+    private final G graph;
 
-    /**
-     *
-     *
-     * @param orderedMonoid
-     * @return
-     */
-    <OM extends OrderedMonoid<W>> W applyingEdmondsKarp( OM orderedMonoid );
+    private final V head;
+
+    public DefaultToTailBuilder( G graph, V head )
+    {
+        this.graph = graph;
+        this.head = head;
+    }
+
+    public MaxFlowAlgorithmSelector<V, W, WE, G> to( V tail )
+    {
+        tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
+        return new DefaultMaxFlowAlgorithmSelector<V, W, WE, G>( graph, head, tail );
+    }
 
 }
