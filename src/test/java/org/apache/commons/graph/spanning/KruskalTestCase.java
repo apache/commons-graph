@@ -20,7 +20,7 @@ package org.apache.commons.graph.spanning;
  */
 
 import static junit.framework.Assert.assertEquals;
-import static org.apache.commons.graph.spanning.Kruskal.minimumSpanningTree;
+import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -95,8 +95,8 @@ public final class KruskalTestCase
 
         // Actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input );
-        
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+
         // assert!
 
         assertEquals( expected, actual );

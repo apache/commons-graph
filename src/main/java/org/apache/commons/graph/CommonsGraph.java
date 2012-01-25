@@ -36,6 +36,8 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
 import org.apache.commons.graph.scc.SccAlgorithmSelector;
+import org.apache.commons.graph.spanning.DefaultSpanningTreeSourceSelector;
+import org.apache.commons.graph.spanning.SpanningTreeSourceSelector;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
 import org.apache.commons.graph.visit.VisitSourceSelector;
 
@@ -76,6 +78,17 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
         return new DefaultFromHeadBuilder<V, W, WE, G>( graph );
+    }
+
+    /**
+     *
+     * @param graph
+     * @return
+     */
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
+    {
+        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
+        return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph );
     }
 
     /**

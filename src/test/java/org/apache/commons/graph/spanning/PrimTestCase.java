@@ -20,7 +20,7 @@ package org.apache.commons.graph.spanning;
  */
 
 import static junit.framework.Assert.assertEquals;
-import static org.apache.commons.graph.spanning.Prim.minimumSpanningTree;
+import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -165,7 +165,7 @@ public final class PrimTestCase
     {
      // actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input, source );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromSource( source ).applyingPrimAlgorithm( new DoubleWeight() );
 
         // assert!
 

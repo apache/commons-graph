@@ -1,5 +1,11 @@
 package org.apache.commons.graph.spanning;
 
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.SpanningTree;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.weight.OrderedMonoid;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,28 +25,13 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-
-/**
- * Boruvka's algorithm is an algorithm for finding a minimum spanning tree in a graph
- * for which all edge weights are distinct.
- */
-public final class Boruvka
+public interface SpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
 {
 
-    /**
-     * Calculates the minimum spanning tree (or forest) of the input Graph.
-     *
-     * @param <V> the Graph vertices type.
-     * @param <WE> the Graph weighted edges type.
-     * @param graph the Graph for which minimum spanning tree (or forest) has to be calculated.
-     * @return  the minimum spanning tree (or forest) of the input Graph.
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> Graph<V, WE> minimumSpanningTree( Graph<V, WE> graph )
-    {
-        return null;
-    }
+    <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( OM orderedMonoid );
+
+    <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( OM orderedMonoid );
+
+    <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( OM orderedMonoid );
 
 }
