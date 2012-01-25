@@ -61,9 +61,9 @@ public final class FordFulkerson
                                                                                                                    final OrderedMonoid<W> orderedMonoid )
     {
         // create flow network
-        DirectedGraph<V, WE> flowNetwork = newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WE>()
+        // note: use edges of more generic type WeightedEdge<W> to allow for newly created edges
+        DirectedGraph<V, WeightedEdge<W>> flowNetwork = newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
         {
-            @SuppressWarnings( "unchecked" )
             @Override
             public void connect()
             {
@@ -78,15 +78,22 @@ public final class FordFulkerson
                     VertexPair<V> edgeVertices = graph.getVertices( edge );
                     V head = edgeVertices.getHead();
                     V tail = edgeVertices.getTail();
+
                     addEdge( edge ).from( head ).to( tail );
-                    addEdge( (WE) new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge.toString(), orderedMonoid.zero() ) );
+
+                    if ( graph.getEdge( tail, head ) == null )
+                    {
+                        // complete the flow network with a zero-capacity inverse edge
+                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, orderedMonoid.zero() ) )
+                            .from( tail ).to( head );
+                    }
                 }
             }
         } );
 
         // create flow network handler
-        FlowNetworkHandler<V, WE, W> flowNetworkHandler =
-                        new FlowNetworkHandler<V, WE, W>( flowNetwork, source, target, orderedMonoid );
+        FlowNetworkHandler<V, WeightedEdge<W>, W> flowNetworkHandler =
+                        new FlowNetworkHandler<V, WeightedEdge<W>, W>( flowNetwork, source, target, orderedMonoid );
 
         // perform depth first search
         visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
