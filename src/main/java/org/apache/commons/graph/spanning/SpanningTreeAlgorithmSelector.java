@@ -1,11 +1,5 @@
 package org.apache.commons.graph.spanning;
 
-import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.OrderedMonoid;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,6 +18,12 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.SpanningTree;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 public interface SpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
 {
