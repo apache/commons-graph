@@ -25,6 +25,14 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 
+/**
+ * {@link SpanningTreeSourceSelector} implementation.
+ *
+ * @param <V> the Graph vertices type
+ * @param <W> the weight type
+ * @param <WE> the Graph weighted edges type
+ * @param <G> the input Graph type
+ */
 public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
     implements SpanningTreeSourceSelector<V, W, WE, G>
 {

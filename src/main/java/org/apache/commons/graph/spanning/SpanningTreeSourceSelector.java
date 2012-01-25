@@ -23,11 +23,30 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 
+/**
+ * Spanning Tree source selector.
+ *
+ * @param <V> the Graph vertices type
+ * @param <W> the weight type
+ * @param <WE> the Graph weighted edges type
+ * @param <G> the input Graph type
+ */
 public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
 {
 
+    /**
+     * Selects an arbitrary source from the input Graph to calculate the spanning tree.
+     *
+     * @return the linked spanning tree algorithm builder
+     */
     SpanningTreeAlgorithmSelector<V, W, WE, G> fromArbitrarySource();
 
+    /**
+     * Allows specify a source vertex to calculate the spanning tree.
+     *
+     * @param source the source vertex to calculate the spanning tree.
+     * @return the linked spanning tree algorithm builder
+     */
     SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source );
 
 }

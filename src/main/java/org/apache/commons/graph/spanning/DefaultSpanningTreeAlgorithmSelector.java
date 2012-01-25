@@ -33,6 +33,14 @@ import org.apache.commons.graph.collections.DisjointSet;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
+/**
+ * {@link SpanningTreeAlgorithmSelector} implementation.
+ *
+ * @param <V> the Graph vertices type
+ * @param <W> the weight type
+ * @param <WE> the Graph weighted edges type
+ * @param <G> the input Graph type
+ */
 final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
     implements SpanningTreeAlgorithmSelector<V, W, WE, G>
 {

@@ -25,13 +25,39 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
+/**
+ * Spanning Tree algoritms selector.
+ *
+ * @param <V> the Graph vertices type
+ * @param <W> the weight type
+ * @param <WE> the Graph weighted edges type
+ * @param <G> the input Graph type
+ */
 public interface SpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
 {
 
+    /**
+     * Applies the <a href="http://en.wikipedia.org/wiki/Bor%C5%AFvka's_algorithm">Boruvka</a>'s algorithm.
+     *
+     * @param orderedMonoid the graph weights monoid
+     * @return the calculated spanning tree
+     */
     <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( OM orderedMonoid );
 
+    /**
+     * Applies the <a href="http://en.wikipedia.org/wiki/Kruskal%27s_algorithm">Kruskal</a>'s algorithm.
+     *
+     * @param orderedMonoid the graph weights monoid
+     * @return the calculated spanning tree
+     */
     <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( OM orderedMonoid );
 
+    /**
+     * Applies the <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim</a>'s algorithm.
+     *
+     * @param orderedMonoid the graph weights monoid
+     * @return the calculated spanning tree
+     */
     <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( OM orderedMonoid );
 
 }
