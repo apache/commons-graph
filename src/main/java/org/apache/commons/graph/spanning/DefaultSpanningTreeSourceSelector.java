@@ -47,7 +47,6 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
     /**
      * {@inheritDoc}
      */
-    @Override
     public SpanningTreeAlgorithmSelector<V, W, WE, G> fromArbitrarySource()
     {
         return fromSource( graph.getVertices().iterator().next() );
@@ -56,7 +55,6 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
     /**
      * {@inheritDoc}
      */
-    @Override
     public SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source )
     {
         source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
