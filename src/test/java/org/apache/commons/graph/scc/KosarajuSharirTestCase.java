@@ -19,7 +19,7 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import static org.apache.commons.graph.CommonsGraph.calculateStronglyConnectedComponent;
+import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 
 import static org.junit.Assert.assertFalse;
@@ -76,7 +76,7 @@ public final class KosarajuSharirTestCase
 
         } );
 
-        Set<BaseLabeledVertex> ssc = calculateStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
+        Set<BaseLabeledVertex> ssc = findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
 
         assertFalse( ssc.isEmpty() );
     }

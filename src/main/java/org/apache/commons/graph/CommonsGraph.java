@@ -100,7 +100,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the Graph which strongly connected component has to be verified.
      * @return the SCC algoritm selector
      */
-    public static <V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E, G> calculateStronglyConnectedComponent( G graph )
+    public static <V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E, G> findStronglyConnectedComponent( G graph )
     {
         graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a nulla graph" );
         return new DefaultSccAlgorithmSelector<V, E, G>( graph );
