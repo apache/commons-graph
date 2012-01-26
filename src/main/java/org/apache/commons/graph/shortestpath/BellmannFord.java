@@ -28,7 +28,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
 /**
- * Contains the Bellman–Ford's shortest path algorithm implementation.
+ * Contains the Bellman-Ford's shortest path algorithm implementation.
  */
 public final class BellmannFord
 {
@@ -42,7 +42,7 @@ public final class BellmannFord
     }
 
     /**
-     * Applies the classical Bellman–Ford's algorithm to find the shortest path from the source to the target, if exists.
+     * Applies the classical Bellman-Ford's algorithm to find the shortest path from the source to the target, if exists.
      *
      * @param <V> the Graph vertices type
      * @param <WE> the Graph weighted edges type
@@ -122,7 +122,7 @@ public final class BellmannFord
     }
 
     /**
-     * Applies the classical Bellman–Ford's algorithm to an edge weighted graph with weights of type Double
+     * Applies the classical Bellman-Ford's algorithm to an edge weighted graph with weights of type Double
      * to find the shortest path from the source to the target, if exists.
      *
      * @param <V> the Graph vertices type
