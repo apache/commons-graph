@@ -36,6 +36,7 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
 import org.apache.commons.graph.scc.SccAlgorithmSelector;
+import org.apache.commons.graph.shortestpath.PathSourceSelector;
 import org.apache.commons.graph.spanning.DefaultSpanningTreeSourceSelector;
 import org.apache.commons.graph.spanning.SpanningTreeSourceSelector;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
@@ -89,6 +90,21 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
         return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph );
+    }
+
+    /**
+     *
+     *
+     * @param <V>
+     * @param <W>
+     * @param <WE>
+     * @param <G>
+     * @param graph
+     */
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>> PathSourceSelector<V, W, WE, G> findShortesPath( G graph )
+    {
+        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
+        return null;
     }
 
     /**
