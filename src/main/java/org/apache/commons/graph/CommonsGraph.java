@@ -75,7 +75,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the input edge-weighted graph
      * @return
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, W, WE, G> findMaxFlow( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, W, WE, G> findMaxFlow( G graph )
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
         return new DefaultFromHeadBuilder<V, W, WE, G>( graph );
@@ -86,7 +86,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph
      * @return
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends Graph<V, WE>> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
         return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph );
@@ -101,7 +101,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param <G>
      * @param graph
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>> PathSourceSelector<V, W, WE, G> findShortesPath( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends Graph<V, WE>> PathSourceSelector<V, W, WE, G> findShortesPath( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
         return null;
