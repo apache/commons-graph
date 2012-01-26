@@ -19,11 +19,23 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import static java.util.Collections.reverseOrder;
+import static java.util.Collections.sort;
+import static org.apache.commons.graph.shortestpath.Dijkstra.findShortestPath;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.model.MutableSpanningTree;
+import org.apache.commons.graph.shortestpath.PathNotFoundException;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * {@link SpanningTreeSourceSelector} implementation.
@@ -59,6 +71,60 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
     {
         source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
         return new DefaultSpanningTreeAlgorithmSelector<V, W, WE, G>( graph, source );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( OM orderedMonoid )
+    {
+        final List<WE> sortedEdge = new ArrayList<WE>();
+        final List<WE> visitedEdge = new ArrayList<WE>();
+
+        Iterable<WE> edges = graph.getEdges();
+        for ( WE we : edges )
+        {
+            sortedEdge.add( we );
+        }
+
+        sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( orderedMonoid ) ) );
+
+        Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE, W>( graph, sortedEdge, visitedEdge );
+
+        for ( Iterator<WE> iterator = sortedEdge.iterator(); iterator.hasNext(); )
+        {
+            WE we = iterator.next();
+            iterator.remove();
+
+            VertexPair<V> vertices = graph.getVertices( we );
+
+            try
+            {
+                findShortestPath( tmpGraph, vertices.getHead(), vertices.getTail(), orderedMonoid );
+            }
+            catch ( PathNotFoundException ex )
+            {
+                // only if a path doesn't exist
+                visitedEdge.add( we );
+            }
+        }
+
+        final MutableSpanningTree<V, WE, W> res = new MutableSpanningTree<V, WE, W>( orderedMonoid );
+        for ( V v : graph.getVertices() )
+        {
+            res.addVertex( v );
+        }
+
+        for ( WE we : edges )
+        {
+            VertexPair<V> pair = tmpGraph.getVertices( we );
+            if ( pair != null )
+            {
+                res.addEdge( pair.getHead(), we, pair.getTail() );
+            }
+        }
+
+        return res;
     }
 
 }

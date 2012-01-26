@@ -20,8 +20,10 @@ package org.apache.commons.graph.spanning;
  */
 
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Spanning Tree source selector.
@@ -48,5 +50,26 @@ public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends Weig
      * @return the linked spanning tree algorithm builder
      */
     SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source );
+
+    /**
+     * Applies the <a href="http://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.
+     *
+     * <pre>
+     * function ReverseDelete(edges[] E)
+     *    sort E in decreasing order
+     *    Define an index i = 0
+     *    while i < size(E)
+     *       Define edge temp = E[i]
+     *         delete E[i]
+     *         if temp.v1 is not connected to temp.v2
+     *             E[i] = temp
+     *         i = i + 1
+     *   return edges[] E
+     * </pre>
+     *
+     * @param orderedMonoid the graph weights monoid
+     * @return the calculated spanning tree
+     */
+    <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( OM orderedMonoid );
 
 }

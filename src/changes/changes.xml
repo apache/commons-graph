@@ -47,6 +47,9 @@
     <action dev="simonetripodi" type="update" issue="SANDBOX-356" due-to="Claudio Squarcella">
       Generic weight types and algorithms implementations based on wighted graphes.
     </action>
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-350" due-to="Marco Speranza">
+      Provide a Reverse-delete algorithm implementation
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-346" due-to="Claudio Squarcella">
       DotExporter only exports weights that extend Number.
     </action>

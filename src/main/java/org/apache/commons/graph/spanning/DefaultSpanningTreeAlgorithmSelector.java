@@ -19,7 +19,6 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -58,7 +57,6 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     /**
      * {@inheritDoc}
      */
-    @Override
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( OM orderedMonoid )
     {
         // TODO Boruvka still needs to be implemented
@@ -68,7 +66,6 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     /**
      * {@inheritDoc}
      */
-    @Override
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( OM orderedMonoid )
     {
         final Set<V> settledNodes = new HashSet<V>();
@@ -112,27 +109,9 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
         return spanningTree;
     }
 
-    private static class WeightedEdgesComparator<W, WE extends WeightedEdge<W>> implements Comparator<WE>
-    {
-
-        private final OrderedMonoid<W> orderedMonoid;
-
-        public WeightedEdgesComparator( OrderedMonoid<W> orderedMonoid )
-        {
-            this.orderedMonoid = orderedMonoid;
-        }
-
-        public int compare( WE o1, WE o2 )
-        {
-            return orderedMonoid.compare( o1.getWeight(), o2.getWeight() );
-        }
-
-    }
-
     /**
      * {@inheritDoc}
      */
-    @Override
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( OM orderedMonoid )
     {
         final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, orderedMonoid );
