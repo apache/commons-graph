@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
@@ -59,10 +59,10 @@ public final class Dijkstra
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> WeightedPath<V, WE, W> findShortestPath( G graph,
-                                                                                                                                             V source,
-                                                                                                                                             V target,
-                                                                                                                                             OrderedMonoid<W> orderedMonoid )
+    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>> WeightedPath<V, WE, W> findShortestPath( G graph,
+                                                                                                                                     V source,
+                                                                                                                                     V target,
+                                                                                                                                     OrderedMonoid<W> orderedMonoid )
     {
         final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
         shortestDistances.setWeight( source, orderedMonoid.zero() );
@@ -87,7 +87,7 @@ public final class Dijkstra
 
             settledNodes.add( vertex );
 
-            for ( V v : graph.getOutbound( vertex ) )
+            for ( V v : graph.getConnectedVertices( vertex ) )
             {
                 // skip node already settled
                 if ( !settledNodes.contains( v ) )
@@ -97,7 +97,7 @@ public final class Dijkstra
                     {
                         W shortDist = orderedMonoid.append( shortestDistances.getWeight( vertex ), edge.getWeight() );
 
-                        if ( !shortestDistances.alreadyVisited( v ) 
+                        if ( !shortestDistances.alreadyVisited( v )
                                 || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
                         {
                             // assign new shortest distance and mark unsettled
@@ -129,9 +129,9 @@ public final class Dijkstra
      * @return a path which describes the shortest path, if any,
      *         otherwise a {@link PathNotFoundException} will be thrown
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> WeightedPath<V, WE, Double> findShortestPath( G graph,
-                                                                                                                                                    V source,
-                                                                                                                                                    V target )
+    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends Graph<V, WE>> WeightedPath<V, WE, Double> findShortestPath( G graph,
+                                                                                                                                            V source,
+                                                                                                                                            V target )
     {
         return findShortestPath( graph, source, target, new DoubleWeight() );
     }
