@@ -33,8 +33,8 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <WE>
  * @param <G>
  */
-public final class DefaultFromHeadBuilder<V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>>
-    implements FromHeadBuilder<V, W, WE, G>
+public final class DefaultFromHeadBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+    implements FromHeadBuilder<V, WE, W, G>
 {
 
     private final G graph;
@@ -44,10 +44,10 @@ public final class DefaultFromHeadBuilder<V extends Vertex, W, WE extends Weight
         this.graph = graph;
     }
 
-    public ToTailBuilder<V, W, WE, G> from( V head )
+    public ToTailBuilder<V, WE, W, G> from( V head )
     {
         head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
-        return new DefaultToTailBuilder<V, W, WE, G>( graph, head );
+        return new DefaultToTailBuilder<V, WE, W, G>( graph, head );
     }
 
 }

@@ -69,16 +69,16 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * Find the maximum flow on the input {@link Graph}.
      *
      * @param <V>
-     * @param <W>
      * @param <WE>
+     * @param <W>
      * @param <G>
      * @param graph the input edge-weighted graph
      * @return
      */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, W, WE, G> findMaxFlow( G graph )
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, WE, W, G> findMaxFlow( G graph )
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
-        return new DefaultFromHeadBuilder<V, W, WE, G>( graph );
+        return new DefaultFromHeadBuilder<V, WE, W, G>( graph );
     }
 
     /**

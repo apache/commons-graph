@@ -23,7 +23,7 @@ import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 
-public interface ToTailBuilder<V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>>
+public interface ToTailBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
 {
 
     /**
@@ -32,6 +32,6 @@ public interface ToTailBuilder<V extends Vertex, W, WE extends WeightedEdge<W>, 
      * @param tail
      * @return
      */
-    MaxFlowAlgorithmSelector<V, W, WE, G> to( V tail );
+    MaxFlowAlgorithmSelector<V, WE, W, G> to( V tail );
 
 }

@@ -39,8 +39,8 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>>
-    implements MaxFlowAlgorithmSelector<V, W, WE, G>
+final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+    implements MaxFlowAlgorithmSelector<V, WE, W, G>
 {
 
     private final G graph;
