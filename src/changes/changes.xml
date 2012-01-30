@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="add" issue="SANDBOX-370" due-to="Matteo Moci">
+      GraphML format exporter
+    </action>
     <action dev="simonetripodi" type="fix" issue="SANDBOX-368" due-to="Marco Speranza">
       change Dijkstra MST api for accept also Undirect Graph
     </action>
