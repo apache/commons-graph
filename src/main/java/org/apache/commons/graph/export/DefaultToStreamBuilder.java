@@ -63,7 +63,7 @@ public final class DefaultToStreamBuilder<V extends Vertex, E extends Edge, G ex
     public NamedExportSelctor<V, E, G> to( Writer writer )
     {
         writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
-        return new DefaultNamedEsportSelector<V, E, G>( graph, writer );
+        return new DefaultNamedExportSelector<V, E, G>( graph, writer );
     }
 
 }

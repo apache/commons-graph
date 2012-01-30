@@ -19,23 +19,17 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
+import static java.lang.String.format;
 
-public interface ExportSelctor<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class GraphExportException
+    extends Exception
 {
 
-    /**
-     * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
-     */
-    void usingDotNotation()
-        throws GraphExportException;
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
-     */
-    void usingGraphMLFormat()
-        throws GraphExportException;
+    public GraphExportException( Throwable cause, String messagePattern, Object...messageArguments )
+    {
+        super( format( messagePattern, messageArguments ), cause );
+    }
 
 }
