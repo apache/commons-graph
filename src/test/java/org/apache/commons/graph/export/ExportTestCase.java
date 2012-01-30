@@ -48,15 +48,12 @@ public class ExportTestCase {
                 BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
                 BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
 
-                addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ) )
-                        .from(start).to( a );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ) )
-                        .from(a).to( b );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> goal", 2D ) )
-                        .from(a).to( goal );
-                addEdge( new BaseLabeledWeightedEdge<Double>( "b <-> goal", 2D ) )
-                        .from( b ).to( goal );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ) ).from(start).to( a );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ) ).from(a).to( b );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> goal", 2D ) ).from(a).to( goal );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "b <-> goal", 2D ) ).from( b ).to( goal );
             }
+
         } );
     }
 
