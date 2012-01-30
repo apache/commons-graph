@@ -53,7 +53,6 @@ final class DefaultNamedExportSelector<V extends Vertex, E extends Edge, G exten
         new DotExporter<V, E, G>( graph, writer, name ).export();
     }
 
-    @Override
     public void usingGraphMLFormat()
         throws GraphExportException
     {
