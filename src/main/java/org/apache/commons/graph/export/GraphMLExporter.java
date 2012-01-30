@@ -93,13 +93,6 @@ final class GraphMLExporter<V extends Vertex, E extends Edge, G extends Graph<V,
     protected void internalExport()
         throws Exception
     {
-        XMLStreamWriter xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter( getWriter() );
-
-        // start document tokens
-        xmlWriter.writeStartDocument();
-        xmlWriter.writeStartElement( GRAPHML );
-        xmlWriter.writeAttribute( XMLNS, GRAPHML_XMLNS );
-
         // scan graph and print TYPES description for vertex AND edges' properties
         Map<String, String> edgeKeyTypes = new HashMap<String, String>();
 
@@ -135,6 +128,13 @@ final class GraphMLExporter<V extends Vertex, E extends Edge, G extends Graph<V,
                 }
             }
         }
+
+        XMLStreamWriter xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter( getWriter() );
+
+        // start document tokens
+        xmlWriter.writeStartDocument();
+        xmlWriter.writeStartElement( GRAPHML );
+        xmlWriter.writeAttribute( XMLNS, GRAPHML_XMLNS );
 
         xmlWriter.writeStartElement( GRAPH );
         xmlWriter.writeAttribute( ID, getName() );
