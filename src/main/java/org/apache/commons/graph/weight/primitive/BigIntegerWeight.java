@@ -26,7 +26,7 @@ import java.math.BigInteger;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
- * An {@link BigBigIntegerWeight} provides operations and properties
+ * An {@link BigIntegerWeight} provides operations and properties
  * for weights of type {@link BigInteger}.
  */
 public class BigIntegerWeight
