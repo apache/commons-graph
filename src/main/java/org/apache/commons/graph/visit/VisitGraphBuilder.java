@@ -33,8 +33,8 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-final class VisitGraphBuilder<V extends Vertex, E extends Edge>
-    extends BaseGraphVisitHandler<V, E>
+final class VisitGraphBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+    extends BaseGraphVisitHandler<V, E, G, Graph<V, E>>
 {
 
     private BaseMutableGraph<V, E> visitGraph;
@@ -43,7 +43,7 @@ final class VisitGraphBuilder<V extends Vertex, E extends Edge>
      * {@inheritDoc}
      */
     @Override
-    public void discoverGraph( Graph<V, E> graph )
+    public void discoverGraph( G graph )
     {
         if ( graph instanceof DirectedGraph )
         {
@@ -71,11 +71,10 @@ final class VisitGraphBuilder<V extends Vertex, E extends Edge>
     }
 
     /**
-     * Returns the produced visit Graph.
-     *
-     * @return the produced visit Graph.
+     * {@inheritDoc}
      */
-    public Graph<V, E> getVisitGraph()
+    @Override
+    public Graph<V, E> onCompleted()
     {
         return visitGraph;
     }

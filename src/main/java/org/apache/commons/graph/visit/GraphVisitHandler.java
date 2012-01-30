@@ -27,13 +27,13 @@ import org.apache.commons.graph.Vertex;
  * A {@link GraphVisitHandler} controls the execution of breadth-first and depth-first search
  * algorithms in {@link Visit}.
  */
-public interface GraphVisitHandler<V extends Vertex, E extends Edge>
+public interface GraphVisitHandler<V extends Vertex, E extends Edge, G extends Graph<V, E>, O>
 {
 
     /**
      * Called at the beginning of breadth-first and depth-first search.
      */
-    void discoverGraph( Graph<V, E> graph );
+    void discoverGraph( G graph );
 
     /**
      * Performs operations on the input {@link Vertex} and checks if it should be expanded
@@ -66,6 +66,13 @@ public interface GraphVisitHandler<V extends Vertex, E extends Edge>
     /**
      * Called upon termination of the search algorithm.
      */
-    void finishGraph( Graph<V, E> graph );
+    void finishGraph( G graph );
+
+    /**
+     * Invoked once the visit is finished.
+     *
+     * @return Value that will be returned by the visit
+     */
+    O onCompleted();
 
 }

@@ -59,9 +59,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public Graph<V, E> applyingBreadthFirstSearch()
     {
-        VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
-        applyingBreadthFirstSearch( visitGraphBuilder );
-        return visitGraphBuilder.getVisitGraph();
+        return applyingBreadthFirstSearch( new VisitGraphBuilder<V, E, G>() );
     }
 
     /**
@@ -69,15 +67,13 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public Graph<V, E> applyingDepthFirstSearch()
     {
-        VisitGraphBuilder<V, E> visitGraphBuilder = new VisitGraphBuilder<V, E>();
-        applyingDepthFirstSearch( visitGraphBuilder );
-        return visitGraphBuilder.getVisitGraph();
+        return applyingDepthFirstSearch( new VisitGraphBuilder<V, E, G>() );
     }
 
     /**
      * {@inheritDoc}
      */
-    public void applyingBreadthFirstSearch( GraphVisitHandler<V, E> handler )
+    public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
@@ -128,12 +124,14 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         }
 
         handler.finishGraph( graph );
+
+        return handler.onCompleted();
     }
 
     /**
      * {@inheritDoc}
      */
-    public void applyingDepthFirstSearch( GraphVisitHandler<V, E> handler )
+    public <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
@@ -182,6 +180,8 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         }
 
         handler.finishGraph( graph );
+
+        return handler.onCompleted();
     }
 
 }

@@ -38,11 +38,11 @@ import org.apache.commons.graph.visit.BaseGraphVisitHandler;
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
-    extends BaseGraphVisitHandler<V, E>
+final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+    extends BaseGraphVisitHandler<V, E, G, Void>
 {
 
-    private final DirectedGraph<V, E> graph;
+    private final G graph;
 
     private final Map<V, Integer> preorder = new HashMap<V, Integer>();
 
@@ -58,7 +58,7 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge>
 
     private int sscCounter = 0;
 
-    public CheriyanMehlhornGabowVisitHandler( DirectedGraph<V, E> graph, Set<V> marked )
+    public CheriyanMehlhornGabowVisitHandler( G graph, Set<V> marked )
     {
         this.graph = graph;
         this.marked = marked;

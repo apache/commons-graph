@@ -95,8 +95,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
         } );
 
         // create flow network handler
-        FlowNetworkHandler<V, WeightedEdge<W>, W> flowNetworkHandler =
-                        new FlowNetworkHandler<V, WeightedEdge<W>, W>( flowNetwork, source, target, monoid );
+        FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, monoid );
 
         // perform depth first search
         visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
@@ -109,7 +108,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
             visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
         }
 
-        return flowNetworkHandler.getMaxFlow();
+        return flowNetworkHandler.onCompleted();
     }
 
     /**

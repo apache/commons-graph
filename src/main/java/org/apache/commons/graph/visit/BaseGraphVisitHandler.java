@@ -29,14 +29,14 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class BaseGraphVisitHandler<V extends Vertex, E extends Edge>
-    implements GraphVisitHandler<V, E>
+public class BaseGraphVisitHandler<V extends Vertex, E extends Edge, G extends Graph<V, E>, O>
+    implements GraphVisitHandler<V, E, G, O>
 {
 
     /**
      * {@inheritDoc}
      */
-    public void discoverGraph( Graph<V, E> graph )
+    public void discoverGraph( G graph )
     {
         // do nothing
     }
@@ -80,9 +80,17 @@ public class BaseGraphVisitHandler<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
-    public void finishGraph( Graph<V, E> graph )
+    public void finishGraph( G graph )
     {
         // do nothing
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public O onCompleted()
+    {
+        return null;
     }
 
 }

@@ -21,8 +21,8 @@ package org.apache.commons.graph.scc;
 
 import java.util.LinkedList;
 
+import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
 
@@ -33,8 +33,8 @@ import org.apache.commons.graph.visit.BaseGraphVisitHandler;
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-final class KosarajuSharirVisitHandler<V extends Vertex, E extends Edge>
-    extends BaseGraphVisitHandler<V, E>
+final class KosarajuSharirVisitHandler<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+    extends BaseGraphVisitHandler<V, E, G, Void>
 {
 
     final V startVisit;
@@ -59,7 +59,7 @@ final class KosarajuSharirVisitHandler<V extends Vertex, E extends Edge>
     }
 
     @Override
-    public void finishGraph( Graph<V, E> graph )
+    public void finishGraph( G graph )
     {
         vertices.add( startVisit );
 

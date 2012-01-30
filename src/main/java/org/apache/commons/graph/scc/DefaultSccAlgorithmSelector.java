@@ -61,7 +61,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
     {
         source = checkNotNull( source, "KosarajuSharir algorithm requires a non-null source vertex" );
 
-        visit( graph ).from( source ).applyingDepthFirstSearch( new KosarajuSharirVisitHandler<V, E>( source ) );
+        visit( graph ).from( source ).applyingDepthFirstSearch( new KosarajuSharirVisitHandler<V, E, G>( source ) );
 
         DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
 
@@ -77,7 +77,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
     {
         final Set<V> marked = new HashSet<V>();
 
-        final GraphVisitHandler<V, E> visitHandler = new CheriyanMehlhornGabowVisitHandler<V, E>( graph, marked );
+        final GraphVisitHandler<V, E, G, Void> visitHandler = new CheriyanMehlhornGabowVisitHandler<V, E, G>( graph, marked );
 
         for ( V vertex : graph.getVertices() )
         {

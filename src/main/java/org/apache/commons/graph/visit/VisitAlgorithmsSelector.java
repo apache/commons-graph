@@ -52,13 +52,13 @@ public interface VisitAlgorithmsSelector<V extends Vertex, E extends Edge, G ext
      *
      * @param handler the handler intercepts visit actions
      */
-    void applyingBreadthFirstSearch( GraphVisitHandler<V, E> handler );
+    <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler );
 
     /**
      * Depth-first search algorithm implementation.
      *
      * @param handler the handler intercepts visit actions
      */
-    void applyingDepthFirstSearch( GraphVisitHandler<V, E> handler );
+    <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler );
 
 }

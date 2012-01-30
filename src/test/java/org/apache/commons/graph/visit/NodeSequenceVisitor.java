@@ -24,31 +24,31 @@ import static java.util.Collections.unmodifiableList;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.model.BaseLabeledEdge;
+import org.apache.commons.graph.model.BaseLabeledVertex;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 
-public final class NodeSequenceVisitor<V extends Vertex, E extends Edge>
-    extends BaseGraphVisitHandler<V, E>
+public final class NodeSequenceVisitor
+    extends BaseGraphVisitHandler<BaseLabeledVertex, BaseLabeledEdge, UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>, List<BaseLabeledVertex>>
 {
 
-    private final List<V> vertices = new ArrayList<V>();
+    private final List<BaseLabeledVertex> vertices = new ArrayList<BaseLabeledVertex>();
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean discoverVertex( V vertex )
+    public boolean discoverVertex( BaseLabeledVertex vertex )
     {
         vertices.add( vertex );
         return true;
     }
 
     /**
-     * 
-     *
-     * @return
+     * {@inheritDoc}
      */
-    public List<V> getVertices()
+    @Override
+    public List<BaseLabeledVertex> onCompleted()
     {
         return unmodifiableList( vertices );
     }

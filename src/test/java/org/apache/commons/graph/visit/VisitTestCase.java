@@ -177,12 +177,8 @@ public final class VisitTestCase
 
         // actual node set
 
-        NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge> visitor =
-            new NodeSequenceVisitor<BaseLabeledVertex, BaseLabeledEdge>();
-
-        visit( input ).from( new BaseLabeledVertex( "S" ) ).applyingDepthFirstSearch( visitor );
-
-        final List<BaseLabeledVertex> actual = visitor.getVertices();
+        final List<BaseLabeledVertex> actual =
+            visit( input ).from( new BaseLabeledVertex( "S" ) ).applyingDepthFirstSearch( new NodeSequenceVisitor() );
 
         // assertion
 
