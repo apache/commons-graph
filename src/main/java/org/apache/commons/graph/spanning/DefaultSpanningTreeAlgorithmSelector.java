@@ -70,8 +70,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     {
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PriorityQueue<WE> orderedEdges = new PriorityQueue<WE>( graph.getSize(),
-                                                                      new WeightedEdgesComparator<W, WE>( orderedMonoid ) );
+        final PriorityQueue<WE> orderedEdges =
+            new PriorityQueue<WE>( graph.getSize(), new WeightedEdgesComparator<W, WE>( orderedMonoid ) );
 
         for ( WE edge : graph.getEdges() )
         {
@@ -80,24 +80,23 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
 
         final DisjointSet<V> disjointSet = new DisjointSet<V>();
 
-        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
+        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
 
-        while ( settledNodes.size() < graph.getOrder() )
+        //fill the spanning tree with vertices.
+        for ( V v : graph.getVertices() )
+        {
+            spanningTree.addVertex( v );
+        }
+
+        while ( !orderedEdges.isEmpty() && settledNodes.size() < graph.getOrder()  )
         {
             WE edge = orderedEdges.remove();
 
             VertexPair<V> vertices = graph.getVertices( edge );
             V head = vertices.getHead();
             V tail = vertices.getTail();
-
-            if ( settledNodes.add( head ) )
-            {
-                spanningTree.addVertex( head );
-            }
-            if ( settledNodes.add( tail ) )
-            {
-                spanningTree.addVertex( tail );
-            }
+            settledNodes.add( head );
+            settledNodes.add( tail );
 
             if ( !disjointSet.find( head ).equals( disjointSet.find( tail ) ) )
             {
@@ -131,7 +130,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
                 WE edge = graph.getEdge( vertex, v );
 
                 // if the edge has not been already visited and its weight is less then the current Vertex weight
-                boolean weightLessThanCurrent = !shortestEdges.hasWeight( v )
+                boolean weightLessThanCurrent =
+                    !shortestEdges.hasWeight( v )
                         || orderedMonoid.compare( edge.getWeight(), shortestEdges.getWeight( v ) ) < 0;
                 if ( settledEdges.add( edge ) && weightLessThanCurrent )
                 {

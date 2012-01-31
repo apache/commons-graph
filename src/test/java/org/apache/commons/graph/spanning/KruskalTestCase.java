@@ -51,6 +51,7 @@ public final class KruskalTestCase
         BaseLabeledVertex f = new BaseLabeledVertex( "F" );
         BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
+
         input.addVertex( a );
         input.addVertex( b );
         input.addVertex( c );
@@ -58,6 +59,7 @@ public final class KruskalTestCase
         input.addVertex( e );
         input.addVertex( f );
         input.addVertex( g );
+
 
         input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
         input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> d", 5D ), d );
@@ -92,6 +94,51 @@ public final class KruskalTestCase
         expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> e", 5D ), e );
         expected.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> f", 6D ), f );
         expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> g", 9D ), g );
+
+        // Actual
+
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+
+        // assert!
+
+        assertEquals( expected, actual );
+    }
+
+
+    /**
+     * Test Graph and Prim's solution can be seen on
+     * <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Wikipedia</a>
+     */
+    @Test
+    public void verifyNotConnectedMinimumSpanningTree()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input
+            = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+
+
+        input.addVertex( a );
+        input.addVertex( b );
+        input.addVertex( c );
+        input.addVertex( d );
+
+        input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
+
+
+        // expected
+
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+
+        for ( BaseLabeledVertex vertex : input.getVertices() )
+        {
+            expected.addVertex( vertex );
+        }
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
 
         // Actual
 

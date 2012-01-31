@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-374" due-to="Marco Speranza">
+      Kruskal's algorithm doesn't accept sparse graph
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-372">
       Make the org.apache.commons.graph.visit.GraphVisitHandler able to return objects
     </action>
