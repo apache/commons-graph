@@ -62,6 +62,9 @@
     <action dev="simonetripodi" type="fix" issue="SANDBOX-350" due-to="Marco Speranza">
       Provide a Reverse-delete algorithm implementation
     </action>
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-348" due-to="Marco Speranza">
+      Implement the Boruvka's algorithm
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-346" due-to="Claudio Squarcella">
       DotExporter only exports weights that extend Number.
     </action>

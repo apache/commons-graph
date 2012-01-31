@@ -19,7 +19,16 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import static java.util.Collections.sort;
+import static org.apache.commons.graph.CommonsGraph.findConnectedComponent;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Assertions.checkState;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -59,8 +68,93 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
      */
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( OM orderedMonoid )
     {
-        // TODO Boruvka still needs to be implemented
-        return null;
+        /*
+         * <pre>
+         * procedure Boruvka MST(G(V; E)):
+         *     T <= V
+         *     while |T| < n  1 do
+         *         for all connected component C in T do
+         *             e <= the smallest-weight edge from C to another component in T
+         *             if e not exists in T then
+         *                 T <= T U {e}
+         *             end if
+         *         end for
+         * end while
+         *
+         * <pre>
+         */
+
+        Collection<List<V>> connectedComponents =
+            findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+
+        checkNotNull( connectedComponents, "Connectivity algorithms returns a null pointer" );
+        checkState( connectedComponents.size() == 1, "Boruvka's Algorithm cannot be calculated on not-connected graph." );
+
+        final List<WE> sortedEdge = new ArrayList<WE>();
+
+        for ( WE we : graph.getEdges() )
+        {
+            sortedEdge.add( we );
+        }
+
+        sort( sortedEdge, new WeightedEdgesComparator<W, WE>( orderedMonoid ) );
+
+        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
+
+        for ( V v : graph.getVertices() )
+        {
+            spanningTree.addVertex( v );
+        }
+
+        // find connected component into spanning tree.
+        connectedComponents = findConnectedComponent( spanningTree ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        do
+        {
+            Iterator<WE> it = sortedEdge.iterator();
+
+            while ( it.hasNext() )
+            {
+                WE edge = it.next();
+                VertexPair<V> pair = graph.getVertices( edge );
+                // find the vertices into the connected component.
+                for ( List<V> list : connectedComponents )
+                {
+                    boolean listContainsHead = list.contains( pair.getHead() );
+                    boolean listContainsTail = list.contains( pair.getTail() );
+
+                    if ( listContainsHead && listContainsTail )
+                    {
+                        // this edge is included into a connected component.
+                        it.remove();
+                        break;
+                    }
+                    else if ( listContainsHead )
+                    {
+                        spanningTree.addEdge( pair.getHead(), edge, pair.getTail() );
+                        it.remove();
+
+                        for ( List<V> l : connectedComponents )
+                        {
+                            if ( l == list )
+                            {
+                                continue;
+                            }
+
+                            if ( l.contains( pair.getTail() ) )
+                            {
+                                list.addAll( l );
+                                l.clear();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        while ( spanningTree.getSize() < spanningTree.getOrder() - 1 );
+
+        return spanningTree;
     }
 
     /**
@@ -82,13 +176,13 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
 
         final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
 
-        //fill the spanning tree with vertices.
+        // fill the spanning tree with vertices.
         for ( V v : graph.getVertices() )
         {
             spanningTree.addVertex( v );
         }
 
-        while ( !orderedEdges.isEmpty() && settledNodes.size() < graph.getOrder()  )
+        while ( !orderedEdges.isEmpty() && settledNodes.size() < graph.getOrder() )
         {
             WE edge = orderedEdges.remove();
 
@@ -129,9 +223,9 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
             {
                 WE edge = graph.getEdge( vertex, v );
 
-                // if the edge has not been already visited and its weight is less then the current Vertex weight
-                boolean weightLessThanCurrent =
-                    !shortestEdges.hasWeight( v )
+                // if the edge has not been already visited and its weight is
+                // less then the current Vertex weight
+                boolean weightLessThanCurrent = !shortestEdges.hasWeight( v )
                         || orderedMonoid.compare( edge.getWeight(), shortestEdges.getWeight( v ) ) < 0;
                 if ( settledEdges.add( edge ) && weightLessThanCurrent )
                 {
