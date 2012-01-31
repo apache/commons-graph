@@ -19,7 +19,6 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
-import static java.util.Arrays.asList;
 import static org.apache.commons.graph.CommonsGraph.visit;
 
 import java.util.ArrayList;
@@ -40,12 +39,12 @@ final class DefaultConnectivityAlgorithmsSelector<V extends Vertex, E extends Ed
 
     final private G graph;
 
-    final private V[] includedVertices;
+    final private Iterable<V> includedVertices;
 
-    public DefaultConnectivityAlgorithmsSelector( G graph, V... vertices )
+    public DefaultConnectivityAlgorithmsSelector( G graph, Iterable<V> includedVertices )
     {
         this.graph = graph;
-        this.includedVertices = vertices;
+        this.includedVertices = includedVertices;
     }
 
     /**
@@ -55,16 +54,9 @@ final class DefaultConnectivityAlgorithmsSelector<V extends Vertex, E extends Ed
     {
         final List<V> untouchedVertices = new ArrayList<V>();
 
-        if ( includedVertices != null )
+        for ( V v : includedVertices )
         {
-            untouchedVertices.addAll( asList( includedVertices ) );
-        }
-        else
-        {
-            for ( V v : graph.getVertices() )
-            {
-                untouchedVertices.add( v );
-            }
+            untouchedVertices.add( v );
         }
 
         final Collection<List<V>> connectedVertices = new LinkedList<List<V>>();

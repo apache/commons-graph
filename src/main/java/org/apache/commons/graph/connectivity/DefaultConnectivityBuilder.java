@@ -19,6 +19,10 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
+import static java.util.Arrays.asList;
+
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
@@ -41,7 +45,9 @@ public class DefaultConnectivityBuilder<V extends Vertex, E extends Edge, G exte
      */
     public ConnectivityAlgorithmsSelector<V, E, G> includingVertices( V... vertices )
     {
-        return new DefaultConnectivityAlgorithmsSelector<V, E, G>( graph, vertices );
+        vertices = checkNotNull( vertices,
+                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
+        return new DefaultConnectivityAlgorithmsSelector<V, E, G>( graph, asList( vertices ) );
     }
 
     /**
@@ -49,7 +55,7 @@ public class DefaultConnectivityBuilder<V extends Vertex, E extends Edge, G exte
      */
     public ConnectivityAlgorithmsSelector<V, E, G> includingAllVertices()
     {
-        return new DefaultConnectivityAlgorithmsSelector<V, E, G>( graph, (V[]) null );
+        return new DefaultConnectivityAlgorithmsSelector<V, E, G>( graph, graph.getVertices() );
     }
 
 }
