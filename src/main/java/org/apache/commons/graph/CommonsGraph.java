@@ -26,6 +26,8 @@ import org.apache.commons.graph.builder.GraphConnection;
 import org.apache.commons.graph.builder.LinkedConnectionBuilder;
 import org.apache.commons.graph.coloring.ColorsBuilder;
 import org.apache.commons.graph.coloring.DefaultColorsBuilder;
+import org.apache.commons.graph.connectivity.ConnectivityBuilder;
+import org.apache.commons.graph.connectivity.DefaultConnectivityBuilder;
 import org.apache.commons.graph.export.DefaultToStreamBuilder;
 import org.apache.commons.graph.export.ToStreamBuilder;
 import org.apache.commons.graph.flow.DefaultFromHeadBuilder;
@@ -118,8 +120,23 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      */
     public static <V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E, G> findStronglyConnectedComponent( G graph )
     {
-        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a nulla graph" );
+        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
         return new DefaultSccAlgorithmSelector<V, E, G>( graph );
+    }
+
+    /**
+     * Calculates the input graph Connected Component.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <E> the Graph edges type.
+     * @param <G> the directed graph type
+     * @param graph the Graph which connected component has to be verified.
+     * @return the Connectivity algorithm builder
+     */
+    public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> ConnectivityBuilder<V, E, G> findConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
+        return new DefaultConnectivityBuilder<V, E, G>( graph );
     }
 
     /**
