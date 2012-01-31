@@ -21,7 +21,7 @@ package org.apache.commons.graph.export;
 
 import static java.lang.String.format;
 
-final class GraphExportException
+public final class GraphExportException
     extends Exception
 {
 
