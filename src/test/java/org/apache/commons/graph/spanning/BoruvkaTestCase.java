@@ -109,21 +109,13 @@ public final class BoruvkaTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
-        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
-        BaseLabeledVertex e = new BaseLabeledVertex( "E" );
-        BaseLabeledVertex f = new BaseLabeledVertex( "F" );
-        BaseLabeledVertex g = new BaseLabeledVertex( "G" );
-
-        input.addVertex( a );
-        input.addVertex( b );
-        input.addVertex( c );
-        input.addVertex( d );
-        input.addVertex( e );
-        input.addVertex( f );
-        input.addVertex( g );
+        input.addVertex( new BaseLabeledVertex( "A" ) );
+        input.addVertex( new BaseLabeledVertex( "B" ) );
+        input.addVertex( new BaseLabeledVertex( "C" ) );
+        input.addVertex( new BaseLabeledVertex( "D" ) );
+        input.addVertex( new BaseLabeledVertex( "E" ) );
+        input.addVertex( new BaseLabeledVertex( "F" ) );
+        input.addVertex( new BaseLabeledVertex( "G" ) );
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
