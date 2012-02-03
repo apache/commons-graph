@@ -63,7 +63,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      */
     public static <V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E, G> coloring( G graph )
     {
-        graph = checkNotNull( graph, "Null graph can not be exported" );
+        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
         return new DefaultColorsBuilder<V, E, G>( graph );
     }
 

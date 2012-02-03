@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 
@@ -75,11 +74,11 @@ final class DefaultColoringAlgorithmsSelector<V extends Vertex, E extends Edge, 
         {
             if ( !colorsIt.hasNext() )
             {
-                throw new GraphException( "The color set is too small." );
+                throw new NotEnoughColorsException( colors );
             }
             C color = colorsIt.next();
 
-            // this list contains all vertex colore with the current color.
+            // this list contains all vertex colors with the current color.
             List<V> currentColorVertices = new ArrayList<V>();
             Iterator<V> uncoloredVtxIterator = uncoloredOrderedVertices.iterator();
             while ( uncoloredVtxIterator.hasNext() )
@@ -144,7 +143,8 @@ final class DefaultColoringAlgorithmsSelector<V extends Vertex, E extends Edge, 
         {
             return partialColoredVertex;
         }
-        return null;
+
+        throw new NotEnoughColorsException( colors );
     }
 
     /**

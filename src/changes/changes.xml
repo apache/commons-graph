@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-382" due-to="Marco Speranza">
+      Add new test for coloring
+    </action>
     <action dev="simonetripodi" type="fix" issue="SANDBOX-381" due-to="Marco Speranza">
       Unused class GraphColoringBacktraking
     </action>

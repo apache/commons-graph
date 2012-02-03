@@ -26,9 +26,14 @@ import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildSudokuGraph;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Set;
 
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.UndirectedGraph;
+import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -43,6 +48,99 @@ public class GraphColoringTestCase extends AbstractColoringTest
 
     private Set<Integer> colors = createColorsList( 11 );
 
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        coloring( (UndirectedGraph<Vertex, Edge>) null ).withColors( null ).applyingGreedyAlgorithm();
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullColorGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    // empty
+                }
+
+            } );
+        coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
+    }
+
+    @Test
+    public void testEmptyGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    // empty
+                }
+
+            } );
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
+        assertNotNull( coloredVertices );
+        assertEquals( 0, coloredVertices.getRequiredColors() );
+    }
+
+    @Test(expected=NotEnoughColorsException.class)
+    public void testNotEnoughtColorGraph()
+        throws NotEnoughColorsException
+    {
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
+                    addVertex( two );
+                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
+
+                    addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
+                    addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
+                    addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
+                    }
+
+            } );
+        coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
+    }
+
+    @Test(expected=GraphException.class)
+    public void testNotEnoughtColorGreedyGraph()
+        throws GraphException
+    {
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
+                    addVertex( two );
+                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
+
+                    addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
+                    addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
+                    addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
+                    }
+
+            } );
+        coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
+    }
 
     @Test
     public void testCromaticNumber()
