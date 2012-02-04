@@ -1,5 +1,7 @@
 package org.apache.commons.graph;
 
+import java.io.Serializable;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -23,5 +25,6 @@ package org.apache.commons.graph;
  * A Vertex or Node is the fundamental unit out of which graphs are formed.
  */
 public interface Vertex
+    extends Serializable
 {
 }

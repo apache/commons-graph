@@ -36,15 +36,16 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     implements SpanningTree<V, WE, W>
 {
 
+    private static final long serialVersionUID = -4371938772248573879L;
+
     private Monoid<W> monoid;
+
     private W weight;
-    
+
     public MutableSpanningTree(Monoid<W> monoid) {
         this.monoid = monoid;
         this.weight = monoid.zero();
     }
-    
-
 
     /**
      * {@inheritDoc}

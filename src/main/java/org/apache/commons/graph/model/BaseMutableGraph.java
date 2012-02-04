@@ -39,6 +39,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     implements MutableGraph<V, E>
 {
 
+    private static final long serialVersionUID = 1549113549446254183L;
+
     /**
      * {@inheritDoc}
      */
@@ -88,7 +90,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     }
 
     /**
-     * 
+     *
      *
      * @param v
      */
@@ -120,7 +122,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
         {
             throw new GraphException( "Tail Vertex '%s' not present in the Graph", tail );
         }
-        
+
         if ( getEdge( head, tail ) != null )
         {
             throw new GraphException( "Edge %s is already present in the Graph", e );
@@ -147,7 +149,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     }
 
     /**
-     * 
+     *
      *
      * @param e
      */
@@ -169,7 +171,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     }
 
     /**
-     * 
+     *
      *
      * @param e
      */

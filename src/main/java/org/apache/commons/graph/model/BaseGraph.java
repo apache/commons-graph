@@ -35,13 +35,15 @@ import org.apache.commons.graph.VertexPair;
 /**
  * Basic abstract in-memory based of a simple read-only {@link Graph} implementation. Subclasses may load adjacency
  * list/edges set in the constructor, or expose {@link org.apache.commons.graph.MutableGraph} APIs.
- * 
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
 public abstract class BaseGraph<V extends Vertex, E extends Edge>
     implements Graph<V, E>
 {
+
+    private static final long serialVersionUID = -8066786787634472712L;
 
     private final Map<V, Set<V>> adjacencyList = new HashMap<V, Set<V>>();
 
@@ -109,7 +111,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
 
     /**
      * Returns the adjacency list where stored vertex/edges.
-     * 
+     *
      * @return the adjacency list where stored vertex/edges.
      */
     protected final Map<V, Set<V>> getAdjacencyList()

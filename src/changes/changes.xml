@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-384">
+      Make Graph components Serializable
+    </action>
     <action dev="simonetripodi" type="fix" issue="SANDBOX-384" due-to="Marco Speranza">
       Add test for Flow Algorithms
     </action>

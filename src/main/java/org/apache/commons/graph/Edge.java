@@ -1,5 +1,7 @@
 package org.apache.commons.graph;
 
+import java.io.Serializable;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -28,6 +30,7 @@ package org.apache.commons.graph;
  * intended from {@link #getHead()} to {@link #getTail()}.
  */
 public interface Edge
+    extends Serializable
 {
 
 }

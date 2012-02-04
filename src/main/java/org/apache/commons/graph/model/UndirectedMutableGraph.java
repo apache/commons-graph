@@ -34,6 +34,8 @@ public class UndirectedMutableGraph<V extends Vertex, E extends Edge>
     implements UndirectedGraph<V, E>
 {
 
+    private static final long serialVersionUID = 3067145277295525946L;
+
     /**
      * {@inheritDoc}
      */

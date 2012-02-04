@@ -38,6 +38,8 @@ final class ReverseDeleteGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
     implements Graph<V, WE>
 {
 
+    private static final long serialVersionUID = -543197749473412325L;
+
     private final Graph<V, WE> graph;
 
     private final List<WE> sortedEdge;

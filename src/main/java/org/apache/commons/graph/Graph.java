@@ -1,5 +1,7 @@
 package org.apache.commons.graph;
 
+import java.io.Serializable;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -23,11 +25,12 @@ package org.apache.commons.graph;
  * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs, called {@link Edge}s or
  * arcs, of certain entities called {@link Vertex} or node. As in mathematics, an {@link Edge} {@code (x,y)} is said to
  * point or go from {@code x} to {@code y}.
- * 
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
 public interface Graph<V extends Vertex, E extends Edge>
+    extends Serializable
 {
 
     /**

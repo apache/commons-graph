@@ -46,6 +46,8 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     implements Path<V, E>
 {
 
+    private static final long serialVersionUID = -7248626031673230570L;
+
     private final V source;
 
     private final V target;

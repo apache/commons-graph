@@ -29,6 +29,8 @@ public class BaseLabeledEdge
     implements Edge, Labeled
 {
 
+    private static final long serialVersionUID = 1L;
+
     private final String label;
 
     public BaseLabeledEdge( String label )

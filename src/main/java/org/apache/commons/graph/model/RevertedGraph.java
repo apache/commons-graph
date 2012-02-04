@@ -37,6 +37,8 @@ public final class RevertedGraph<V extends Vertex, E extends Edge>
     implements DirectedGraph<V, E>
 {
 
+    private static final long serialVersionUID = 5867643705350331891L;
+
     /**
      * The DirectedGraph has to be adapted.
      */

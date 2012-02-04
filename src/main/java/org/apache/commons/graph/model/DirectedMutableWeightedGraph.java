@@ -32,4 +32,6 @@ public class DirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedE
     extends DirectedMutableGraph<V, WE>
 {
 
+    private static final long serialVersionUID = 3749802534265570596L;
+
 }

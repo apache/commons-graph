@@ -39,7 +39,13 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
     implements WeightedPath<V, WE, W>
 {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7937494144459068796L;
+
     private W weight;
+
     private Monoid<W> monoid;
 
     public InMemoryWeightedPath( V start, V target, Monoid<W> monoid )

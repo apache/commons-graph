@@ -32,4 +32,6 @@ public class UndirectedMutableWeightedGraph<V extends Vertex, WE extends Weighte
     extends UndirectedMutableGraph<V, WE>
 {
 
+    private static final long serialVersionUID = -4846482321351740099L;
+
 }

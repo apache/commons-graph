@@ -29,6 +29,8 @@ public class BaseLabeledVertex
     implements Labeled, Vertex
 {
 
+    private static final long serialVersionUID = 1895831541078075882L;
+
     private final String label;
 
     public BaseLabeledVertex( String label )

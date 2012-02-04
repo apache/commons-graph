@@ -39,6 +39,8 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge>
     implements DirectedGraph<V, E>
 {
 
+    private static final long serialVersionUID = 630111985439492792L;
+
     private final Map<V, Set<V>> inbound = new HashMap<V, Set<V>>();
 
     private final Map<V, Set<V>> outbound = new HashMap<V, Set<V>>();
