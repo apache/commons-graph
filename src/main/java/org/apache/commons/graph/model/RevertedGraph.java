@@ -19,6 +19,8 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
@@ -51,11 +53,7 @@ public final class RevertedGraph<V extends Vertex, E extends Edge>
      */
     public RevertedGraph( DirectedGraph<V, E> directedGraph )
     {
-        if ( directedGraph == null )
-        {
-            throw new IllegalArgumentException( "Adapted DirectedGraph must be not null" );
-        }
-
+        directedGraph = checkNotNull( directedGraph, "Adapted DirectedGraph must be not null" );
         this.directedGraph = directedGraph;
     }
 
