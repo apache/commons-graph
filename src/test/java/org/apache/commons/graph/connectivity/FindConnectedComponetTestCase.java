@@ -21,13 +21,16 @@ package org.apache.commons.graph.connectivity;
 
 import static org.apache.commons.graph.CommonsGraph.findConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.graph.Edge;
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -39,6 +42,51 @@ import org.junit.Test;
 public final class FindConnectedComponetTestCase
 {
 
+    
+    @Test(expected=NullPointerException.class)
+    public void verifyNullGraph()
+    {
+        findConnectedComponent( (Graph<Vertex, Edge>) null ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+    }
+    
+    @Test
+    public void verifyEmptyGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                public void connect()
+                {
+                    //empty
+                }
+
+            } );
+        Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        assertNotNull( c );
+        assertEquals( 0, c.size() );
+    }
+    
+    @Test
+    public void verifyNullVerticesGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                public void connect()
+                {
+                    addVertex( new BaseLabeledVertex( "B" ) );
+                    addVertex( new BaseLabeledVertex( "C" ) );
+                }
+
+            } );
+        Collection<List<BaseLabeledVertex>> c =
+            findConnectedComponent( graph ).includingVertices().applyingMinimumSpanningTreeAlgorithm();
+        assertNotNull( c );
+        assertEquals( 0, c.size() );
+    }
+    
     @Test
     public void verifyConnectedComponents()
     {
