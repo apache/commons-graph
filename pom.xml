@@ -62,6 +62,11 @@
       <id>simonetripodi</id>
       <email>simonetripodi AT apache DOT org</email>
     </developer>
+    <developer>
+      <name>Thomas Neidhart</name>
+      <id>tn</id>
+      <email>tn AT apache DOT org</email>
+    </developer>
   </developers>
   <contributors>
     <contributor>
