@@ -35,7 +35,11 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkRule;
+import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
+import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
 
+@AxisRange( min = 0, max = 2 )
+@BenchmarkMethodChart( filePrefix = "minimum-spanning-tree" )
 public final class MinimumSpanningTreeBenchmark
 {
 
