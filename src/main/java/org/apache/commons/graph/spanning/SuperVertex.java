@@ -44,13 +44,13 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
     implements Iterable<V> {
 
     /** The reference to the graph. */
-    private G graph;
+    private final G graph;
 
     /** The set of vertices combined in this {@link SuperVertex}. */
-    private Set<V> vertices;
+    private final Set<V> vertices;
 
     /** The ordered set of edges to other {@link SuperVertex} objects. */
-    private TreeSet<WE> orderedEdges;
+    private final TreeSet<WE> orderedEdges;
 
     /**
      * Create a new {@link SuperVertex} instance with <code>source</code>
@@ -110,4 +110,5 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
     public WE getMinimumWeightEdge() {
         return orderedEdges.pollFirst();
     }
+
 }
