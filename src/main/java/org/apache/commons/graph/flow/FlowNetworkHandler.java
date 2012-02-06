@@ -36,7 +36,6 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * like Ford-Fulkerson or Edmonds-Karp.
  *
  * @param <V> the vertex type
- * @param <WE> the weighted edge type
  * @param <W> the weight type
  */
 class FlowNetworkHandler<V extends Vertex, W>
@@ -95,7 +94,7 @@ class FlowNetworkHandler<V extends Vertex, W>
     {
         // build actual augmenting path
         WeightedPath<V, WeightedEdge<W>, W> augmentingPath = predecessors.buildPath( source, target );
-
+        
         // find flow increment
         W flowIncrement = null;
         for ( WeightedEdge<W> edge : augmentingPath.getEdges() )
@@ -154,10 +153,17 @@ class FlowNetworkHandler<V extends Vertex, W>
     /**
      * {@inheritDoc}
      */
-    @Override
-    public boolean finishEdge( V head, WeightedEdge<W> edge, V tail )
+    public boolean discoverVertex( V vertex )
     {
-        if ( tail.equals( target ) )
+        return !vertex.equals( target );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean finishVertex( V vertex )
+    {
+        if ( vertex.equals( target ) )
         {
             // search ends when target vertex is reached
             foundAugmentingPath = true;

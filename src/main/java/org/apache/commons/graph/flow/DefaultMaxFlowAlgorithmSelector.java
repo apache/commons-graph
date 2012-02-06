@@ -61,11 +61,58 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
      */
     public <OM extends OrderedMonoid<W>> W applyingFordFulkerson( OM orderedMonoid )
     {
-        final OrderedMonoid<W> monoid = checkNotNull( orderedMonoid, "Wight monoid can not be null to find the max flow in the graph" );
+        final OM checkedOrderedMonoid = checkNotNull( orderedMonoid, "Weight monoid can not be null to find the max flow in the graph" );
 
         // create flow network
-        // note: use edges of more generic type WeightedEdge<W> to allow for newly created edges
-        DirectedGraph<V, WeightedEdge<W>> flowNetwork = newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
+        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedOrderedMonoid );
+
+        // create flow network handler
+        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedOrderedMonoid );
+
+        // perform depth first search
+        visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
+
+        while ( flowNetworkHandler.hasAugmentingPath() )
+        {
+            // update flow network
+            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
+            // look for another augmenting path with depth first search
+            visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
+        }
+
+        return flowNetworkHandler.onCompleted();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <OM extends OrderedMonoid<W>> W applyingEdmondsKarp( OM orderedMonoid )
+    {
+        final OM checkedOrderedMonoid = checkNotNull( orderedMonoid, "Weight monoid can not be null to find the max flow in the graph" );
+
+        // create flow network
+        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedOrderedMonoid );
+
+        // create flow network handler
+        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedOrderedMonoid );
+
+        // perform breadth first search
+        visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
+
+        while ( flowNetworkHandler.hasAugmentingPath() )
+        {
+            // update flow network
+            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
+            // look for another augmenting path with breadth first search
+            visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
+        }
+
+        return flowNetworkHandler.onCompleted();
+    }
+
+    private <OM extends OrderedMonoid<W>> DirectedGraph<V, WeightedEdge<W>> newFlowNetwok( final G graph, final OM orderedMonoid )
+    {
+        return newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
         {
             @Override
             public void connect()
@@ -87,38 +134,12 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
                     if ( graph.getEdge( tail, head ) == null )
                     {
                         // complete the flow network with a zero-capacity inverse edge
-                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, monoid.zero() ) )
+                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, orderedMonoid.zero() ) )
                             .from( tail ).to( head );
                     }
                 }
             }
         } );
-
-        // create flow network handler
-        FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, monoid );
-
-        // perform depth first search
-        visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
-
-        while ( flowNetworkHandler.hasAugmentingPath() )
-        {
-            // update flow network
-            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
-            // look for another augmenting path
-            visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
-        }
-
-        return flowNetworkHandler.onCompleted();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public <OM extends OrderedMonoid<W>> W applyingEdmondsKarp( OM orderedMonoid )
-    {
-        orderedMonoid = checkNotNull( orderedMonoid, "Wight monoid can not be null to find the max flow in the graph" );
-        // TODO add missing implementation!
-        return null;
     }
 
 }

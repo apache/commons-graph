@@ -99,13 +99,14 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
                 while ( connected.hasNext() )
                 {
                     V w = connected.next();
-                    if ( visitedVertices.add( w ) )
+                    if ( !visitedVertices.contains( w ) )
                     {
                         E e = graph.getEdge( v, w );
 
                         if ( handler.discoverEdge( v, e, w ) )
                         {
                             vertexQueue.offer( w );
+                            visitedVertices.add( w );
                         }
 
                         if ( handler.finishEdge( v, e, w ) )
@@ -116,7 +117,6 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
                 }
 
             }
-
             if ( handler.finishVertex( v ) )
             {
                 visitingGraph = false;
@@ -157,13 +157,14 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
                 while ( connected.hasNext() )
                 {
                     V w = connected.next();
-                    if ( visitedVertices.add( w ) )
+                    if ( !visitedVertices.contains( w ) )
                     {
                         E e = graph.getEdge( v, w );
 
                         if ( handler.discoverEdge( v, e, w ) )
                         {
                             vertexStack.push( w );
+                            visitedVertices.add( w );
                         }
 
                         if ( handler.finishEdge( v, e, w ) ) {
