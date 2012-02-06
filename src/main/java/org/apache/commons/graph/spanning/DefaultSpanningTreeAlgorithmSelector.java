@@ -19,16 +19,13 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import static java.util.Collections.sort;
-import static org.apache.commons.graph.CommonsGraph.findConnectedComponent;
-import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -63,9 +60,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
         this.source = source;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( OM orderedMonoid )
     {
         /*
@@ -79,84 +74,77 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
          *                 T <= T U {e}
          *             end if
          *         end for
-         * end while
-         *
+         *     end while
          * <pre>
          */
-
-        Collection<List<V>> connectedComponents =
-            findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
-
-        checkNotNull( connectedComponents, "Connectivity algorithms returns a null pointer" );
-        checkState( connectedComponents.size() == 1, "Boruvka's Algorithm cannot be calculated on not-connected graph." );
-
-        final List<WE> sortedEdge = new ArrayList<WE>();
-
-        for ( WE we : graph.getEdges() )
-        {
-            sortedEdge.add( we );
-        }
-
-        sort( sortedEdge, new WeightedEdgesComparator<W, WE>( orderedMonoid ) );
-
-        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
+        
+        final MutableSpanningTree<V, WE, W> spanningTree =
+            new MutableSpanningTree<V, WE, W>( orderedMonoid );
+        
+        final Set<SuperVertex<V, W, WE, G, OM>> components =
+            new HashSet<SuperVertex<V, W, WE, G, OM>>( graph.getOrder() );
+        
+        final Map<V, SuperVertex<V, W, WE, G, OM>> mapping =
+            new HashMap<V, SuperVertex<V, W, WE, G, OM>>( graph.getOrder() );
 
         for ( V v : graph.getVertices() )
         {
+            // create a super vertex for each vertex
+            final SuperVertex<V, W, WE, G, OM> sv =
+                new SuperVertex<V, W, WE, G, OM>( v, graph, orderedMonoid );
+            components.add( sv );
+            // add a mapping for each vertex to its corresponding super vertex
+            mapping.put( v, sv );
+            // add each vertex to the spanning tree
             spanningTree.addVertex( v );
         }
 
-        // find connected component into spanning tree.
-        connectedComponents = findConnectedComponent( spanningTree ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
-        do
-        {
-            Iterator<WE> it = sortedEdge.iterator();
-
-            while ( it.hasNext() )
-            {
-                WE edge = it.next();
-                VertexPair<V> pair = graph.getVertices( edge );
-                // find the vertices into the connected component.
-                for ( List<V> list : connectedComponents )
-                {
-                    boolean listContainsHead = list.contains( pair.getHead() );
-                    boolean listContainsTail = list.contains( pair.getTail() );
-
-                    if ( listContainsHead && listContainsTail )
-                    {
-                        // this edge is included into a connected component.
-                        it.remove();
-                        break;
-                    }
-                    else if ( listContainsHead )
-                    {
-                        spanningTree.addEdge( pair.getHead(), edge, pair.getTail() );
-                        it.remove();
-
-                        for ( List<V> l : connectedComponents )
-                        {
-                            if ( l == list )
-                            {
-                                continue;
-                            }
-
-                            if ( l.contains( pair.getTail() ) )
-                            {
-                                list.addAll( l );
-                                l.clear();
-                                break;
-                            }
-                        }
-                        break;
-                    }
+        while ( components.size() > 1 ) {
+            List<WE> edges = new LinkedList<WE>();
+            for ( SuperVertex<V, W, WE, G, OM> v : components ) {
+                // get the minimum edge for each component to any other component
+                WE edge = v.getMinimumWeightEdge();
+                if (edge != null) {
+                    edges.add( edge );
                 }
             }
-        }
-        while ( spanningTree.getSize() < spanningTree.getOrder() - 1 );
 
+            // if there is no edge anymore for a component, and there is still more than 1 component,
+            // the graph is unconnected
+            checkState(!edges.isEmpty() || components.size() == 1, "unconnected graph");
+            
+            for ( WE edge : edges ) {
+                VertexPair<V> pair = graph.getVertices( edge );
+                V head = pair.getHead();
+                V tail = pair.getTail();
+                
+                // find the super vertices corresponding to this edge
+                SuperVertex<V, W, WE, G, OM> headSuper = mapping.get( head );
+                SuperVertex<V, W, WE, G, OM> tailSuper = mapping.get( tail );
+                
+                // merge them, if they are not the same
+                if ( headSuper != tailSuper ) {
+                    headSuper.merge( tailSuper );
+                
+                    // update the mapping for each merged vertex
+                    for ( V v : tailSuper ) {
+                        mapping.put( v, headSuper );
+                    }
+                
+                    // remove the merged super vertex from the components set
+                    components.remove( tailSuper );
+
+                    // add the edge to the spanning tree
+                    if ( spanningTree.getVertices( edge ) == null ) {
+                        spanningTree.addEdge( head, edge, tail );
+                    }
+                }
+            }            
+        }
+        
         return spanningTree;
     }
-
+    
     /**
      * {@inheritDoc}
      */
