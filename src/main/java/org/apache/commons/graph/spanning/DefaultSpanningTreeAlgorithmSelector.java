@@ -77,13 +77,13 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
          *     end while
          * <pre>
          */
-        
+
         final MutableSpanningTree<V, WE, W> spanningTree =
             new MutableSpanningTree<V, WE, W>( orderedMonoid );
-        
+
         final Set<SuperVertex<V, W, WE, G, OM>> components =
             new HashSet<SuperVertex<V, W, WE, G, OM>>( graph.getOrder() );
-        
+
         final Map<V, SuperVertex<V, W, WE, G, OM>> mapping =
             new HashMap<V, SuperVertex<V, W, WE, G, OM>>( graph.getOrder() );
 
@@ -99,52 +99,59 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
             spanningTree.addVertex( v );
         }
 
-        while ( components.size() > 1 ) {
+        while ( components.size() > 1 )
+        {
             List<WE> edges = new LinkedList<WE>();
-            for ( SuperVertex<V, W, WE, G, OM> v : components ) {
+            for ( SuperVertex<V, W, WE, G, OM> v : components )
+            {
                 // get the minimum edge for each component to any other component
                 WE edge = v.getMinimumWeightEdge();
-                if (edge != null) {
+                if ( edge != null )
+                {
                     edges.add( edge );
                 }
             }
 
             // if there is no edge anymore for a component, and there is still more than 1 component,
             // the graph is unconnected
-            checkState(!edges.isEmpty() || components.size() == 1, "unconnected graph");
-            
-            for ( WE edge : edges ) {
+            checkState( !edges.isEmpty() || components.size() == 1, "unconnected graph" );
+
+            for ( WE edge : edges )
+            {
                 VertexPair<V> pair = graph.getVertices( edge );
                 V head = pair.getHead();
                 V tail = pair.getTail();
-                
+
                 // find the super vertices corresponding to this edge
                 SuperVertex<V, W, WE, G, OM> headSuper = mapping.get( head );
                 SuperVertex<V, W, WE, G, OM> tailSuper = mapping.get( tail );
-                
+
                 // merge them, if they are not the same
-                if ( headSuper != tailSuper ) {
+                if ( headSuper != tailSuper )
+                {
                     headSuper.merge( tailSuper );
-                
+
                     // update the mapping for each merged vertex
-                    for ( V v : tailSuper ) {
+                    for ( V v : tailSuper )
+                    {
                         mapping.put( v, headSuper );
                     }
-                
+
                     // remove the merged super vertex from the components set
                     components.remove( tailSuper );
 
                     // add the edge to the spanning tree
-                    if ( spanningTree.getVertices( edge ) == null ) {
+                    if ( spanningTree.getVertices( edge ) == null )
+                    {
                         spanningTree.addEdge( head, edge, tail );
                     }
                 }
-            }            
+            }
         }
-        
+
         return spanningTree;
     }
-    
+
     /**
      * {@inheritDoc}
      */
