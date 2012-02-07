@@ -117,8 +117,7 @@ public final class BoruvkaTestCase
         input.addVertex( new BaseLabeledVertex( "F" ) );
         input.addVertex( new BaseLabeledVertex( "G" ) );
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
 
         fail( "Exception not thrown!. Boruvka's algorithm cannot be calculated on a not-connected graph." );
     }

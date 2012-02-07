@@ -23,7 +23,6 @@ import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
 
-import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
@@ -40,19 +39,20 @@ import org.junit.Test;
  */
 public final class FordFulkersonTestCase
 {
+
     @Test(expected=NullPointerException.class)
     public void testNullGraph()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        findMaxFlow( (DirectedGraph<Vertex, WeightedEdge<Integer>>) null ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
+        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
     }
 
     @Test(expected=NullPointerException.class)
     public void testNullGraphAndVertices()
     {
-        findMaxFlow( (DirectedGraph<Vertex, WeightedEdge<Integer>>) null ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeight() );
+        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeight() );
     }
 
     @Test

@@ -1,4 +1,4 @@
-package org.apache.commons.graph.model;
+package org.apache.commons.graph;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,20 +19,15 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
-
 /**
- * A memory-based implementation of a mutable, directed weighted Graph.
+ * A weighted graph associates a label (weight) with every edge in the graph.
  *
- * @param <V> the Graph vertices type
- * @param <WE> the WeightedEdge edges type
+ * @param <V> the Graph vertices type.
+ * @param <WE> the Graph weighted edges type.
+ * @param <W> the weight type
  */
-public class DirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
-    extends DirectedMutableGraph<V, WE> implements WeightedGraph<V, WE, W>
+public interface WeightedGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
+    extends Graph<V, WE>
 {
-
-    private static final long serialVersionUID = 3749802534265570596L;
 
 }
