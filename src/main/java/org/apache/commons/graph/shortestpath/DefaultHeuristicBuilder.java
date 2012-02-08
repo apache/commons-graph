@@ -53,14 +53,14 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
         this.orderedMonoid = orderedMonoid;
     }
 
-
     /**
      * {@inheritDoc}
      */
     public <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withEuristic( H heuristic )
     {
         heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
-     // Cost from start along best known path.
+
+        // Cost from start along best known path.
         final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( orderedMonoid );
         gScores.setWeight( start, orderedMonoid.zero() );
 
