@@ -107,7 +107,7 @@ public final class AStarTestCase
         // actual path
 
         Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
-            findShortestPath( graph ).from( start ).to( goal ).applyingAStar( new DoubleWeight() ).withEuristic( heuristic );
+            findShortestPath( graph ).from( start ).to( goal ).applyingAStar( new DoubleWeight() ).withHeuristic( heuristic );
 
         // assert!
 
