@@ -41,6 +41,6 @@ public interface HeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, 
      * @param <H>
      * @return
      */
-    <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withEuristic( H heuristic );
+    <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withHeuristic( H heuristic );
 
 }

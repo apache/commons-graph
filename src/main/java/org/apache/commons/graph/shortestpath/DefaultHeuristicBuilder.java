@@ -56,7 +56,7 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
     /**
      * {@inheritDoc}
      */
-    public <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withEuristic( H heuristic )
+    public <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withHeuristic( H heuristic )
     {
         heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
 
