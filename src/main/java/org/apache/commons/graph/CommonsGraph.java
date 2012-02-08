@@ -56,11 +56,6 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
         return new DefaultToStreamBuilder<V, E, G>( graph );
     }
 
-    /**
-     *
-     *
-     * @param graph
-     */
     public static <V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E, G> coloring( G graph )
     {
         graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
