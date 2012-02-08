@@ -19,9 +19,9 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
@@ -32,7 +32,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-public interface PathSourceSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
+public interface PathSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
 {
 
     /**
@@ -49,6 +49,6 @@ public interface PathSourceSelector<V extends Vertex, W, WE extends WeightedEdge
      *
      * @param source
      */
-    TargetSourceSelector<V, W, WE, G> from( V source );
-    
+    TargetSourceSelector<V, WE, W, G> from( V source );
+
 }

@@ -19,8 +19,8 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 import static junit.framework.Assert.assertEquals;
-import static org.apache.commons.graph.shortestpath.BellmannFord.findShortestPath;
 
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -79,7 +79,7 @@ public final class BellmannFordTestCase
 
         // the actual weighted path
         AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
-            findShortestPath( graph, one );
+            findShortestPath( graph ).from( one ).applyingBelmannFord( new DoubleWeight() );
 
         WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             allVertexPairsShortestPath.findShortestPath( one, three );

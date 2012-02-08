@@ -19,44 +19,36 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.DirectedGraph;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
-/**
- * Contains the Bellman-Ford's shortest path algorithm implementation.
- */
-public final class BellmannFord
+final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+    implements TargetSourceSelector<V, WE, W, G>
 {
 
-    /**
-     * This class can not be instantiated directly
-     */
-    private BellmannFord()
+    private final G graph;
+
+    private final V source;
+
+    public DefaultTargetSourceSelector( G graph, V source )
     {
-        // do nothing
+        this.graph = graph;
+        this.source = source;
     }
 
     /**
-     * Applies the classical Bellman-Ford's algorithm to find the shortest path from the source to the target, if exists.
-     *
-     * @param <V> the Graph vertices type
-     * @param <WE> the Graph weighted edges type
-     * @param <W> the weight type
-     * @param <G> the Graph type
-     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
-     * @param source the shortest path source Vertex
-     * @param orderedMonoid the {@code OrderedMonoid} needed to handle weights
-     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE, W> findShortestPath( G graph,
-                                                                                                                                                           V source,
-                                                                                                                                                           OrderedMonoid<W> orderedMonoid )
+    public <OM extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( OM orderedMonoid )
     {
+        orderedMonoid = checkNotNull( orderedMonoid, "Belmann-Ford algorithm can not be applied using a null weight monoid" );
+
         final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
         shortestDistances.setWeight( source, orderedMonoid.zero() );
 
@@ -122,20 +114,12 @@ public final class BellmannFord
     }
 
     /**
-     * Applies the classical Bellman-Ford's algorithm to an edge weighted graph with weights of type Double
-     * to find the shortest path from the source to the target, if exists.
-     *
-     * @param <V> the Graph vertices type
-     * @param <WE> the Graph weighted edges type
-     * @param <G> the Graph type
-     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
-     * @param source the shortest path source Vertex
-     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends DirectedGraph<V, WE>> AllVertexPairsShortestPath<V, WE, Double> findShortestPath( G graph,
-                                                                                                                                                                  V source )
+    public ShortestPathAlgorithmSelector<V, WE, W, G> to( V target )
     {
-        return findShortestPath( graph, source, new DoubleWeight() );
+        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
+        return new DefaultShortestPathAlgorithmSelector<V, WE, W, G>( graph, source, target );
     }
 
 }

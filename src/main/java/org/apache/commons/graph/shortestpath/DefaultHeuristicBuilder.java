@@ -19,53 +19,48 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
-/**
- * Contains the A* shortest path algorithm implementation.
- */
-public final class AStar
+final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, OM extends OrderedMonoid<W>>
+    implements HeuristicBuilder<V, WE, W, G, OM>
 {
 
-    /**
-     * This class can not be instantiated directly
-     */
-    private AStar()
+    private final G graph;
+
+    private final V start;
+
+    private final V goal;
+
+    private final OM orderedMonoid;
+
+    public DefaultHeuristicBuilder( G graph, V source, V target, OM orderedMonoid )
     {
-        // do nothing
+        this.graph = graph;
+        this.start = source;
+        this.goal = target;
+        this.orderedMonoid = orderedMonoid;
     }
 
+
     /**
-     * Applies the classical A* algorithm to find the shortest path from the source to the target, if exists.
-     *
-     * @param <V> the Graph vertices type
-     * @param <WE> the Graph weighted edges type
-     * @param <W> the weight type
-     * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
-     * @param start the shortest path source Vertex
-     * @param goal the shortest path target Vertex
-     * @param heuristic the <i>h(x)</i> function
-     * @param orderedMonoid the ordered monoid needed to handle operations on weights
-     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>> WeightedPath<V, WE, W> findShortestPath( Graph<V, WE> graph,
-                                                                                                             V start,
-                                                                                                             V goal,
-                                                                                                             Heuristic<V, W> heuristic,
-                                                                                                             OrderedMonoid<W> orderedMonoid )
+    public <H extends Heuristic<V, W>> WeightedPath<V, WE, W> withEuristic( H heuristic )
     {
-        // Cost from start along best known path.
+        heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
+     // Cost from start along best known path.
         final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( orderedMonoid );
         gScores.setWeight( start, orderedMonoid.zero() );
 
@@ -120,26 +115,6 @@ public final class AStar
         }
 
         throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", start, goal, graph );
-    }
-    
-    /**
-     * Applies the classical A* algorithm to an edge weighted graph with weights of type Double
-     * to find the shortest path from the source to the target, if exists.
-     *
-     * @param <V> the Graph vertices type
-     * @param <WE> the Graph weighted edges type
-     * @param graph the Graph which shortest path from {@code source} to {@code target} has to be found
-     * @param start the shortest path source Vertex
-     * @param goal the shortest path target Vertex
-     * @param heuristic the <i>h(x)</i> function
-     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> WeightedPath<V, WE, Double> findShortestPath( Graph<V, WE> graph,
-                                                                                                                    V start,
-                                                                                                                    V goal,
-                                                                                                                    Heuristic<V, Double> heuristic )
-    {
-        return findShortestPath( graph, start, goal, heuristic, new DoubleWeight() );
     }
 
 }

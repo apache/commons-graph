@@ -19,51 +19,52 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
-/**
- * Contains the Dijkstra's shortest path algorithm implementation.
- */
-public final class Dijkstra
+final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+    implements ShortestPathAlgorithmSelector<V, WE, W, G>
 {
 
-    /**
-     * This class can not be instantiated directly
-     */
-    private Dijkstra()
+    private final G graph;
+
+    private final V source;
+
+    private final V target;
+
+    public DefaultShortestPathAlgorithmSelector( G graph, V source, V target )
     {
-        // do nothing
+        this.graph = graph;
+        this.source = source;
+        this.target = target;
     }
 
     /**
-     * Applies the classical Dijkstra's algorithm to find the shortest path from the source to the target, if exists.
-     *
-     * @param <V> the Graph vertices type
-     * @param <W> the weight type
-     * @param <WE> the Graph weighted edges type
-     * @param <G> the Graph type
-     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
-     * @param source the shortest path source Vertex
-     * @param target the shortest path target Vertex
-     * @param orderedMonoid the {@link OrderedMonoid} needed to handle operations on weights
-     * @return a path which describes the shortest path, if any,
-     *         otherwise a {@link PathNotFoundException} will be thrown
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>> WeightedPath<V, WE, W> findShortestPath( G graph,
-                                                                                                                                     V source,
-                                                                                                                                     V target,
-                                                                                                                                     OrderedMonoid<W> orderedMonoid )
+    public <OM extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, OM> applyingAStar( OM orderedMonoid )
     {
+        orderedMonoid = checkNotNull( orderedMonoid, "A* algorithm can not be applied using a null weight monoid" );
+        return new DefaultHeuristicBuilder<V, WE, W, G, OM>( graph, source, target, orderedMonoid );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <OM extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( OM orderedMonoid )
+    {
+        orderedMonoid = checkNotNull( orderedMonoid, "Dijkstra algorithm can not be applied using a null weight monoid" );
+
         final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
         shortestDistances.setWeight( source, orderedMonoid.zero() );
 
@@ -114,26 +115,6 @@ public final class Dijkstra
         }
 
         throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph );
-    }
-
-    /**
-     * Applies the classical Dijkstra's algorithm to an edge weighted graph with weights of type Double
-     * to find the shortest path from the source to the target, if exists.
-     *
-     * @param <V> the Graph vertices type
-     * @param <WE> the Graph weighted edges type
-     * @param <G> the Graph type
-     * @param graph the Graph whose shortest path from {@code source} to {@code target} has to be found
-     * @param source the shortest path source Vertex
-     * @param target the shortest path target Vertex
-     * @return a path which describes the shortest path, if any,
-     *         otherwise a {@link PathNotFoundException} will be thrown
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>, G extends Graph<V, WE>> WeightedPath<V, WE, Double> findShortestPath( G graph,
-                                                                                                                                            V source,
-                                                                                                                                            V target )
-    {
-        return findShortestPath( graph, source, target, new DoubleWeight() );
     }
 
 }

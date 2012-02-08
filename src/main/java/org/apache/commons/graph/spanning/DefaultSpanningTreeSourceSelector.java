@@ -21,7 +21,7 @@ package org.apache.commons.graph.spanning;
 
 import static java.util.Collections.reverseOrder;
 import static java.util.Collections.sort;
-import static org.apache.commons.graph.shortestpath.Dijkstra.findShortestPath;
+import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.shortestpath.PathNotFoundException;
 import org.apache.commons.graph.weight.OrderedMonoid;
@@ -89,7 +90,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
 
         sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( orderedMonoid ) ) );
 
-        Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE, W>( graph, sortedEdge, visitedEdge );
+        WeightedGraph<V, WE, W> tmpGraph = new ReverseDeleteGraph<V, WE, W>( graph, sortedEdge, visitedEdge );
 
         for ( Iterator<WE> iterator = sortedEdge.iterator(); iterator.hasNext(); )
         {
@@ -100,7 +101,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
 
             try
             {
-                findShortestPath( tmpGraph, vertices.getHead(), vertices.getTail(), orderedMonoid );
+                findShortestPath( tmpGraph ).from( vertices.getHead() ).to( vertices.getTail() ).applyingDijkstra( orderedMonoid );
             }
             catch ( PathNotFoundException ex )
             {

@@ -19,19 +19,20 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  *
  * @param <V>
- * @param <W>
  * @param <WE>
+ * @param <W>
  * @param <G>
  */
-public interface HeuristicBuilder<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
+public interface HeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, OM extends OrderedMonoid<W>>
 {
 
     /**

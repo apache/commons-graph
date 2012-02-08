@@ -20,7 +20,7 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import static junit.framework.Assert.assertEquals;
-import static org.apache.commons.graph.shortestpath.AStar.findShortestPath;
+import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,7 +106,8 @@ public final class AStarTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph, start, goal, heuristic );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+            findShortestPath( graph ).from( start ).to( goal ).applyingAStar( new DoubleWeight() ).withEuristic( heuristic );
 
         // assert!
 

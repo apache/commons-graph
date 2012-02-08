@@ -20,7 +20,7 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import static junit.framework.Assert.assertEquals;
-import static org.apache.commons.graph.shortestpath.Dijkstra.findShortestPath;
+import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 
 import org.apache.commons.graph.Path;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -83,7 +83,7 @@ public final class DijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph, one, five );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph ).from( one ).to( five ).applyingDijkstra( new DoubleWeight() );
 
         // assert!
 

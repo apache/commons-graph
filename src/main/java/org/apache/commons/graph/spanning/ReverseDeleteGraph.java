@@ -19,14 +19,15 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.graph.WeightedGraph;
 
 /**
  *
@@ -35,7 +36,7 @@ import java.util.List;
  * @param <W>
  */
 final class ReverseDeleteGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
-    implements Graph<V, WE>
+    implements WeightedGraph<V, WE, W>
 {
 
     private static final long serialVersionUID = -543197749473412325L;

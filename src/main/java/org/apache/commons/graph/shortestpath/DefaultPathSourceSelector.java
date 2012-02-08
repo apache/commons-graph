@@ -19,44 +19,37 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
 
-/**
- * Contains the Floyd-Warshall's shortest paths algorithm implementation.
- */
-public final class FloydWarshall
+public final class DefaultPathSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+    implements PathSourceSelector<V, WE, W, G>
 {
 
-    /**
-     * This class can't be explicitly instantiated.
-     */
-    private FloydWarshall()
+    private final G graph;
+
+    public DefaultPathSourceSelector( G graph )
     {
-        // do nothing
+        this.graph = graph;
     }
 
     /**
-     * Applies the classical Floyd-Warshall's algorithm to find all vertex shortest path
-     *
-     * @param <V> the Graph vertices type.
-     * @param <WE> the Graph weighted edges type
-     * @param <W> the weight type
-     * @param graph the input graph
-     * @param orderedMonoid the {@link OrderedMonoid} needed to handle operations on weights
-     * @return a data structure which contains all vertex pairs shortest path.
+     * {@inheritDoc}
      */
-    public static <V extends Vertex, W, WE extends WeightedEdge<W>> AllVertexPairsShortestPath<V, WE, W> findAllVertexPairsShortestPath( Graph<V, WE> graph, OrderedMonoid<W> orderedMonoid )
+    public <OM extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( OM orderedMonoid )
     {
+        orderedMonoid = checkNotNull( orderedMonoid, "Floyd-Warshall algorithm can not be applied using a null weight monoid" );
+
         AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( orderedMonoid );
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
 
@@ -105,7 +98,7 @@ public final class FloydWarshall
                 {
                     PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
 
-                    pathReconstruction( predecessorsList, source, target, next, graph );
+                    pathReconstruction( predecessorsList, source, target, next );
                     if ( !predecessorsList.isEmpty() )
                     {
                         WeightedPath<V, WE, W> weightedPath = predecessorsList.buildPath( source, target );
@@ -121,24 +114,9 @@ public final class FloydWarshall
         return shortestPaths;
     }
 
-    /**
-     * Applies the classical Floyd-Warshall's algorithm to an edge weighted graph with weights of type Double
-     * to find all vertex shortest path.
-     *
-     * @param <V> the Graph vertices type.
-     * @param <WE> the Graph weighted edges type
-     * @param graph the input graph
-     * @return a data structure which contains all vertex pairs shortest path.
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<Double>> AllVertexPairsShortestPath<V, WE, Double> findAllVertexPairsShortestPath( Graph<V, WE> graph )
-    {
-        return findAllVertexPairsShortestPath( graph, new DoubleWeight() );
-    }
-
-    private static <V extends Vertex, WE extends WeightedEdge<W>, W> void pathReconstruction( PredecessorsList<V, WE, W> path,
-                                                                                                V source, V target,
-                                                                                                Map<VertexPair<V>, V> next,
-                                                                                                Graph<V, WE> graph )
+    private void pathReconstruction( PredecessorsList<V, WE, W> path,
+                                     V source, V target,
+                                     Map<VertexPair<V>, V> next )
     {
         V k = next.get( new VertexPair<Vertex>( source, target ) );
         if ( k == null )
@@ -152,9 +130,18 @@ public final class FloydWarshall
         }
         else
         {
-            pathReconstruction( path, source, k, next, graph );
-            pathReconstruction( path, k, target, next, graph );
+            pathReconstruction( path, source, k, next );
+            pathReconstruction( path, k, target, next );
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public TargetSourceSelector<V, WE, W, G> from( V source )
+    {
+        source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
+        return new DefaultTargetSourceSelector<V, WE, W, G>( graph, source );
     }
 
 }
