@@ -18,28 +18,22 @@
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>Commons Graph</title>
+    <title>Commons Graph - Getting started</title>
     <author email="dev@commons.apache.org">Commons Documentation Team</author>
   </properties>
   <body>
-    <section name="The Graph Component">
-      <p>The Apache Commons Graph package is a Java library for managing
-      <a href="http://en.wikipedia.org/wiki/Graph_(data_structure)">Graph</a> data structures, with strong emphasis on
-      Graph Algorithms and
-      <a href="http://en.wikipedia.org/wiki/Fluent_interface">fluent APIs</a>.</p>
+    <section name="Understanding the model">
+      <p>A <a href="../apidocs/org/apache/commons/graph/Graph.html">Graph</a> data structure consists of a finite set of
+      ordered pairs, called <a href="../apidocs/org/apache/commons/graph/Edge.html">Edge</a>s or arcs, of certain entity
+      called <a href="../apidocs/org/apache/commons/graph/Vertex.html">Vertex</a> or node.</p>
 
-      <subsection name="Status">
-        <ul>
-          <li>This code is in the commons <i>sandbox</i></li>
-          <li>The code is unreleased</li>
-          <li>Methods and classes can and will appear and disappear without warning</li>
-          <li>If you like the code and want to push it towards a release, join the <a href="./mail-lists.html">mailing list</a>!</li>
-        </ul>
-      </subsection>
-    </section>
+      <p>An <a href="../apidocs/org/apache/commons/graph/UndirectedGraph.html">UndirectedGraph</a> is one in which edges
+      have no orientation. The edge <code>(a, b)</code> is identical to the edge <code>(b, a)</code>, i.e., they are not
+      ordered pairs, but sets {u, v} (or 2-multisets) of vertices.</p>
 
-    <section name="Releases">
-      <p>None. This is a <i>sandbox</i> component.</p>
+      <p>A <a href="../apidocs/org/apache/commons/graph/DirectedGraph.html">DirectedGraph</a> is a Graph where an
+      edge <code>e = (a, b)</code> is considered to be directed from <code>a</code> to <code>b</code>;
+      <code>a</code> is called the head and <code>b</code> is called the tail of the arc.</p>
     </section>
   </body>
 </document>
