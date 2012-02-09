@@ -40,7 +40,7 @@ import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
 
 @AxisRange( min = 0, max = 2 )
 @BenchmarkMethodChart( filePrefix = "minimum-spanning-tree" )
-public final class MinimumSpanningTreeBenchmark
+public final class MinimumSpanningTreeBenchmarkTestCase
 {
 
     @Rule
