@@ -30,6 +30,12 @@
       <item name="Issue Tracking"          href="/issue-tracking.html"/>
     </menu>
 
+    <menu name="Graph Model">
+      <item name="Introduction"                  href="/model/intro.html" />
+      <item name="Base in-memory model"          href="/model/base.html" />
+      <item name="Populating Graph instances"    href="/model/intro.html" />
+    </menu>
+
     <menu name="Graph Algorithms">
       <item name="Coloring"                      href="/algorithms/coloring.html" />
       <item name="Flow"                          href="/algorithms/flow.html" />
