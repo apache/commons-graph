@@ -180,6 +180,42 @@
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.5.1</version>
       </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>jarjar-maven-plugin</artifactId>
+        <version>1.5</version>
+        <configuration>
+          <input>{classes}</input>
+          <output>${project.build.directory}/classes</output>
+          <overwrite>true</overwrite>
+          <skipManifest>true</skipManifest>
+          <excludes>
+            <exclude>*:*</exclude>
+          </excludes>
+          <rules>
+            <rule>
+              <pattern>org.apache.commons.graph.**.Default*</pattern>
+              <result>org.apache.commons.graph.@1.$@2</result>
+            </rule>
+            <rule>
+              <pattern>org.apache.commons.graph.utils.*</pattern>
+              <result>org.apache.commons.graph.utils.$@1</result>
+            </rule>
+            <keep>
+              <pattern>org.apache.commons.graph.**</pattern>
+            </keep>
+          </rules>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>jarjar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
