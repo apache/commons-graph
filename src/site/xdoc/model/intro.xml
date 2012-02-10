@@ -34,6 +34,83 @@
       <p>A <a href="../apidocs/org/apache/commons/graph/DirectedGraph.html">DirectedGraph</a> is a Graph where an
       edge <code>e = (a, b)</code> is considered to be directed from <code>a</code> to <code>b</code>;
       <code>a</code> is called the head and <code>b</code> is called the tail of the arc.</p>
+
+      <subsection name="Mutable Graphs">
+        <p>A <a href="../apidocs/org/apache/commons/graph/MutableGraph">MutableGraph</a> is a graph that supports the
+        addition and removal of vertices and edges.</p>
+
+        <p>The Apache Commons Graph design aims to eliminate all the boilerplate to describe vertices/edges relations
+        without sacrificing maintainability.</p>
+
+        <p>In Apache Commons Graph users implement connections, the
+        <a href="../apidocs/org/apache/commons/graph/builder/GraphConnection.html">GraphConnection</a> passes a
+        <a href="../apidocs/org/apache/commons/graph/builder/GraphConnector.html">GraphConnector</a> to your connection,
+        and your module uses the connector to add vertices and link them through edges.</p>
+
+<source>class MyConnection
+    implements GraphConnection&lt;BaseLabeledVertex, BaseLabeledWeightedEdge&lt;Double&gt;&gt;
+{
+
+    public void connect( GraphConnector&lt;BaseLabeledVertex, BaseLabeledWeightedEdge&lt;Double&gt;&gt; graphConnector )
+    {
+        BaseLabeledVertex start = graphConnector.addVertex( new BaseLabeledVertex( "start" ) );
+        BaseLabeledVertex a = graphConnector.addVertex( new BaseLabeledVertex( "a" ) );
+        BaseLabeledVertex b = graphConnector.addVertex( new BaseLabeledVertex( "b" ) );
+        BaseLabeledVertex c = graphConnector.addVertex( new BaseLabeledVertex( "c" ) );
+        BaseLabeledVertex d = graphConnector.addVertex( new BaseLabeledVertex( "d" ) );
+        BaseLabeledVertex e = graphConnector.addVertex( new BaseLabeledVertex( "e" ) );
+        BaseLabeledVertex goal = graphConnector.addVertex( new BaseLabeledVertex( "goal" ) );
+
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "start &lt;-&gt; a", 1.5D ) ).from( start ).to( a );
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "start &lt;-&gt; d", 2D ) ).from( start ).to( d );
+
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "a &lt;-&gt; b", 2D ) ).from( a ).to( b );
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "b &lt;-&gt; c", 3D ) ).from( b ).to( c );
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "c &lt;-&gt; goal", 3D ) ).from( c ).to( goal );
+
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "d &lt;-&gt; e", 3D ) ).from( d ).to( e );
+        graphConnector.addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "e &lt;-&gt; goal", 2D ) ).from( e ).to( goal );
+    }
+
+}</source>
+
+        <p>DRY (Don't Repeat Yourself): Repeating "graphConnector" over and over for each binding can get a little tedious.
+        The Apache COmmons Graph package provides a support class named
+        <a href="../apidocs/org/apache/commons/graph/builder/AbstractGraphConnection.html">AbstractGraphConnection</a>
+        which implicitly gives you access to <code>GraphConnector</code>'s methods. For example, we could extend
+        <code>AbstractGraphConnection</code> and rewrite the above connections as:</p>
+
+<source>class MyConnection
+    extends AbstractGraphConnection&lt;BaseLabeledVertex, BaseLabeledWeightedEdge&lt;Double&gt;&gt;
+{
+
+    public void connect()
+    {
+        BaseLabeledVertex start = addVertex( new BaseLabeledVertex( "start" ) );
+        BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+        BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+        BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+        BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
+        BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "e" ) );
+        BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
+
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "start &lt;-&gt; a", 1.5D ) ).from( start ).to( a );
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "start &lt;-&gt; d", 2D ) ).from( start ).to( d );
+
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "a &lt;-&gt; b", 2D ) ).from( a ).to( b );
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "b &lt;-&gt; c", 3D ) ).from( b ).to( c );
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "c &lt;-&gt; goal", 3D ) ).from( c ).to( goal );
+
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "d &lt;-&gt; e", 3D ) ).from( d ).to( e );
+        addEdge( new BaseLabeledWeightedEdge&lt;Double&gt;( "e &lt;-&gt; goal", 2D ) ).from( e ).to( goal );
+    }
+
+}</source>
+
+        <p>We'll use this syntax throughout the rest of the guide.</p>
+
+        <p></p>
+      </subsection>
     </section>
   </body>
 </document>
