@@ -19,16 +19,19 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
+import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.weight.primitive.IntegerWeight;
 import org.junit.Test;
-
-import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
-import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test for Edmonds-Karp algorithm implementation.
@@ -37,6 +40,73 @@ import static org.junit.Assert.assertEquals;
  */
 public class EdmondsKarpTestCase
 {
+    
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
+
+        // actual max flow
+        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>)  null ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        fail( "Null Pointer Exception not catched" );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullVertices()
+    {
+
+        final BaseLabeledVertex a = null;
+        final BaseLabeledVertex g = null;
+
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+                @Override
+                public void connect()
+                {
+                }
+
+            } );
+
+        // actual max flow
+        findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        fail( "Null Pointer Exception not catched" );
+    }
+
+    @Test
+    public void testSparse()
+    {
+        final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
+
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    addVertex( a );
+                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                    addVertex( new BaseLabeledVertex( "D" ) );
+                    addVertex( new BaseLabeledVertex( "E" ) );
+                    addVertex( new BaseLabeledVertex( "F" ) );
+                    addVertex( g );
+                    
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 3 ) ).from( a ).to( b );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> C", 4 ) ).from( b ).to( c );
+                }
+            } );
+
+        // expected max flow
+        final Integer expected = 0;
+
+        // actual max flow
+        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        assertEquals( actual, expected );
+    }
 
     @Test
     public void findMaxFlowAndVerify()

@@ -22,6 +22,7 @@ package org.apache.commons.graph.shortestpath;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
@@ -79,6 +80,10 @@ public final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>
         while ( !source.equals( vertex ) )
         {
             V predecessor = predecessors.get( vertex );
+            if ( predecessor == null )
+            {
+                throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
+            }
             WE edge = graph.getEdge( predecessor, vertex );
 
             path.addConnectionInHead( predecessor, edge, vertex );

@@ -26,6 +26,8 @@ import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.UndirectedGraph;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -41,6 +43,33 @@ import org.junit.Test;
 public class FloydWarshallTestCase
 {
 
+    @Test( expected = NullPointerException.class )
+    public void testNullGraah()
+    {
+        // the actual weighted path
+        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
+        fail( "Null Pointer Exception not catched" );
+    }
+
+    @Test( expected = PathNotFoundException.class )
+    public void testNotConnectGraph()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        graph.addVertex( a );
+        graph.addVertex( b );
+
+        // the actual weighted path
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
+            findShortestPath( graph ).applyingFloydWarshall( new DoubleWeight() );
+
+        p.findShortestPath( a, b );
+        fail( "PathNotFoundException not catched" );
+    }
+    
     @Test
     public void undirectedShortestPath()
     {

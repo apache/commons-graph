@@ -21,18 +21,75 @@ package org.apache.commons.graph.shortestpath;
 
 import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
+import static org.junit.Assert.fail;
 
 import org.apache.commons.graph.Path;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeight;
 import org.junit.Test;
 
 public final class DijkstraTestCase
 {
 
+    @Test( expected = NullPointerException.class )
+    public void testNullGraah()
+    {
+        // the actual weighted path
+        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
+        fail( "Null Pointer Exception not catched" );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullVertices()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+
+        // the actual weighted path
+        findShortestPath( graph ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
+
+        fail( "Null Pointer Exception not catched" );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullMonoid()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        graph.addVertex( a );
+        graph.addVertex( b );
+
+        // the actual weighted path
+        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( null );
+
+        fail( "Null Pointer Exception not catched" );
+    }
+    
+    @Test( expected = PathNotFoundException.class )
+    public void testNotConnectGraph()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        graph.addVertex( a );
+        graph.addVertex( b );
+
+        // the actual weighted path
+        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( new DoubleWeight() );
+    }
+    
     /**
      * Test Graph and Dijkstra's solution can be seen on
      * <a href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm>Wikipedia</a>
