@@ -105,10 +105,13 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
         {
             if ( !source.equals( target ) )
             {
-                try{
+                try
+                {
                     WeightedPath<V, WE, W> weightedPath = predecessors.buildPath( source, target );
                     allVertexPairsShortestPath.addShortestPath( source, target, weightedPath );
-                }catch (PathNotFoundException e) {
+                }
+                catch ( PathNotFoundException e )
+                {
                     continue;
                 }
             }

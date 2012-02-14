@@ -43,7 +43,7 @@ public final class BellmannFordTestCase
     {
         // the actual weighted path
         findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).applyingBelmannFord( new DoubleWeight() );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -57,7 +57,7 @@ public final class BellmannFordTestCase
             findShortestPath( graph ).from( null ).applyingBelmannFord( new DoubleWeight() );
 
         allVertexPairsShortestPath.findShortestPath( null, null );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -76,7 +76,7 @@ public final class BellmannFordTestCase
             findShortestPath( graph ).from( a ).applyingBelmannFord( null );
 
         allVertexPairsShortestPath.findShortestPath( a, b );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = PathNotFoundException.class )

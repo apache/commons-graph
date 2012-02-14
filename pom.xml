@@ -53,6 +53,11 @@
       <email>jason AT zenplex DOT com</email>
     </developer>
     <developer>
+      <name>Marco Speranza</name>
+      <id>marcosperanza</id>
+      <email>marcosperanza AT apache DOT org</email>
+    </developer>
+    <developer>
       <name>Oliver Heger</name>
       <id>oheger</id>
       <email>oheger AT apache DOT org</email>
@@ -72,10 +77,6 @@
     <contributor>
       <name>Claudio Squarcella</name>
       <email>squarcel AT dia DOT uniroma3 DOT it</email>
-    </contributor>
-    <contributor>
-      <name>Marco Speranza</name>
-      <email>marco DOT speranza79 AT gmail DOT com</email>
     </contributor>
     <contributor>
       <name>Matteo Moci</name>

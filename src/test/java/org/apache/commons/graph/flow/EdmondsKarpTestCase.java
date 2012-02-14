@@ -49,7 +49,7 @@ public class EdmondsKarpTestCase
 
         // actual max flow
         findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>)  null ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -71,7 +71,7 @@ public class EdmondsKarpTestCase
 
         // actual max flow
         findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test

@@ -44,7 +44,7 @@ public final class AStarTestCase
     public void testNullGraah()
     {
         findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -54,7 +54,7 @@ public final class AStarTestCase
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         findShortestPath( graph ).from( null ).to( null ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -64,7 +64,7 @@ public final class AStarTestCase
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         findShortestPath( graph ).from( new BaseLabeledVertex( "a" ) ).to( new BaseLabeledVertex( "b" ) ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -91,7 +91,7 @@ public final class AStarTestCase
         };
 
         findShortestPath( graph ).from( a ).to( b ).applyingAStar( null ).withHeuristic( heuristic );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = PathNotFoundException.class )

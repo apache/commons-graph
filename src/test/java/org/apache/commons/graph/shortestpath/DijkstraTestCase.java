@@ -43,7 +43,7 @@ public final class DijkstraTestCase
     {
         // the actual weighted path
         findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -55,7 +55,7 @@ public final class DijkstraTestCase
         // the actual weighted path
         findShortestPath( graph ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
 
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -72,7 +72,7 @@ public final class DijkstraTestCase
         // the actual weighted path
         findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( null );
 
-        fail( "Null Pointer Exception not catched" );
+        fail( "Null Pointer Exception not caught" );
     }
     
     @Test( expected = PathNotFoundException.class )
