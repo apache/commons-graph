@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Set;
 
 import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
@@ -90,35 +89,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
         assertEquals( 0, coloredVertices.getRequiredColors() );
     }
 
-    @Test(expected=NotEnoughColorsException.class)
-    public void testNotEnoughtColorGraph()
-        throws NotEnoughColorsException
-    {
-        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
-
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
-            {
-
-                @Override
-                public void connect()
-                {
-                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
-                    addVertex( two );
-                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
-
-                    addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
-                    addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
-                    addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
-                    }
-
-            } );
-        coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
-    }
-
-    @Test(expected=GraphException.class)
+    @Test( expected = NotEnoughColorsException.class )
     public void testNotEnoughtColorGreedyGraph()
-        throws GraphException
     {
         final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
 
@@ -136,7 +108,7 @@ public class GraphColoringTestCase extends AbstractColoringTest
                     addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
                     addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
                     addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
-                    }
+                }
 
             } );
         coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
