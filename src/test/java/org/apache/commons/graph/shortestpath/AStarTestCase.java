@@ -41,10 +41,9 @@ public final class AStarTestCase
 {
 
     @Test( expected = NullPointerException.class )
-    public void testNullGraah()
+    public void testNullGraph()
     {
         findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -54,7 +53,6 @@ public final class AStarTestCase
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         findShortestPath( graph ).from( null ).to( null ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -64,7 +62,6 @@ public final class AStarTestCase
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         findShortestPath( graph ).from( new BaseLabeledVertex( "a" ) ).to( new BaseLabeledVertex( "b" ) ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -75,23 +72,30 @@ public final class AStarTestCase
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        graph.addVertex( a );
-        graph.addVertex( b );
-
         final Map<BaseLabeledVertex, Double> heuristics = new HashMap<BaseLabeledVertex, Double>();
+        Heuristic<BaseLabeledVertex, Double> heuristic = null;
 
-        Heuristic<BaseLabeledVertex, Double> heuristic = new Heuristic<BaseLabeledVertex, Double>()
+        try
         {
+            graph.addVertex( a );
+            graph.addVertex( b );
 
-            public Double applyHeuristic( BaseLabeledVertex current, BaseLabeledVertex goal )
+            heuristic = new Heuristic<BaseLabeledVertex, Double>()
             {
-                return heuristics.get( current );
-            }
 
-        };
+                public Double applyHeuristic( BaseLabeledVertex current, BaseLabeledVertex goal )
+                {
+                    return heuristics.get( current );
+                }
+
+            };
+        }
+        catch ( NullPointerException e )
+        {
+            fail( e.getMessage() );
+        }
 
         findShortestPath( graph ).from( a ).to( b ).applyingAStar( null ).withHeuristic( heuristic );
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = PathNotFoundException.class )
@@ -118,9 +122,8 @@ public final class AStarTestCase
         };
 
         findShortestPath( graph ).from( a ).to( b ).applyingAStar( new DoubleWeight() ).withHeuristic( heuristic );
-        fail( "Path not found Exception not cathed" );
     }
-    
+
     /**
      * Test Graph and Dijkstra's solution can be seen on
      * <a href="http://en.wikipedia.org/wiki/A*_search_algorithm">Wikipedia</a>
@@ -182,7 +185,8 @@ public final class AStarTestCase
         // expected path
 
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( start, goal, new DoubleWeight() );
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( start, goal,
+                                                                                                  new DoubleWeight() );
 
         expected.addConnectionInTail( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
         expected.addConnectionInTail( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );

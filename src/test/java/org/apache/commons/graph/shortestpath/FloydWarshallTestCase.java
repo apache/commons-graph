@@ -44,11 +44,10 @@ public class FloydWarshallTestCase
 {
 
     @Test( expected = NullPointerException.class )
-    public void testNullGraah()
+    public void testNullGraph()
     {
         // the actual weighted path
         findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = PathNotFoundException.class )
@@ -67,9 +66,8 @@ public class FloydWarshallTestCase
             findShortestPath( graph ).applyingFloydWarshall( new DoubleWeight() );
 
         p.findShortestPath( a, b );
-        fail( "PathNotFoundException not caught" );
     }
-    
+
     @Test
     public void undirectedShortestPath()
     {

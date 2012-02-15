@@ -39,11 +39,10 @@ public final class DijkstraTestCase
 {
 
     @Test( expected = NullPointerException.class )
-    public void testNullGraah()
+    public void testNullGraph()
     {
         // the actual weighted path
         findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -54,8 +53,6 @@ public final class DijkstraTestCase
 
         // the actual weighted path
         findShortestPath( graph ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
-
-        fail( "Null Pointer Exception not caught" );
     }
 
     @Test( expected = NullPointerException.class )
@@ -71,10 +68,8 @@ public final class DijkstraTestCase
 
         // the actual weighted path
         findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( null );
-
-        fail( "Null Pointer Exception not caught" );
     }
-    
+
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
@@ -89,7 +84,7 @@ public final class DijkstraTestCase
         // the actual weighted path
         findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( new DoubleWeight() );
     }
-    
+
     /**
      * Test Graph and Dijkstra's solution can be seen on
      * <a href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm>Wikipedia</a>
