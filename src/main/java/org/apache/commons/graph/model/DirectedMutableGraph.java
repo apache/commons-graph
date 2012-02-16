@@ -27,6 +27,7 @@ import java.util.Set;
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 
 /**
  * A memory-based implementation of a mutable directed Graph.
@@ -121,7 +122,9 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge>
     @Override
     protected void decorateRemoveEdge( E e )
     {
-        // TODO complete me
+        final VertexPair<V> vertices = getVertices( e );
+        inbound.get( vertices.getTail() ).remove( vertices.getHead() );
+        outbound.get( vertices.getHead() ).remove( vertices.getTail() );
     }
 
 }

@@ -77,7 +77,7 @@ public class UndirectedMutableGraph<V extends Vertex, E extends Edge>
     @Override
     protected void decorateRemoveEdge( E e )
     {
-        // do nothing
+        internalRemoveEdge( getVertices( e ).getTail(), e, getVertices( e ).getHead() );
     }
 
 }

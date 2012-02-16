@@ -105,7 +105,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     {
         getAdjacencyList().get( head ).add( tail );
 
-        VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
+        final VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
         getIndexedEdges().put( vertexPair, e );
 
         if ( !getIndexedVertices().containsKey( e ) )
@@ -113,10 +113,16 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
             getIndexedVertices().put( e, vertexPair );
         }
     }
+    
+    protected void internalRemoveEdge( V head, E e, V tail )
+    {
+        final VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
+        getIndexedVertices().remove( e );
+        getIndexedEdges().remove( vertexPair );
+        getAdjacencyList().get( vertexPair.getHead() ).remove( vertexPair.getTail() );
+    }
 
     /**
-     *
-     *
      * @param e
      */
     protected abstract void decorateAddEdge( V head, E e, V tail );
@@ -127,10 +133,14 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     public final void removeEdge( E e )
     {
         checkGraphCondition( e != null, "Impossible to remove a null Edge from the Graph" );
-
-        // TODO to be completed
+        
+        final VertexPair<V> vertexPair = getVertices( e );
+        checkGraphCondition( vertexPair != null, "Edge '%s' not present in the Graph", e );
 
         decorateRemoveEdge( e );
+        internalRemoveEdge( vertexPair.getHead(), e, vertexPair.getTail() );
+        getAllEdges().remove( e );
+
     }
 
     /**
