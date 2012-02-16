@@ -29,6 +29,7 @@ import java.util.Set;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 
@@ -90,7 +91,12 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public final Iterable<V> getConnectedVertices( V v )
     {
-        return unmodifiableSet( adjacencyList.get( v ) );
+        final Set<V> adj = adjacencyList.get( v );
+        if ( adj == null )
+        {
+            throw new GraphException( "Vertex %s doesn't exist in the Graph", v );
+        }
+        return unmodifiableSet( adj );
     }
 
     /**
@@ -98,6 +104,14 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public final E getEdge( V source, V target )
     {
+        if ( !adjacencyList.containsKey( source ) )
+        {
+            throw new GraphException( "Vertex %s doesn't exist in the Graph", source );
+        }
+        if ( !adjacencyList.containsKey( target ) )
+        {
+            throw new GraphException( "Vertex %s doesn't exist in the Graph", target );
+        }
         return indexedEdges.get( new VertexPair<Vertex>( source, target ) );
     }
 
