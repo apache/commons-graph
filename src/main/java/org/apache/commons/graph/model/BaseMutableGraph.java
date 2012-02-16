@@ -23,7 +23,6 @@ import java.util.LinkedHashSet;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
@@ -46,15 +45,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
      */
     public final void addVertex( V v )
     {
-        if ( v == null )
-        {
-            throw new GraphException( "Impossible to add a null Vertex to the Graph" );
-        }
-
-        if ( getAdjacencyList().containsKey( v ) )
-        {
-            throw new GraphException( "Vertex '%s' already present in the Graph", v );
-        }
+        checkGraphCondition( v != null, "Impossible to add a null Vertex to the Graph" );
+        checkGraphCondition( !getAdjacencyList().containsKey( v ), "Vertex '%s' already present in the Graph", v );
 
         getAdjacencyList().put( v, new LinkedHashSet<V>() );
 
@@ -71,14 +63,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
      */
     public final void removeVertex( V v )
     {
-        if ( v == null )
-        {
-            throw new GraphException( "Impossible to remove a null Vertex from the Graph" );
-        }
-
-        if ( !getAdjacencyList().containsKey( v ) ){
-            throw new GraphException( "Vertex '%s' not present in the Graph", v );
-        }
+        checkGraphCondition( v != null, "Impossible to remove a null Vertex from the Graph" );
+        checkGraphCondition( getAdjacencyList().containsKey( v ), "Vertex '%s' not present in the Graph", v );
 
         for ( V tail : getAdjacencyList().get( v ) )
         {
@@ -101,32 +87,12 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
      */
     public void addEdge( V head, E e, V tail )
     {
-        if ( head == null )
-        {
-            throw new GraphException( "Null head Vertex not admitted" );
-        }
-        if ( e == null )
-        {
-            throw new GraphException( "Impossible to add a null Edge in the Graph" );
-        }
-        if ( tail == null )
-        {
-            throw new GraphException( "Null tail Vertex not admitted" );
-        }
-
-        if ( !getAdjacencyList().containsKey( head ) )
-        {
-            throw new GraphException( "Head Vertex '%s' not present in the Graph", head );
-        }
-        if ( !getAdjacencyList().containsKey( tail ) )
-        {
-            throw new GraphException( "Tail Vertex '%s' not present in the Graph", tail );
-        }
-
-        if ( getEdge( head, tail ) != null )
-        {
-            throw new GraphException( "Edge %s is already present in the Graph", e );
-        }
+        checkGraphCondition( head != null, "Null head Vertex not admitted" );
+        checkGraphCondition( e != null, "Impossible to add a null Edge in the Graph" );
+        checkGraphCondition( tail != null, "Null tail Vertex not admitted" );
+        checkGraphCondition( getAdjacencyList().containsKey( head ), "Head Vertex '%s' not present in the Graph", head );
+        checkGraphCondition( getAdjacencyList().containsKey( tail ), "Head Vertex '%s' not present in the Graph", tail );
+        checkGraphCondition( getEdge( head, tail ) == null, "Edge %s is already present in the Graph", e );
 
         getAllEdges().add( e );
 
@@ -160,10 +126,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
      */
     public final void removeEdge( E e )
     {
-        if ( e == null )
-        {
-            throw new GraphException( "Impossible to add a null Edge in the Graph" );
-        }
+        checkGraphCondition( e != null, "Impossible to remove a null Edge from the Graph" );
 
         // TODO to be completed
 

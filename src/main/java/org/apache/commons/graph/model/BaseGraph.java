@@ -19,6 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static java.lang.String.format;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 
@@ -92,10 +93,9 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     public final Iterable<V> getConnectedVertices( V v )
     {
         final Set<V> adj = adjacencyList.get( v );
-        if ( adj == null )
-        {
-            throw new GraphException( "Vertex %s doesn't exist in the Graph", v );
-        }
+
+        checkGraphCondition( adj != null, "Vertex %s does not exist in the Graph", v );
+
         return unmodifiableSet( adj );
     }
 
@@ -104,14 +104,9 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public final E getEdge( V source, V target )
     {
-        if ( !adjacencyList.containsKey( source ) )
-        {
-            throw new GraphException( "Vertex %s doesn't exist in the Graph", source );
-        }
-        if ( !adjacencyList.containsKey( target ) )
-        {
-            throw new GraphException( "Vertex %s doesn't exist in the Graph", target );
-        }
+        checkGraphCondition( adjacencyList.containsKey( source ), "Vertex %s does not exist in the Graph", source );
+        checkGraphCondition( adjacencyList.containsKey( target ), "Vertex %s does not exist in the Graph", target );
+
         return indexedEdges.get( new VertexPair<Vertex>( source, target ) );
     }
 
@@ -195,6 +190,14 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     protected Map<E, VertexPair<V>> getIndexedVertices()
     {
         return indexedVertices;
+    }
+
+    protected static void checkGraphCondition( boolean expression, String errorMessageTemplate, Object...errorMessageArgs )
+    {
+        if ( !expression )
+        {
+            throw new GraphException( format( errorMessageTemplate, errorMessageArgs ) );
+        }
     }
 
 }
