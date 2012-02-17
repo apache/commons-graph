@@ -23,6 +23,7 @@ import static java.util.Collections.reverseOrder;
 import static java.util.Collections.sort;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Assertions.checkState;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,6 +63,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
      */
     public SpanningTreeAlgorithmSelector<V, W, WE, G> fromArbitrarySource()
     {
+        checkState( graph.getOrder() > 0, "Spanning tree cannot be calculated on an empty graph" );
         return fromSource( graph.getVertices().iterator().next() );
     }
 

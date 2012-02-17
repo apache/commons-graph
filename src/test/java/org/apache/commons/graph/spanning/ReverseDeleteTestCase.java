@@ -20,9 +20,13 @@ package org.apache.commons.graph.spanning;
  */
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.SpanningTree;
+import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
@@ -36,6 +40,50 @@ import org.junit.Test;
 public class ReverseDeleteTestCase
 {
 
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullMonoid()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input = null;
+        BaseLabeledVertex a = null;
+        try
+        {
+            input = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+            a = new BaseLabeledVertex( "A" );
+            BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+
+            input.addVertex( a );
+            input.addVertex( b );
+
+            input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
+        }
+        catch ( NullPointerException e )
+        {
+            fail( e.getMessage() );
+        }
+
+        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( null );
+    }
+    
+    @Test
+    public void testEmptyGraph()
+    {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> tree =
+            minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+
+        assertEquals( 0, tree.getOrder() );
+        assertEquals( 0, tree.getSize() );
+
+    }
+    
     /**
      * Test Graph and Reverse-Delete Algorithm
      */
