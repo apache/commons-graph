@@ -21,7 +21,6 @@ package org.apache.commons.graph.shortestpath;
 
 import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
-import static org.junit.Assert.fail;
 
 import org.apache.commons.graph.Path;
 import org.apache.commons.graph.Vertex;

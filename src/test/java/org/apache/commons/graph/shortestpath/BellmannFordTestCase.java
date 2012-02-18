@@ -51,8 +51,7 @@ public final class BellmannFordTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
-            findShortestPath( graph ).from( null ).applyingBelmannFord( new DoubleWeight() );
+        findShortestPath( graph ).from( null ).applyingBelmannFord( new DoubleWeight() );
     }
 
     @Test( expected = NullPointerException.class )
