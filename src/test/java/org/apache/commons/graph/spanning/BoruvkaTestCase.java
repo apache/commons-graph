@@ -20,8 +20,6 @@ package org.apache.commons.graph.spanning;
  */
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
-
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.SpanningTree;
@@ -47,42 +45,17 @@ public final class BoruvkaTestCase
     @Test( expected = NullPointerException.class )
     public void testNullVertex()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input = null;
-        try
-        {
-            input = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
-            input.addVertex( new BaseLabeledVertex( "A" ) );
-        }
-        catch ( NullPointerException e )
-        {
-            fail( e.getMessage() );
-        }
-
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
         minimumSpanningTree( input ).fromSource( null ).applyingBoruvkaAlgorithm( new DoubleWeight() );
     }
 
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input = null;
-        BaseLabeledVertex a = null;
-        try
-        {
-            input = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
-            a = new BaseLabeledVertex( "A" );
-            BaseLabeledVertex b = new BaseLabeledVertex( "B" );
-
-            input.addVertex( a );
-            input.addVertex( b );
-
-            input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
-        }
-        catch ( NullPointerException e )
-        {
-            fail( e.getMessage() );
-        }
-
-        minimumSpanningTree( input ).fromSource( a ).applyingBoruvkaAlgorithm( null );
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
+            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        minimumSpanningTree( input ).fromSource( new BaseLabeledVertex( "A" ) ).applyingBoruvkaAlgorithm( null );
     }
     
     @Test( expected = IllegalStateException.class )

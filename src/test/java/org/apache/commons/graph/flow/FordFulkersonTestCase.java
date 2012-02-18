@@ -133,16 +133,6 @@ public final class FordFulkersonTestCase
                     @Override
                     public void connect()
                     {
-                        BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "A" ) );
-                        BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                        BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                        BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-
-                        addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 1000 ) ).from( a ).to( b );
-                        addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> C", 1000 ) ).from( a ).to( c );
-                        addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> C", 1 ) ).from( b ).to( c );
-                        addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> D", 1000 ) ).from( b ).to( d );
-                        addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> D", 1000 ) ).from( c ).to( d );
                     }
 
                 } );
