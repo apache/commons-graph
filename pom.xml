@@ -38,6 +38,11 @@
 
   <developers>
     <developer>
+      <name>Claudio Squarcella</name>
+      <id>cs</id>
+      <email>cs AT apache DOT org</email>
+    </developer>
+    <developer>
       <name>David Dixon-Peugh</name>
       <id>dpeugh</id>
       <email>dpeugh AT mindspring DOT com</email>
@@ -74,10 +79,6 @@
     </developer>
   </developers>
   <contributors>
-    <contributor>
-      <name>Claudio Squarcella</name>
-      <email>squarcel AT dia DOT uniroma3 DOT it</email>
-    </contributor>
     <contributor>
       <name>Matteo Moci</name>
       <email>mox601 AT gmail DOT com</email>
