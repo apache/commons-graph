@@ -91,8 +91,8 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
             }
 
             closedSet.add( current );
-
-            @SuppressWarnings( "unchecked" )
+            
+            @SuppressWarnings( "unchecked" ) // unsafe cast protected by the instanceof statement that already verifies the assignment   
             Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
                                                                        : graph.getConnectedVertices( current );
             for ( V v : connected )
