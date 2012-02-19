@@ -89,6 +89,8 @@ public class BaseMutableGraphTestCase
         assertEquals( 1, gSimple.getInDegree( two ) );
         assertEquals( 1, gSimple.getOutDegree( one ) );
         assertEquals( 0, gSimple.getOutDegree( two ) );
+        assertFalse( gSimple.containsEdge( new BaseLabeledEdge( "Not Exist Edge" ) ) );
+        assertFalse( gSimple.containsVertex( new BaseLabeledVertex( "Not exist vertex" ) ) );
     }
 
     /**

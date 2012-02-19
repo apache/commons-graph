@@ -30,7 +30,6 @@ import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 
 /**
- *
  * @param <V>
  * @param <WE>
  * @param <W>
@@ -133,6 +132,16 @@ final class ReverseDeleteGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
             return graph.getVertices( e );
         }
         return null;
+    }
+
+    public boolean containsVertex( V v )
+    {
+        return graph.containsVertex( v );
+    }
+    
+    public boolean containsEdge( WE e )
+    {
+        return graph.containsEdge( e );
     }
 
 }

@@ -22,6 +22,7 @@ package org.apache.commons.graph.scc;
 import static java.lang.Math.min;
 import static org.apache.commons.graph.CommonsGraph.visit;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Assertions.checkState;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,6 +61,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
     public Set<V> applyingKosarajuSharir( V source )
     {
         source = checkNotNull( source, "KosarajuSharir algorithm requires a non-null source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
 
         visit( graph ).from( source ).applyingDepthFirstSearch( new KosarajuSharirVisitHandler<V, E, G>( source ) );
 

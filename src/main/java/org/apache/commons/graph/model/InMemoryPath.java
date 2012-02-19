@@ -207,6 +207,22 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     /**
      * {@inheritDoc}
      */
+    public boolean containsVertex( V v )
+    {
+        return vertices.contains( v );
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsEdge( E e )
+    {
+        return edges.contains( e );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode()
     {

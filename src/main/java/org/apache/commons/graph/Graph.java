@@ -116,5 +116,26 @@ public interface Graph<V extends Vertex, E extends Edge>
      * @return the set of {@link Vertex} on this Edge.
      */
     VertexPair<V> getVertices( E e );
+    
+    
+    /**
+     * Returns true if the vertex is contained into the graph
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @return Returns true if the vertex is contained into the graph, false otherwise
+     */
+    boolean containsVertex( V v );
+    
+    /**
+     * Returns true if the edge is contained into the graph
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @return Returns true if the edge is contained into the graph, false otherwise
+     */
+    boolean containsEdge( E e );
 
 }

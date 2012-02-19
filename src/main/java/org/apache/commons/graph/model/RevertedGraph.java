@@ -154,4 +154,20 @@ public final class RevertedGraph<V extends Vertex, E extends Edge>
         return directedGraph.getInbound( v );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsVertex( V v )
+    {
+        return directedGraph.containsVertex( v );
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsEdge( E e )
+    {
+        return directedGraph.containsEdge( e );
+    }
+
 }

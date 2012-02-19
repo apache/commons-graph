@@ -46,7 +46,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     public final void addVertex( V v )
     {
         checkGraphCondition( v != null, "Impossible to add a null Vertex to the Graph" );
-        checkGraphCondition( !getAdjacencyList().containsKey( v ), "Vertex '%s' already present in the Graph", v );
+        checkGraphCondition( !containsVertex( v ), "Vertex '%s' already present in the Graph", v );
 
         getAdjacencyList().put( v, new LinkedHashSet<V>() );
 
@@ -64,7 +64,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     public final void removeVertex( V v )
     {
         checkGraphCondition( v != null, "Impossible to remove a null Vertex from the Graph" );
-        checkGraphCondition( getAdjacencyList().containsKey( v ), "Vertex '%s' not present in the Graph", v );
+        checkGraphCondition( containsVertex( v ), "Vertex '%s' not present in the Graph", v );
 
         for ( V tail : getAdjacencyList().get( v ) )
         {
@@ -90,8 +90,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
         checkGraphCondition( head != null, "Null head Vertex not admitted" );
         checkGraphCondition( e != null, "Impossible to add a null Edge in the Graph" );
         checkGraphCondition( tail != null, "Null tail Vertex not admitted" );
-        checkGraphCondition( getAdjacencyList().containsKey( head ), "Head Vertex '%s' not present in the Graph", head );
-        checkGraphCondition( getAdjacencyList().containsKey( tail ), "Head Vertex '%s' not present in the Graph", tail );
+        checkGraphCondition( containsVertex( head ), "Head Vertex '%s' not present in the Graph", head );
+        checkGraphCondition( containsVertex( tail ), "Head Vertex '%s' not present in the Graph", tail );
         checkGraphCondition( getEdge( head, tail ) == null, "Edge %s is already present in the Graph", e );
 
         getAllEdges().add( e );
@@ -133,10 +133,8 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
     public final void removeEdge( E e )
     {
         checkGraphCondition( e != null, "Impossible to remove a null Edge from the Graph" );
-        
+        checkGraphCondition( containsEdge( e ), "Edge '%s' not present in the Graph", e );
         final VertexPair<V> vertexPair = getVertices( e );
-        checkGraphCondition( vertexPair != null, "Edge '%s' not present in the Graph", e );
-
         decorateRemoveEdge( e );
         internalRemoveEdge( vertexPair.getHead(), e, vertexPair.getTail() );
         getAllEdges().remove( e );

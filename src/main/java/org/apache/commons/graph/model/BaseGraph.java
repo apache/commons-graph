@@ -92,10 +92,8 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public final Iterable<V> getConnectedVertices( V v )
     {
+        checkGraphCondition( containsVertex( v ), "Vertex %s does not exist in the Graph", v );
         final Set<V> adj = adjacencyList.get( v );
-
-        checkGraphCondition( adj != null, "Vertex %s does not exist in the Graph", v );
-
         return unmodifiableSet( adj );
     }
 
@@ -104,8 +102,8 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
      */
     public final E getEdge( V source, V target )
     {
-        checkGraphCondition( adjacencyList.containsKey( source ), "Vertex %s does not exist in the Graph", source );
-        checkGraphCondition( adjacencyList.containsKey( target ), "Vertex %s does not exist in the Graph", target );
+        checkGraphCondition( containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        checkGraphCondition( containsVertex( target ), "Vertex %s does not exist in the Graph", target );
 
         return indexedEdges.get( new VertexPair<Vertex>( source, target ) );
     }
@@ -118,6 +116,22 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
         return indexedVertices.get( e );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsVertex( V v )
+    {
+        return adjacencyList.containsKey( v );
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsEdge( E e )
+    {
+        return indexedVertices.containsKey( e );
+    }
+    
     /**
      * Returns the adjacency list where stored vertex/edges.
      *
@@ -199,5 +213,4 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
             throw new GraphException( format( errorMessageTemplate, errorMessageArgs ) );
         }
     }
-
 }

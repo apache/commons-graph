@@ -20,6 +20,7 @@ package org.apache.commons.graph.spanning;
  */
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.SpanningTree;
@@ -53,9 +54,30 @@ public final class BoruvkaTestCase
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
+        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input = null;
+        BaseLabeledVertex a = null;
+        try
+        {
+            input = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+            a = new BaseLabeledVertex( "A" );
+            input.addVertex( a );
+        }
+        catch ( NullPointerException e )
+        {
+            //try..catch need to avoid a possible test success even if a NPE is thorw during graph population
+            fail( e.getMessage() );
+        }
+
+        minimumSpanningTree( input ).fromSource( a ).applyingBoruvkaAlgorithm( null );
+    }
+    
+    @Test( expected = IllegalStateException.class )
+    public void testNotExistVertex()
+    {
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
-        minimumSpanningTree( input ).fromSource( new BaseLabeledVertex( "A" ) ).applyingBoruvkaAlgorithm( null );
+
+        minimumSpanningTree( input ).fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
     }
     
     @Test( expected = IllegalStateException.class )

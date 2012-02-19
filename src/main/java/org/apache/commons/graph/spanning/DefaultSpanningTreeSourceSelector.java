@@ -73,6 +73,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
     public SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source )
     {
         source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
         return new DefaultSpanningTreeAlgorithmSelector<V, W, WE, G>( graph, source );
     }
 
@@ -81,6 +82,9 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
      */
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( OM orderedMonoid )
     {
+        
+        checkNotNull( orderedMonoid, "The Reverse-Delete algorithm can't be calulated with a null monoid" );
+        
         final List<WE> sortedEdge = new ArrayList<WE>();
         final List<WE> visitedEdge = new ArrayList<WE>();
 

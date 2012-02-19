@@ -20,6 +20,7 @@ package org.apache.commons.graph.connectivity;
  */
 
 import static org.apache.commons.graph.CommonsGraph.visit;
+import static org.apache.commons.graph.utils.Assertions.checkState;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,6 +57,7 @@ final class DefaultConnectivityAlgorithmsSelector<V extends Vertex, E extends Ed
 
         for ( V v : includedVertices )
         {
+            checkState( graph.containsVertex( v ), "Vertex %s does not exist in the Graph", v );
             untouchedVertices.add( v );
         }
 
