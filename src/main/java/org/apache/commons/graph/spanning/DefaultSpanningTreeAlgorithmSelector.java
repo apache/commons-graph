@@ -20,6 +20,8 @@ package org.apache.commons.graph.spanning;
  */
 
 import static org.apache.commons.graph.utils.Assertions.checkState;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -77,7 +79,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
          *     end while
          * <pre>
          */
-
+        checkNotNull( orderedMonoid, "The Boruvka algorithm can't be calulated with a null monoid" );
         final MutableSpanningTree<V, WE, W> spanningTree =
             new MutableSpanningTree<V, WE, W>( orderedMonoid );
 
@@ -157,6 +159,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
      */
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( OM orderedMonoid )
     {
+        
+        checkNotNull( orderedMonoid, "The Kruskal algorithm can't be calulated with a null monoid" );
         final Set<V> settledNodes = new HashSet<V>();
 
         final PriorityQueue<WE> orderedEdges =
@@ -202,6 +206,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
      */
     public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( OM orderedMonoid )
     {
+        checkNotNull( orderedMonoid, "The Prim algorithm can't be calulated with a null monoid" );
+        
         final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, orderedMonoid );
 
         final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestEdges );
