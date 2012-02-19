@@ -23,6 +23,12 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="marcosperanza" type="fix" issue="SANDBOX-393">
+      Add test for Spanning tree
+    </action>
+    <action dev="marcosperanza" type="fix" issue="SANDBOX-391">
+      removeEdge method: missing implementation
+    </action>
     <action dev="simonetripodi" type="update" issue="SANDBOX-388" due-to="Steven Dolg, Claudio Squarcella">
       Generic Type inference doesn't work in Eclipse
     </action>
