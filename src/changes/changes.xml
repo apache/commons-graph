@@ -24,7 +24,7 @@
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
     <action dev="marcosperanza" type="fix" issue="SANDBOX-394">
-      Add containsEdge ad containsVertex into Graph interface
+      Add containsEdge and containsVertex into Graph interface
     </action>
     <action dev="marcosperanza" type="fix" issue="SANDBOX-393">
       Add test for Spanning tree
