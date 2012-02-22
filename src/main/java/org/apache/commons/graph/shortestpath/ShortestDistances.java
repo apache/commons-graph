@@ -38,11 +38,11 @@ final class ShortestDistances<V extends Vertex, W>
 
     private final Map<V, W> distances = new HashMap<V, W>();
 
-    private final OrderedMonoid<W> orderedMonoid;
+    private final OrderedMonoid<W> weightOperations;
 
-    public ShortestDistances( OrderedMonoid<W> orderedMonoid )
+    public ShortestDistances( OrderedMonoid<W> weightOperations )
     {
-        this.orderedMonoid = orderedMonoid;
+        this.weightOperations = weightOperations;
     }
 
     /**
@@ -98,7 +98,7 @@ final class ShortestDistances<V extends Vertex, W>
         {
             return -1;
         }
-        return orderedMonoid.compare( getWeight( left ), getWeight( right ) );
+        return weightOperations.compare( getWeight( left ), getWeight( right ) );
     }
 
 }

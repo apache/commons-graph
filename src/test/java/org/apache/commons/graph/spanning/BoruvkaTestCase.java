@@ -31,7 +31,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 public final class BoruvkaTestCase
@@ -40,7 +40,7 @@ public final class BoruvkaTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -48,7 +48,7 @@ public final class BoruvkaTestCase
     {
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
-        minimumSpanningTree( input ).fromSource( null ).applyingBoruvkaAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromSource( null ).applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -86,7 +86,7 @@ public final class BoruvkaTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     /**
@@ -131,7 +131,7 @@ public final class BoruvkaTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -148,7 +148,7 @@ public final class BoruvkaTestCase
         // Actual
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
+            minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
 
         // assert!
 
@@ -172,7 +172,7 @@ public final class BoruvkaTestCase
         input.addVertex( new BaseLabeledVertex( "F" ) );
         input.addVertex( new BaseLabeledVertex( "G" ) );
 
-        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
 }

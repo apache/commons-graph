@@ -22,25 +22,25 @@ package org.apache.commons.graph.weight.primitive;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
- * An {@link IntegerWeight} provides operations and properties 
- * for weights of type {@link Integer}.
+ * The class {@link FloatWeightBaseOperations} provides operations and properties
+ * for weights of type {@link Float}.
  */
-public class IntegerWeight
-    implements OrderedMonoid<Integer>
+public class FloatWeightBaseOperations
+    implements OrderedMonoid<Float>
 {
 
     /**
      * {@inheritDoc}
      */
-    public Integer zero()
+    public Float zero()
     {
-        return 0;
+        return 0.0F;
     }
 
     /**
      * {@inheritDoc}
      */
-    public Integer append( Integer s1, Integer s2 )
+    public Float append( Float s1, Float s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -48,11 +48,11 @@ public class IntegerWeight
         }
         return s1 + s2;
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public Integer inverse( Integer element )
+    public Float inverse( Float element )
     {
         return -element;
     }
@@ -60,9 +60,9 @@ public class IntegerWeight
     /**
      * {@inheritDoc}
      */
-    public int compare( Integer o1, Integer o2 )
+    public int compare( Float s1, Float s2 )
     {
-        return o1.compareTo( o2 );
+        return s1.compareTo( s2 );
     }
 
 }

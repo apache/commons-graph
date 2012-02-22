@@ -32,7 +32,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <W>
  * @param <G>
  */
-public interface HeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, OM extends OrderedMonoid<W>>
+public interface HeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, WO extends OrderedMonoid<W>>
 {
 
     /**

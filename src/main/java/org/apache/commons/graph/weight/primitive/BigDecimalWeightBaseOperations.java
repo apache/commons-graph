@@ -19,24 +19,24 @@ package org.apache.commons.graph.weight.primitive;
  * under the License.
  */
 
-import static java.math.BigInteger.ZERO;
+import static java.math.BigDecimal.ZERO;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
- * An {@link BigIntegerWeight} provides operations and properties
- * for weights of type {@link BigInteger}.
+ * The class {@link BigDecimalWeightBaseOperations} provides operations and properties
+ * for weights of type {@link BigDecimal}.
  */
-public class BigIntegerWeight
-    implements OrderedMonoid<BigInteger>
+public class BigDecimalWeightBaseOperations
+    implements OrderedMonoid<BigDecimal>
 {
 
     /**
      * {@inheritDoc}
      */
-    public BigInteger zero()
+    public BigDecimal zero()
     {
         return ZERO;
     }
@@ -44,7 +44,7 @@ public class BigIntegerWeight
     /**
      * {@inheritDoc}
      */
-    public BigInteger append( BigInteger s1, BigInteger s2 )
+    public BigDecimal append( BigDecimal s1, BigDecimal s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -56,7 +56,7 @@ public class BigIntegerWeight
     /**
      * {@inheritDoc}
      */
-    public BigInteger inverse( BigInteger element )
+    public BigDecimal inverse( BigDecimal element )
     {
         return element.negate();
     }
@@ -64,7 +64,7 @@ public class BigIntegerWeight
     /**
      * {@inheritDoc}
      */
-    public int compare( BigInteger o1, BigInteger o2 )
+    public int compare( BigDecimal o1, BigDecimal o2 )
     {
         return o1.compareTo( o2 );
     }

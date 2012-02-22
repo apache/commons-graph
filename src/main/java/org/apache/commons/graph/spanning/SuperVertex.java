@@ -19,6 +19,7 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -28,7 +29,6 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * A {@link SuperVertex} is a collection of {@link Vertex} objects and is only
@@ -38,9 +38,9 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <W>  the weight type
  * @param <WE> the Graph weighted edges type
  * @param <G>  the input Graph type
- * @param <OM> the Comparator for weighted edges
+ * @param <WC> the weight operations 
  */
-class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>, OM extends OrderedMonoid<W>>
+class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>, WC extends Comparator<W>>
     implements Iterable<V> {
 
     /** The reference to the graph. */
@@ -58,15 +58,15 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      *
      * @param source the start vertex
      * @param graph the underlying graph
-     * @param orderedMonoid the comparator used to sort the weighted edges
+     * @param weightComparator the comparator used to sort the weighted edges
      */
-    public SuperVertex( final V source, final G graph, final OM orderedMonoid ) {
+    public SuperVertex( final V source, final G graph, final WC weightComparator ) {
         this.graph = graph;
 
         vertices = new HashSet<V>();
         vertices.add( source );
 
-        orderedEdges = new TreeSet<WE>( new WeightedEdgesComparator<W, WE>( orderedMonoid ) );
+        orderedEdges = new TreeSet<WE>( new WeightedEdgesComparator<W, WE>( weightComparator ) );
 
         // add all edges for this vertex to the sorted set
         for ( V w : graph.getConnectedVertices( source )) {
@@ -87,7 +87,7 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      *
      * @param other the {@link SuperVertex} to be merged into this
      */
-    public void merge( final SuperVertex<V, W, WE, G, OM> other ) {
+    public void merge( final SuperVertex<V, W, WE, G, WC> other ) {
         for ( V v : other.vertices ) {
             vertices.add(v);
         }

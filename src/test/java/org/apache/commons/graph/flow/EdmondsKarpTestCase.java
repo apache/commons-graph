@@ -29,7 +29,7 @@ import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.IntegerWeight;
+import org.apache.commons.graph.weight.primitive.IntegerWeightBaseOperations;
 import org.junit.Test;
 
 /**
@@ -47,7 +47,7 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
         // actual max flow
-        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>)  null ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>)  null ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -68,7 +68,7 @@ public class EdmondsKarpTestCase
             } );
 
         // actual max flow
-        findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
     }
 
     @Test
@@ -101,7 +101,7 @@ public class EdmondsKarpTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
         assertEquals( actual, expected );
     }
 
@@ -145,7 +145,7 @@ public class EdmondsKarpTestCase
         final Integer expected = 5;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeight() );
+        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }

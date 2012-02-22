@@ -31,7 +31,7 @@ import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 public final class DijkstraTestCase
@@ -41,7 +41,7 @@ public final class DijkstraTestCase
     public void testNullGraph()
     {
         // the actual weighted path
-        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
+        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -51,7 +51,7 @@ public final class DijkstraTestCase
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         // the actual weighted path
-        findShortestPath( graph ).from( null ).to( null ).applyingDijkstra( new DoubleWeight() );
+        findShortestPath( graph ).from( null ).to( null ).applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -81,7 +81,7 @@ public final class DijkstraTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( new DoubleWeight() );
+        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     /**
@@ -126,7 +126,7 @@ public final class DijkstraTestCase
         // expected path
 
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, five, new DoubleWeight() );
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, five, new DoubleWeightBaseOperations() );
 
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
         expected.addConnectionInTail( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
@@ -134,7 +134,7 @@ public final class DijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph ).from( one ).to( five ).applyingDijkstra( new DoubleWeight() );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph ).from( one ).to( five ).applyingDijkstra( new DoubleWeightBaseOperations() );
 
         // assert!
 

@@ -43,14 +43,14 @@ public final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>
 
     private final Graph<V, WE> graph;
 
-    private final Monoid<W> monoid;
+    private final Monoid<W> weightOperations;
 
     private final Map<V, V> predecessors = new HashMap<V, V>();
 
-    public PredecessorsList( Graph<V, WE> graph, Monoid<W> monoid )
+    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations )
     {
         this.graph = graph;
-        this.monoid = monoid;
+        this.weightOperations = weightOperations;
     }
 
     /**
@@ -74,7 +74,7 @@ public final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>
      */
     public WeightedPath<V, WE, W> buildPath( V source, V target )
     {
-        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, monoid );
+        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations );
 
         V vertex = target;
         while ( !source.equals( vertex ) )

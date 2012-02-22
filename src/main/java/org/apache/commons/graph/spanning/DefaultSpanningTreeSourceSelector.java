@@ -80,10 +80,10 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations )
     {
         
-        checkNotNull( orderedMonoid, "The Reverse-Delete algorithm can't be calulated with a null monoid" );
+        checkNotNull( weightOperations, "The Reverse-Delete algorithm cannot be calulated with null weight operations" );
         
         final List<WE> sortedEdge = new ArrayList<WE>();
         final List<WE> visitedEdge = new ArrayList<WE>();
@@ -94,7 +94,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
             sortedEdge.add( we );
         }
 
-        sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( orderedMonoid ) ) );
+        sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( weightOperations ) ) );
 
         WeightedGraph<V, WE, W> tmpGraph = new ReverseDeleteGraph<V, WE, W>( graph, sortedEdge, visitedEdge );
 
@@ -107,7 +107,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
 
             try
             {
-                findShortestPath( tmpGraph ).from( vertices.getHead() ).to( vertices.getTail() ).applyingDijkstra( orderedMonoid );
+                findShortestPath( tmpGraph ).from( vertices.getHead() ).to( vertices.getTail() ).applyingDijkstra( weightOperations );
             }
             catch ( PathNotFoundException ex )
             {
@@ -116,7 +116,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
             }
         }
 
-        final MutableSpanningTree<V, WE, W> res = new MutableSpanningTree<V, WE, W>( orderedMonoid );
+        final MutableSpanningTree<V, WE, W> res = new MutableSpanningTree<V, WE, W>( weightOperations );
         for ( V v : graph.getVertices() )
         {
             res.addVertex( v );

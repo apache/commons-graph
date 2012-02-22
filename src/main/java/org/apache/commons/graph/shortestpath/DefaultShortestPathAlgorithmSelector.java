@@ -52,28 +52,28 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, OM> applyingAStar( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations )
     {
-        orderedMonoid = checkNotNull( orderedMonoid, "A* algorithm can not be applied using a null weight monoid" );
-        return new DefaultHeuristicBuilder<V, WE, W, G, OM>( graph, source, target, orderedMonoid );
+        weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
+        return new DefaultHeuristicBuilder<V, WE, W, G, WO>( graph, source, target, weightOperations );
     }
 
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
     {
-        orderedMonoid = checkNotNull( orderedMonoid, "Dijkstra algorithm can not be applied using a null weight monoid" );
+        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
 
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
-        shortestDistances.setWeight( source, orderedMonoid.zero() );
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+        shortestDistances.setWeight( source, weightOperations.zero() );
 
         final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
         unsettledNodes.add( source );
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
 
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
@@ -96,10 +96,10 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
                     WE edge = graph.getEdge( vertex, v );
                     if ( shortestDistances.alreadyVisited( vertex ) )
                     {
-                        W shortDist = orderedMonoid.append( shortestDistances.getWeight( vertex ), edge.getWeight() );
+                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), edge.getWeight() );
 
                         if ( !shortestDistances.alreadyVisited( v )
-                                || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                                || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
                         {
                             // assign new shortest distance and mark unsettled
                             shortestDistances.setWeight( v, shortDist );

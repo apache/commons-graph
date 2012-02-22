@@ -28,19 +28,21 @@ public interface MaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedE
 {
 
     /**
+     * Calculates the maximum flow using the Ford-Fulkerson method.
      *
-     *
-     * @param orderedMonoid
+     * @param <WO> the type of weight operations
+     * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <OM extends OrderedMonoid<W>> W applyingFordFulkerson( OM orderedMonoid );
+    <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations );
 
     /**
+     * Calculates the maximum flow using the Edmonds-Karp algorithm.
      *
-     *
-     * @param orderedMonoid
+     * @param <WO> the type of weight operations
+     * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <OM extends OrderedMonoid<W>> W applyingEdmondsKarp( OM orderedMonoid );
+    <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations );
 
 }

@@ -67,9 +67,9 @@ public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends Weig
      *   return edges[] E
      * </pre>
      *
-     * @param orderedMonoid the graph weights monoid
+     * @param weightOperations the weight operations
      * @return the calculated spanning tree
      */
-    <OM extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( OM orderedMonoid );
+    <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations );
 
 }

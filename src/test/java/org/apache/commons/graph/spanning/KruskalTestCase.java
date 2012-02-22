@@ -31,7 +31,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 public final class KruskalTestCase
@@ -40,7 +40,7 @@ public final class KruskalTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -48,7 +48,7 @@ public final class KruskalTestCase
     {
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
-        minimumSpanningTree( input ).fromSource( null ).applyingKruskalAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromSource( null ).applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -86,7 +86,7 @@ public final class KruskalTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
     }
     
     /**
@@ -137,7 +137,7 @@ public final class KruskalTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -153,7 +153,7 @@ public final class KruskalTestCase
 
         // Actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
 
         // assert!
 
@@ -188,7 +188,7 @@ public final class KruskalTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -198,7 +198,7 @@ public final class KruskalTestCase
 
         // Actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
 
         // assert!
 

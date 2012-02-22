@@ -20,7 +20,6 @@ package org.apache.commons.graph.spanning;
  */
 
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.OrderedMonoid;
 
 import java.util.Comparator;
 
@@ -33,16 +32,16 @@ public class WeightedEdgesComparator<W, WE extends WeightedEdge<W>>
     implements Comparator<WE>
 {
 
-    private final OrderedMonoid<W> orderedMonoid;
+    private final Comparator<W> weightComparator;
 
-    public WeightedEdgesComparator( OrderedMonoid<W> orderedMonoid )
+    public WeightedEdgesComparator( Comparator<W> weightComparator )
     {
-        this.orderedMonoid = orderedMonoid;
+        this.weightComparator = weightComparator;
     }
 
     public int compare( WE o1, WE o2 )
     {
-        return orderedMonoid.compare( o1.getWeight(), o2.getWeight() );
+        return weightComparator.compare( o1.getWeight(), o2.getWeight() );
     }
 
 }

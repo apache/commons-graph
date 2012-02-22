@@ -22,10 +22,10 @@ package org.apache.commons.graph.weight.primitive;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
- * A {@link LongWeight} provides operations and properties
+ * The class {@link LongWeightBaseOperations} provides operations and properties
  * for weights of type {@link Long}.
  */
-public class LongWeight
+public class LongWeightBaseOperations
     implements OrderedMonoid<Long>
 {
 

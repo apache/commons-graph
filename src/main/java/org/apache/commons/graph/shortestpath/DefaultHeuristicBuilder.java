@@ -33,8 +33,8 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, OM extends OrderedMonoid<W>>
-    implements HeuristicBuilder<V, WE, W, G, OM>
+final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, WO extends OrderedMonoid<W>>
+    implements HeuristicBuilder<V, WE, W, G, WO>
 {
 
     private final G graph;
@@ -43,14 +43,14 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
 
     private final V goal;
 
-    private final OM orderedMonoid;
+    private final WO weightOperations;
 
-    public DefaultHeuristicBuilder( G graph, V source, V target, OM orderedMonoid )
+    public DefaultHeuristicBuilder( G graph, V source, V target, WO weightOperations )
     {
         this.graph = graph;
         this.start = source;
         this.goal = target;
-        this.orderedMonoid = orderedMonoid;
+        this.weightOperations = weightOperations;
     }
 
     /**
@@ -61,11 +61,11 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
         heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
 
         // Cost from start along best known path.
-        final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( orderedMonoid );
-        gScores.setWeight( start, orderedMonoid.zero() );
+        final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( weightOperations );
+        gScores.setWeight( start, weightOperations.zero() );
 
         // Estimated total cost from start to goal through y.
-        final ShortestDistances<V, W> fScores = new ShortestDistances<V, W>( orderedMonoid );
+        final ShortestDistances<V, W> fScores = new ShortestDistances<V, W>( weightOperations );
         W hScore = heuristic.applyHeuristic( start, goal );
         fScores.setWeight( start, hScore );
 
@@ -77,7 +77,7 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
         openSet.add( start );
 
         // The of navigated nodes
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
 
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )
@@ -101,15 +101,15 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
                 {
                     WE edge = graph.getEdge( current, v );
                     // note that the weight of current can never be undefined
-                    W tentativeGScore = orderedMonoid.append( gScores.getWeight( current ), edge.getWeight() );
+                    W tentativeGScore = weightOperations.append( gScores.getWeight( current ), edge.getWeight() );
 
                     // if the first condition fails, v has already been visited (its weight is defined)
-                    if ( openSet.add( v ) || orderedMonoid.compare( tentativeGScore, gScores.getWeight( v ) ) < 0 )
+                    if ( openSet.add( v ) || weightOperations.compare( tentativeGScore, gScores.getWeight( v ) ) < 0 )
                     {
                         predecessors.addPredecessor( v, current );
                         gScores.setWeight( v, tentativeGScore );
                         hScore = heuristic.applyHeuristic( v, goal );
-                        fScores.setWeight( v, orderedMonoid.append( gScores.getWeight( v ), hScore ) );
+                        fScores.setWeight( v, weightOperations.append( gScores.getWeight( v ), hScore ) );
                     }
                 }
             }

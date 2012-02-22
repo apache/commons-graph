@@ -32,7 +32,7 @@ import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 public final class BellmannFordTestCase
@@ -42,7 +42,7 @@ public final class BellmannFordTestCase
     public void testNullGraph()
     {
         // the actual weighted path
-        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).applyingBelmannFord( new DoubleWeight() );
+        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).applyingBelmannFord( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -51,7 +51,7 @@ public final class BellmannFordTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        findShortestPath( graph ).from( null ).applyingBelmannFord( new DoubleWeight() );
+        findShortestPath( graph ).from( null ).applyingBelmannFord( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -95,7 +95,7 @@ public final class BellmannFordTestCase
             graph.addVertex( a );
             graph.addVertex( b );
 
-            allVertexPairsShortestPath = findShortestPath( graph ).from( a ).applyingBelmannFord( new DoubleWeight() );
+            allVertexPairsShortestPath = findShortestPath( graph ).from( a ).applyingBelmannFord( new DoubleWeightBaseOperations() );
         }
         catch ( PathNotFoundException e )
         {
@@ -144,13 +144,13 @@ public final class BellmannFordTestCase
 
         // the expected weighted path
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, three, new DoubleWeight() );
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, three, new DoubleWeightBaseOperations() );
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 4", 7D ), four );
         expected.addConnectionInTail( four, new BaseLabeledWeightedEdge<Double>( "4 -> 3", -3D ), three );
 
         // the actual weighted path
         AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
-            findShortestPath( graph ).from( one ).applyingBelmannFord( new DoubleWeight() );
+            findShortestPath( graph ).from( one ).applyingBelmannFord( new DoubleWeightBaseOperations() );
 
         WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             allVertexPairsShortestPath.findShortestPath( one, three );

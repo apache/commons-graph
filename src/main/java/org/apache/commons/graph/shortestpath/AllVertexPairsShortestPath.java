@@ -44,14 +44,14 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
 
     private final Map<VertexPair<V>, W> shortestDistances = new HashMap<VertexPair<V>, W>();
 
-    private final OrderedMonoid<W> orderedMonoid;
+    private final OrderedMonoid<W> weightOperations;
 
     /**
      * Constructor visible only inside the package
      */
-    AllVertexPairsShortestPath( OrderedMonoid<W> orderedMonoid )
+    AllVertexPairsShortestPath( OrderedMonoid<W> weightOperations )
     {
-        this.orderedMonoid = orderedMonoid;
+        this.weightOperations = weightOperations;
     }
 
     /**
@@ -118,7 +118,7 @@ public final class AllVertexPairsShortestPath<V extends Vertex, WE extends Weigh
 
         if ( source.equals( target ) )
         {
-            return orderedMonoid.zero();
+            return weightOperations.zero();
         }
 
         return shortestDistances.get( new VertexPair<V>( source, target ) );

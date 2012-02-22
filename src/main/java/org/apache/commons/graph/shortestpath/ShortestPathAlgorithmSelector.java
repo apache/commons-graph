@@ -39,19 +39,19 @@ public interface ShortestPathAlgorithmSelector<V extends Vertex, WE extends Weig
     /**
      *  Calculates the shortest path using the A* algorithm.
      *
-     * @param <OM>
-     * @param orderedMonoid the ordered monoid needed to handle operations on weights
+     * @param <WO> the type of weight operations
+     * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <OM extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, OM> applyingAStar( OM orderedMonoid );
+    <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations );
 
     /**
-     *  Calculates the shortest path using the Dijkstra's algorithm.
+     *  Calculates the shortest path using Dijkstra's algorithm.
      *
-     * @param <OM>
-     * @param orderedMonoid the ordered monoid needed to handle operations on weights
+     * @param <WO> the type of weight operations
+     * @param weightOperations the class responsible for operations on weights
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    <OM extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( OM orderedMonoid );
+    <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations );
 
 }

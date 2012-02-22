@@ -1,5 +1,5 @@
 /**
- * Primitive weight implementations.
+ * Implementations of base operations on primitive types of weights.
  */
 package org.apache.commons.graph.weight.primitive;
 

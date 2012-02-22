@@ -45,14 +45,14 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
     {
-        orderedMonoid = checkNotNull( orderedMonoid, "Belmann-Ford algorithm can not be applied using a null weight monoid" );
+        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
 
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( orderedMonoid );
-        shortestDistances.setWeight( source, orderedMonoid.zero() );
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+        shortestDistances.setWeight( source, weightOperations.zero() );
 
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
 
         for ( int i = 0; i < graph.getOrder(); i++ )
         {
@@ -64,10 +64,10 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
 
                 if ( shortestDistances.alreadyVisited( u ) )
                 {
-                    W shortDist = orderedMonoid.append( shortestDistances.getWeight( u ), edge.getWeight() );
+                    W shortDist = weightOperations.append( shortestDistances.getWeight( u ), edge.getWeight() );
 
                     if ( !shortestDistances.alreadyVisited( v )
-                            || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                            || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
                     {
                         // assign new shortest distance and mark unsettled
                         shortestDistances.setWeight( v, shortDist );
@@ -87,10 +87,10 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
 
             if ( shortestDistances.alreadyVisited( u ) )
             {
-                W shortDist = orderedMonoid.append( shortestDistances.getWeight( u ), edge.getWeight() );
+                W shortDist = weightOperations.append( shortestDistances.getWeight( u ), edge.getWeight() );
 
                 if ( !shortestDistances.alreadyVisited( v )
-                        || orderedMonoid.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                        || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
                 {
                     // TODO it would be nice printing the cycle
                     throw new NegativeWeightedCycleException( "Graph contains a negative-weight cycle in vertex %s",
@@ -99,7 +99,7 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
             }
         }
 
-        AllVertexPairsShortestPath<V, WE, W> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W>( orderedMonoid );
+        AllVertexPairsShortestPath<V, WE, W> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
 
         for ( V target : graph.getVertices() )
         {

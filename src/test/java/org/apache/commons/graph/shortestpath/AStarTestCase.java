@@ -34,7 +34,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 public final class AStarTestCase
@@ -43,7 +43,7 @@ public final class AStarTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
+        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingAStar( new DoubleWeightBaseOperations() ).withHeuristic( null );
     }
 
     @Test( expected = NullPointerException.class )
@@ -52,7 +52,7 @@ public final class AStarTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        findShortestPath( graph ).from( null ).to( null ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
+        findShortestPath( graph ).from( null ).to( null ).applyingAStar( new DoubleWeightBaseOperations() ).withHeuristic( null );
     }
 
     @Test( expected = NullPointerException.class )
@@ -61,7 +61,7 @@ public final class AStarTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        findShortestPath( graph ).from( new BaseLabeledVertex( "a" ) ).to( new BaseLabeledVertex( "b" ) ).applyingAStar( new DoubleWeight() ).withHeuristic( null );
+        findShortestPath( graph ).from( new BaseLabeledVertex( "a" ) ).to( new BaseLabeledVertex( "b" ) ).applyingAStar( new DoubleWeightBaseOperations() ).withHeuristic( null );
     }
 
     @Test( expected = NullPointerException.class )
@@ -121,7 +121,7 @@ public final class AStarTestCase
 
         };
 
-        findShortestPath( graph ).from( a ).to( b ).applyingAStar( new DoubleWeight() ).withHeuristic( heuristic );
+        findShortestPath( graph ).from( a ).to( b ).applyingAStar( new DoubleWeightBaseOperations() ).withHeuristic( heuristic );
     }
 
     /**
@@ -186,7 +186,7 @@ public final class AStarTestCase
 
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( start, goal,
-                                                                                                  new DoubleWeight() );
+                                                                                                  new DoubleWeightBaseOperations() );
 
         expected.addConnectionInTail( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
         expected.addConnectionInTail( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );
@@ -196,7 +196,7 @@ public final class AStarTestCase
         // actual path
 
         Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
-            findShortestPath( graph ).from( start ).to( goal ).applyingAStar( new DoubleWeight() ).withHeuristic( heuristic );
+            findShortestPath( graph ).from( start ).to( goal ).applyingAStar( new DoubleWeightBaseOperations() ).withHeuristic( heuristic );
 
         // assert!
 

@@ -46,11 +46,11 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( WO weightOperations )
     {
-        orderedMonoid = checkNotNull( orderedMonoid, "Floyd-Warshall algorithm can not be applied using a null weight monoid" );
+        weightOperations = checkNotNull( weightOperations, "Floyd-Warshall algorithm can not be applied using null weight operations" );
 
-        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( orderedMonoid );
+        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
 
         // init
@@ -74,9 +74,9 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
                 {
                     if ( shortestPaths.hasShortestDistance( i, k ) && shortestPaths.hasShortestDistance( k, j ) )
                     {
-                        W newDistance = orderedMonoid.append( shortestPaths.getShortestDistance( i, k ), shortestPaths.getShortestDistance( k, j ) );
+                        W newDistance = weightOperations.append( shortestPaths.getShortestDistance( i, k ), shortestPaths.getShortestDistance( k, j ) );
                         if ( !shortestPaths.hasShortestDistance( i, j )
-                                || orderedMonoid.compare( newDistance, shortestPaths.getShortestDistance( i, j ) ) < 0 )
+                                || weightOperations.compare( newDistance, shortestPaths.getShortestDistance( i, j ) ) < 0 )
                         {
                             shortestPaths.addShortestDistance( i, j, newDistance );
 
@@ -96,7 +96,7 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
             {
                 if ( !source.equals( target ) )
                 {
-                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, orderedMonoid );
+                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations );
 
                     pathReconstruction( predecessorsList, source, target, next );
                     if ( !predecessorsList.isEmpty() )

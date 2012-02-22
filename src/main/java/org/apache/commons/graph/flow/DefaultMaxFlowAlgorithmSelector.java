@@ -59,15 +59,15 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> W applyingFordFulkerson( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations )
     {
-        final OM checkedOrderedMonoid = checkNotNull( orderedMonoid, "Weight monoid can not be null to find the max flow in the graph" );
+        final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
         // create flow network
-        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedOrderedMonoid );
+        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
 
         // create flow network handler
-        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedOrderedMonoid );
+        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedWeightOperations );
 
         // perform depth first search
         visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
@@ -86,15 +86,15 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
     /**
      * {@inheritDoc}
      */
-    public <OM extends OrderedMonoid<W>> W applyingEdmondsKarp( OM orderedMonoid )
+    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations )
     {
-        final OM checkedOrderedMonoid = checkNotNull( orderedMonoid, "Weight monoid can not be null to find the max flow in the graph" );
+        final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
         // create flow network
-        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedOrderedMonoid );
+        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
 
         // create flow network handler
-        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedOrderedMonoid );
+        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedWeightOperations );
 
         // perform breadth first search
         visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
@@ -110,7 +110,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
         return flowNetworkHandler.onCompleted();
     }
 
-    private <OM extends OrderedMonoid<W>> DirectedGraph<V, WeightedEdge<W>> newFlowNetwok( final G graph, final OM orderedMonoid )
+    private <WO extends OrderedMonoid<W>> DirectedGraph<V, WeightedEdge<W>> newFlowNetwok( final G graph, final WO weightOperations )
     {
         return newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
         {
@@ -134,7 +134,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
                     if ( graph.getEdge( tail, head ) == null )
                     {
                         // complete the flow network with a zero-capacity inverse edge
-                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, orderedMonoid.zero() ) )
+                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, weightOperations.zero() ) )
                             .from( tail ).to( head );
                     }
                 }

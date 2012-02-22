@@ -46,13 +46,13 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
 
     private W weight;
 
-    private Monoid<W> monoid;
+    private Monoid<W> weightOperations;
 
-    public InMemoryWeightedPath( V start, V target, Monoid<W> monoid )
+    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations )
     {
         super( start, target );
-        this.monoid = monoid;
-        this.weight = monoid.zero();
+        this.weightOperations = weightOperations;
+        this.weight = weightOperations.zero();
     }
 
     /**
@@ -82,7 +82,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
      */
     private void increaseWeight( WE edge )
     {
-        weight = monoid.append( edge.getWeight(), weight );
+        weight = weightOperations.append( edge.getWeight(), weight );
     }
 
     /**

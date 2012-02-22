@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="cs" type="fix" issue="SANDBOX-395">
+      Correct names for classes and variables related to operations on weights
+    </action>
     <action dev="marcosperanza" type="fix" issue="SANDBOX-394">
       Add containsEdge and containsVertex into Graph interface
     </action>

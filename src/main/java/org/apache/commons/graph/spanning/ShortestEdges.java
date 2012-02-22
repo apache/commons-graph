@@ -47,17 +47,17 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
 
     private final Map<V, WE> predecessors = new HashMap<V, WE>();
 
-    private final OrderedMonoid<W> orderedMonoid;
+    private final OrderedMonoid<W> weightOperations;
     
     private final Graph<V, WE> graph;
 
     private final V source;
 
-    public ShortestEdges(Graph<V, WE> graph, V source, OrderedMonoid<W> orderedMonoid )
+    public ShortestEdges(Graph<V, WE> graph, V source, OrderedMonoid<W> weightOperations )
     {
         this.graph = graph;
         this.source = source;
-        this.orderedMonoid = orderedMonoid;
+        this.weightOperations = weightOperations;
     }
 
     /**
@@ -78,7 +78,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
      */
     public SpanningTree<V, WE, W> createSpanningTree()
     {
-        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( orderedMonoid );
+        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations );
 
         for ( WE edge : this.predecessors.values() )
         {
@@ -132,7 +132,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
     {
         if ( source.equals( vertex ) )
         {
-            return orderedMonoid.zero();
+            return weightOperations.zero();
         }
 
         WE edge = predecessors.get( vertex );
@@ -173,7 +173,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
         {
             return -1;
         }
-        return orderedMonoid.compare( getWeight( left ), getWeight( right ) );
+        return weightOperations.compare( getWeight( left ), getWeight( right ) );
     }
 
     /**

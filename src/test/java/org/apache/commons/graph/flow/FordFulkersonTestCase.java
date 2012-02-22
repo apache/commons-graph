@@ -31,7 +31,7 @@ import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.IntegerWeight;
+import org.apache.commons.graph.weight.primitive.IntegerWeightBaseOperations;
 import org.junit.Test;
 
 /**
@@ -48,13 +48,13 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
+        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
     }
 
     @Test(expected=NullPointerException.class)
     public void testNullGraphAndVertices()
     {
-        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeight() );
+        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
     }
 
     @Test
@@ -83,7 +83,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
+        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }
@@ -115,7 +115,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
+        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }
@@ -143,7 +143,7 @@ public final class FordFulkersonTestCase
         }
 
         // actual max flow
-        findMaxFlow( graph ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeight() );
+        findMaxFlow( graph ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
     }
 
     @Test
@@ -177,7 +177,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 2000;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeight() );
+        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }

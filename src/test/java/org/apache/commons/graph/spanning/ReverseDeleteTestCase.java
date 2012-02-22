@@ -30,7 +30,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 /**
@@ -42,7 +42,7 @@ public class ReverseDeleteTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -60,7 +60,7 @@ public class ReverseDeleteTestCase
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> tree =
-            minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+            minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
 
         assertEquals( 0, tree.getOrder() );
         assertEquals( 0, tree.getSize() );
@@ -91,7 +91,7 @@ public class ReverseDeleteTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -102,7 +102,7 @@ public class ReverseDeleteTestCase
         expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> a", 4D ), a );
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
         assertEquals( expected, actual );
     }
 
@@ -126,7 +126,7 @@ public class ReverseDeleteTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -134,7 +134,7 @@ public class ReverseDeleteTestCase
         }
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
         assertEquals( expected, actual );
     }
 
@@ -169,7 +169,7 @@ public class ReverseDeleteTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -182,7 +182,7 @@ public class ReverseDeleteTestCase
         expected.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> e", 4D ), e );
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
         assertEquals( expected, actual );
     }
 
@@ -222,7 +222,7 @@ public class ReverseDeleteTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -236,7 +236,7 @@ public class ReverseDeleteTestCase
         expected.addEdge( f, new BaseLabeledWeightedEdge<Double>( "f <-> d", 4D ), d );
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeight() );
+                        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
         assertEquals( expected, actual );
     }
 

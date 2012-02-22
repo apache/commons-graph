@@ -38,13 +38,13 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
 
     private static final long serialVersionUID = -4371938772248573879L;
 
-    private Monoid<W> monoid;
+    private Monoid<W> weightOperations;
 
     private W weight;
 
-    public MutableSpanningTree(Monoid<W> monoid) {
-        this.monoid = monoid;
-        this.weight = monoid.zero();
+    public MutableSpanningTree(Monoid<W> weightOperations) {
+        this.weightOperations = weightOperations;
+        this.weight = weightOperations.zero();
     }
 
     /**
@@ -62,7 +62,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     protected void decorateAddEdge( V head, WE e, V tail )
     {
         super.decorateAddEdge( head, e, tail );
-        weight = monoid.append( weight, e.getWeight() );
+        weight = weightOperations.append( weight, e.getWeight() );
     }
 
     /**
@@ -71,7 +71,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     @Override
     protected void decorateRemoveEdge( WE e )
     {
-        weight = monoid.append( weight, monoid.inverse( e.getWeight() ) );
+        weight = weightOperations.append( weight, weightOperations.inverse( e.getWeight() ) );
     }
 
 }

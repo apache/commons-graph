@@ -31,7 +31,7 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
 public final class PrimTestCase
@@ -39,7 +39,7 @@ public final class PrimTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -48,7 +48,7 @@ public final class PrimTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        minimumSpanningTree( input ).fromSource( null ).applyingPrimAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromSource( null ).applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -86,7 +86,7 @@ public final class PrimTestCase
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
             new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
 
-        minimumSpanningTree( input ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeight() );
+        minimumSpanningTree( input ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     /**
@@ -132,7 +132,7 @@ public final class PrimTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -198,7 +198,7 @@ public final class PrimTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeight() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -221,7 +221,7 @@ public final class PrimTestCase
     {
      // actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromSource( source ).applyingPrimAlgorithm( new DoubleWeight() );
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual = minimumSpanningTree( input ).fromSource( source ).applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
 
         // assert!
 

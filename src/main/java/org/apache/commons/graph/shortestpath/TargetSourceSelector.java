@@ -38,11 +38,11 @@ public interface TargetSourceSelector<V extends Vertex, WE extends WeightedEdge<
     /**
      *  Calculates the shortest path using the BellmannFord's algorithm.
      *
-     * @param <OM>
-     * @param orderedMonoid the ordered monoid needed to handle operations on weights
+     * @param <WO> the type of weight operations
+     * @param weightOperations the weight operations needed for the algorithm
      * @return a data structure which contains all vertex pairs shortest path.
      */
-    <OM extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( OM orderedMonoid );
+    <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations );
 
     /**
      * Specifies the shortest path source.
