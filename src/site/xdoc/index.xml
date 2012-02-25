@@ -23,10 +23,23 @@
   </properties>
   <body>
     <section name="The Graph Component">
-      <p>The Apache Commons Graph package is a Java library for managing
-      <a href="http://en.wikipedia.org/wiki/Graph_(data_structure)">Graph</a> data structures, with strong emphasis on
-      Graph Algorithms and
-      <a href="http://en.wikipedia.org/wiki/Fluent_interface">fluent APIs</a>.</p>
+    
+      <p>A <a href="http://en.wikipedia.org/wiki/Graph_(data_structure)">graph</a> 
+      is an abstract structure in which objects can be linked together to represent relationships between them.
+      Graphs and graph-based data structures are at the core of many real-world domains and applications:
+      typical examples include communication networks, databases, chemical structures, social networks and so on. 
+      Graphs can be implemented in different ways, based on the specific domain and usage patterns.</p>
+      
+      <p>Commons Graph provides simple <a href="http://en.wikipedia.org/wiki/Fluent_interface">fluent APIs</a> 
+      to manage graph-based data structures and execute standard operations and algorithms on them. </p>
+      
+      <p>Some of the features of Commons Graph are listed below:</p>
+      <ul>
+        <li>A highly abstract domain for graph components and types, together with related base implementations.</li>
+        <li>Standard algorithms such as shortest path, maximum flow, spanning tree and so on.</li>
+        <li>Customizable properties of graphs and graph components such as labels and weights.</li>
+        <li>An I/O utility that allows to export graphs to well-known file formats.</li>
+      </ul>
 
       <subsection name="Status">
         <ul>
