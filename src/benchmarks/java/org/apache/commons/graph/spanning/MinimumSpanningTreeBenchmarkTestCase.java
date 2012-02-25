@@ -29,7 +29,7 @@ import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
-import org.apache.commons.graph.weight.primitive.DoubleWeight;
+import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -86,7 +86,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performBoruvka()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( G ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeight() );
+            minimumSpanningTree( G ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
@@ -95,7 +95,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performKruskal()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( G ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeight() );
+            minimumSpanningTree( G ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
@@ -104,7 +104,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performPrim()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( G ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeight() );
+            minimumSpanningTree( G ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
