@@ -33,6 +33,7 @@
     <menu name="Graph Model">
       <item name="Introduction"                  href="/model/intro.html" />
       <item name="Base in-memory model"          href="/model/base.html" />
+      <item name="Weight model"                  href="/model/weights.html" />
     </menu>
 
     <menu name="Graph Algorithms">

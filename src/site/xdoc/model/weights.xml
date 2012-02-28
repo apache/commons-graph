@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>Commons Graph - Introduction to weight model</title>
+    <author email="dev@commons.apache.org">Commons Documentation Team</author>
+  </properties>
+  <body>
+    <section name="Introduction">
+      <p>Commons Graph offers a powerful and customizable abstraction to represent weighted objects
+      (e.g. edges, vertices, paths). It is available out of the box for all common types of weight and 
+      can be easily extended with user-defined implementations.</p>
+      
+      <p>The package <a href="../apidocs/org/apache/commons/graph/weight/package-summary.html">org.apache.commons.graph.weight</a> 
+      contains a hierarchy of interfaces responsible for different operations and properties of weights,
+      like the possibility to <a href="../apidocs/org/apache/commons/graph/weight/Semigroup.html">apply binary operations</a> 
+      or to <a href="../apidocs/org/apache/commons/graph/weight/OrderedMonoid.html">compare two elements</a>.
+      Each algorithm dealing with weights specifies the desired properties as an input parameter.</p>
+    </section>
+    
+    <section name="Dealing with weights">
+      <p>Let us assume that we have a <a href="../apidocs/org/apache/commons/graph/WeightedGraph.html">WeightedGraph</a> 
+      whose edges are assigned weights of type Double. 
+      If we want to find the shortest path using Dijkstra's algorithm we will to pass an
+      implementation of the interface <a href="../apidocs/org/apache/commons/graph/weight/OrderedMonoid.html">OrderedMonoid</a>, 
+      like the built-in <a href="../apidocs/org/apache/commons/graph/weight/primitive/DoubleWeightBaseOperations.html">DoubleWeightBaseOperations</a>:</p>
+      
+<source>WeightedGraph&lt;V, WE, Double&gt; graph;
+V source, destination;
+// populate graph and initialise source and destination ...
+WeightedPath&lt;V, WE, Double&gt; shortestPath = 
+    findShortestPath( graph ).from( source ).to( destination ).applyingDijkstra( new DoubleWeightBaseOperations() );
+</source>
+
+      <p>The subpackage <a href="../apidocs/org/apache/commons/graph/weight/primitive/package-summary.html">org.apache.commons.graph.weight.primitive</a>
+      contains base implementations for the most common primitive types of weight: Integer, Long, Float, Double, BigInteger, BigDecimal.</p>
+ 
+    </section>
+    
+    <section name="Custom weight types">
+      <p>Commons Graph allows to easily extend the small set of supported weight types
+      by implementing a new class responsible for properties and operations for each new type of weight. 
+      This can prove useful when dealing with third-party classes or user-defined implementations
+      with specific additional requirements. For example, borrowing the class 
+      <a href="http://commons.apache.org/math/apidocs/org/apache/commons/math/fraction/Fraction.html">Fraction</a> from 
+      <a href="http://commons.apache.org/math/">Commons Math</a>
+      we could use the following implementation:</p>
+      
+<source>public class FractionWeightBaseOperations 
+    implements OrderedMonoid&lt;Fraction&gt;
+{
+
+    public Fraction zero()
+    {
+        return new Fraction( 0, 0 );
+    }
+    
+    public Fraction append( Fraction f1, Fraction f2 )
+    {
+        return f1.add( f2 );
+    }
+    
+    public Fraction inverse( Fraction f )
+    {
+        return f.negate();
+    }
+    
+    public int compare( Fraction f1, Fraction f2 )
+    {
+        return f1.compareTo( f2 );
+    }
+    
+}
+</source>
+    </section>
+    
+  </body>
+</document>
