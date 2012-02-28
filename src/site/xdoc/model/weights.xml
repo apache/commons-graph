@@ -37,7 +37,7 @@
     <section name="Dealing with weights">
       <p>Let us assume that we have a <a href="../apidocs/org/apache/commons/graph/WeightedGraph.html">WeightedGraph</a> 
       whose edges are assigned weights of type Double. 
-      If we want to find the shortest path using Dijkstra's algorithm we will to pass an
+      If we want to find the shortest path using Dijkstra's algorithm we need an
       implementation of the interface <a href="../apidocs/org/apache/commons/graph/weight/OrderedMonoid.html">OrderedMonoid</a>, 
       like the built-in <a href="../apidocs/org/apache/commons/graph/weight/primitive/DoubleWeightBaseOperations.html">DoubleWeightBaseOperations</a>:</p>
       
