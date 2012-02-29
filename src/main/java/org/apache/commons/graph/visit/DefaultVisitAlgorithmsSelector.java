@@ -24,14 +24,14 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.VertexPair;
 
 /**
  * {@link VisitAlgorithmsSelector} implementation.
@@ -75,52 +75,88 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
+        return applyingSearch( handler, new QueueOrStack<VertexPair<V>>( true ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
+    {
+        return applyingSearch( handler, new QueueOrStack<VertexPair<V>>( false ) );
+    }
+
+    /**
+     * A generalized graph search algorithm to be used to implement depth-first and
+     * breadth-first searches. Depending on the used collection, the algorithm traverses
+     * the graph in a different way:
+     *
+     * <ul>
+     *  <li>Queue (FIFO): breadth-first</li>
+     *  <li>Stack (LIFO): depth-first</li>
+     * </ul>
+     *
+     * @param handler the handler intercepts visits
+     * @param vertexList the collection used to traverse the graph
+     * @return the result of {@link GraphVisitHandler#onCompleted()}
+     */
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, QueueOrStack<VertexPair<V>> vertexList )
+    {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
         handler.discoverGraph( graph );
 
-        Queue<V> vertexQueue = new LinkedList<V>();
-        vertexQueue.add( source );
+        vertexList.push( new VertexPair<V>( source, source ) );
 
-        Set<V> visitedVertices = new HashSet<V>();
+        final Set<V> visitedVertices = new HashSet<V>();
         visitedVertices.add( source );
 
         boolean visitingGraph = true;
 
-        while ( visitingGraph && !vertexQueue.isEmpty() )
+        while ( visitingGraph && !vertexList.isEmpty() )
         {
-            V v = vertexQueue.remove();
+            final VertexPair<V> pair = vertexList.pop();
+            final V v = pair.getHead();
+            final V prevHead = pair.getTail();
+            final E e = prevHead.equals( v ) ? null : graph.getEdge( prevHead, v );
 
-            if ( handler.discoverVertex( v ) ) {
-
-                Iterator<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
-                                : graph.getConnectedVertices( v ).iterator();
+            boolean skipVertex = false;
+            
+            if ( e != null )
+            {
+                if ( !handler.discoverEdge( prevHead, e, v ) )
+                {
+                    skipVertex = true;
+                }
+                
+                if ( handler.finishEdge( prevHead, e, v ) )
+                {
+                    skipVertex = true;
+                    visitingGraph = false;
+                }
+            }
+            
+            if ( !skipVertex && handler.discoverVertex( v ) )
+            {
+                Iterator<V> connected = ( graph instanceof DirectedGraph ) ?
+                        ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator() :
+                            graph.getConnectedVertices( v ).iterator();
 
                 while ( connected.hasNext() )
                 {
                     V w = connected.next();
                     if ( !visitedVertices.contains( w ) )
                     {
-                        E e = graph.getEdge( v, w );
-
-                        if ( handler.discoverEdge( v, e, w ) )
-                        {
-                            vertexQueue.offer( w );
-                            visitedVertices.add( w );
-                        }
-
-                        if ( handler.finishEdge( v, e, w ) )
-                        {
-                            visitingGraph = false;
-                        }
+                        vertexList.push( new VertexPair<V>( w, v ) );
+                        visitedVertices.add( w );
                     }
                 }
-
             }
-            if ( handler.finishVertex( v ) )
+
+            if ( !skipVertex && handler.finishVertex( v ) )
             {
                 visitingGraph = false;
-            }
+            }            
         }
 
         handler.finishGraph( graph );
@@ -129,60 +165,62 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
     }
 
     /**
-     * {@inheritDoc}
+     * A wrapper class around a {@link LinkedList} to provide a common
+     * interface for {@link Stack} or {@link Queue} implementations. The class
+     * is used to support a common algorithm for depth-first and breadth-first
+     * search, by switching from queue (FIFO) to stack (LIFO) behavior. 
+     *
+     * @param <V> the Graph vertices type
      */
-    public <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
+    private static class QueueOrStack<P>
     {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
-
-        handler.discoverGraph( graph );
-
-        Stack<V> vertexStack = new Stack<V>();
-        vertexStack.push( source );
-
-        Set<V> visitedVertices = new HashSet<V>();
-        visitedVertices.add( source );
-
-        boolean visitingGraph = true;
-
-        while ( visitingGraph && !vertexStack.isEmpty() )
+        /** indicated the collection behavior. */
+        private boolean isQueue;
+        /** the underlying linked list implementation. */
+        private LinkedList<P> list;
+        
+        /**
+         * Create a new {@link QueueOrStack} instance with the desired
+         * behavior, indicated by <code>isQueue</code>.
+         *
+         * @param isQueue if <code>true</code> the collection behaves as a FIFO queue,
+         * otherwise as a LIFO stack.
+         */
+        public QueueOrStack( final boolean isQueue )
         {
-            V v = vertexStack.pop();
-
-            if ( handler.discoverVertex( v ) )
-            {
-                Iterator<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
-                                : graph.getConnectedVertices( v ).iterator();
-
-                while ( connected.hasNext() )
-                {
-                    V w = connected.next();
-                    if ( !visitedVertices.contains( w ) )
-                    {
-                        E e = graph.getEdge( v, w );
-
-                        if ( handler.discoverEdge( v, e, w ) )
-                        {
-                            vertexStack.push( w );
-                            visitedVertices.add( w );
-                        }
-
-                        if ( handler.finishEdge( v, e, w ) ) {
-                            visitingGraph = false;
-                        }
-                    }
-                }
-            }
-
-            if ( handler.finishVertex( v ) )
-            {
-                visitingGraph = false;
-            }
+            this.isQueue = isQueue;
+            this.list = new LinkedList<P>();
         }
-
-        handler.finishGraph( graph );
-
-        return handler.onCompleted();
+        
+        /**
+         * Add an element to the collection.
+         *
+         * @param element the element to be added
+         */
+        public void push( P element )
+        {
+            list.addLast( element );
+        }
+        
+        /**
+         * Removes and returns the element from the collection according to the
+         * defined behavior (LIFO vs. FIFO).
+         * @return the next element
+         * @throws NoSuchElementException if the collection is empty
+         */
+        public P pop() throws NoSuchElementException
+        {
+            return isQueue ? list.removeFirst() : list.removeLast();
+        }
+        
+        /**
+         * Returns <code>true</code> if the collection contains no elements.
+         * @return <code>true</code> if the collection is empty, <code>false</code> otherwise
+         */
+        public boolean isEmpty() 
+        {
+            return list.isEmpty();
+        }
     }
 
 }
