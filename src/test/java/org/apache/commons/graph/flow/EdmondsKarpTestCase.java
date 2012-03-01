@@ -58,14 +58,7 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex g = null;
 
         DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
-            {
-                @Override
-                public void connect()
-                {
-                }
-
-            } );
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
 
         // actual max flow
         findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );

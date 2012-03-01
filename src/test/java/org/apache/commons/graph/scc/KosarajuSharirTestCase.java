@@ -56,16 +56,8 @@ public final class KosarajuSharirTestCase
     {
 
         final BaseLabeledVertex a = null;
-
         DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
-            {
-                @Override
-                public void connect()
-                {
-                }
-
-            } );
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
 
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
     }
@@ -74,14 +66,7 @@ public final class KosarajuSharirTestCase
     public void testNotExistVertex()
     {
         DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
-            {
-                @Override
-                public void connect()
-                {
-                }
-
-            } );
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
 
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir( new BaseLabeledVertex( "NOT EXISTS" ) );
     }
@@ -90,14 +75,7 @@ public final class KosarajuSharirTestCase
     public void testEmptyGraph()
     {
         DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
-            {
-                @Override
-                public void connect()
-                {
-                }
-
-            } );
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
 
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
     }

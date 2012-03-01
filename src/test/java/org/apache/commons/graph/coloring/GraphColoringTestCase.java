@@ -57,16 +57,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
     public void testNullColorGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
-            {
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
-                @Override
-                public void connect()
-                {
-                    // empty
-                }
-
-            } );
         coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
     }
 
@@ -74,16 +66,8 @@ public class GraphColoringTestCase extends AbstractColoringTest
     public void testEmptyGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
-            {
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
-                @Override
-                public void connect()
-                {
-                    // empty
-                }
-
-            } );
         ColoredVertices<BaseLabeledVertex, Integer> coloredVertices = coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 0, coloredVertices.getRequiredColors() );

@@ -123,24 +123,8 @@ public final class FordFulkersonTestCase
     @Test(expected=NullPointerException.class)
     public void testNullVertices()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph = null;
-        try
-        {
-            graph =
-                newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
-                {
-
-                    @Override
-                    public void connect()
-                    {
-                    }
-
-                } );
-        }
-        catch ( NullPointerException e )
-        {
-            fail( e.getMessage() );
-        }
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
 
         // actual max flow
         findMaxFlow( graph ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeightBaseOperations() );

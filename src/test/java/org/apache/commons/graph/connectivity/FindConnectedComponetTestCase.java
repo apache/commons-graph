@@ -53,16 +53,10 @@ public final class FindConnectedComponetTestCase
     public void verifyEmptyGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
-            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
-            {
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
-                public void connect()
-                {
-                    //empty
-                }
-
-            } );
-        Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        Collection<List<BaseLabeledVertex>> c =
+            findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
         assertNotNull( c );
         assertEquals( 0, c.size() );
     }
