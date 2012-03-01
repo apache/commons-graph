@@ -226,24 +226,26 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
     /**
      * {@inheritDoc}
      */
-    public Set<V> applyingTarjan()
+    public Set<Set<V>> applyingTarjan()
     {
         final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
         final Stack<V> s = new Stack<V>();
-        final Set<V> stronglyConnectedComponent = new LinkedHashSet<V>();
+        final Set<Set<V>> stronglyConnectedComponents = new LinkedHashSet<Set<V>>();
         Integer index = 0;
 
         for ( V vertex : graph.getVertices() )
         {
             TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
+            final Set<V> stronglyConnectedComponent = new LinkedHashSet<V>();
 
             if ( vertexMetaInfo.hasUndefinedIndex() )
             {
                 strongConnect( graph, vertex, verticesMetaInfo, s, stronglyConnectedComponent, index );
+                stronglyConnectedComponents.add( stronglyConnectedComponent );
             }
         }
 
-        return stronglyConnectedComponent;
+        return stronglyConnectedComponents;
     }
 
     private static <V> TarjanVertexMetaInfo getMetaInfo( V vertex, Map<V, TarjanVertexMetaInfo> verticesMetaInfo )

@@ -64,6 +64,6 @@ public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extend
      *
      * @return the input graph strongly connected component.
      */
-    Set<V> applyingTarjan();
+    Set<Set<V>> applyingTarjan();
 
 }
