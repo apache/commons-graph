@@ -176,8 +176,9 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
     {
         /** indicated the collection behavior. */
         private boolean isQueue;
+
         /** the underlying linked list implementation. */
-        private LinkedList<P> list;
+        private final LinkedList<P> list;
 
         /**
          * Create a new {@link QueueOrStack} instance with the desired
