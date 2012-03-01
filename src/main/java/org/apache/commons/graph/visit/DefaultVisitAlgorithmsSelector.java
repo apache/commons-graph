@@ -138,6 +138,13 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
                 }
             }
 
+            // only mark the current vertex as visited, if the
+            // edge leading to should be expanded
+            if ( !skipVertex )
+            {
+                visitedVertices.add( v );                
+            }
+
             if ( !skipVertex && handler.discoverVertex( v ) )
             {
                 Iterator<V> connected = ( graph instanceof DirectedGraph ) ?
@@ -150,7 +157,6 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
                     if ( !visitedVertices.contains( w ) )
                     {
                         vertexList.addLast( new VertexPair<V>( w, v ) );
-                        visitedVertices.add( w );
                     }
                 }
             }
