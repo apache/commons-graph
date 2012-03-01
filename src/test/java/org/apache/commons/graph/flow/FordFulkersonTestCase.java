@@ -22,8 +22,6 @@ package org.apache.commons.graph.flow;
 import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
