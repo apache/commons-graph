@@ -35,12 +35,21 @@ public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extend
 {
 
     /**
-     * Applies the classical Kosaraju's algorithm to find the strongly connected components, if exist.
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components of
+     * a vertex <code>source</code>.
      *
      * @param source the source vertex to start the search from
      * @return the input graph strongly connected component.
      */
     Set<V> applyingKosarajuSharir( V source );
+
+    /**
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components.
+     *
+     * @param source the source vertex to start the search from
+     * @return the input graph strongly connected component.
+     */
+    Set<Set<V>> applyingKosarajuSharir();
 
     /**
      * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.

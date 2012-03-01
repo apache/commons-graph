@@ -22,15 +22,17 @@ package org.apache.commons.graph.scc;
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,10 +43,17 @@ public final class KosarajuSharirTestCase
 {
 
     @Test
-    @Ignore
+    //@Ignore
     public void verifyHasStronglyConnectedComponents()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        final BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+        final BaseLabeledVertex e = new BaseLabeledVertex( "E" );
+        final BaseLabeledVertex f = new BaseLabeledVertex( "F" );
+        final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
+        final BaseLabeledVertex h = new BaseLabeledVertex( "H" );
 
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
@@ -53,13 +62,13 @@ public final class KosarajuSharirTestCase
             public void connect()
             {
                 addVertex( a );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-                BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
-                BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
-                BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
-                BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
+                addVertex( b );
+                addVertex( c );
+                addVertex( d );
+                addVertex( e );
+                addVertex( f );
+                addVertex( g );
+                addVertex( h );
 
                 addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
                 addEdge( new BaseLabeledEdge( "A -> B" ) ).from( a ).to( b );
@@ -76,9 +85,36 @@ public final class KosarajuSharirTestCase
 
         } );
 
-        Set<BaseLabeledVertex> ssc = findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
+        Set<Set<BaseLabeledVertex>> expected = new HashSet<Set<BaseLabeledVertex>>();
+        Set<BaseLabeledVertex> scc1 = new HashSet<BaseLabeledVertex>();
+        Collections.addAll( scc1, a, b, d );
+        expected.add( scc1 );
+        Set<BaseLabeledVertex> scc2 = new HashSet<BaseLabeledVertex>();
+        Collections.addAll( scc2, e, f );
+        expected.add( scc2 );
+        Set<BaseLabeledVertex> scc3 = new HashSet<BaseLabeledVertex>();
+        Collections.addAll( scc3, g, h, c );
+        expected.add( scc3 );
 
-        assertFalse( ssc.isEmpty() );
+        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
+        
+        assertFalse( actual.isEmpty() );
+        assertEquals( expected, actual );
+        
+        Set<BaseLabeledVertex> actualA = findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
+
+        assertFalse( actualA.isEmpty() );
+        assertEquals( scc1, actualA );
+        
+        Set<BaseLabeledVertex> actualE = findStronglyConnectedComponent( graph ).applyingKosarajuSharir( e );
+
+        assertFalse( actualE.isEmpty() );
+        assertEquals( scc2, actualE );
+        
+        Set<BaseLabeledVertex> actualG = findStronglyConnectedComponent( graph ).applyingKosarajuSharir( g );
+
+        assertFalse( actualG.isEmpty() );
+        assertEquals( scc3, actualG );        
     }
 
 }
