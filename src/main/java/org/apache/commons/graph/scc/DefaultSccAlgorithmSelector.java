@@ -21,6 +21,8 @@ package org.apache.commons.graph.scc;
 
 import static java.lang.Math.min;
 import static org.apache.commons.graph.CommonsGraph.visit;
+import static org.apache.commons.graph.utils.Assertions.checkState;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,6 +64,9 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
      */
     public Set<V> applyingKosarajuSharir( final V source )
     {
+        checkNotNull( source, "Kosaraju Sharir algorithm cannot be calculated without expressing the source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+ 
         final Set<V> visitedVertices = new HashSet<V>();
         final List<V> expandedVertexList = getExpandedVertexList( source, visitedVertices );
         final DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );

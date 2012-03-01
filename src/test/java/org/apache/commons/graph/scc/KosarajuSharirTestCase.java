@@ -21,7 +21,7 @@ package org.apache.commons.graph.scc;
 
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-
+import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -32,7 +32,9 @@ import java.util.Set;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
+import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableGraph;
+import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.junit.Test;
 
 /**
@@ -42,8 +44,93 @@ import org.junit.Test;
 public final class KosarajuSharirTestCase
 {
 
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph = null;
+        findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullVertices()
+    {
+
+        final BaseLabeledVertex a = null;
+
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+                @Override
+                public void connect()
+                {
+                }
+
+            } );
+
+        findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
+    }
+
+    @Test( expected = IllegalStateException.class )
+    public void testNotExistVertex()
+    {
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+                @Override
+                public void connect()
+                {
+                }
+
+            } );
+
+        findStronglyConnectedComponent( graph ).applyingKosarajuSharir( new BaseLabeledVertex( "NOT EXISTS" ) );
+    }
+
     @Test
-    //@Ignore
+    public void testEmptyGraph()
+    {
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+                @Override
+                public void connect()
+                {
+                }
+
+            } );
+
+        findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
+    }
+
+    @Test
+    public void testSparse()
+    {
+        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
+            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    addVertex( new BaseLabeledVertex( "A" ) );
+                    addVertex( new BaseLabeledVertex( "B" ) );
+                    addVertex( new BaseLabeledVertex( "C" ) );
+                    addVertex( new BaseLabeledVertex( "D" ) );
+                    addVertex( new BaseLabeledVertex( "E" ) );
+                    addVertex( new BaseLabeledVertex( "F" ) );
+                }
+            } );
+
+        // expected strong components
+        final int expected = 6;
+
+        // actual strong components
+        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
+
+        assertEquals( actual.size(), expected );
+    }
+    
+    @Test
     public void verifyHasStronglyConnectedComponents()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
