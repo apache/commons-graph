@@ -173,7 +173,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      *
      * @param <V> the Graph vertices type
      */
-    private static class QueueOrStack<V extends Vertex>
+    private static final class QueueOrStack<V extends Vertex>
     {
         /** indicated the collection behavior. */
         private boolean isQueue;
