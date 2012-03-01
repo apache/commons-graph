@@ -24,9 +24,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
-import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
@@ -76,7 +74,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
-        return applyingSearch( handler, new QueueOrStack<V>( true ) );
+        return applyingSearch( handler, true );
     }
 
     /**
@@ -84,7 +82,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
-        return applyingSearch( handler, new QueueOrStack<V>( false ) );
+        return applyingSearch( handler, false );
     }
 
     /**
@@ -98,16 +96,18 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      * </ul>
      *
      * @param handler the handler intercepts visits
-     * @param vertexList the collection used to traverse the graph
+     * @param enqueue defines the collection behavior used to traverse the graph: true is a Queue, false is a Stack
      * @return the result of {@link GraphVisitHandler#onCompleted()}
      */
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, QueueOrStack<V> vertexList )
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
     {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
         handler.discoverGraph( graph );
 
-        vertexList.push( new VertexPair<V>( source, source ) );
+        final LinkedList<VertexPair<V>> vertexList = new LinkedList<VertexPair<V>>();
+
+        vertexList.addLast( new VertexPair<V>( source, source ) );
 
         final Set<V> visitedVertices = new HashSet<V>();
         visitedVertices.add( source );
@@ -116,7 +116,8 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
 
         while ( visitingGraph && !vertexList.isEmpty() )
         {
-            final VertexPair<V> pair = vertexList.pop();
+            // if dequeue, remove the first element, otherwise the last
+            final VertexPair<V> pair = enqueue ? vertexList.removeFirst() : vertexList.removeLast();
             final V v = pair.getHead();
             final V prevHead = pair.getTail();
             final E e = prevHead.equals( v ) ? null : graph.getEdge( prevHead, v );
@@ -148,7 +149,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
                     V w = connected.next();
                     if ( !visitedVertices.contains( w ) )
                     {
-                        vertexList.push( new VertexPair<V>( w, v ) );
+                        vertexList.addLast( new VertexPair<V>( w, v ) );
                         visitedVertices.add( w );
                     }
                 }
@@ -163,65 +164,6 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         handler.finishGraph( graph );
 
         return handler.onCompleted();
-    }
-
-    /**
-     * A wrapper class around a {@link LinkedList} to provide a common
-     * interface for {@link Stack} or {@link Queue} implementations. The class
-     * is used to support a common algorithm for depth-first and breadth-first
-     * search, by switching from queue (FIFO) to stack (LIFO) behavior.
-     *
-     * @param <V> the Graph vertices type
-     */
-    private static final class QueueOrStack<V extends Vertex>
-    {
-        /** indicated the collection behavior. */
-        private boolean isQueue;
-
-        /** the underlying linked list implementation. */
-        private final LinkedList<VertexPair<V>> list;
-
-        /**
-         * Create a new {@link QueueOrStack} instance with the desired
-         * behavior, indicated by <code>isQueue</code>.
-         *
-         * @param isQueue if <code>true</code> the collection behaves as a FIFO queue,
-         * otherwise as a LIFO stack.
-         */
-        public QueueOrStack( final boolean isQueue )
-        {
-            this.isQueue = isQueue;
-            this.list = new LinkedList<VertexPair<V>>();
-        }
-
-        /**
-         * Add an element to the collection.
-         *
-         * @param element the element to be added
-         */
-        public void push( VertexPair<V> element )
-        {
-            list.addLast( element );
-        }
-
-        /**
-         * Removes and returns the element from the collection according to the
-         * defined behavior (LIFO vs. FIFO).
-         * @return the next element
-         */
-        public VertexPair<V> pop()
-        {
-            return isQueue ? list.removeFirst() : list.removeLast();
-        }
-
-        /**
-         * Returns <code>true</code> if the collection contains no elements.
-         * @return <code>true</code> if the collection is empty, <code>false</code> otherwise
-         */
-        public boolean isEmpty()
-        {
-            return list.isEmpty();
-        }
     }
 
 }
