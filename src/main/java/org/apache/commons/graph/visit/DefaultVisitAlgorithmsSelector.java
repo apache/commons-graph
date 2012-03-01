@@ -126,23 +126,32 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
 
             if ( e != null )
             {
-                if ( !handler.discoverEdge( prevHead, e, v ) )
+                // if the vertex was already visited, do not discover
+                // another edge leading to the same vertex
+                if ( visitedVertices.contains( v ) ) 
                 {
                     skipVertex = true;
-                }
+                } 
+                else 
+                {
+                    if ( !handler.discoverEdge( prevHead, e, v ) )
+                    {
+                        skipVertex = true;
+                    }
 
-                if ( handler.finishEdge( prevHead, e, v ) )
-                {
-                    skipVertex = true;
-                    visitingGraph = false;
+                    if ( handler.finishEdge( prevHead, e, v ) )
+                    {
+                        skipVertex = true;
+                        visitingGraph = false;
+                    }
                 }
             }
 
             // only mark the current vertex as visited, if the
-            // edge leading to should be expanded
+            // edge leading to it should be expanded
             if ( !skipVertex )
             {
-                visitedVertices.add( v );                
+                visitedVertices.add( v );
             }
 
             if ( !skipVertex && handler.discoverVertex( v ) )
