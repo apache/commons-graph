@@ -24,8 +24,9 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
+import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
@@ -207,9 +208,8 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
          * Removes and returns the element from the collection according to the
          * defined behavior (LIFO vs. FIFO).
          * @return the next element
-         * @throws NoSuchElementException if the collection is empty
          */
-        public P pop() throws NoSuchElementException
+        public P pop()
         {
             return isQueue ? list.removeFirst() : list.removeLast();
         }
