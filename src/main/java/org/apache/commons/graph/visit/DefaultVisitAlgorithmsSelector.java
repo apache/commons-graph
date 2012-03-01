@@ -121,21 +121,21 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
             final E e = prevHead.equals( v ) ? null : graph.getEdge( prevHead, v );
 
             boolean skipVertex = false;
-            
+
             if ( e != null )
             {
                 if ( !handler.discoverEdge( prevHead, e, v ) )
                 {
                     skipVertex = true;
                 }
-                
+
                 if ( handler.finishEdge( prevHead, e, v ) )
                 {
                     skipVertex = true;
                     visitingGraph = false;
                 }
             }
-            
+
             if ( !skipVertex && handler.discoverVertex( v ) )
             {
                 Iterator<V> connected = ( graph instanceof DirectedGraph ) ?
@@ -156,7 +156,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
             if ( !skipVertex && handler.finishVertex( v ) )
             {
                 visitingGraph = false;
-            }            
+            }
         }
 
         handler.finishGraph( graph );
@@ -168,7 +168,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      * A wrapper class around a {@link LinkedList} to provide a common
      * interface for {@link Stack} or {@link Queue} implementations. The class
      * is used to support a common algorithm for depth-first and breadth-first
-     * search, by switching from queue (FIFO) to stack (LIFO) behavior. 
+     * search, by switching from queue (FIFO) to stack (LIFO) behavior.
      *
      * @param <V> the Graph vertices type
      */
@@ -178,7 +178,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         private boolean isQueue;
         /** the underlying linked list implementation. */
         private LinkedList<P> list;
-        
+
         /**
          * Create a new {@link QueueOrStack} instance with the desired
          * behavior, indicated by <code>isQueue</code>.
@@ -191,7 +191,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
             this.isQueue = isQueue;
             this.list = new LinkedList<P>();
         }
-        
+
         /**
          * Add an element to the collection.
          *
@@ -201,7 +201,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         {
             list.addLast( element );
         }
-        
+
         /**
          * Removes and returns the element from the collection according to the
          * defined behavior (LIFO vs. FIFO).
@@ -212,12 +212,12 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         {
             return isQueue ? list.removeFirst() : list.removeLast();
         }
-        
+
         /**
          * Returns <code>true</code> if the collection contains no elements.
          * @return <code>true</code> if the collection is empty, <code>false</code> otherwise
          */
-        public boolean isEmpty() 
+        public boolean isEmpty()
         {
             return list.isEmpty();
         }
