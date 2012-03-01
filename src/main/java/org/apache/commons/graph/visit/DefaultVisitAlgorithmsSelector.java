@@ -76,7 +76,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
-        return applyingSearch( handler, new QueueOrStack<VertexPair<V>>( true ) );
+        return applyingSearch( handler, new QueueOrStack<V>( true ) );
     }
 
     /**
@@ -84,7 +84,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      */
     public <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
-        return applyingSearch( handler, new QueueOrStack<VertexPair<V>>( false ) );
+        return applyingSearch( handler, new QueueOrStack<V>( false ) );
     }
 
     /**
@@ -101,7 +101,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      * @param vertexList the collection used to traverse the graph
      * @return the result of {@link GraphVisitHandler#onCompleted()}
      */
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, QueueOrStack<VertexPair<V>> vertexList )
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, QueueOrStack<V> vertexList )
     {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
@@ -173,13 +173,13 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
      *
      * @param <V> the Graph vertices type
      */
-    private static class QueueOrStack<P>
+    private static class QueueOrStack<V extends Vertex>
     {
         /** indicated the collection behavior. */
         private boolean isQueue;
 
         /** the underlying linked list implementation. */
-        private final LinkedList<P> list;
+        private final LinkedList<VertexPair<V>> list;
 
         /**
          * Create a new {@link QueueOrStack} instance with the desired
@@ -191,7 +191,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
         public QueueOrStack( final boolean isQueue )
         {
             this.isQueue = isQueue;
-            this.list = new LinkedList<P>();
+            this.list = new LinkedList<VertexPair<V>>();
         }
 
         /**
@@ -199,7 +199,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
          *
          * @param element the element to be added
          */
-        public void push( P element )
+        public void push( VertexPair<V> element )
         {
             list.addLast( element );
         }
@@ -209,7 +209,7 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
          * defined behavior (LIFO vs. FIFO).
          * @return the next element
          */
-        public P pop()
+        public VertexPair<V> pop()
         {
             return isQueue ? list.removeFirst() : list.removeLast();
         }
