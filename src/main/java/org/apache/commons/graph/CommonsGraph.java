@@ -19,7 +19,13 @@ package org.apache.commons.graph;
  * under the License.
  */
 
+import static java.lang.reflect.Proxy.newProxyInstance;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.graph.builder.DefaultLinkedConnectionBuilder;
 import org.apache.commons.graph.builder.GraphConnection;
@@ -207,6 +213,105 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     public static <V extends Vertex, E extends Edge, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate( G graph )
     {
         return new DefaultLinkedConnectionBuilder<V, E, G>( checkNotNull( graph, "Impossible to configure null graph!" ) );
+    }
+
+    /**
+     * Returns a synchronized (thread-safe) {@link Graph} backed by the specified Graph.
+     *
+     * @param graph
+     * @return
+     */
+    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( Graph<V, E> graph )
+    {
+        return synchronizedObject( graph, Graph.class );
+    }
+
+    /**
+     * Returns a synchronized (thread-safe) {@link DirectedGraph} backed by the specified Graph.
+     *
+     * @param graph
+     * @return
+     */
+    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
+    {
+        return synchronizedObject( graph, DirectedGraph.class );
+    }
+
+    /**
+     * Returns a synchronized (thread-safe) {@link UndirectedGraph} backed by the specified Graph.
+     *
+     * @param graph
+     * @return
+     */
+    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( UndirectedGraph<V, E> graph )
+    {
+        return synchronizedObject( graph, UndirectedGraph.class );
+    }
+
+    /**
+     * Returns a synchronized (thread-safe) {@link MutableGraph} backed by the specified Graph.
+     *
+     * @param graph
+     * @return
+     */
+    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( MutableGraph<V, E> graph )
+    {
+        return synchronizedObject( graph, MutableGraph.class );
+    }
+
+    /**
+     * Returns a synchronized (thread-safe) {@link WeightedGraph} backed by the specified Graph.
+     *
+     * @param graph
+     * @return
+     */
+    public static <V extends Vertex, WE extends WeightedEdge<W>, W> Graph<V, WE> synchronize( WeightedGraph<V, WE, W> graph )
+    {
+        return synchronizedObject( graph, WeightedGraph.class );
+    }
+
+   /**
+    * Wrap the given object in a proxed one where all methods declared in the given interface will be synchronized.
+    *
+    * @param <T> the object type has to be proxed
+    * @param toBeSynchronized to object which methods have to be synchronized
+    * @param type the interface has to be proxed
+    * @return the dynamic synchronized proxy
+    */
+    private static <T> T synchronizedObject( T toBeSynchronized, final Class<T> type )
+    {
+        final T checkedToBeSynchronized = checkNotNull( toBeSynchronized, "Impossible to synchronize a null graph!" );
+
+        /*
+         * Used to synchronize method declared on the pool/factory interface only.
+         */
+        final Set<Method> synchronizedMethods = new HashSet<Method>();
+
+        for ( Method method : type.getDeclaredMethods() )
+        {
+            synchronizedMethods.add( method );
+        }
+
+        return type.cast( newProxyInstance( type.getClassLoader(), new Class<?>[] { type },
+                          new InvocationHandler()
+                          {
+
+                              private final Object lock = new Object();
+
+                              public Object invoke( Object proxy, Method method, Object[] args )
+                                  throws Throwable
+                              {
+                                  if ( synchronizedMethods.contains( method ) )
+                                  {
+                                      synchronized ( this.lock )
+                                      {
+                                          return method.invoke( checkedToBeSynchronized, args );
+                                      }
+                                  }
+                                  return method.invoke( checkedToBeSynchronized, args );
+                              }
+
+                          } ) );
     }
 
     /**
