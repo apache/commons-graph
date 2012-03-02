@@ -27,6 +27,8 @@ import org.apache.commons.graph.weight.Monoid;
 /**
  * A memory-based implementation of a mutable spanning tree.
  *
+ * This class is NOT thread safe!
+ *
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type

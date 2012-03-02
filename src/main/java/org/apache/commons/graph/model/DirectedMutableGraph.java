@@ -32,6 +32,8 @@ import org.apache.commons.graph.VertexPair;
 /**
  * A memory-based implementation of a mutable directed Graph.
  *
+ * This class is NOT thread safe!
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */

@@ -26,6 +26,8 @@ import org.apache.commons.graph.WeightedGraph;
 /**
  * A memory-based implementation of a mutable, undirected weighted Graph.
  *
+ * This class is NOT thread safe!
+ *
  * @param <V> the Graph vertices type
  * @param <WE> the WeightedEdge edges type
  */

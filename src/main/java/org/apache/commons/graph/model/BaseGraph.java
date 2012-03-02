@@ -38,6 +38,8 @@ import org.apache.commons.graph.VertexPair;
  * Basic abstract in-memory based of a simple read-only {@link Graph} implementation. Subclasses may load adjacency
  * list/edges set in the constructor, or expose {@link org.apache.commons.graph.MutableGraph} APIs.
  *
+ * This class is NOT thread safe!
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
@@ -123,7 +125,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     {
         return adjacencyList.containsKey( v );
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -131,7 +133,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     {
         return indexedVertices.containsKey( e );
     }
-    
+
     /**
      * Returns the adjacency list where stored vertex/edges.
      *

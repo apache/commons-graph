@@ -30,6 +30,8 @@ import org.apache.commons.graph.VertexPair;
 /**
  * Basic abstract in-memory based of a simple mutable {@link Graph} implementation.
  *
+ * This class is NOT thread safe!
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
@@ -113,7 +115,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
             getIndexedVertices().put( e, vertexPair );
         }
     }
-    
+
     protected void internalRemoveEdge( V head, E e, V tail )
     {
         final VertexPair<V> vertexPair = new VertexPair<V>( head, tail );

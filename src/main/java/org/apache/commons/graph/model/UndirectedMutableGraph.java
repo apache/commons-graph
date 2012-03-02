@@ -26,6 +26,8 @@ import org.apache.commons.graph.Vertex;
 /**
  * A memory-based implementation of a mutable undirected Graph.
  *
+ * This class is NOT thread safe!
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
