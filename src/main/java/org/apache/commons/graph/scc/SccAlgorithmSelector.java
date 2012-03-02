@@ -46,8 +46,10 @@ public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extend
     /**
      * Applies the classical Kosaraju's algorithm to find the strongly connected components.
      *
-     * @param source the source vertex to start the search from
-     * @return the input graph strongly connected component.
+     * <p>Note: the runtime complexity is O(V + E) and this algorithm should be chosen
+     * if the number of vertices outweighs the number of edges.</p>
+     *
+     * @return the input graph strongly connected components.
      */
     Set<Set<V>> applyingKosarajuSharir();
 
@@ -61,6 +63,9 @@ public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extend
     /**
      * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding
      * strongly-connected components in a directed graph.
+     *
+     * <p>Note: the runtime complexity is O(V + E) and this algorithm should be chosen
+     * if the number of edges outweighs the number of vertices.</p>
      *
      * @return the input graph strongly connected component.
      */

@@ -89,21 +89,36 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
 
         final Set<Set<V>> sccs = new HashSet<Set<V>>();
 
-        while ( expandedVertexList.size() > 0 )
+        // insert the expanded vertices in reverse order into a linked hash set
+        // this is needed to quickly remove already found SCCs from the stack
+        final LinkedHashSet<V> stack = new LinkedHashSet<V>();
+        for ( int i = expandedVertexList.size() - 1; i >= 0; i-- )
+        {
+            stack.add(expandedVertexList.get( i ) );
+        }
+
+        while ( stack.size() > 0 )
         {
             // remove the last element from the expanded vertices list
-            final V v = expandedVertexList.remove( expandedVertexList.size() - 1 );
+            final V v = stack.iterator().next();
             final Set<V> sccSet = new HashSet<V>();
             searchRecursive( reverted, v, sccSet, visitedVertices, false );
 
             // remove all strongly connected components from the expanded list
-            expandedVertexList.removeAll( sccSet );
+            stack.removeAll( sccSet );
             sccs.add( sccSet );
         }
 
         return sccs;
     }
 
+    /**
+     * Performs a depth-first search to create a recursive vertex list.
+     *
+     * @param source the starting vertex
+     * @param visitedVertices a {@link Set} containing all visited vertices
+     * @return the recursively expanded vertex list for Kosaraju's algorithm
+     */
     private List<V> getExpandedVertexList( final V source, final Set<V> visitedVertices )
     {
         final int size = (source != null) ? 13 : graph.getOrder();
