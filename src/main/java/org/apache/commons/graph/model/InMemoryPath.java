@@ -19,16 +19,16 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import static java.lang.String.format;
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
-import static org.apache.commons.graph.utils.Assertions.checkArgument;
-import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Assertions.*;
 
+import static java.util.Arrays.asList;
+import static java.lang.String.format;
+import static java.util.Collections.unmodifiableList;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Path;
@@ -56,11 +56,11 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
 
     private final LinkedList<E> edges = new LinkedList<E>();
 
-    private final Map<V, V> successors = new ConcurrentHashMap<V, V>();
+    private final Map<V, V> successors = new HashMap<V, V>();
 
-    private final Map<VertexPair<V>, E> indexedEdges = new ConcurrentHashMap<VertexPair<V>, E>();
+    private final Map<VertexPair<V>, E> indexedEdges = new HashMap<VertexPair<V>, E>();
 
-    private final Map<E, VertexPair<V>> indexedVertices = new ConcurrentHashMap<E, VertexPair<V>>();
+    private final Map<E, VertexPair<V>> indexedVertices = new HashMap<E, VertexPair<V>>();
 
     public InMemoryPath( V start, V target )
     {
@@ -211,7 +211,7 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     {
         return vertices.contains( v );
     }
-
+    
     /**
      * {@inheritDoc}
      */
