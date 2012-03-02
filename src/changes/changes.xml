@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="simonetripodi" type="fix" issue="SANDBOX-400">
+      Switch the Base graph implementation underlying data structures to the thread safe version
+    </action>
     <action dev="marcosperanza" type="fix" issue="SANDBOX-354">
       Provide a Tarjan's algorithm implementation
     </action>

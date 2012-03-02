@@ -19,10 +19,10 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
@@ -42,9 +42,9 @@ public class DirectedMutableGraph<V extends Vertex, E extends Edge>
 
     private static final long serialVersionUID = 630111985439492792L;
 
-    private final Map<V, Set<V>> inbound = new HashMap<V, Set<V>>();
+    private final Map<V, Set<V>> inbound = new ConcurrentHashMap<V, Set<V>>();
 
-    private final Map<V, Set<V>> outbound = new HashMap<V, Set<V>>();
+    private final Map<V, Set<V>> outbound = new ConcurrentHashMap<V, Set<V>>();
 
     /**
      * {@inheritDoc}

@@ -20,13 +20,13 @@ package org.apache.commons.graph.model;
  */
 
 import static java.lang.String.format;
+import static java.util.Collections.newSetFromMap;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
@@ -47,13 +47,13 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
 
     private static final long serialVersionUID = -8066786787634472712L;
 
-    private final Map<V, Set<V>> adjacencyList = new HashMap<V, Set<V>>();
+    private final Map<V, Set<V>> adjacencyList = new ConcurrentHashMap<V, Set<V>>();
 
-    private final Set<E> allEdges = new HashSet<E>();
+    private final Set<E> allEdges = newSetFromMap( new ConcurrentHashMap<E, Boolean>() );
 
-    private final Map<VertexPair<V>, E> indexedEdges = new HashMap<VertexPair<V>, E>();
+    private final Map<VertexPair<V>, E> indexedEdges = new ConcurrentHashMap<VertexPair<V>, E>();
 
-    private final Map<E, VertexPair<V>> indexedVertices = new HashMap<E, VertexPair<V>>();
+    private final Map<E, VertexPair<V>> indexedVertices = new ConcurrentHashMap<E, VertexPair<V>>();
 
     /**
      * {@inheritDoc}
@@ -123,7 +123,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     {
         return adjacencyList.containsKey( v );
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -131,7 +131,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
     {
         return indexedVertices.containsKey( e );
     }
-    
+
     /**
      * Returns the adjacency list where stored vertex/edges.
      *
