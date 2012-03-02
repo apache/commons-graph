@@ -66,18 +66,18 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
     {
         checkNotNull( source, "Kosaraju Sharir algorithm cannot be calculated without expressing the source vertex" );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
- 
+
         final Set<V> visitedVertices = new HashSet<V>();
         final List<V> expandedVertexList = getExpandedVertexList( source, visitedVertices );
         final DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
-        
+
         // remove the last element from the expanded vertices list
         final V v = expandedVertexList.remove( expandedVertexList.size() - 1 );
         final Set<V> sccSet = new HashSet<V>();
         searchRecursive( reverted, v, sccSet, visitedVertices, false );
         return sccSet;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -95,20 +95,20 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
             final V v = expandedVertexList.remove( expandedVertexList.size() - 1 );
             final Set<V> sccSet = new HashSet<V>();
             searchRecursive( reverted, v, sccSet, visitedVertices, false );
-            
-            // remove all strongly connected components from the expanded list 
+
+            // remove all strongly connected components from the expanded list
             expandedVertexList.removeAll( sccSet );
             sccs.add( sccSet );
         }
-        
+
         return sccs;
     }
-    
+
     private List<V> getExpandedVertexList( final V source, final Set<V> visitedVertices )
     {
         final int size = (source != null) ? 13 : graph.getOrder();
         final Set<V> vertices = new HashSet<V>( size );
-        
+
         if ( source != null )
         {
             vertices.add( source );
@@ -120,7 +120,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
                 vertices.add( vertex );
             }
         }
-    
+
         // use an ArrayList so that subList is fast
         final ArrayList<V> expandedVertexList = new ArrayList<V>();
 
@@ -128,7 +128,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
         while ( ! vertices.isEmpty() )
         {
             // get the next vertex that has not yet been added to the expanded list
-            final V v = vertices.iterator().next();            
+            final V v = vertices.iterator().next();
             searchRecursive( graph, v, expandedVertexList, visitedVertices, true );
             // remove all expanded vertices from the list of vertices that have to be
             // still processed. To improve performance, only the items that have been
@@ -136,15 +136,15 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
             vertices.removeAll( expandedVertexList.subList( idx, expandedVertexList.size() ) );
             idx = expandedVertexList.size();
         }
-        
+
         return expandedVertexList;
     }
 
     /**
      * Searches a directed graph in iterative depth-first order, while adding the visited
-     * vertices in a recursive manner, i.e. a vertex is added to the result list only 
+     * vertices in a recursive manner, i.e. a vertex is added to the result list only
      * when the search has finished expanding the vertex (and its subsequent childs).
-     * 
+     *
      * <p><b>Implementation Note:</b> in the first step we look for vertices that have not
      * been visited yet, while in the second step we search for vertices that have already
      * been visited.</p>
@@ -161,7 +161,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
     {
         final LinkedList<V> stack = new LinkedList<V>();
         stack.addLast( source );
-        
+
         while ( !stack.isEmpty() )
         {
             final V v = stack.removeLast();
@@ -174,7 +174,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
             if ( ! ( forward ^ visited.contains( v ) ) )
             {
                 coll.add( v );
-                continue;                    
+                continue;
             }
 
             // add the current vertex to the stack, so it is visited again
@@ -200,7 +200,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
