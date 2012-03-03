@@ -82,9 +82,9 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
      */
     public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations )
     {
-        
+
         checkNotNull( weightOperations, "The Reverse-Delete algorithm cannot be calulated with null weight operations" );
-        
+
         final List<WE> sortedEdge = new ArrayList<WE>();
         final List<WE> visitedEdge = new ArrayList<WE>();
 

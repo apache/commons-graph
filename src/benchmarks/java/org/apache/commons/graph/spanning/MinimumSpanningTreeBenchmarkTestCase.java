@@ -22,10 +22,16 @@ package org.apache.commons.graph.spanning;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
+import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableWeightedGraph;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.SpanningTree;
+import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
@@ -42,51 +48,67 @@ import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
 @BenchmarkMethodChart( filePrefix = "minimum-spanning-tree" )
 public final class MinimumSpanningTreeBenchmarkTestCase
 {
+    private static final int NODES = 1000;
+    private static final int EDGES = 6000;
 
     @Rule
     public BenchmarkRule benchmarkRun = new BenchmarkRule();
 
-    private static final UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> G
-        = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+    private static UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph;
 
     @BeforeClass
     public static void setUp()
     {
-        for ( int i = 0; i < 1000; i++ )
+        graph = newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
-            G.addVertex( v );
-        }
+            Random r = new Random();
 
-        for ( BaseLabeledVertex v1 : G.getVertices() )
-        {
-            int cnt = 0;
-            for ( BaseLabeledVertex v2 : G.getVertices() )
+            public void connect()
             {
-                if (cnt++ > 20)
+                List<BaseLabeledVertex> vertices = new ArrayList<BaseLabeledVertex>();
+                for ( int i = 0; i < NODES; i++ )
                 {
-                    break;
+                    BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                    addVertex( v );
+                    vertices.add( v );
                 }
-                if ( !v1.equals( v2 ) )
+
+                // form a connected graph
+                for ( int i = 0; i < NODES - 1; i++ )
                 {
-                    try
-                    {
-                        G.addEdge( v1, new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", v1, v2 ), 7D ), v2 );
-                    }
-                    catch ( GraphException e )
-                    {
-                        // ignore
+                    addEdge( vertices.get( i ), vertices.get( i + 1 ) );
+                }
+
+                addEdge( vertices.get( NODES - 1 ) , vertices.get( 0 ) );
+                // we have already created #NODES edges
+                int maxEdges = Math.max(0, EDGES - NODES);
+                for ( int i = 0; i < maxEdges; i++)
+                {
+                    while ( ! addEdge( vertices.get( r.nextInt(NODES) ), vertices.get( r.nextInt(NODES) ) ) ) {
+                        // do nothing
                     }
                 }
             }
-        }
+
+            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
+            {
+                try {
+                  addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
+                                                                (double) r.nextInt(10) ) ).from( src ).to( dst );
+                  return true;
+              } catch (GraphException e) {
+                  // ignore duplicate edge exceptions
+                  return false;
+              }
+            }
+        } );
     }
 
     @Test
     public void performBoruvka()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( G ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( graph ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
@@ -95,7 +117,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performKruskal()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( G ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( graph ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
@@ -104,7 +126,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performPrim()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( G ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( graph ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }

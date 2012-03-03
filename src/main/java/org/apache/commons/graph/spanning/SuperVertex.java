@@ -38,7 +38,7 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <W>  the weight type
  * @param <WE> the Graph weighted edges type
  * @param <G>  the input Graph type
- * @param <WC> the weight operations 
+ * @param <WC> the weight operations
  */
 class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>, WC extends Comparator<W>>
     implements Iterable<V> {
@@ -69,7 +69,7 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
         orderedEdges = new TreeSet<WE>( new WeightedEdgesComparator<W, WE>( weightComparator ) );
 
         // add all edges for this vertex to the sorted set
-        for ( V w : graph.getConnectedVertices( source )) {
+        for ( final V w : graph.getConnectedVertices( source )) {
             WE edge = graph.getEdge( source, w );
             orderedEdges.add( edge );
         }
@@ -88,14 +88,13 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      * @param other the {@link SuperVertex} to be merged into this
      */
     public void merge( final SuperVertex<V, W, WE, G, WC> other ) {
-        for ( V v : other.vertices ) {
+        for ( final V v : other.vertices ) {
             vertices.add(v);
         }
 
-        for (WE edge : other.orderedEdges) {
-            VertexPair<V> pair = graph.getVertices( edge );
-            if ( !vertices.contains(pair.getHead()) ||
-                 !vertices.contains(pair.getTail()) ) {
+        for ( final WE edge : other.orderedEdges) {
+            final VertexPair<V> pair = graph.getVertices( edge );
+            if ( ! vertices.contains(pair.getHead()) || ! vertices.contains(pair.getTail()) ) {
                 orderedEdges.add( edge );
             }
         }
@@ -105,10 +104,19 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      * Returns the edge with the minimum weight to other {@link SuperVertex}
      * instances.
      *
-     * @return the minimum weight edge
+     * @return the minimum weight edge or <code>null</code> if there is no edge
      */
     public WE getMinimumWeightEdge() {
-        return orderedEdges.pollFirst();
+        boolean found = false;
+        WE edge = null;
+        while ( ! found && ! orderedEdges.isEmpty() ) {
+            edge = orderedEdges.pollFirst();
+            VertexPair<V> pair = graph.getVertices( edge );
+            if ( ! vertices.contains( pair.getHead() ) || ! vertices.contains( pair.getTail() ) ) {
+                found = true;
+            }
+        }
+        return edge;
     }
 
 }

@@ -69,17 +69,19 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
          * <pre>
          * procedure Boruvka MST(G(V; E)):
          *     T <= V
-         *     while |T| < n  1 do
+         *     while |T| < n do
          *         for all connected component C in T do
          *             e <= the smallest-weight edge from C to another component in T
          *             if e not exists in T then
-         *                 T <= T U {e}
+         *                 T <= T u {e}
          *             end if
          *         end for
          *     end while
          * <pre>
          */
+
         checkNotNull( weightOperations, "The Boruvka algorithm cannot be calculated with null weight operations" );
+
         final MutableSpanningTree<V, WE, W> spanningTree =
             new MutableSpanningTree<V, WE, W>( weightOperations );
 
@@ -94,20 +96,23 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
             // create a super vertex for each vertex
             final SuperVertex<V, W, WE, G, WO> sv =
                 new SuperVertex<V, W, WE, G, WO>( v, graph, weightOperations );
+
             components.add( sv );
+
             // add a mapping for each vertex to its corresponding super vertex
             mapping.put( v, sv );
+
             // add each vertex to the spanning tree
             spanningTree.addVertex( v );
         }
 
         while ( components.size() > 1 )
         {
-            List<WE> edges = new LinkedList<WE>();
-            for ( SuperVertex<V, W, WE, G, WO> v : components )
+            final List<WE> edges = new LinkedList<WE>();
+            for ( SuperVertex<V, W, WE, G, WO> sv : components )
             {
                 // get the minimum edge for each component to any other component
-                WE edge = v.getMinimumWeightEdge();
+                final WE edge = sv.getMinimumWeightEdge();
                 if ( edge != null )
                 {
                     edges.add( edge );
@@ -118,29 +123,29 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
             // the graph is unconnected
             checkState( !edges.isEmpty() || components.size() == 1, "unconnected graph" );
 
-            for ( WE edge : edges )
+            for ( final WE edge : edges )
             {
-                VertexPair<V> pair = graph.getVertices( edge );
-                V head = pair.getHead();
-                V tail = pair.getTail();
+                final VertexPair<V> pair = graph.getVertices( edge );
+                final V head = pair.getHead();
+                final V tail = pair.getTail();
 
                 // find the super vertices corresponding to this edge
-                SuperVertex<V, W, WE, G, WO> headSuper = mapping.get( head );
-                SuperVertex<V, W, WE, G, WO> tailSuper = mapping.get( tail );
+                final SuperVertex<V, W, WE, G, WO> headSv = mapping.get( head );
+                final SuperVertex<V, W, WE, G, WO> tailSv = mapping.get( tail );
 
                 // merge them, if they are not the same
-                if ( headSuper != tailSuper )
+                if ( headSv != tailSv )
                 {
-                    headSuper.merge( tailSuper );
+                    headSv.merge( tailSv );
 
                     // update the mapping for each merged vertex
-                    for ( V v : tailSuper )
+                    for ( final V v : tailSv )
                     {
-                        mapping.put( v, headSuper );
+                        mapping.put( v, headSv );
                     }
 
                     // remove the merged super vertex from the components set
-                    components.remove( tailSuper );
+                    components.remove( tailSv );
 
                     // add the edge to the spanning tree
                     if ( spanningTree.getVertices( edge ) == null )
@@ -159,7 +164,6 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
      */
     public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations )
     {
-        
         checkNotNull( weightOperations, "The Kruskal algorithm cannot be calculated with null weight operations" );
         final Set<V> settledNodes = new HashSet<V>();
 
@@ -207,7 +211,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( WO weightOperations )
     {
         checkNotNull( weightOperations, "The Prim algorithm cannot be calculated with null weight operations" );
-        
+
         final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, weightOperations );
 
         final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestEdges );
@@ -226,8 +230,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
 
                 // if the edge has not been already visited and its weight is
                 // less then the current Vertex weight
-                boolean weightLessThanCurrent = !shortestEdges.hasWeight( v )
-                        || weightOperations.compare( edge.getWeight(), shortestEdges.getWeight( v ) ) < 0;
+                boolean weightLessThanCurrent = !shortestEdges.hasWeight( v ) ||
+                        weightOperations.compare( edge.getWeight(), shortestEdges.getWeight( v ) ) < 0;
                 if ( settledEdges.add( edge ) && weightLessThanCurrent )
                 {
                     if ( !unsettledNodes.contains( v ) )
