@@ -30,9 +30,10 @@ public interface Monoid<M>
 
     /**
      * Returns the inverse of the input element.
+     *
      * @param element
-     * @return the inverse of the input element 
+     * @return the inverse of the input element
      */
-    public M inverse( M element );
+    M inverse( M element );
 
 }
