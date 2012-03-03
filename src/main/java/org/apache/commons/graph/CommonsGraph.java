@@ -299,8 +299,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
         return type.cast( proxy );
     }
 
-    
-    static private class GraphInvocationHandler<T>
+    private static class GraphInvocationHandler<T>
         implements InvocationHandler
     {
         protected Object lock;
