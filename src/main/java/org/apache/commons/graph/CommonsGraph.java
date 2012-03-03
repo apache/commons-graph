@@ -304,9 +304,9 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
     {
         protected Object lock;
 
-        Set<Method> synchronizedMethods;
+        private final Set<Method> synchronizedMethods;
 
-        T checkedToBeSynchronized;
+        private final T checkedToBeSynchronized;
 
         public GraphInvocationHandler( Set<Method> synchronizedMethods, T checkedToBeSynchronized )
         {
