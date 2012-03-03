@@ -319,7 +319,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
         {
             if ( synchronizedMethods.contains( method ) )
             {
-                synchronized ( this.lock )
+                synchronized ( lock )
                 {
                     try
                     {
