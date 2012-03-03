@@ -23,6 +23,7 @@ import static java.lang.reflect.Proxy.newProxyInstance;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
@@ -291,27 +292,49 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
         {
             synchronizedMethods.add( method );
         }
+        GraphInvocationHandler<T> handler =
+            new GraphInvocationHandler<T>( synchronizedMethods, checkedToBeSynchronized );
+        Object proxy = newProxyInstance( type.getClassLoader(), new Class<?>[] { type }, handler );
+        handler.lock = proxy;
+        return type.cast( proxy );
+    }
 
-        return type.cast( newProxyInstance( type.getClassLoader(), new Class<?>[] { type },
-                          new InvocationHandler()
-                          {
+    
+    static private class GraphInvocationHandler<T>
+        implements InvocationHandler
+    {
+        protected Object lock;
 
-                              private final Object lock = new Object();
+        Set<Method> synchronizedMethods;
 
-                              public Object invoke( Object proxy, Method method, Object[] args )
-                                  throws Throwable
-                              {
-                                  if ( synchronizedMethods.contains( method ) )
-                                  {
-                                      synchronized ( this.lock )
-                                      {
-                                          return method.invoke( checkedToBeSynchronized, args );
-                                      }
-                                  }
-                                  return method.invoke( checkedToBeSynchronized, args );
-                              }
+        T checkedToBeSynchronized;
 
-                          } ) );
+        public GraphInvocationHandler( Set<Method> synchronizedMethods, T checkedToBeSynchronized )
+        {
+            this.synchronizedMethods = synchronizedMethods;
+            this.checkedToBeSynchronized = checkedToBeSynchronized;
+        }
+
+        public Object invoke( Object proxy, Method method, Object[] args )
+            throws Throwable
+        {
+            if ( synchronizedMethods.contains( method ) )
+            {
+                synchronized ( this.lock )
+                {
+                    try
+                    {
+                        return method.invoke( checkedToBeSynchronized, args );
+                    }
+                    catch ( InvocationTargetException e )
+                    {
+                        throw e.getTargetException();
+                    }
+                }
+            }
+            return method.invoke( checkedToBeSynchronized, args );
+        }
+
     }
 
     /**

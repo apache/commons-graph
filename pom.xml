@@ -113,15 +113,28 @@
     <commons.componentid>graph</commons.componentid>
     <commons.jira.componentid>12314503</commons.jira.componentid>
   </properties>
-
+  
+  <repositories>
+    <repository>
+        <id>opensymphony-releases</id>
+        <name>Opensymphony Releases</name>
+        <url>https://oss.sonatype.org/content/repositories/opensymphony-releases</url>
+    </repository>
+  </repositories>
+    
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.10</version>
-      <scope>test</scope>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.10</version>
+        <scope>test</scope>
     </dependency>
-  </dependencies>
+    <dependency>
+        <groupId>net.sourceforge.groboutils</groupId>
+        <artifactId>groboutils-core</artifactId>
+        <version>5</version>
+    </dependency>
+</dependencies>
 
   <build>
     <resources>

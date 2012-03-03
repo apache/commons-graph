@@ -30,7 +30,12 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
+import net.sourceforge.groboutils.junit.v1.TestRunnable;
+
+import org.apache.commons.graph.CommonsGraph;
 import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.MutableGraph;
 import org.junit.Test;
 
 /**
@@ -367,4 +372,111 @@ public class BaseMutableGraphTestCase
         g.removeEdge( e );
 
     }
+    
+    /**
+     * Test Graph model ina  multi-thread enviroment.
+     */
+    @Test
+    public final void testMultiTh()
+        throws Throwable
+    {
+        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
+
+        TestRunnable tr1, tr2, tr3;
+        tr1 = new GraphInsert( g, 0, 10 );
+        tr2 = new GraphInsert( g, 10, 20 );
+        tr3 = new GraphInsert( g, 20, 30 );
+
+        TestRunnable[] trs = { tr1, tr2, tr3 };
+        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
+
+        // kickstarts the MTTR & fires off threads
+        mttr.runTestRunnables();
+
+        assertEquals( 30, g.getOrder() );
+
+        // test the # of edges = n (n-1)/2
+        assertEquals( ( 30 * ( 30 - 1 ) / 2 ), g.getSize() );
+    }
+
+    /**
+     * Test Graph model in a multi-thread enviroment.
+     */
+    @Test
+    public final void testDirectedMultiTh()
+        throws Throwable
+    {
+        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
+
+        TestRunnable tr1, tr2, tr3;
+        tr1 = new GraphInsert( g, 0, 10 );
+        tr2 = new GraphInsert( g, 10, 20 );
+        tr3 = new GraphInsert( g, 20, 30 );
+
+        TestRunnable[] trs = { tr1, tr2, tr3 };
+        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
+
+        // kickstarts the MTTR & fires off threads
+        mttr.runTestRunnables();
+
+        assertEquals( 30, g.getOrder() );
+
+        // test the # of edges = n (n-1)
+        assertEquals( ( 30 * ( 30 - 1 ) ), g.getSize() );
+    }
+
+    private class GraphInsert
+        extends TestRunnable
+    {
+
+        private MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g;
+
+        private int start;
+
+        private int end;
+
+        private GraphInsert( MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g, int start, int end )
+        {
+            this.g = g;
+            this.start = start;
+            this.end = end;
+        }
+
+        public void runTest()
+            throws Throwable
+        {
+
+            // building a complete Graph
+            for ( int i = start; i < end; i++ )
+            {
+                BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                g.addVertex( v );
+            }
+            synchronized ( g )
+            {
+                for ( BaseLabeledVertex v1 : g.getVertices() )
+                {
+                    for ( BaseLabeledVertex v2 : g.getVertices() )
+                    {
+                        if ( !v1.equals( v2 ) )
+                        {
+                            try
+                            {
+                                BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                                g.addEdge( v1, e, v2 );
+                            }
+                            catch ( GraphException e )
+                            {
+                                // ignore
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
 }
