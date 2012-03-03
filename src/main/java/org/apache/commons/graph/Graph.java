@@ -91,6 +91,7 @@ public interface Graph<V extends Vertex, E extends Edge>
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
+     * @param v the {@link Vertex} which connected vertices have to be returned.
      * @return all vertices which touch this vertex.
      */
     Iterable<V> getConnectedVertices( V v );
@@ -113,27 +114,29 @@ public interface Graph<V extends Vertex, E extends Edge>
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
+     * @param e the input {@link Edge}
      * @return the set of {@link Vertex} on this Edge.
      */
     VertexPair<V> getVertices( E e );
-    
-    
+
     /**
      * Returns true if the vertex is contained into the graph
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
+     * @param v the {@link Vertex} to be checked
      * @return Returns true if the vertex is contained into the graph, false otherwise
      */
     boolean containsVertex( V v );
-    
+
     /**
      * Returns true if the edge is contained into the graph
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
+     * @param e the {@link Edge} to be checked
      * @return Returns true if the edge is contained into the graph, false otherwise
      */
     boolean containsEdge( E e );

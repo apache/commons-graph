@@ -67,6 +67,7 @@ public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends Weig
      *   return edges[] E
      * </pre>
      *
+     * @param <WO> the type of weight operations
      * @param weightOperations the weight operations
      * @return the calculated spanning tree
      */

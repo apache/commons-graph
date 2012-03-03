@@ -30,6 +30,4 @@ public interface WeightedPath<V extends Vertex, WE extends WeightedEdge<W>, W>
     extends Path<V, WE>, Weighted<W>
 {
 
-    W getWeight();
-
 }

@@ -55,7 +55,9 @@ public interface MutableGraph<V extends Vertex, E extends Edge>
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
+     * @param head the head {@link Vertex}
      * @param e the {@link Edge} has to be added in this {@code MutableGraph} instance.
+     * @param tail the tail {@link Vertex}
      */
     void addEdge( V head, E e, V tail );
 

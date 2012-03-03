@@ -30,9 +30,9 @@ import static java.lang.String.format;
  */
 public final class VertexPair<V extends Vertex>
 {
-
+    /** The head vertex. */
     private final V head;
-
+    /** The tail vertex. */
     private final V tail;
 
     /**
