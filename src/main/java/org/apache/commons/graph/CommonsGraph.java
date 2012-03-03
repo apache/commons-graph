@@ -321,17 +321,23 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
             {
                 synchronized ( lock )
                 {
-                    try
-                    {
-                        return method.invoke( checkedToBeSynchronized, args );
-                    }
-                    catch ( InvocationTargetException e )
-                    {
-                        throw e.getTargetException();
-                    }
+                    return invoke( method, args );
                 }
             }
-            return method.invoke( checkedToBeSynchronized, args );
+            return invoke( method, args );
+        }
+
+        private Object invoke( Method method, Object[] args )
+            throws Throwable
+        {
+            try
+            {
+                return method.invoke( checkedToBeSynchronized, args );
+            }
+            catch ( InvocationTargetException e )
+            {
+                throw e.getTargetException();
+            }
         }
 
     }
