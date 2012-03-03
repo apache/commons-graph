@@ -22,7 +22,7 @@ package org.apache.commons.graph.weight.primitive;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
- * The class {@link DoubleWeightBaseOperations} provides operations and properties 
+ * The class {@link DoubleWeightBaseOperations} provides operations and properties
  * for weights of type {@link Double}.
  */
 public class DoubleWeightBaseOperations
@@ -48,7 +48,7 @@ public class DoubleWeightBaseOperations
         }
         return s1 + s2;
     }
-    
+
     /**
      * {@inheritDoc}
      */
