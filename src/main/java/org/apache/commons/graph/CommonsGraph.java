@@ -284,7 +284,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
         final T checkedToBeSynchronized = checkNotNull( toBeSynchronized, "Impossible to synchronize a null graph!" );
 
         /*
-         * Used to synchronize method declared on the pool/factory interface only.
+         * Used to synchronize method declared on the Graph interface only.
          */
         final Set<Method> synchronizedMethods = new HashSet<Method>();
 
