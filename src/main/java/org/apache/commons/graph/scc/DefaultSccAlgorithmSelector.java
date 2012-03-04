@@ -51,10 +51,15 @@ import org.apache.commons.graph.visit.GraphVisitHandler;
 public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
     implements SccAlgorithmSelector<V, E, G>
 {
-
+    /** The graph. */
     private final G graph;
 
-    public DefaultSccAlgorithmSelector( G graph )
+    /**
+     * Create a default {@link SccAlgorithmSelector} for the given {@link Graph}.
+     *
+     * @param graph the {@link Graph}.
+     */
+    public DefaultSccAlgorithmSelector( final G graph )
     {
         this.graph = graph;
     }
@@ -163,14 +168,14 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
      * <p><b>Implementation Note:</b> in the first step we look for vertices that have not
      * been visited yet, while in the second step we search for vertices that have already
      * been visited.</p>
-     * @param graph the graph to be search
+     * @param g the graph to be search
      * @param source the start vertex
      * @param coll the recursive collection of visited vertices
      * @param visited contains vertices that have been already visited
      * @param forward <code>true</code> for the first step of Kosaraju's algorithm,
      * <code>false</code> for the second step.
      */
-    private void searchRecursive( final DirectedGraph<V, E> graph, final V source,
+    private void searchRecursive( final DirectedGraph<V, E> g, final V source,
                                   final Collection<V> coll, final Set<V> visited,
                                   final boolean forward )
     {
@@ -206,7 +211,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
 
             // add all not yet visited vertices that can be reached from this
             // vertex to the stack
-            for ( V w : graph.getOutbound( v ) )
+            for ( V w : g.getOutbound( v ) )
             {
                 if ( ! ( forward ^ ! visited.contains( w ) ) )
                 {

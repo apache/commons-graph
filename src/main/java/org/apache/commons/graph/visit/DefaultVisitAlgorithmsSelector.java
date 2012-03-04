@@ -43,11 +43,20 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
     implements VisitAlgorithmsSelector<V, E, G>
 {
 
+    /** The graph. */
     private final G graph;
 
+    /** The start vertex for the search. */
     private final V source;
 
-    public DefaultVisitAlgorithmsSelector( G graph, V source )
+    /**
+     * Create a default {@link VisitAlgorithmsSelector} for the given {@link Graph} and
+     * start {@link Vertex}.
+     *
+     * @param graph the {@link Graph} to be used.
+     * @param source the start {@link Vertex}.
+     */
+    public DefaultVisitAlgorithmsSelector( final G graph, final V source )
     {
         this.graph = graph;
         this.source = source;
@@ -128,11 +137,11 @@ final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G e
             {
                 // if the vertex was already visited, do not discover
                 // another edge leading to the same vertex
-                if ( visitedVertices.contains( v ) ) 
+                if ( visitedVertices.contains( v ) )
                 {
                     skipVertex = true;
-                } 
-                else 
+                }
+                else
                 {
                     if ( !handler.discoverEdge( prevHead, e, v ) )
                     {

@@ -51,12 +51,20 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
     implements SpanningTreeAlgorithmSelector<V, W, WE, G>
 {
-
+    /** The graph. */
     private final G graph;
 
+    /** The start {@link Vertex}. */
     private final V source;
 
-    public DefaultSpanningTreeAlgorithmSelector( G graph, V source )
+    /**
+     * Creates a default {@link SpanningTreeAlgorithmSelector} for the given {@link Graph} and
+     * start {@link Vertex}.
+     *
+     * @param graph the {@link Graph} to be used.
+     * @param source the start {@link Vertex}.
+     */
+    public DefaultSpanningTreeAlgorithmSelector( final G graph, final V source )
     {
         this.graph = graph;
         this.source = source;
