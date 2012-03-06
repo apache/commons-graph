@@ -93,6 +93,13 @@ public final class SCCAlgorithmBenchmarkTestCase
     }
 
     @Test
+    public void performCheriyanMehlhornGabow()
+    {
+        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        assertTrue( actual.size() > 0 );
+    }
+
+    @Test
     public void performTarjan()
     {
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingTarjan();

@@ -38,21 +38,26 @@ import org.apache.commons.graph.model.RevertedGraph;
 
 /**
  * Implements the classical Kosaraju's algorithm to find the strongly connected components
- * 
+ *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
- * @param <G> the directed graph type 
+ * @param <G> the directed graph type
  */
 final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
 {
-
+    /** The graph. */
     private final G graph;
 
-    public KosarajuSharirAlgorithm( G graph )
+    /**
+     * Create a new {@link KosarajuSharirAlgorithm} instance for the given {@link Graph}.
+     *
+     * @param graph the {@link Graph} on which to apply the algorithm
+     */
+    public KosarajuSharirAlgorithm( final G graph )
     {
         this.graph = graph;
     }
-    
+
     /**
      * Applies the classical Kosaraju's algorithm to find the strongly connected components of
      * a vertex <code>source</code>.
@@ -79,7 +84,6 @@ final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends 
     /**
      * Applies the classical Kosaraju's algorithm to find the strongly connected components.
      *
-     * @param source the source vertex to start the search from
      * @return the input graph strongly connected component.
      */
     public Set<Set<V>> applyingKosarajuSharir()
