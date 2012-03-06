@@ -58,7 +58,7 @@ public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extend
      *
      * @return the input graph strongly connected component.
      */
-    Set<V> applyingCheriyanMehlhornGabow();
+    Set<Set<V>> applyingCheriyanMehlhornGabow();
 
     /**
      * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding

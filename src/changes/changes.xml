@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action dev="marcosperanza" type="fix" issue="SANDBOX-352">
+      Provide Cheriyan-Mehlhorn/Gabow's strongly connected component algorithm implementation
+    </action>
     <action dev="simonetripodi" type="fix" issue="SANDBOX-400">
       Switch the Base graph implementation underlying data structures to the thread safe version
     </action>

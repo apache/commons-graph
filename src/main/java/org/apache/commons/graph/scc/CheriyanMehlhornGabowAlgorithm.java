@@ -1,5 +1,6 @@
 package org.apache.commons.graph.scc;
 
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,9 +20,10 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import static org.apache.commons.graph.CommonsGraph.visit;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -29,26 +31,23 @@ import java.util.Stack;
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.visit.BaseGraphVisitHandler;
 
 /**
- * Cheriyan/Mehlhorn/Gabow's strongly connected component algorithm is based on DFS (or BFS) algorithm
- * and needs to execute specific actions during the visit.
- *
+ * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
+ * @param <G> the directed graph type 
  */
-final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
-    extends BaseGraphVisitHandler<V, E, G, Void>
+final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
 {
 
     private final G graph;
 
+    private final Set<V> marked = new HashSet<V>();
+
     private final Map<V, Integer> preorder = new HashMap<V, Integer>();
 
     private final Map<V, Integer> sscId = new HashMap<V, Integer>();
-
-    private final Set<V> marked;
 
     private final Stack<V> s = new Stack<V>();
 
@@ -57,58 +56,74 @@ final class CheriyanMehlhornGabowVisitHandler<V extends Vertex, E extends Edge, 
     private int preorderCounter = 0;
 
     private int sscCounter = 0;
-
-    public CheriyanMehlhornGabowVisitHandler( G graph, Set<V> marked )
+    
+    public CheriyanMehlhornGabowAlgorithm( G graph )
     {
         this.graph = graph;
-        this.marked = marked;
     }
 
     /**
-     * {@inheritDoc}
      */
-    @Override
-    public boolean discoverVertex( V vertex )
+    public Set<Set<V>> applyingCheriyanMehlhornGabow()
+    {
+        for ( V vertex : graph.getVertices() )
+        {
+            if ( !marked.contains( vertex ) )
+            {
+                dfs( vertex );
+            }
+        }
+
+        final List<Set<V>> indexedSccComponents = new ArrayList<Set<V>>();
+        System.out.println( "CheriyanMehlhornGabowAlgorithm.applyingCheriyanMehlhornGabow() " + sscCounter );
+        for ( int i = 0; i < sscCounter; i++ )
+        {
+            indexedSccComponents.add( new HashSet<V>() );
+        }
+
+        for ( V w : graph.getVertices() )
+        {
+            Set<V> component = indexedSccComponents.get( sscId.get( w ) );
+            component.add( w );
+        }
+
+        final Set<Set<V>> scc = new HashSet<Set<V>>();
+        scc.addAll( indexedSccComponents );
+        return scc;
+    }
+
+    private void dfs( V vertex )
     {
         marked.add( vertex );
         preorder.put( vertex, preorderCounter++ );
         s.push( vertex );
         p.push( vertex );
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean discoverEdge( V head, E edge, V tail )
-    {
-        if ( !marked.contains( tail ) )
+        for ( V w : graph.getConnectedVertices( vertex ) )
         {
-            visit( graph ).from( tail ).applyingDepthFirstSearch( this );
-        }
-        else if ( !sscId.containsKey( tail ) )
-        {
-            while ( preorder.get( p.peek() ) > preorder.get( tail ) )
+            if ( !marked.contains( w ) )
             {
-                p.pop();
+                dfs( w );
+            }
+            else if ( sscId.get( w ) == null )
+            {
+                while ( preorder.get( p.peek() ) > preorder.get( w ) )
+                {
+                    p.pop();
+                }
             }
         }
 
-        // found strong component containing head
-        if ( head.equals( p.peek() ) )
+        if ( p.peek().equals( vertex ) )
         {
             p.pop();
-            V w;
+            V w = null;
             do
             {
                 w = s.pop();
                 sscId.put( w, sscCounter );
             }
-            while ( !head.equals( w ) );
+            while ( !vertex.equals( w ) );
             sscCounter++;
         }
-
-        return true;
     }
-
 }
