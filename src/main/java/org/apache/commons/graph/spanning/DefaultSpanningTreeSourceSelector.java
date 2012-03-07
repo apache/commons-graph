@@ -121,7 +121,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
             }
         }
 
-        final MutableSpanningTree<V, WE, W> res = new MutableSpanningTree<V, WE, W>( weightOperations );
+        final MutableSpanningTree<V, WE, W> res = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
         for ( V v : graph.getVertices() )
         {
             res.addVertex( v );

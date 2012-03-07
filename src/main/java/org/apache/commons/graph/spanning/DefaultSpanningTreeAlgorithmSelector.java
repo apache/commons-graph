@@ -91,7 +91,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
 
         checkNotNull( weightOperations, "The Boruvka algorithm cannot be calculated with null weight operations" );
 
-        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations );
+        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
         final Set<SuperVertex<V, W, WE, G>> components = new HashSet<SuperVertex<V, W, WE, G>>( graph.getOrder() );
 
@@ -182,7 +182,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
 
         final DisjointSet<V> disjointSet = new DisjointSet<V>();
 
-        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations );
+        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
         // fill the spanning tree with vertices.
         for ( V v : graph.getVertices() )

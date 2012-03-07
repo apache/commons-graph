@@ -79,7 +79,7 @@ final class ShortestEdges<V, WE, W>
      */
     public SpanningTree<V, WE, W> createSpanningTree()
     {
-        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations );
+        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
         for ( WE edge : this.predecessors.values() )
         {
