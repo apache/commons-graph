@@ -23,6 +23,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.VertexPair;
+import org.apache.commons.graph.WeightedEdges;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -32,11 +33,14 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
     private final G graph;
 
+    private final WeightedEdges<WE, W> weightedEdges;
+
     private final V source;
 
-    public DefaultTargetSourceSelector( G graph, V source )
+    public DefaultTargetSourceSelector( G graph, WeightedEdges<WE, W> weightedEdges, V source )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
         this.source = source;
     }
 
@@ -62,7 +66,7 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
                 if ( shortestDistances.alreadyVisited( u ) )
                 {
-                    W shortDist = weightOperations.append( shortestDistances.getWeight( u ), edge.getWeight() );
+                    W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.getWeightForEdge( edge ) );
 
                     if ( !shortestDistances.alreadyVisited( v )
                             || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
@@ -85,7 +89,7 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
             if ( shortestDistances.alreadyVisited( u ) )
             {
-                W shortDist = weightOperations.append( shortestDistances.getWeight( u ), edge.getWeight() );
+                W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.getWeightForEdge( edge ) );
 
                 if ( !shortestDistances.alreadyVisited( v )
                         || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
@@ -124,7 +128,7 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
     public ShortestPathAlgorithmSelector<V, WE, W, G> to( V target )
     {
         target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
-        return new DefaultShortestPathAlgorithmSelector<V, WE, W, G>( graph, source, target );
+        return new DefaultShortestPathAlgorithmSelector<V, WE, W, G>( graph, weightedEdges, source, target );
     }
 
 }

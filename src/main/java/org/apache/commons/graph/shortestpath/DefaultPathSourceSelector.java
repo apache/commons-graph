@@ -27,18 +27,22 @@ import java.util.Map;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.VertexPair;
+import org.apache.commons.graph.WeightedEdges;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-public final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
+final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
     implements PathSourceSelector<V, WE, W, G>
 {
 
     private final G graph;
 
-    public DefaultPathSourceSelector( G graph )
+    private final WeightedEdges<WE, W> weightedEdges;
+
+    public DefaultPathSourceSelector( G graph, WeightedEdges<WE, W> weightedEdges )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
     }
 
     /**
@@ -55,11 +59,11 @@ public final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
         for ( WE we : graph.getEdges() )
         {
             VertexPair<V> vertexPair = graph.getVertices( we );
-            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), we.getWeight() );
+            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), weightedEdges.getWeightForEdge( we ) );
 
             if ( graph instanceof UndirectedGraph )
             {
-                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), we.getWeight() );
+                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), weightedEdges.getWeightForEdge( we ) );
             }
         }
 
@@ -139,7 +143,7 @@ public final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
     public TargetSourceSelector<V, WE, W, G> from( V source )
     {
         source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
-        return new DefaultTargetSourceSelector<V, WE, W, G>( graph, source );
+        return new DefaultTargetSourceSelector<V, WE, W, G>( graph, weightedEdges, source );
     }
 
 }

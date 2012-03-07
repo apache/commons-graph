@@ -43,10 +43,9 @@ import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
 import org.apache.commons.graph.scc.SccAlgorithmSelector;
-import org.apache.commons.graph.shortestpath.DefaultPathSourceSelector;
-import org.apache.commons.graph.shortestpath.PathSourceSelector;
+import org.apache.commons.graph.shortestpath.DefaultWeightedEdgesSelector;
+import org.apache.commons.graph.shortestpath.WeightedEdgesSelector;
 import org.apache.commons.graph.spanning.DefaultSpanningTreeSourceSelector;
-import org.apache.commons.graph.spanning.SpanningTreeSourceSelector;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
 import org.apache.commons.graph.visit.VisitSourceSelector;
 
@@ -104,10 +103,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param <G>
      * @param graph
      */
-    public static <V, WE, W, G extends Graph<V, WE, W>> PathSourceSelector<V, WE, W, G> findShortestPath( G graph )
+    public static <V, WE, G extends Graph<V, WE>> WeightedEdgesSelector<V, WE, G> findShortestPath( G graph )
     {
-        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultPathSourceSelector<V, WE, W, G>( graph );
+        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
+        return new DefaultWeightedEdgesSelector<V, WE, G>( graph );
     }
 
     /**
@@ -232,17 +231,6 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
     {
         return synchronizedObject( graph, MutableGraph.class );
-    }
-
-    /**
-     * Returns a synchronized (thread-safe) {@link WeightedGraph} backed by the specified Graph.
-     *
-     * @param graph
-     * @return
-     */
-    public static <V, WE, W> Graph<V, WE> synchronize( WeightedGraph<V, WE, W> graph )
-    {
-        return synchronizedObject( graph, WeightedGraph.class );
     }
 
    /**
