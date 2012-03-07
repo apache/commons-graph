@@ -20,13 +20,13 @@ package org.apache.commons.graph.shortestpath;
  */
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.WeightedEdges;
+import org.apache.commons.graph.Mapper;
 
 // TODO find a better name
-public interface WeightedEdgesSelector<V, WE, G extends Graph<V, WE>>
+public interface PathWeightedEdgesBuilder<V, WE, G extends Graph<V, WE>>
 {
 
     // TODO find a better sentence
-    <W> PathSourceSelector<V, WE, W, G> whereEdgesHaveWeights( WeightedEdges<WE, W> weightedEdges );
+    <W> PathSourceSelector<V, WE, W, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges );
 
 }

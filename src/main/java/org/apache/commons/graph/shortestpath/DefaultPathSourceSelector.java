@@ -27,7 +27,7 @@ import java.util.Map;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdges;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -37,9 +37,9 @@ final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
     private final G graph;
 
-    private final WeightedEdges<WE, W> weightedEdges;
+    private final Mapper<WE, W> weightedEdges;
 
-    public DefaultPathSourceSelector( G graph, WeightedEdges<WE, W> weightedEdges )
+    public DefaultPathSourceSelector( G graph, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -59,11 +59,11 @@ final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
         for ( WE we : graph.getEdges() )
         {
             VertexPair<V> vertexPair = graph.getVertices( we );
-            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), weightedEdges.getWeightForEdge( we ) );
+            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), weightedEdges.map( we ) );
 
             if ( graph instanceof UndirectedGraph )
             {
-                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), weightedEdges.getWeightForEdge( we ) );
+                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), weightedEdges.map( we ) );
             }
         }
 

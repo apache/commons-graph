@@ -19,10 +19,9 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-// TODO find a better name
-public interface WeightedEdges<E, W>
+public interface Mapper<I, O>
 {
 
-    W getWeightForEdge( E edge );
+    O map( I input );
 
 }

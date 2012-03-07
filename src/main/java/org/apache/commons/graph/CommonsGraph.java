@@ -44,7 +44,7 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
 import org.apache.commons.graph.scc.SccAlgorithmSelector;
 import org.apache.commons.graph.shortestpath.DefaultWeightedEdgesSelector;
-import org.apache.commons.graph.shortestpath.WeightedEdgesSelector;
+import org.apache.commons.graph.shortestpath.PathWeightedEdgesBuilder;
 import org.apache.commons.graph.spanning.DefaultSpanningTreeSourceSelector;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
 import org.apache.commons.graph.visit.VisitSourceSelector;
@@ -88,7 +88,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph
      * @return
      */
-    public static <V, WE, W, G extends Graph<V, WE> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
+    public static <V, WE, W, G extends Graph<V, WE>> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
         return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph );
@@ -103,7 +103,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param <G>
      * @param graph
      */
-    public static <V, WE, G extends Graph<V, WE>> WeightedEdgesSelector<V, WE, G> findShortestPath( G graph )
+    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE, G> findShortestPath( G graph )
     {
         graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
         return new DefaultWeightedEdgesSelector<V, WE, G>( graph );

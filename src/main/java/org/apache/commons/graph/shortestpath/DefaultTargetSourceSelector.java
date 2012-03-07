@@ -23,7 +23,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdges;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -33,11 +33,11 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
     private final G graph;
 
-    private final WeightedEdges<WE, W> weightedEdges;
+    private final Mapper<WE, W> weightedEdges;
 
     private final V source;
 
-    public DefaultTargetSourceSelector( G graph, WeightedEdges<WE, W> weightedEdges, V source )
+    public DefaultTargetSourceSelector( G graph, Mapper<WE, W> weightedEdges, V source )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -66,7 +66,7 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
                 if ( shortestDistances.alreadyVisited( u ) )
                 {
-                    W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.getWeightForEdge( edge ) );
+                    W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.map( edge ) );
 
                     if ( !shortestDistances.alreadyVisited( v )
                             || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
@@ -89,7 +89,7 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
 
             if ( shortestDistances.alreadyVisited( u ) )
             {
-                W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.getWeightForEdge( edge ) );
+                W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.map( edge ) );
 
                 if ( !shortestDistances.alreadyVisited( v )
                         || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )

@@ -22,10 +22,10 @@ package org.apache.commons.graph.shortestpath;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.WeightedEdges;
+import org.apache.commons.graph.Mapper;
 
 public final class DefaultWeightedEdgesSelector<V, WE, G extends Graph<V, WE>>
-    implements WeightedEdgesSelector<V, WE, G>
+    implements PathWeightedEdgesBuilder<V, WE, G>
 {
 
     private final G graph;
@@ -35,7 +35,7 @@ public final class DefaultWeightedEdgesSelector<V, WE, G extends Graph<V, WE>>
         this.graph = graph;
     }
 
-    public <W> PathSourceSelector<V, WE, W, G> whereEdgesHaveWeights( WeightedEdges<WE, W> weightedEdges )
+    public <W> PathSourceSelector<V, WE, W, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
     {
         weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
         return new DefaultPathSourceSelector<V, WE, W, G>( graph, weightedEdges );

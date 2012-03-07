@@ -27,7 +27,7 @@ import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.WeightedEdges;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
@@ -38,7 +38,7 @@ final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends
 
     private final G graph;
 
-    private final WeightedEdges<WE, W> weightedEdges;
+    private final Mapper<WE, W> weightedEdges;
 
     private final V start;
 
@@ -46,7 +46,7 @@ final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends
 
     private final WO weightOperations;
 
-    public DefaultHeuristicBuilder( G graph, WeightedEdges<WE, W> weightedEdges, V source, V target, WO weightOperations )
+    public DefaultHeuristicBuilder( G graph, Mapper<WE, W> weightedEdges, V source, V target, WO weightOperations )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -102,7 +102,7 @@ final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends
                 {
                     WE edge = graph.getEdge( current, v );
                     // note that the weight of current can never be undefined
-                    W tentativeGScore = weightOperations.append( gScores.getWeight( current ), weightedEdges.getWeightForEdge( edge ) );
+                    W tentativeGScore = weightOperations.append( gScores.getWeight( current ), weightedEdges.map( edge ) );
 
                     // if the first condition fails, v has already been visited (its weight is defined)
                     if ( openSet.add( v ) || weightOperations.compare( tentativeGScore, gScores.getWeight( v ) ) < 0 )

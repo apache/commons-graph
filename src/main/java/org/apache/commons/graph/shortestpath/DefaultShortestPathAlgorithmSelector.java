@@ -26,7 +26,7 @@ import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.WeightedEdges;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
@@ -37,13 +37,13 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE
 
     private final G graph;
 
-    private final WeightedEdges<WE, W> weightedEdges;
+    private final Mapper<WE, W> weightedEdges;
 
     private final V source;
 
     private final V target;
 
-    public DefaultShortestPathAlgorithmSelector( G graph, WeightedEdges<WE, W> weightedEdges, V source, V target )
+    public DefaultShortestPathAlgorithmSelector( G graph, Mapper<WE, W> weightedEdges, V source, V target )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -98,7 +98,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE
                     WE edge = graph.getEdge( vertex, v );
                     if ( shortestDistances.alreadyVisited( vertex ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.getWeightForEdge( edge ) );
+                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.map( edge ) );
 
                         if ( !shortestDistances.alreadyVisited( v )
                                 || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
