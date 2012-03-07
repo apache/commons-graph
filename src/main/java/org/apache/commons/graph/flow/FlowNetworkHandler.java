@@ -19,6 +19,7 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.shortestpath.PredecessorsList;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * Provides standard operations for max-flow algorithms,
@@ -38,7 +39,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <V> the vertex type
  * @param <W> the weight type
  */
-class FlowNetworkHandler<V extends Vertex, W>
+class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<W>>
     extends BaseGraphVisitHandler<V, WeightedEdge<W>, DirectedGraph<V, WeightedEdge<W>>, W>
 {
 
@@ -48,7 +49,7 @@ class FlowNetworkHandler<V extends Vertex, W>
 
     private final V target;
 
-    private final OrderedMonoid<W> weightOperations;
+    private final WO weightOperations;
 
     private W maxFlow;
 
@@ -59,14 +60,14 @@ class FlowNetworkHandler<V extends Vertex, W>
 
     private boolean foundAugmentingPath;
 
-    FlowNetworkHandler( DirectedGraph<V, WeightedEdge<W>> flowNetwork, V source, V target, OrderedMonoid<W> weightOperations )
+    FlowNetworkHandler( DirectedGraph<V, WeightedEdge<W>> flowNetwork, V source, V target, WO weightOperations )
     {
         this.flowNetwork = flowNetwork;
         this.source = source;
         this.target = target;
         this.weightOperations = weightOperations;
 
-        maxFlow = weightOperations.zero();
+        maxFlow = weightOperations.identity();
 
         for ( WeightedEdge<W> edge : flowNetwork.getEdges() )
         {
@@ -142,7 +143,7 @@ class FlowNetworkHandler<V extends Vertex, W>
     {
         W residualEdgeCapacity = residualEdgeCapacities.get( edge );
         // avoid expanding the edge when it has no residual capacity
-        if ( weightOperations.compare( residualEdgeCapacity, weightOperations.zero() ) <= 0 )
+        if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
         {
             return false;
         }

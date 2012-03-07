@@ -46,7 +46,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
 
     public MutableSpanningTree(Monoid<W> weightOperations) {
         this.weightOperations = weightOperations;
-        this.weight = weightOperations.zero();
+        this.weight = weightOperations.identity();
     }
 
     /**

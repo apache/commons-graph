@@ -52,7 +52,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
     {
         super( start, target );
         this.weightOperations = weightOperations;
-        this.weight = weightOperations.zero();
+        this.weight = weightOperations.identity();
     }
 
     /**

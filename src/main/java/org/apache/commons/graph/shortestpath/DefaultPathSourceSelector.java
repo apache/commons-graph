@@ -21,6 +21,7 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 public final class DefaultPathSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
     implements PathSourceSelector<V, WE, W, G>
@@ -46,11 +47,11 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> AllVertexPairsShortestPath<V, WE, W, WO> applyingFloydWarshall( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Floyd-Warshall algorithm can not be applied using null weight operations" );
 
-        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
+        AllVertexPairsShortestPath<V, WE, W, WO> shortestPaths = new AllVertexPairsShortestPath<V, WE, W, WO>( weightOperations );
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
 
         // init

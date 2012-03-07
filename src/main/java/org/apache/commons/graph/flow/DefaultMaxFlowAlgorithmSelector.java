@@ -23,13 +23,15 @@ import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGr
 import static org.apache.commons.graph.CommonsGraph.visit;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.util.Comparator;
+
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * {@link MaxFlowAlgorithmSelector} implementation.
@@ -59,7 +61,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> W applyingFordFulkerson( WO weightOperations )
     {
         final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
@@ -67,7 +69,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
         final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
 
         // create flow network handler
-        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedWeightOperations );
+        final FlowNetworkHandler<V, W, WO> flowNetworkHandler = new FlowNetworkHandler<V, W, WO>( flowNetwork, source, target, checkedWeightOperations );
 
         // perform depth first search
         visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
@@ -86,7 +88,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> W applyingEdmondsKarp( WO weightOperations )
     {
         final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
@@ -94,7 +96,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
         final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
 
         // create flow network handler
-        final FlowNetworkHandler<V, W> flowNetworkHandler = new FlowNetworkHandler<V, W>( flowNetwork, source, target, checkedWeightOperations );
+        final FlowNetworkHandler<V, W, WO> flowNetworkHandler = new FlowNetworkHandler<V, W, WO>( flowNetwork, source, target, checkedWeightOperations );
 
         // perform breadth first search
         visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
@@ -110,7 +112,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
         return flowNetworkHandler.onCompleted();
     }
 
-    private <WO extends OrderedMonoid<W>> DirectedGraph<V, WeightedEdge<W>> newFlowNetwok( final G graph, final WO weightOperations )
+    private <WO extends Monoid<W> & Comparator<W>> DirectedGraph<V, WeightedEdge<W>> newFlowNetwok( final G graph, final WO weightOperations )
     {
         return newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
         {
@@ -134,7 +136,7 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
                     if ( graph.getEdge( tail, head ) == null )
                     {
                         // complete the flow network with a zero-capacity inverse edge
-                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, weightOperations.zero() ) )
+                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, weightOperations.identity() ) )
                             .from( tail ).to( head );
                     }
                 }

@@ -31,7 +31,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * The predecessor list is a list of {@link Vertex} of a {@link org.apache.commons.graph.Graph}.
@@ -41,19 +41,19 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <E> the Graph edges type
  * @param <W> the weight type
  */
-final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
+final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W, WO extends Monoid<W> & Comparator<W>>
     implements Comparator<V>
 {
 
     private final Map<V, WE> predecessors = new HashMap<V, WE>();
 
-    private final OrderedMonoid<W> weightOperations;
+    private final WO weightOperations;
     
     private final Graph<V, WE> graph;
 
     private final V source;
 
-    public ShortestEdges(Graph<V, WE> graph, V source, OrderedMonoid<W> weightOperations )
+    public ShortestEdges(Graph<V, WE> graph, V source, WO weightOperations )
     {
         this.graph = graph;
         this.source = source;
@@ -132,7 +132,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
     {
         if ( source.equals( vertex ) )
         {
-            return weightOperations.zero();
+            return weightOperations.identity();
         }
 
         WE edge = predecessors.get( vertex );

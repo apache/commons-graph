@@ -21,6 +21,7 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
@@ -31,9 +32,9 @@ import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
-final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, WO extends OrderedMonoid<W>>
+final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, WO extends Monoid<W> & Comparator<W>>
     implements HeuristicBuilder<V, WE, W, G, WO>
 {
 
@@ -61,11 +62,11 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
         heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
 
         // Cost from start along best known path.
-        final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( weightOperations );
-        gScores.setWeight( start, weightOperations.zero() );
+        final ShortestDistances<V, W, WO> gScores = new ShortestDistances<V, W, WO>( weightOperations );
+        gScores.setWeight( start, weightOperations.identity() );
 
         // Estimated total cost from start to goal through y.
-        final ShortestDistances<V, W> fScores = new ShortestDistances<V, W>( weightOperations );
+        final ShortestDistances<V, W, WO> fScores = new ShortestDistances<V, W, WO>( weightOperations );
         W hScore = heuristic.applyHeuristic( start, goal );
         fScores.setWeight( start, hScore );
 

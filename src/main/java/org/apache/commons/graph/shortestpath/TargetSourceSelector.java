@@ -19,10 +19,12 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
+import java.util.Comparator;
+
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  *
@@ -42,7 +44,7 @@ public interface TargetSourceSelector<V extends Vertex, WE extends WeightedEdge<
      * @param weightOperations the weight operations needed for the algorithm
      * @return a data structure which contains all vertex pairs shortest path.
      */
-    <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations );
+    <WO extends Monoid<W> & Comparator<W>> AllVertexPairsShortestPath<V, WE, W, WO> applyingBelmannFord( WO weightOperations );
 
     /**
      * Specifies the shortest path source.

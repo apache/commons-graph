@@ -21,12 +21,14 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.util.Comparator;
+
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
     implements TargetSourceSelector<V, WE, W, G>
@@ -45,12 +47,12 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> AllVertexPairsShortestPath<V, WE, W, WO> applyingBelmannFord( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
 
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
-        shortestDistances.setWeight( source, weightOperations.zero() );
+        final ShortestDistances<V, W, WO> shortestDistances = new ShortestDistances<V, W, WO>( weightOperations );
+        shortestDistances.setWeight( source, weightOperations.identity() );
 
         final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
 
@@ -99,7 +101,7 @@ final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdg
             }
         }
 
-        AllVertexPairsShortestPath<V, WE, W> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
+        AllVertexPairsShortestPath<V, WE, W, WO> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W, WO>( weightOperations );
 
         for ( V target : graph.getVertices() )
         {

@@ -19,11 +19,13 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
+import java.util.Comparator;
+
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * Spanning Tree algoritms selector.
@@ -43,7 +45,7 @@ public interface SpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends W
      * @param weightOperations the class responsible for operations on weights
      * @return the calculated spanning tree
      */
-    <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( WO weightOperations );
+    <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( WO weightOperations );
 
     /**
      * Applies the <a href="http://en.wikipedia.org/wiki/Kruskal%27s_algorithm">Kruskal</a>'s algorithm.
@@ -52,7 +54,7 @@ public interface SpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends W
      * @param weightOperations the class responsible for operations on weights
      * @return the calculated spanning tree
      */
-    <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations );
+    <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations );
 
     /**
      * Applies the <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim</a>'s algorithm.
@@ -61,6 +63,6 @@ public interface SpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends W
      * @param weightOperations the class responsible for operations on weights
      * @return the calculated spanning tree
      */
-    <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( WO weightOperations );
+    <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( WO weightOperations );
 
 }

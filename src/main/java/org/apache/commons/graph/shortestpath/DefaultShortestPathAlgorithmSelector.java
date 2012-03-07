@@ -21,6 +21,7 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
@@ -30,7 +31,7 @@ import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
     implements ShortestPathAlgorithmSelector<V, WE, W, G>
@@ -52,7 +53,7 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
         return new DefaultHeuristicBuilder<V, WE, W, G, WO>( graph, source, target, weightOperations );
@@ -61,12 +62,12 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
 
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
-        shortestDistances.setWeight( source, weightOperations.zero() );
+        final ShortestDistances<V, W, WO> shortestDistances = new ShortestDistances<V, W, WO>( weightOperations );
+        shortestDistances.setWeight( source, weightOperations.identity() );
 
         final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
         unsettledNodes.add( source );

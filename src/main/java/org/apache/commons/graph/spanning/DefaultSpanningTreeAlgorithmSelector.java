@@ -23,6 +23,7 @@ import static org.apache.commons.graph.utils.Assertions.checkState;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -38,7 +39,7 @@ import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.collections.DisjointSet;
 import org.apache.commons.graph.model.MutableSpanningTree;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * {@link SpanningTreeAlgorithmSelector} implementation.
@@ -71,7 +72,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     }
 
     /** {@inheritDoc} */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( WO weightOperations )
     {
         /*
          * <pre>
@@ -170,7 +171,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations )
     {
         checkNotNull( weightOperations, "The Kruskal algorithm cannot be calculated with null weight operations" );
         final Set<V> settledNodes = new HashSet<V>();
@@ -216,11 +217,11 @@ final class DefaultSpanningTreeAlgorithmSelector<V extends Vertex, W, WE extends
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( WO weightOperations )
     {
         checkNotNull( weightOperations, "The Prim algorithm cannot be calculated with null weight operations" );
 
-        final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, weightOperations );
+        final ShortestEdges<V, WE, W, WO> shortestEdges = new ShortestEdges<V, WE, W, WO>( graph, source, weightOperations );
 
         final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestEdges );
         unsettledNodes.add( source );

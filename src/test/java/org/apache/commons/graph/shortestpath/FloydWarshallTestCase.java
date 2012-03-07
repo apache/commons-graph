@@ -62,7 +62,7 @@ public class FloydWarshallTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double, DoubleWeightBaseOperations> p =
             findShortestPath( graph ).applyingFloydWarshall( new DoubleWeightBaseOperations() );
 
         p.findShortestPath( a, b );
@@ -115,7 +115,7 @@ public class FloydWarshallTestCase
         mutable.addEdge( four, new BaseLabeledWeightedEdge<Double>( "4 -> 5", 6D ), five );
         mutable.addEdge( six, new BaseLabeledWeightedEdge<Double>( "6 -> 5", 9D ), five );
 
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double, DoubleWeightBaseOperations> p =
             findShortestPath( weighted ).applyingFloydWarshall( new DoubleWeightBaseOperations() );
 
         if ( weighted instanceof UndirectedGraph )

@@ -22,17 +22,34 @@ package org.apache.commons.graph.weight;
 /**
  * A {@link Monoid} is a {@link Semigroup} with an identity value.
  *
- * @param <M> the type of the elements in the {@link Monoid}
+ * @param <E> the type of the elements in the {@link Monoid}
  */
-public interface Monoid<M>
-    extends Zero<M>, Semigroup<M>
+public interface Monoid<E>
 {
 
     /**
+     * Returns the identity value.
+     *
+     * @return the identity value
+     */
+    E identity();
+
+    /**
+     * Returns the result of the associative binary operation defined by this
+     * monoid between two elements of appropriate type.
+     *
+     * @param s1 the first element
+     * @param element2 the second element
+     * @return the result of the associative binary operation
+     */
+    E append( E element1, E element2 );
+
+    /**
      * Returns the inverse of the input element.
+     *
      * @param element the input element
      * @return the inverse of the input element
      */
-    M inverse( M element );
+    E inverse( E element );
 
 }

@@ -19,20 +19,22 @@ package org.apache.commons.graph.weight.primitive;
  * under the License.
  */
 
-import org.apache.commons.graph.weight.OrderedMonoid;
+import java.util.Comparator;
+
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * The class {@link FloatWeightBaseOperations} provides operations and properties
  * for weights of type {@link Float}.
  */
 public class FloatWeightBaseOperations
-    implements OrderedMonoid<Float>
+    implements Monoid<Float>, Comparator<Float>
 {
 
     /**
      * {@inheritDoc}
      */
-    public Float zero()
+    public Float identity()
     {
         return 0.0F;
     }

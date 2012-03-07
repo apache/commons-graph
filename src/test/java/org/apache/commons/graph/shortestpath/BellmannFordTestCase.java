@@ -83,7 +83,7 @@ public final class BellmannFordTestCase
         BaseLabeledVertex a = null;
         BaseLabeledVertex b = null;
         // the actual weighted path
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double, DoubleWeightBaseOperations> allVertexPairsShortestPath =
             null;
         try
         {
@@ -149,7 +149,7 @@ public final class BellmannFordTestCase
         expected.addConnectionInTail( four, new BaseLabeledWeightedEdge<Double>( "4 -> 3", -3D ), three );
 
         // the actual weighted path
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double, DoubleWeightBaseOperations> allVertexPairsShortestPath =
             findShortestPath( graph ).from( one ).applyingBelmannFord( new DoubleWeightBaseOperations() );
 
         WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =

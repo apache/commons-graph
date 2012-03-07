@@ -26,6 +26,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +38,7 @@ import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.shortestpath.PathNotFoundException;
-import org.apache.commons.graph.weight.OrderedMonoid;
+import org.apache.commons.graph.weight.Monoid;
 
 /**
  * {@link SpanningTreeSourceSelector} implementation.
@@ -80,7 +81,7 @@ public final class DefaultSpanningTreeSourceSelector<V extends Vertex, W, WE ext
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations )
+    public <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations )
     {
 
         checkNotNull( weightOperations, "The Reverse-Delete algorithm cannot be calulated with null weight operations" );
