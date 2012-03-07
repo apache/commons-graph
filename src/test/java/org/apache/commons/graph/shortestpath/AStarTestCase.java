@@ -209,8 +209,7 @@ public final class AStarTestCase
         // expected path
 
         InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( start, goal,
-                                                                                                  new DoubleWeightBaseOperations() );
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( start, goal, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         expected.addConnectionInTail( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
         expected.addConnectionInTail( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );
