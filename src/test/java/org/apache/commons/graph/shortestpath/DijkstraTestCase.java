@@ -22,10 +22,14 @@ package org.apache.commons.graph.shortestpath;
 import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Path;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.BaseWeightedEdge;
+import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
@@ -36,24 +40,32 @@ public final class DijkstraTestCase
     public void testNullGraph()
     {
         // the actual weighted path
-        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeightBaseOperations() );
+        findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( null )
+            .to( null )
+            .applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
     public void testNullVertices()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // the actual weighted path
-        findShortestPath( graph ).from( null ).to( null ).applyingDijkstra( new DoubleWeightBaseOperations() );
+        findShortestPath( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( null )
+            .to( null )
+            .applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
@@ -61,14 +73,18 @@ public final class DijkstraTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( null );
+        findShortestPath( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( a )
+            .to( b )
+            .applyingDijkstra( null );
     }
 
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
@@ -76,7 +92,11 @@ public final class DijkstraTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( new DoubleWeightBaseOperations() );
+        findShortestPath( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( a )
+            .to( b )
+            .applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     /**
@@ -86,8 +106,8 @@ public final class DijkstraTestCase
     @Test
     public void findShortestPathAndVerify()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph
 
@@ -129,7 +149,12 @@ public final class DijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual = findShortestPath( graph ).from( one ).to( five ).applyingDijkstra( new DoubleWeightBaseOperations() );
+        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+                        findShortestPath( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                            .from( one )
+                            .to( five )
+                            .applyingDijkstra( new DoubleWeightBaseOperations() );
 
         // assert!
 
