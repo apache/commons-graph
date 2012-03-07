@@ -29,10 +29,9 @@ import org.apache.commons.graph.VertexPair;
 /**
  * @param <V>
  * @param <WE>
- * @param <W>
  */
-final class ReverseDeleteGraph<V, WE, W>
-    implements WeightedGraph<V, WE, W>
+final class ReverseDeleteGraph<V, WE>
+    implements Graph<V, WE>
 {
 
     private static final long serialVersionUID = -543197749473412325L;
@@ -135,7 +134,7 @@ final class ReverseDeleteGraph<V, WE, W>
     {
         return graph.containsVertex( v );
     }
-    
+
     public boolean containsEdge( WE e )
     {
         return graph.containsEdge( e );
