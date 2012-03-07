@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.weight.Monoid;
@@ -42,12 +43,15 @@ public final class PredecessorsList<V, WE, W>
 
     private final Monoid<W> weightOperations;
 
+    private final Mapper<WE, W> weightedEdges;
+
     private final Map<V, V> predecessors = new HashMap<V, V>();
 
-    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations )
+    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightOperations = weightOperations;
+        this.weightedEdges = weightedEdges;
     }
 
     /**
@@ -71,7 +75,7 @@ public final class PredecessorsList<V, WE, W>
      */
     public WeightedPath<V, WE, W> buildPath( V source, V target )
     {
-        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations );
+        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
 
         V vertex = target;
         while ( !source.equals( vertex ) )

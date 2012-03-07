@@ -79,7 +79,7 @@ final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends
         openSet.add( start );
 
         // The of navigated nodes
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )

@@ -75,7 +75,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )

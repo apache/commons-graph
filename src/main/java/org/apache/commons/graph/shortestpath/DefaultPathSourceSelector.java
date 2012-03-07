@@ -98,7 +98,7 @@ final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
             {
                 if ( !source.equals( target ) )
                 {
-                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations );
+                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
                     pathReconstruction( predecessorsList, source, target, next );
                     if ( !predecessorsList.isEmpty() )
