@@ -25,11 +25,12 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
+final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE>>
     implements ShortestPathAlgorithmSelector<V, WE, W, G>
 {
 

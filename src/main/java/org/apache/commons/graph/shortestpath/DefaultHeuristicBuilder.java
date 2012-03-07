@@ -26,11 +26,12 @@ import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultHeuristicBuilder<V, WE, W, G extends WeightedGraph<V, WE, W>, WO extends OrderedMonoid<W>>
+final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends OrderedMonoid<W>>
     implements HeuristicBuilder<V, WE, W, G, WO>
 {
 

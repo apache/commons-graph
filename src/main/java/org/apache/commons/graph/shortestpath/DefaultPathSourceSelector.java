@@ -24,12 +24,13 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-public final class DefaultPathSourceSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
+public final class DefaultPathSourceSelector<V, WE, W, G extends Graph<V, WE>>
     implements PathSourceSelector<V, WE, W, G>
 {
 
@@ -115,7 +116,7 @@ public final class DefaultPathSourceSelector<V, WE, W, G extends WeightedGraph<V
                                      V source, V target,
                                      Map<VertexPair<V>, V> next )
     {
-        V k = next.get( new VertexPair<Vertex>( source, target ) );
+        V k = next.get( new VertexPair<V>( source, target ) );
         if ( k == null )
         {
             // there is a direct path between a and b

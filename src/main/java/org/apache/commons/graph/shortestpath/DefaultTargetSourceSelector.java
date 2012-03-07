@@ -21,11 +21,12 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultTargetSourceSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
+final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
     implements TargetSourceSelector<V, WE, W, G>
 {
 

@@ -69,9 +69,7 @@ final class DotExporter<V, E, G extends Graph<V, E>>
 
         for ( V vertex : getGraph().getVertices() )
         {
-            printWriter.format( "  %s [label=\"%s\"];%n",
-                                vertex.hashCode(),
-                                ( vertex instanceof Labeled) ? ( (Labeled) vertex).getLabel() : vertex.toString() );
+            printWriter.format( "  %s [label=\"%s\"];%n", vertex.hashCode(), vertex.toString() );
         }
 
         for ( E edge : getGraph().getEdges() )
