@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.model.MutableSpanningTree;
@@ -44,15 +45,18 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE> the Graph weighted edges type
  * @param <G> the input Graph type
  */
-public final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
+final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
     implements SpanningTreeSourceSelector<V, W, WE, G>
 {
 
     private final G graph;
 
-    public DefaultSpanningTreeSourceSelector( G graph )
+    private final Mapper<WE, W> weightedEdges;
+
+    public DefaultSpanningTreeSourceSelector( G graph, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
     }
 
     /**
@@ -71,7 +75,7 @@ public final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V
     {
         source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE, G>( graph, source );
+        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE, G>( graph, weightedEdges, source );
     }
 
     /**
@@ -91,9 +95,9 @@ public final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V
             sortedEdge.add( we );
         }
 
-        sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( weightOperations ) ) );
+        sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) ) );
 
-        WeightedGraph<V, WE, W> tmpGraph = new ReverseDeleteGraph<V, WE, W>( graph, sortedEdge, visitedEdge );
+        Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE>( graph, sortedEdge, visitedEdge );
 
         for ( Iterator<WE> iterator = sortedEdge.iterator(); iterator.hasNext(); )
         {
@@ -104,7 +108,11 @@ public final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V
 
             try
             {
-                findShortestPath( tmpGraph ).from( vertices.getHead() ).to( vertices.getTail() ).applyingDijkstra( weightOperations );
+                findShortestPath( tmpGraph )
+                    .whereEdgesHaveWeights( weightedEdges )
+                    .from( vertices.getHead() )
+                    .to( vertices.getTail() )
+                    .applyingDijkstra( weightOperations );
             }
             catch ( PathNotFoundException ex )
             {

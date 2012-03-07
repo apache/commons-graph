@@ -31,6 +31,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.collections.DisjointSet;
@@ -51,6 +52,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
     /** The graph. */
     private final G graph;
 
+    private final Mapper<WE, W> weightedEdges;
+
     /** The start {@link Vertex}. */
     private final V source;
 
@@ -61,9 +64,10 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
      * @param graph the {@link Graph} to be used.
      * @param source the start {@link Vertex}.
      */
-    public DefaultSpanningTreeAlgorithmSelector( final G graph, final V source )
+    public DefaultSpanningTreeAlgorithmSelector( final G graph, Mapper<WE, W> weightedEdges, final V source )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
         this.source = source;
     }
 
@@ -87,20 +91,16 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
 
         checkNotNull( weightOperations, "The Boruvka algorithm cannot be calculated with null weight operations" );
 
-        final MutableSpanningTree<V, WE, W> spanningTree =
-            new MutableSpanningTree<V, WE, W>( weightOperations );
+        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations );
 
-        final Set<SuperVertex<V, W, WE, G, WO>> components =
-            new HashSet<SuperVertex<V, W, WE, G, WO>>( graph.getOrder() );
+        final Set<SuperVertex<V, W, WE, G>> components = new HashSet<SuperVertex<V, W, WE, G>>( graph.getOrder() );
 
-        final Map<V, SuperVertex<V, W, WE, G, WO>> mapping =
-            new HashMap<V, SuperVertex<V, W, WE, G, WO>>( graph.getOrder() );
+        final Map<V, SuperVertex<V, W, WE, G>> mapping = new HashMap<V, SuperVertex<V, W, WE, G>>( graph.getOrder() );
 
         for ( V v : graph.getVertices() )
         {
             // create a super vertex for each vertex
-            final SuperVertex<V, W, WE, G, WO> sv =
-                new SuperVertex<V, W, WE, G, WO>( v, graph, weightOperations );
+            final SuperVertex<V, W, WE, G> sv = new SuperVertex<V, W, WE, G>( v, graph, new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
 
             components.add( sv );
 
@@ -114,7 +114,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
         while ( components.size() > 1 )
         {
             final List<WE> edges = new LinkedList<WE>();
-            for ( SuperVertex<V, W, WE, G, WO> sv : components )
+            for ( SuperVertex<V, W, WE, G> sv : components )
             {
                 // get the minimum edge for each component to any other component
                 final WE edge = sv.getMinimumWeightEdge();
@@ -135,8 +135,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
                 final V tail = pair.getTail();
 
                 // find the super vertices corresponding to this edge
-                final SuperVertex<V, W, WE, G, WO> headSv = mapping.get( head );
-                final SuperVertex<V, W, WE, G, WO> tailSv = mapping.get( tail );
+                final SuperVertex<V, W, WE, G> headSv = mapping.get( head );
+                final SuperVertex<V, W, WE, G> tailSv = mapping.get( tail );
 
                 // merge them, if they are not the same
                 if ( headSv != tailSv )
@@ -173,7 +173,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
         final Set<V> settledNodes = new HashSet<V>();
 
         final PriorityQueue<WE> orderedEdges =
-            new PriorityQueue<WE>( graph.getSize(), new WeightedEdgesComparator<W, WE>( weightOperations ) );
+            new PriorityQueue<WE>( graph.getSize(), new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
 
         for ( WE edge : graph.getEdges() )
         {
@@ -217,7 +217,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
     {
         checkNotNull( weightOperations, "The Prim algorithm cannot be calculated with null weight operations" );
 
-        final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, weightOperations );
+        final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, weightOperations, weightedEdges );
 
         final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestEdges );
         unsettledNodes.add( source );
@@ -236,7 +236,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
                 // if the edge has not been already visited and its weight is
                 // less then the current Vertex weight
                 boolean weightLessThanCurrent = !shortestEdges.hasWeight( v ) ||
-                        weightOperations.compare( edge.getWeight(), shortestEdges.getWeight( v ) ) < 0;
+                        weightOperations.compare( weightedEdges.map( edge ), shortestEdges.getWeight( v ) ) < 0;
                 if ( settledEdges.add( edge ) && weightLessThanCurrent )
                 {
                     if ( !unsettledNodes.contains( v ) )

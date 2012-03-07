@@ -45,7 +45,8 @@ import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
 import org.apache.commons.graph.scc.SccAlgorithmSelector;
 import org.apache.commons.graph.shortestpath.DefaultWeightedEdgesSelector;
 import org.apache.commons.graph.shortestpath.PathWeightedEdgesBuilder;
-import org.apache.commons.graph.spanning.DefaultSpanningTreeSourceSelector;
+import org.apache.commons.graph.spanning.DefaultSpanningWeightedEdgeMapperBuilder;
+import org.apache.commons.graph.spanning.SpanningWeightedEdgeMapperBuilder;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
 import org.apache.commons.graph.visit.VisitSourceSelector;
 
@@ -88,10 +89,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph
      * @return
      */
-    public static <V, WE, W, G extends Graph<V, WE>> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
+    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE, G> minimumSpanningTree( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph );
+        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE, G>( graph );
     }
 
     /**

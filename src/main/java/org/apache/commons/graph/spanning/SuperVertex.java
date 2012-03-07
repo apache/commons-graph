@@ -19,7 +19,6 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -38,7 +37,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <G>  the input Graph type
  * @param <WC> the weight operations
  */
-class SuperVertex<V, W, WE, G extends Graph<V, WE>, WC extends Comparator<W>>
+class SuperVertex<V, W, WE, G extends Graph<V, WE>>
     implements Iterable<V> {
 
     /** The reference to the graph. */
@@ -58,13 +57,13 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>, WC extends Comparator<W>>
      * @param graph the underlying graph
      * @param weightComparator the comparator used to sort the weighted edges
      */
-    public SuperVertex( final V source, final G graph, final WC weightComparator ) {
+    public SuperVertex( final V source, final G graph, final WeightedEdgesComparator<W, WE> weightComparator ) {
         this.graph = graph;
 
         vertices = new HashSet<V>();
         vertices.add( source );
 
-        orderedEdges = new TreeSet<WE>( new WeightedEdgesComparator<W, WE>( weightComparator ) );
+        orderedEdges = new TreeSet<WE>( weightComparator );
 
         // add all edges for this vertex to the sorted set
         for ( final V w : graph.getConnectedVertices( source )) {
@@ -85,7 +84,7 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>, WC extends Comparator<W>>
      *
      * @param other the {@link SuperVertex} to be merged into this
      */
-    public void merge( final SuperVertex<V, W, WE, G, WC> other ) {
+    public void merge( final SuperVertex<V, W, WE, G> other ) {
         for ( final V v : other.vertices ) {
             vertices.add(v);
         }
