@@ -24,12 +24,16 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.fail;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.BaseWeightedEdge;
+import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
@@ -42,14 +46,18 @@ public class FloydWarshallTestCase
     public void testNullGraph()
     {
         // the actual weighted path
-        findShortestPath( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).from( null ).to( null ).applyingDijkstra( new DoubleWeightBaseOperations() );
+        findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( null )
+            .to( null )
+            .applyingDijkstra( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
@@ -58,7 +66,9 @@ public class FloydWarshallTestCase
 
         // the actual weighted path
         AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
-            findShortestPath( graph ).applyingFloydWarshall( new DoubleWeightBaseOperations() );
+            findShortestPath( graph )
+                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                .applyingFloydWarshall( new DoubleWeightBaseOperations() );
 
         p.findShortestPath( a, b );
     }
@@ -66,18 +76,17 @@ public class FloydWarshallTestCase
     @Test
     public void undirectedShortestPath()
     {
-        findShortestPathAndVerify( new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>() );
+        findShortestPathAndVerify( new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() );
     }
 
     @Test
     public void directedShortestPath()
     {
-        findShortestPathAndVerify( new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>() );
+        findShortestPathAndVerify( new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() );
     }
 
-    private void findShortestPathAndVerify( WeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> weighted )
+    private void findShortestPathAndVerify( Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> weighted )
     {
-        @SuppressWarnings( "unchecked" ) // mutable by definition, generic types driven by input graph
         MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> mutable =
             (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) weighted;
 
@@ -111,7 +120,9 @@ public class FloydWarshallTestCase
         mutable.addEdge( six, new BaseLabeledWeightedEdge<Double>( "6 -> 5", 9D ), five );
 
         AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
-            findShortestPath( weighted ).applyingFloydWarshall( new DoubleWeightBaseOperations() );
+            findShortestPath( weighted )
+                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                .applyingFloydWarshall( new DoubleWeightBaseOperations() );
 
         if ( weighted instanceof UndirectedGraph )
         {
