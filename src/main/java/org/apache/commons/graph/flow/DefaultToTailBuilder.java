@@ -22,6 +22,7 @@ package org.apache.commons.graph.flow;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Mapper;
 
 /**
  * {@link DefaultToTailBuilder} implementation.
@@ -37,11 +38,14 @@ final class DefaultToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
 
     private final G graph;
 
+    private final Mapper<WE, W> weightedEdges;
+
     private final V head;
 
-    public DefaultToTailBuilder( G graph, V head )
+    public DefaultToTailBuilder( G graph, Mapper<WE, W> weightedEdges, V head )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
         this.head = head;
     }
 

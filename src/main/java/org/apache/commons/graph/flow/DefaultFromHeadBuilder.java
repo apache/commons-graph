@@ -49,7 +49,7 @@ final class DefaultFromHeadBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
     public ToTailBuilder<V, WE, W, G> from( V head )
     {
         head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
-        return new DefaultToTailBuilder<V, WE, W, G>( graph, head );
+        return new DefaultToTailBuilder<V, WE, W, G>( graph, weightedEdges, head );
     }
 
 }
