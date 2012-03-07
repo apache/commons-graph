@@ -21,9 +21,7 @@ package org.apache.commons.graph.coloring;
 
 import java.util.Set;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Builder to specify the set of colors for coloring the graph.

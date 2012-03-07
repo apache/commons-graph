@@ -22,8 +22,6 @@ package org.apache.commons.graph.flow;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
 
 /**
  * {@link FromHeadBuilder} implementation.

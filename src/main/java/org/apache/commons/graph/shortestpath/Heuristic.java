@@ -1,6 +1,5 @@
 package org.apache.commons.graph.shortestpath;
 
-import org.apache.commons.graph.Vertex;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

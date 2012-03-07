@@ -19,9 +19,7 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Applies different implementations of Graph visitor algorithms.

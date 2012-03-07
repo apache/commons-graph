@@ -22,8 +22,6 @@ package org.apache.commons.graph.scc;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Allows selecting the algorithm for calculating the strongly connected component.

@@ -22,10 +22,7 @@ package org.apache.commons.graph.shortestpath;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.weight.Monoid;

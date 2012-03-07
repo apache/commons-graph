@@ -19,9 +19,8 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Assertions.checkNotNull;
-
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 /**
  * Indicates a {@link Vertex} pair.

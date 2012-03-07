@@ -24,10 +24,7 @@ import java.util.List;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 
 /**
  * @param <V>

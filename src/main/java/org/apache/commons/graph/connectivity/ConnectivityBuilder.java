@@ -19,9 +19,7 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Builder to specify the set of vertices included into a connected component.

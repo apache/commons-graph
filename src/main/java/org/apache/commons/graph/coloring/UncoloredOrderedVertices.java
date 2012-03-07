@@ -27,8 +27,6 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.graph.Vertex;
-
 /**
  * 
  *

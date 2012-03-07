@@ -19,9 +19,7 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Builder for selecting the coloring algorithm to perform.

@@ -20,8 +20,6 @@ package org.apache.commons.graph.flow;
  */
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 public interface MaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V, WE>>

@@ -23,9 +23,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 public interface ToStreamBuilder<V, E, G extends Graph<V, E>>
 {

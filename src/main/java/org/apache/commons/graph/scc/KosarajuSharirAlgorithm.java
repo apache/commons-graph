@@ -32,8 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.model.RevertedGraph;
 
 /**

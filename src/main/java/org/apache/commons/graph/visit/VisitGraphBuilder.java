@@ -20,9 +20,7 @@ package org.apache.commons.graph.visit;
  */
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.model.BaseMutableGraph;
 import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;

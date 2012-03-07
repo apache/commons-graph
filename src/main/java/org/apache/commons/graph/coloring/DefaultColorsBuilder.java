@@ -23,9 +23,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.util.Set;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * {@link ColorsBuilder} implementation

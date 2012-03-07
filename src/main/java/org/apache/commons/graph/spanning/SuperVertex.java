@@ -26,9 +26,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 
 /**
  * A {@link SuperVertex} is a collection of {@link Vertex} objects and is only

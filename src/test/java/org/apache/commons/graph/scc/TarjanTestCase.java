@@ -21,7 +21,6 @@ package org.apache.commons.graph.scc;
 
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -34,7 +33,6 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.junit.Test;
 
 /**

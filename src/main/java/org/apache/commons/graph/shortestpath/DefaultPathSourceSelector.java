@@ -25,10 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 

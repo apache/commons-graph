@@ -33,7 +33,6 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.junit.Test;
 
 /**

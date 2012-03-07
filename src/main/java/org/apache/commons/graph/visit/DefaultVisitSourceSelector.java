@@ -22,9 +22,7 @@ package org.apache.commons.graph.visit;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * {@link VisitSourceSelector} implementation.

@@ -28,8 +28,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Implements Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding

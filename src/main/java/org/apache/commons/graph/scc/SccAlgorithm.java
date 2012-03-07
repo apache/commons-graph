@@ -21,8 +21,6 @@ package org.apache.commons.graph.scc;
 
 import java.util.Set;
 
-import org.apache.commons.graph.Vertex;
-
 interface SccAlgorithm<V>
 {
 

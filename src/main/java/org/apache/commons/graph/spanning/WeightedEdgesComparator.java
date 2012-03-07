@@ -19,8 +19,6 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.WeightedEdge;
-
 import java.util.Comparator;
 
 /**

@@ -25,9 +25,6 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;

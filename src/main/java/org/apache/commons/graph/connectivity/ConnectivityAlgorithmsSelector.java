@@ -22,9 +22,7 @@ package org.apache.commons.graph.connectivity;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Builder for selecting the connectivity algorithm to perform.

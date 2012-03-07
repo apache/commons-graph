@@ -29,10 +29,7 @@ import java.util.Map;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Labeled;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.Weighted;
 
 final class GraphMLExporter<V, E, G extends Graph<V, E>>

@@ -19,9 +19,7 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 public interface ExportSelctor<V, E, G extends Graph<V, E>>
 {

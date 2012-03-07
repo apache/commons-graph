@@ -23,9 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.shortestpath.PredecessorsList;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;

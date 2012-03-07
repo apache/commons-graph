@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Maintains the color for each {@link Vertex} and the required number of colors for {@link Graph} coloring.

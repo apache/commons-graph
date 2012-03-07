@@ -27,13 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.Path;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 

@@ -27,7 +27,7 @@ package org.apache.commons.graph;
  * @param <W> the weight type
  */
 public interface WeightedPath<V, E, W>
-    extends Path<V, E>
+    extends Path<V, E>, Weighted<W>
 {
 
 }

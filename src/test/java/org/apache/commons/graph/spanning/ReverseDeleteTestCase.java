@@ -22,14 +22,9 @@ package org.apache.commons.graph.spanning;
 import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
-import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 

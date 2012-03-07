@@ -32,9 +32,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.logging.Logger;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;

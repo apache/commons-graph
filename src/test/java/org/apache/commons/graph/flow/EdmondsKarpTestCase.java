@@ -20,15 +20,11 @@ package org.apache.commons.graph.flow;
  */
 
 import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
-import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
 import static org.junit.Assert.assertEquals;
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.weight.primitive.IntegerWeightBaseOperations;
 import org.junit.Test;
 

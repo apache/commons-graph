@@ -19,9 +19,6 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 

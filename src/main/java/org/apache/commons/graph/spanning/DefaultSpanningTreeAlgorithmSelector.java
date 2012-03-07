@@ -19,9 +19,8 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Assertions.checkState;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
-
+import static org.apache.commons.graph.utils.Assertions.checkState;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,10 +31,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.collections.DisjointSet;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;

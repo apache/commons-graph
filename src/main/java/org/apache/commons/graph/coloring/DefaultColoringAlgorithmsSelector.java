@@ -26,9 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * {@link ColoringAlgorithmsSelector} implementation.

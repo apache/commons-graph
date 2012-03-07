@@ -20,12 +20,10 @@ package org.apache.commons.graph.export;
  */
 
 import static org.apache.commons.graph.CommonsGraph.export;
-import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableWeightedGraph;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

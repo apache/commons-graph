@@ -19,13 +19,10 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
+import static java.util.Arrays.asList;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import static java.util.Arrays.asList;
-
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  *

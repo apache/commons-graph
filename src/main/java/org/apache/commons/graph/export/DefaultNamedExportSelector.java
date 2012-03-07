@@ -21,9 +21,7 @@ package org.apache.commons.graph.export;
 
 import java.io.Writer;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 final class DefaultNamedExportSelector<V, E, G extends Graph<V, E>>
     implements NamedExportSelctor<V, E, G>

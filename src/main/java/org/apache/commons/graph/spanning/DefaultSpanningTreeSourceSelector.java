@@ -30,11 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.shortestpath.PathNotFoundException;
 import org.apache.commons.graph.weight.OrderedMonoid;
