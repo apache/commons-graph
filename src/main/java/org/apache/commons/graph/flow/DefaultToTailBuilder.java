@@ -52,7 +52,7 @@ final class DefaultToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
     public MaxFlowAlgorithmSelector<V, WE, W, G> to( V tail )
     {
         tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
-        return new DefaultMaxFlowAlgorithmSelector<V, WE, W, G>( graph, head, tail );
+        return new DefaultMaxFlowAlgorithmSelector<V, WE, W, G>( graph, weightedEdges, head, tail );
     }
 
 }
