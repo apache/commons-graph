@@ -38,7 +38,7 @@ public final class DefaultFlowWeightedEdgesBuilder<V, WE, G extends DirectedGrap
     public <W> FromHeadBuilder<V, WE, W, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
     {
         weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return null;
+        return new DefaultFromHeadBuilder<V, WE, W, G>( graph, weightedEdges );
     }
 
 }

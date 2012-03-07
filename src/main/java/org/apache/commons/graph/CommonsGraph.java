@@ -37,8 +37,8 @@ import org.apache.commons.graph.connectivity.ConnectivityBuilder;
 import org.apache.commons.graph.connectivity.DefaultConnectivityBuilder;
 import org.apache.commons.graph.export.DefaultToStreamBuilder;
 import org.apache.commons.graph.export.ToStreamBuilder;
-import org.apache.commons.graph.flow.DefaultFromHeadBuilder;
-import org.apache.commons.graph.flow.FromHeadBuilder;
+import org.apache.commons.graph.flow.DefaultFlowWeightedEdgesBuilder;
+import org.apache.commons.graph.flow.FlowWeightedEdgesBuilder;
 import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
@@ -78,10 +78,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph the input edge-weighted graph
      * @return
      */
-    public static <V, WE, W, G extends DirectedGraph<V, WE>> FromHeadBuilder<V, WE, W, G> findMaxFlow( G graph )
+    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE, G> findMaxFlow( G graph )
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
-        return new DefaultFromHeadBuilder<V, WE, W, G>( graph );
+        return new DefaultFlowWeightedEdgesBuilder<V, WE, G>( graph );
     }
 
     /**
