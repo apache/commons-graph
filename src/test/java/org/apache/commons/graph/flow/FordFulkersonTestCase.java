@@ -20,11 +20,14 @@ package org.apache.commons.graph.flow;
  */
 
 import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
+import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.BaseWeightedEdge;
+import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.IntegerWeightBaseOperations;
 import org.junit.Test;
 
@@ -42,13 +45,21 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
+        findMaxFlow( (DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+            .from( a )
+            .to( d )
+            .applyingFordFulkerson( new IntegerWeightBaseOperations() );
     }
 
     @Test(expected=NullPointerException.class)
     public void testNullGraphAndVertices()
     {
-        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>) null ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
+        findMaxFlow( (DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+            .from( null )
+            .to( null )
+            .applyingFordFulkerson( new IntegerWeightBaseOperations() );
     }
 
     @Test
@@ -57,8 +68,8 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-        newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
         {
 
             @Override
@@ -77,7 +88,11 @@ public final class FordFulkersonTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
+        Integer actual = findMaxFlow( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+                            .from( a )
+                            .to( d )
+                            .applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }
@@ -88,8 +103,8 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-        newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
         {
 
             @Override
@@ -109,7 +124,11 @@ public final class FordFulkersonTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
+        Integer actual = findMaxFlow( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+                            .from( a )
+                            .to( d )
+                            .applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }
@@ -117,11 +136,15 @@ public final class FordFulkersonTestCase
     @Test(expected=NullPointerException.class)
     public void testNullVertices()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         // actual max flow
-        findMaxFlow( graph ).from( null ).to( null ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
+        findMaxFlow( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+            .from( null )
+            .to( null )
+            .applyingFordFulkerson( new IntegerWeightBaseOperations() );
     }
 
     @Test
@@ -130,8 +153,8 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
                 @Override
@@ -155,7 +178,11 @@ public final class FordFulkersonTestCase
         final Integer expected = 2000;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( d ).applyingFordFulkerson( new IntegerWeightBaseOperations() );
+        Integer actual = findMaxFlow( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+                            .from( a )
+                            .to( d )
+                            .applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }

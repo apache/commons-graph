@@ -20,11 +20,14 @@ package org.apache.commons.graph.flow;
  */
 
 import static org.apache.commons.graph.CommonsGraph.findMaxFlow;
+import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.BaseWeightedEdge;
+import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.IntegerWeightBaseOperations;
 import org.junit.Test;
 
@@ -43,7 +46,11 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
         // actual max flow
-        findMaxFlow( (DirectedMutableWeightedGraph<Vertex, WeightedEdge<Integer>, Integer>)  null ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
+        findMaxFlow( (DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>)  null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+            .from( a )
+            .to( g )
+            .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
@@ -53,11 +60,15 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex a = null;
         final BaseLabeledVertex g = null;
 
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         // actual max flow
-        findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
+        findMaxFlow( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+            .from( a )
+            .to( g )
+            .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
     }
 
     @Test
@@ -66,8 +77,8 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
                 @Override
@@ -90,7 +101,11 @@ public class EdmondsKarpTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
+        Integer actual = findMaxFlow( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+                            .from( a )
+                            .to( g )
+                            .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
         assertEquals( actual, expected );
     }
 
@@ -100,8 +115,8 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
                 @Override
@@ -134,7 +149,11 @@ public class EdmondsKarpTestCase
         final Integer expected = 5;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph ).from( a ).to( g ).applyingEdmondsKarp( new IntegerWeightBaseOperations() );
+        Integer actual = findMaxFlow( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+                            .from( a )
+                            .to( g )
+                            .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
 
         assertEquals( actual, expected );
     }
