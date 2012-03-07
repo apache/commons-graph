@@ -36,6 +36,7 @@ import org.apache.commons.graph.UndirectedGraph;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
+import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.junit.Test;
 
@@ -49,7 +50,7 @@ public class GraphColoringBackTrackingTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        coloring( (UndirectedGraph<Vertex, Edge>) null ).withColors( null ).applyingBackTrackingAlgorithm();
+        coloring( (UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).withColors( null ).applyingBackTrackingAlgorithm();
     }
 
     @Test( expected = NullPointerException.class )
