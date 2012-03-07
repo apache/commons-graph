@@ -21,6 +21,8 @@ package org.apache.commons.graph.spanning;
 
 import java.util.Comparator;
 
+import org.apache.commons.graph.Mapper;
+
 /**
  *
  * @param <W>
@@ -32,14 +34,17 @@ public class WeightedEdgesComparator<W, WE>
 
     private final Comparator<W> weightComparator;
 
-    public WeightedEdgesComparator( Comparator<W> weightComparator )
+    private final Mapper<WE, W> weightedEdges;
+
+    public WeightedEdgesComparator( Comparator<W> weightComparator, Mapper<WE, W> weightedEdges )
     {
         this.weightComparator = weightComparator;
+        this.weightedEdges = weightedEdges;
     }
 
     public int compare( WE o1, WE o2 )
     {
-        return weightComparator.compare( o1.getWeight(), o2.getWeight() );
+        return weightComparator.compare( weightedEdges.map( o1 ), weightedEdges.map( o2 ) );
     }
 
 }
