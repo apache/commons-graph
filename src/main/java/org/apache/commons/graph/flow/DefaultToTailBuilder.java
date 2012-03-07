@@ -33,7 +33,7 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <WE>
  * @param <G>
  */
-final class DefaultToTailBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+final class DefaultToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
     implements ToTailBuilder<V, WE, W, G>
 {
 

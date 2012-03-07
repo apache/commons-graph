@@ -26,7 +26,7 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
-abstract class AbstractExporter<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+abstract class AbstractExporter<V, E, G extends Graph<V, E>>
 {
 
     private static final String G = "G";

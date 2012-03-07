@@ -20,12 +20,11 @@ package org.apache.commons.graph.builder;
  */
 
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableWeightedGraph;
-
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.junit.Test;
 
 public final class GraphBuilderTestCase
@@ -34,8 +33,8 @@ public final class GraphBuilderTestCase
     @Test
     public void verifyProducedGraphesAreEquals()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph with traditional APIs...
 
@@ -67,7 +66,7 @@ public final class GraphBuilderTestCase
 
         // ... and using the EDSL :)
 
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
         newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
 

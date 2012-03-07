@@ -33,7 +33,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-public interface ShortestPathAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+public interface ShortestPathAlgorithmSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
 {
 
     /**

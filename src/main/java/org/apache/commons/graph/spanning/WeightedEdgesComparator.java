@@ -28,7 +28,7 @@ import java.util.Comparator;
  * @param <W>
  * @param <WE>
  */
-public class WeightedEdgesComparator<W, WE extends WeightedEdge<W>>
+public class WeightedEdgesComparator<W, WE>
     implements Comparator<WE>
 {
 

@@ -33,7 +33,7 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <WE>
  * @param <G>
  */
-public final class DefaultFromHeadBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+public final class DefaultFromHeadBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
     implements FromHeadBuilder<V, WE, W, G>
 {
 

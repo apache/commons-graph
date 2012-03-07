@@ -33,7 +33,7 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, WO extends OrderedMonoid<W>>
+final class DefaultHeuristicBuilder<V, WE, W, G extends WeightedGraph<V, WE, W>, WO extends OrderedMonoid<W>>
     implements HeuristicBuilder<V, WE, W, G, WO>
 {
 

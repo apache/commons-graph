@@ -19,20 +19,18 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Assertions.*;
-
-import static java.util.Arrays.asList;
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
+import static org.apache.commons.graph.utils.Assertions.checkArgument;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Path;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 
 /**
@@ -42,7 +40,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class InMemoryPath<V extends Vertex, E extends Edge>
+public class InMemoryPath<V, E>
     implements Path<V, E>
 {
 
@@ -211,7 +209,7 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
     {
         return vertices.contains( v );
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -257,7 +255,7 @@ public class InMemoryPath<V extends Vertex, E extends Edge>
         }
 
         @SuppressWarnings( "unchecked" ) // test against any Path typed instance
-        InMemoryPath<Vertex, Edge> other = (InMemoryPath<Vertex, Edge>) obj;
+        InMemoryPath<Object, Object> other = (InMemoryPath<Object, Object>) obj;
         if ( !source.equals( other.getSource() ) )
         {
             return false;

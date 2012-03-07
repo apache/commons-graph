@@ -32,7 +32,7 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
     implements ShortestPathAlgorithmSelector<V, WE, W, G>
 {
 

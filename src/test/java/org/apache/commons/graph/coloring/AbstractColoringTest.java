@@ -79,7 +79,7 @@ abstract class AbstractColoringTest
      * @param g
      * @param coloredVertices
      */
-    protected <V extends Vertex, E extends Edge, C> void checkColoring( UndirectedMutableGraph<V, E> g,
+    protected <V, E, C> void checkColoring( UndirectedMutableGraph<V, E> g,
                                                                         ColoredVertices<V, C> coloredVertices )
     {
         for ( E e : g.getEdges() )

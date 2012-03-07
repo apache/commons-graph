@@ -34,7 +34,7 @@ import org.apache.commons.graph.Vertex;
  *
  * @param <V>
  */
-final class UncoloredOrderedVertices<V extends Vertex>
+final class UncoloredOrderedVertices<V>
     implements Comparator<Integer>, Iterable<V>
 {
 

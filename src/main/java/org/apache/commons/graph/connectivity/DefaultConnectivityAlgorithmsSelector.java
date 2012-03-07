@@ -34,7 +34,7 @@ import org.apache.commons.graph.Vertex;
 /**
  *
  */
-final class DefaultConnectivityAlgorithmsSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class DefaultConnectivityAlgorithmsSelector<V, E, G extends Graph<V, E>>
     implements ConnectivityAlgorithmsSelector<V, E, G>
 {
 

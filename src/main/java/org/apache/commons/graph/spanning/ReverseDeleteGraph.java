@@ -34,7 +34,7 @@ import org.apache.commons.graph.WeightedGraph;
  * @param <WE>
  * @param <W>
  */
-final class ReverseDeleteGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
+final class ReverseDeleteGraph<V, WE, W>
     implements WeightedGraph<V, WE, W>
 {
 

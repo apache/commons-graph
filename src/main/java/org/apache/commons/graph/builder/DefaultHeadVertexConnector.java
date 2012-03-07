@@ -21,11 +21,9 @@ package org.apache.commons.graph.builder;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.MutableGraph;
-import org.apache.commons.graph.Vertex;
 
-final class DefaultHeadVertexConnector<V extends Vertex, E extends Edge>
+final class DefaultHeadVertexConnector<V, E>
     implements HeadVertexConnector<V, E>
 {
 

@@ -29,7 +29,7 @@ import java.io.Serializable;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface Graph<V extends Vertex, E extends Edge>
+public interface Graph<V, E>
     extends Serializable
 {
 

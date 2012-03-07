@@ -22,28 +22,27 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.Labeled;
-import org.apache.commons.graph.Vertex;
-
-public class BaseLabeledVertex
-    implements Labeled, Vertex
+/**
+ *
+ */
+public class BaseLabeledWeightedEdge<W>
+    extends BaseLabeledEdge
 {
 
-    private static final long serialVersionUID = 1895831541078075882L;
+    private final W weight;
 
-    private final String label;
-
-    public BaseLabeledVertex( String label )
+    public BaseLabeledWeightedEdge( String label, W weight )
     {
-        this.label = checkNotNull( label, "Argument 'label' must not be null" );
+        super( label );
+        this.weight = checkNotNull( weight, "Argument 'weight' must not be null" );
     }
 
     /**
      * {@inheritDoc}
      */
-    public final String getLabel()
+    public W getWeight()
     {
-        return label;
+        return weight;
     }
 
     /**
@@ -53,8 +52,8 @@ public class BaseLabeledVertex
     public int hashCode()
     {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + label.hashCode();
+        int result = super.hashCode();
+        result = prime * result + weight.hashCode();
         return result;
     }
 
@@ -69,7 +68,7 @@ public class BaseLabeledVertex
             return true;
         }
 
-        if ( obj == null )
+        if ( !super.equals( obj ) )
         {
             return false;
         }
@@ -78,9 +77,9 @@ public class BaseLabeledVertex
         {
             return false;
         }
-
-        BaseLabeledVertex other = (BaseLabeledVertex) obj;
-        if ( !label.equals( other.getLabel() ) )
+        @SuppressWarnings( "unchecked" )
+        BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
+        if ( !weight.equals( other.getWeight() ) )
         {
             return false;
         }
@@ -94,7 +93,7 @@ public class BaseLabeledVertex
     @Override
     public String toString()
     {
-        return format( "{ %s }", label );
+        return format( "%s( %s )", getLabel(), weight );
     }
 
 }

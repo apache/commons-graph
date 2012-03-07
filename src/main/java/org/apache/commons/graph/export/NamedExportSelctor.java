@@ -23,7 +23,7 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
-public interface NamedExportSelctor<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public interface NamedExportSelctor<V, E, G extends Graph<V, E>>
     extends ExportSelctor<V, E, G>
 {
 

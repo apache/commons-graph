@@ -32,7 +32,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+public final class DefaultSccAlgorithmSelector<V, E, G extends DirectedGraph<V, E>>
     implements SccAlgorithmSelector<V, E, G>
 {
     /** The graph. */

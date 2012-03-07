@@ -33,7 +33,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public final class DefaultVisitSourceSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public final class DefaultVisitSourceSelector<V, E, G extends Graph<V, E>>
     implements VisitSourceSelector<V, E, G>
 {
 

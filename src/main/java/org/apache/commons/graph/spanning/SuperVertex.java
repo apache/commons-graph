@@ -40,7 +40,7 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <G>  the input Graph type
  * @param <WC> the weight operations
  */
-class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>, WC extends Comparator<W>>
+class SuperVertex<V, W, WE, G extends Graph<V, WE>, WC extends Comparator<W>>
     implements Iterable<V> {
 
     /** The reference to the graph. */

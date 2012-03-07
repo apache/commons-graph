@@ -28,10 +28,12 @@ import static java.lang.String.format;
  *
  * @param <V> the Graph vertices type
  */
-public final class VertexPair<V extends Vertex>
+public final class VertexPair<V>
 {
+
     /** The head vertex. */
     private final V head;
+
     /** The tail vertex. */
     private final V tail;
 

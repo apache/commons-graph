@@ -38,7 +38,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <V> the vertex type
  * @param <W> the weight type
  */
-class FlowNetworkHandler<V extends Vertex, W>
+class FlowNetworkHandler<V, W>
     extends BaseGraphVisitHandler<V, WeightedEdge<W>, DirectedGraph<V, WeightedEdge<W>>, W>
 {
 

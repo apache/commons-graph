@@ -27,7 +27,7 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
-public interface ToStreamBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public interface ToStreamBuilder<V, E, G extends Graph<V, E>>
 {
 
     /**

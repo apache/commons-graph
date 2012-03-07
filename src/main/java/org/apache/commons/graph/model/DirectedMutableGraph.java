@@ -25,8 +25,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 
 /**
@@ -37,7 +35,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class DirectedMutableGraph<V extends Vertex, E extends Edge>
+public class DirectedMutableGraph<V, E>
     extends BaseMutableGraph<V, E>
     implements DirectedGraph<V, E>
 {

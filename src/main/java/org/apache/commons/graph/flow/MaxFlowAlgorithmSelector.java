@@ -24,7 +24,7 @@ import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-public interface MaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+public interface MaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V, WE>>
 {
 
     /**

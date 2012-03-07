@@ -39,7 +39,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     implements VisitAlgorithmsSelector<V, E, G>
 {
 

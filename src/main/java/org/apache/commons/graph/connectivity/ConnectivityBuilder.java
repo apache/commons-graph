@@ -30,7 +30,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public interface ConnectivityBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public interface ConnectivityBuilder<V, E, G extends Graph<V, E>>
 {
 
     /**

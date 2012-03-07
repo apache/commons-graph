@@ -31,7 +31,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-public interface SccAlgorithmSelector<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+public interface SccAlgorithmSelector<V, E, G extends DirectedGraph<V, E>>
 {
 
     /**

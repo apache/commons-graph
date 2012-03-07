@@ -19,9 +19,6 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.weight.Monoid;
 
 /**
@@ -33,9 +30,8 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type
  */
-public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge<W>, W>
+public final class MutableSpanningTree<V, WE, W>
     extends UndirectedMutableGraph<V, WE>
-    implements SpanningTree<V, WE, W>
 {
 
     private static final long serialVersionUID = -4371938772248573879L;
@@ -64,7 +60,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     protected void decorateAddEdge( V head, WE e, V tail )
     {
         super.decorateAddEdge( head, e, tail );
-        weight = weightOperations.append( weight, e.getWeight() );
+        // TODO weight = weightOperations.append( weight, e.getWeight() );
     }
 
     /**
@@ -73,7 +69,7 @@ public final class MutableSpanningTree<V extends Vertex, WE extends WeightedEdge
     @Override
     protected void decorateRemoveEdge( WE e )
     {
-        weight = weightOperations.append( weight, weightOperations.inverse( e.getWeight() ) );
+        // TODO weight = weightOperations.append( weight, weightOperations.inverse( e.getWeight() ) );
     }
 
 }

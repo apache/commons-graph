@@ -35,7 +35,7 @@ import org.apache.commons.graph.Labeled;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.Weighted;
 
-final class GraphMLExporter<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class GraphMLExporter<V, E, G extends Graph<V, E>>
     extends AbstractExporter<V, E, G>
 {
 

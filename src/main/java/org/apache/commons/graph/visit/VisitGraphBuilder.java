@@ -33,7 +33,7 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-final class VisitGraphBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class VisitGraphBuilder<V, E, G extends Graph<V, E>>
     extends BaseGraphVisitHandler<V, E, G, Graph<V, E>>
 {
 

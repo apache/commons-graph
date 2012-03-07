@@ -37,7 +37,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type
  */
-public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge<W>, W>
+public final class AllVertexPairsShortestPath<V, WE, W>
 {
 
     private final Map<VertexPair<V>, WeightedPath<V, WE, W>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE, W>>();

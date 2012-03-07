@@ -38,7 +38,7 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type
  */
-public final class PredecessorsList<V extends Vertex, WE extends WeightedEdge<W>, W>
+public final class PredecessorsList<V, WE, W>
 {
 
     private final Graph<V, WE> graph;

@@ -35,7 +35,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type.
  * @param <C> the Color type.
  */
-public final class ColoredVertices<V extends Vertex, C>
+public final class ColoredVertices<V, C>
 {
 
     private final Map<V, C> coloredVertices = new HashMap<V, C>();

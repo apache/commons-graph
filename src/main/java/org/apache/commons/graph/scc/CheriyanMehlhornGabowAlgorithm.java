@@ -38,7 +38,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+final class CheriyanMehlhornGabowAlgorithm<V, E, G extends DirectedGraph<V, E>>
     implements SccAlgorithm<V>
 {
 

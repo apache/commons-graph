@@ -38,7 +38,7 @@ import org.apache.commons.graph.Vertex;
  * @param <G> the Graph type
  * @param <C> the Color vertices type
  */
-final class DefaultColoringAlgorithmsSelector<V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>, C>
+final class DefaultColoringAlgorithmsSelector<V, E, G extends UndirectedGraph<V, E>, C>
     implements ColoringAlgorithmsSelector<V, E, G, C>
 {
 

@@ -27,7 +27,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
 
-final class ConnectedComponentHandler<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class ConnectedComponentHandler<V, E, G extends Graph<V, E>>
     extends BaseGraphVisitHandler<V, E, G, List<V>>
 {
 

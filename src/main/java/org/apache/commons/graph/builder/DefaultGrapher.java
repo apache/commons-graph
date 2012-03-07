@@ -21,11 +21,9 @@ package org.apache.commons.graph.builder;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.MutableGraph;
-import org.apache.commons.graph.Vertex;
 
-final class DefaultGrapher<V extends Vertex, E extends Edge>
+final class DefaultGrapher<V, E>
     implements GraphConnector<V, E>
 {
 

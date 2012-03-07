@@ -34,7 +34,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public final class DefaultColorsBuilder<V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>>
+public final class DefaultColorsBuilder<V, E, G extends UndirectedGraph<V, E>>
     implements ColorsBuilder<V, E, G>
 {
 

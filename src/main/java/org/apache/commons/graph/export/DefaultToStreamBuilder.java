@@ -32,7 +32,7 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
-public final class DefaultToStreamBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public final class DefaultToStreamBuilder<V, E, G extends Graph<V, E>>
     implements ToStreamBuilder<V, E, G>
 {
 

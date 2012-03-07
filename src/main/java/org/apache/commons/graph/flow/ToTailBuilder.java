@@ -23,7 +23,7 @@ import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.WeightedEdge;
 
-public interface ToTailBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+public interface ToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
 {
 
     /**

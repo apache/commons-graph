@@ -32,7 +32,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <V> the Graph vertices type
  * @param <W> the weight type
  */
-final class ShortestDistances<V extends Vertex, W>
+final class ShortestDistances<V, W>
     implements Comparator<V>
 {
 

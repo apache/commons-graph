@@ -19,10 +19,8 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
-public interface HeadVertexConnector<V extends Vertex, E extends Edge>
+public interface HeadVertexConnector<V, E>
 {
 
     TailVertexConnector<V, E> from( V head );

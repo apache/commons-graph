@@ -30,7 +30,7 @@ import org.apache.commons.graph.Vertex;
 /**
  *
  */
-public class DefaultConnectivityBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public class DefaultConnectivityBuilder<V, E, G extends Graph<V, E>>
     implements ConnectivityBuilder<V, E, G>
 {
 

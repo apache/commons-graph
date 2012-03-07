@@ -43,7 +43,7 @@ import org.apache.commons.graph.model.RevertedGraph;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+final class KosarajuSharirAlgorithm<V, E, G extends DirectedGraph<V, E>>
     implements SccAlgorithm<V>
 {
     /** The graph. */

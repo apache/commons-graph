@@ -28,7 +28,7 @@ import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultTargetSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+final class DefaultTargetSourceSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
     implements TargetSourceSelector<V, WE, W, G>
 {
 

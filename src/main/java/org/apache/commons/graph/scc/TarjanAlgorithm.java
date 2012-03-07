@@ -39,7 +39,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class TarjanAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+final class TarjanAlgorithm<V, E, G extends DirectedGraph<V, E>>
     implements SccAlgorithm<V>
 {
 
@@ -91,7 +91,7 @@ final class TarjanAlgorithm<V extends Vertex, E extends Edge, G extends Directed
         return vertexMetaInfo;
     }
 
-    private static <V extends Vertex, E extends Edge> void strongConnect( DirectedGraph<V, E> graph,
+    private static <V, E> void strongConnect( DirectedGraph<V, E> graph,
                                                                           V vertex,
                                                                           Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
                                                                           Stack<V> s,

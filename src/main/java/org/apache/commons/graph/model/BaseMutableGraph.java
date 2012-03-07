@@ -21,10 +21,8 @@ package org.apache.commons.graph.model;
 
 import java.util.LinkedHashSet;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.MutableGraph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 
 /**
@@ -35,7 +33,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
+public abstract class BaseMutableGraph<V, E>
     extends BaseGraph<V, E>
     implements MutableGraph<V, E>
 {
@@ -70,7 +68,7 @@ public abstract class BaseMutableGraph<V extends Vertex, E extends Edge>
 
         for ( V tail : getAdjacencyList().get( v ) )
         {
-            getIndexedEdges().remove( new VertexPair<Vertex>( v, tail ) );
+            getIndexedEdges().remove( new VertexPair<V>( v, tail ) );
         }
         getAdjacencyList().remove( v );
 

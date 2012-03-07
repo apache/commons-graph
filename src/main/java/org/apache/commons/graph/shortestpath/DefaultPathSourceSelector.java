@@ -32,7 +32,7 @@ import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-public final class DefaultPathSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+public final class DefaultPathSourceSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
     implements PathSourceSelector<V, WE, W, G>
 {
 

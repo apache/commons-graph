@@ -23,7 +23,7 @@ import java.util.Set;
 
 import org.apache.commons.graph.Vertex;
 
-interface SccAlgorithm<V extends Vertex>
+interface SccAlgorithm<V>
 {
 
     Set<Set<V>> perform();

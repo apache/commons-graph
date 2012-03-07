@@ -21,10 +21,7 @@ package org.apache.commons.graph.builder;
 
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
-
-public abstract class AbstractGraphConnection<V extends Vertex, E extends Edge>
+public abstract class AbstractGraphConnection<V, E>
     implements GraphConnection<V, E>
 {
 

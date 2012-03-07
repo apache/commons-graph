@@ -41,7 +41,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <E> the Graph edges type
  * @param <W> the weight type
  */
-final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
+final class ShortestEdges<V, WE, W>
     implements Comparator<V>
 {
 
@@ -96,7 +96,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W>
         return spanningTree;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge<W>, W> void addEdgeIgnoringExceptions( V vertex,
+    private static <V, WE, W> void addEdgeIgnoringExceptions( V vertex,
                                                                                                        MutableSpanningTree<V, WE, W> spanningTree )
     {
         try

@@ -32,7 +32,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-public interface TargetSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+public interface TargetSourceSelector<V, WE, W, G extends WeightedGraph<V, WE, W>>
 {
 
     /**
