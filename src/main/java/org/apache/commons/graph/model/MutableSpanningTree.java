@@ -19,6 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.weight.Monoid;
 
 /**
@@ -32,6 +33,7 @@ import org.apache.commons.graph.weight.Monoid;
  */
 public final class MutableSpanningTree<V, WE, W>
     extends UndirectedMutableGraph<V, WE>
+    implements SpanningTree<V, WE, W>
 {
 
     private static final long serialVersionUID = -4371938772248573879L;
