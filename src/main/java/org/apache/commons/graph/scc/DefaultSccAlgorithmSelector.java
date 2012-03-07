@@ -53,7 +53,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
      */
     public Set<V> applyingKosarajuSharir( final V source )
     {
-        return new KosarajuSharirAlgorithm<V, E, G>( graph ).applyingKosarajuSharir( source );
+        return new KosarajuSharirAlgorithm<V, E, G>( graph ).perform( source );
     }
 
     /**
@@ -61,7 +61,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
      */
     public Set<Set<V>> applyingKosarajuSharir()
     {
-        return new KosarajuSharirAlgorithm<V, E, G>( graph ).applyingKosarajuSharir();
+        return applying( new KosarajuSharirAlgorithm<V, E, G>( graph ) );
     }
 
     /**
@@ -69,7 +69,7 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
      */
     public Set<Set<V>> applyingCheriyanMehlhornGabow()
     {
-        return new CheriyanMehlhornGabowAlgorithm<V, E, G>( graph ).applyingCheriyanMehlhornGabow();
+        return applying( new CheriyanMehlhornGabowAlgorithm<V, E, G>( graph ) );
     }
 
     /**
@@ -77,6 +77,18 @@ public final class DefaultSccAlgorithmSelector<V extends Vertex, E extends Edge,
      */
     public Set<Set<V>> applyingTarjan()
     {
-        return new TarjanAlgorithm<V, E, G>( graph ).applyingTarjan();
+        return applying( new TarjanAlgorithm<V, E, G>( graph ) );
     }
+
+    /**
+     * Just calculates the SCC depending on the selected algorithm.
+     *
+     * @param algorithm
+     * @return
+     */
+    private Set<Set<V>> applying( SccAlgorithm<V> algorithm )
+    {
+        return algorithm.perform();
+    }
+
 }

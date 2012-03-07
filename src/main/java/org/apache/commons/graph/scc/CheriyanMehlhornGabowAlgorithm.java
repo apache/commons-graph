@@ -36,9 +36,10 @@ import org.apache.commons.graph.Vertex;
  * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
- * @param <G> the directed graph type 
+ * @param <G> the directed graph type
  */
 final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+    implements SccAlgorithm<V>
 {
 
     private final G graph;
@@ -56,7 +57,7 @@ final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G e
     private int preorderCounter = 0;
 
     private int sscCounter = 0;
-    
+
     public CheriyanMehlhornGabowAlgorithm( G graph )
     {
         this.graph = graph;
@@ -64,7 +65,7 @@ final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G e
 
     /**
      */
-    public Set<Set<V>> applyingCheriyanMehlhornGabow()
+    public Set<Set<V>> perform()
     {
         for ( V vertex : graph.getVertices() )
         {

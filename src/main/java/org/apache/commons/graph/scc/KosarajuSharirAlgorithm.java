@@ -44,6 +44,7 @@ import org.apache.commons.graph.model.RevertedGraph;
  * @param <G> the directed graph type
  */
 final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+    implements SccAlgorithm<V>
 {
     /** The graph. */
     private final G graph;
@@ -65,7 +66,7 @@ final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends 
      * @param source the source vertex to start the search from
      * @return the input graph strongly connected component.
      */
-    public Set<V> applyingKosarajuSharir( final V source )
+    public Set<V> perform( final V source )
     {
         checkNotNull( source, "Kosaraju Sharir algorithm cannot be calculated without expressing the source vertex" );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
@@ -86,7 +87,7 @@ final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends 
      *
      * @return the input graph strongly connected component.
      */
-    public Set<Set<V>> applyingKosarajuSharir()
+    public Set<Set<V>> perform()
     {
         final Set<V> visitedVertices = new HashSet<V>();
         final List<V> expandedVertexList = getExpandedVertexList( null, visitedVertices );

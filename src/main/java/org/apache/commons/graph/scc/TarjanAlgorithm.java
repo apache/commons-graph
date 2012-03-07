@@ -34,12 +34,13 @@ import org.apache.commons.graph.Vertex;
 /**
  * Implements Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding
  * strongly-connected components in a directed graph.
- * 
+ *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
 final class TarjanAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+    implements SccAlgorithm<V>
 {
 
     private final G graph;
@@ -54,10 +55,10 @@ final class TarjanAlgorithm<V extends Vertex, E extends Edge, G extends Directed
     /**
      * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding strongly-connected
      * components in a directed graph.
-     * 
+     *
      * @return the input graph strongly connected component.
      */
-    public Set<Set<V>> applyingTarjan()
+    public Set<Set<V>> perform()
     {
         final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
         final Stack<V> s = new Stack<V>();
