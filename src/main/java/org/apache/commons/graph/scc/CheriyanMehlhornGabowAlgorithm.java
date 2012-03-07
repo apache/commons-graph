@@ -76,7 +76,6 @@ final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G e
         }
 
         final List<Set<V>> indexedSccComponents = new ArrayList<Set<V>>();
-        System.out.println( "CheriyanMehlhornGabowAlgorithm.applyingCheriyanMehlhornGabow() " + sscCounter );
         for ( int i = 0; i < sscCounter; i++ )
         {
             indexedSccComponents.add( new HashSet<V>() );
