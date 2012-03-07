@@ -19,6 +19,7 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
+import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.commons.graph.model.BaseLabeledVertex;
@@ -66,7 +67,7 @@ public final class GraphBuilderTestCase
         // ... and using the EDSL :)
 
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
-        newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
+        newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
 
             public void connect()
