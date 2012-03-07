@@ -45,15 +45,15 @@ public final class CheriyanMehlhornGabowTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph = null;
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
         findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
     }
 
     @Test
     public void testEmptyGraph()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
     }
@@ -61,8 +61,8 @@ public final class CheriyanMehlhornGabowTestCase
     @Test
     public void testSparse()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
                 @Override
@@ -85,7 +85,7 @@ public final class CheriyanMehlhornGabowTestCase
 
         assertEquals( actual.size(), expected );
     }
-    
+
     @Test
     public void verifyHasStronglyConnectedComponents()
     {
@@ -140,7 +140,7 @@ public final class CheriyanMehlhornGabowTestCase
         expected.add( scc3 );
 
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
-        
+
         assertFalse( actual.isEmpty() );
         assertEquals( expected, actual );
     }

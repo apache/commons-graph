@@ -45,15 +45,15 @@ public final class TarjanTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph = null;
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
         findStronglyConnectedComponent( graph ).applyingTarjan();
     }
 
     @Test
     public void testEmptyGraph()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         findStronglyConnectedComponent( graph ).applyingTarjan();
     }
@@ -61,8 +61,8 @@ public final class TarjanTestCase
     @Test
     public void testSparse()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            newDirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
                 @Override
@@ -85,7 +85,7 @@ public final class TarjanTestCase
 
         assertEquals( actual.size(), expected );
     }
-    
+
     @Test
     public void verifyHasStronglyConnectedComponents()
     {
@@ -140,7 +140,7 @@ public final class TarjanTestCase
         expected.add( scc3 );
 
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingTarjan();
-        
+
         assertFalse( actual.isEmpty() );
         assertEquals( expected, actual );
     }
