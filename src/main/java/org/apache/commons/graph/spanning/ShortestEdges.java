@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;

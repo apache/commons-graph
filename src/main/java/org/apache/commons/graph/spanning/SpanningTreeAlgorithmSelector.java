@@ -20,6 +20,7 @@ package org.apache.commons.graph.spanning;
  */
 
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
