@@ -20,23 +20,25 @@ package org.apache.commons.graph.export;
  */
 
 import static org.apache.commons.graph.CommonsGraph.export;
+import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ExportTestCase {
 
-    private UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual;
+    private UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual;
 
     @Before
     public void setUp()
     {
         actual =
-        newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
+        newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
 
             public void connect()
