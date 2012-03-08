@@ -57,7 +57,8 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>>
      * @param graph the underlying graph
      * @param weightComparator the comparator used to sort the weighted edges
      */
-    public SuperVertex( final V source, final G graph, final WeightedEdgesComparator<W, WE> weightComparator ) {
+    public SuperVertex( final V source, final G graph, final WeightedEdgesComparator<W, WE> weightComparator )
+    {
         this.graph = graph;
 
         vertices = new HashSet<V>();
@@ -66,14 +67,16 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>>
         orderedEdges = new TreeSet<WE>( weightComparator );
 
         // add all edges for this vertex to the sorted set
-        for ( final V w : graph.getConnectedVertices( source )) {
+        for ( final V w : graph.getConnectedVertices( source ) )
+        {
             WE edge = graph.getEdge( source, w );
             orderedEdges.add( edge );
         }
     }
 
     /** {@inheritDoc} */
-    public Iterator<V> iterator() {
+    public Iterator<V> iterator()
+    {
         return vertices.iterator();
     }
 
@@ -84,14 +87,18 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>>
      *
      * @param other the {@link SuperVertex} to be merged into this
      */
-    public void merge( final SuperVertex<V, W, WE, G> other ) {
-        for ( final V v : other.vertices ) {
-            vertices.add(v);
+    public void merge( final SuperVertex<V, W, WE, G> other )
+    {
+        for ( final V v : other.vertices )
+        {
+            vertices.add( v );
         }
 
-        for ( final WE edge : other.orderedEdges) {
+        for ( final WE edge : other.orderedEdges )
+        {
             final VertexPair<V> pair = graph.getVertices( edge );
-            if ( ! vertices.contains(pair.getHead()) || ! vertices.contains(pair.getTail()) ) {
+            if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
+            {
                 orderedEdges.add( edge );
             }
         }
@@ -103,13 +110,16 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>>
      *
      * @return the minimum weight edge or <code>null</code> if there is no edge
      */
-    public WE getMinimumWeightEdge() {
+    public WE getMinimumWeightEdge()
+    {
         boolean found = false;
         WE edge = null;
-        while ( ! found && ! orderedEdges.isEmpty() ) {
+        while ( !found && !orderedEdges.isEmpty() )
+        {
             edge = orderedEdges.pollFirst();
             VertexPair<V> pair = graph.getVertices( edge );
-            if ( ! vertices.contains( pair.getHead() ) || ! vertices.contains( pair.getTail() ) ) {
+            if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
+            {
                 found = true;
             }
         }

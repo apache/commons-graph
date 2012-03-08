@@ -33,7 +33,8 @@ public class DefaultConnectivityBuilder<V, E, G extends Graph<V, E>>
 
     private final G graph;
 
-    public DefaultConnectivityBuilder(G graph) {
+    public DefaultConnectivityBuilder( G graph )
+    {
         this.graph = graph;
     }
 
