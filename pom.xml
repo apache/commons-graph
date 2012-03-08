@@ -211,7 +211,7 @@
         </configuration>
         <executions>
           <execution>
-            <phase>process-classes</phase>
+            <phase>prepare-package</phase>
             <goals>
               <goal>jarjar</goal>
             </goals>
