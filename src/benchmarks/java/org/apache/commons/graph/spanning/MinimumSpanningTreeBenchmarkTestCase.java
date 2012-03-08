@@ -22,7 +22,7 @@ package org.apache.commons.graph.spanning;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
-import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableWeightedGraph;
+import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -30,11 +30,12 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -54,12 +55,24 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     @Rule
     public BenchmarkRule benchmarkRun = new BenchmarkRule();
 
-    private static UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> graph;
+    private static UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph;
+
+    private static Mapper<BaseLabeledWeightedEdge<Double>, Double> weightedEdges;
 
     @BeforeClass
     public static void setUp()
     {
-        graph = newUndirectedMutableWeightedGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
+        weightedEdges = new Mapper<BaseLabeledWeightedEdge<Double>, Double>()
+        {
+
+            public Double map( BaseLabeledWeightedEdge<Double> input )
+            {
+                return input.getWeight();
+            }
+
+        };
+
+        graph = newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
             Random r = new Random();
 
@@ -108,7 +121,10 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performBoruvka()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( graph ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( graph )
+                .whereEdgesHaveWeights( weightedEdges )
+                .fromArbitrarySource()
+                .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
@@ -117,7 +133,10 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performKruskal()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( graph ).fromArbitrarySource().applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( graph )
+                .whereEdgesHaveWeights( weightedEdges )
+                .fromArbitrarySource()
+                .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
@@ -126,7 +145,10 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     public void performPrim()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( graph ).fromArbitrarySource().applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( graph )
+                .whereEdgesHaveWeights( weightedEdges )
+                .fromArbitrarySource()
+                .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
 
         assertTrue( actual.getSize() > 0 );
     }
