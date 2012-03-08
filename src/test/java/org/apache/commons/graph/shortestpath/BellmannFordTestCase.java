@@ -19,7 +19,7 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 import static org.junit.Assert.fail;
 
