@@ -98,7 +98,7 @@ final class GraphMLExporter<V, E, G extends Graph<V, E>>
 
         for ( E edge : getGraph().getEdges() )
         {
-            if ( edge instanceof Labeled )
+            /* if ( edge instanceof Labeled )
             {
                 if ( !edgeKeyTypes.containsKey( LABEL ) )
                 {
@@ -112,7 +112,7 @@ final class GraphMLExporter<V, E, G extends Graph<V, E>>
                 {
                     edgeKeyTypes.put( WEIGHT, getStringType( ( (Weighted<?>) edge ).getWeight() ) );
                 }
-            }
+            } */
         }
 
         // scan vertices
@@ -120,13 +120,13 @@ final class GraphMLExporter<V, E, G extends Graph<V, E>>
 
         for ( V vertex : getGraph().getVertices() )
         {
-            if ( vertex instanceof Labeled )
+            /* if ( vertex instanceof Labeled )
             {
                 if ( !vertexKeyTypes.containsKey( LABEL ) )
                 {
                     vertexKeyTypes.put( LABEL, getStringType( ( (Labeled) vertex ).getLabel() ) );
                 }
-            }
+            } */
         }
 
         XMLStreamWriter xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter( getWriter() );
@@ -170,14 +170,14 @@ final class GraphMLExporter<V, E, G extends Graph<V, E>>
             xmlWriter.writeStartElement( NODE );
             xmlWriter.writeAttribute( ID, String.valueOf( vertex.hashCode() ) );
 
-            if ( vertex instanceof Labeled )
+            /* if ( vertex instanceof Labeled )
             {
                 String label = ( (Labeled) vertex ).getLabel();
                 xmlWriter.writeStartElement( DATA );
                 xmlWriter.writeAttribute( KEY, LABEL );
                 xmlWriter.writeCharacters( label );
                 xmlWriter.writeEndElement();
-            }
+            } */
 
             xmlWriter.writeEndElement();
         }
@@ -189,14 +189,14 @@ final class GraphMLExporter<V, E, G extends Graph<V, E>>
             xmlWriter.writeAttribute( SOURCE, String.valueOf( getGraph().getVertices( edge ).getHead().hashCode() ) );
             xmlWriter.writeAttribute( TARGET, String.valueOf( getGraph().getVertices( edge ).getTail().hashCode() ) );
 
-            if ( edge instanceof Labeled )
+            /* if ( edge instanceof Labeled )
             {
                 xmlWriter.writeAttribute( LABEL, ( (Labeled) edge ).getLabel() );
             }
             if ( edge instanceof Weighted )
             {
                 xmlWriter.writeAttribute( WEIGHT, ( (Weighted<?>) edge ).getWeight().toString() );
-            }
+            } */
             xmlWriter.writeEndElement();
         }
 

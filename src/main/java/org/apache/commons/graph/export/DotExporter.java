@@ -83,7 +83,7 @@ final class DotExporter<V, E, G extends Graph<V, E>>
 
             boolean attributesFound = false;
 
-            if ( edge instanceof Labeled )
+            /*if ( edge instanceof Labeled )
             {
                 attributesFound = true;
                 printWriter.format( " [label=\"%s\"", ( (Labeled) edge ).getLabel() );
@@ -104,7 +104,7 @@ final class DotExporter<V, E, G extends Graph<V, E>>
 
                     printWriter.format( "weight=%f", ( (Number) weight ).doubleValue() );
                 }
-            }
+            }*/
 
             if ( attributesFound )
             {
