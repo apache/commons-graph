@@ -184,7 +184,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V,
         {
             if ( input.getWrapped() == null )
             {
-                weightOperations.zero();
+                return weightOperations.zero();
             }
             return weightedEdges.map( input.getWrapped() );
         }
