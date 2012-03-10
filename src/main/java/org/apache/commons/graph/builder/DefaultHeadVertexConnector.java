@@ -37,7 +37,7 @@ final class DefaultHeadVertexConnector<V, E>
         this.edge = edge;
     }
 
-    public TailVertexConnector<V, E> from( V head )
+    public <H extends V> TailVertexConnector<V, E> from( H head )
     {
         head = checkNotNull( head, "Null head vertex not admitted" );
         return new DefaultTailVertexConnector<V, E>( graph, edge, head );

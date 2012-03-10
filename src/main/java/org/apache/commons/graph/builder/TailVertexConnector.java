@@ -23,6 +23,6 @@ package org.apache.commons.graph.builder;
 public interface TailVertexConnector<V, E>
 {
 
-    void to( V tail );
+    <T extends V> void to( T tail );
 
 }

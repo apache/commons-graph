@@ -23,6 +23,6 @@ package org.apache.commons.graph.builder;
 public interface HeadVertexConnector<V, E>
 {
 
-    TailVertexConnector<V, E> from( V head );
+    <H extends V> TailVertexConnector<V, E> from( H head );
 
 }

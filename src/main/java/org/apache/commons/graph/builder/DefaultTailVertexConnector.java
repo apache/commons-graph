@@ -40,7 +40,7 @@ final class DefaultTailVertexConnector<V, E>
         this.head = head;
     }
 
-    public void to( V tail )
+    public <T extends V> void to( T tail )
     {
         tail = checkNotNull( tail, "Null tail vertex not admitted" );
         graph.addEdge( head, edge, tail );

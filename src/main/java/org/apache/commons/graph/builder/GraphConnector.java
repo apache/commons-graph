@@ -23,8 +23,8 @@ package org.apache.commons.graph.builder;
 public interface GraphConnector<V, E>
 {
 
-    V addVertex( V vertex );
+    <N extends V> N addVertex( N node );
 
-    HeadVertexConnector<V, E> addEdge( E edge );
+    <A extends E> HeadVertexConnector<V, E> addEdge( A arc );
 
 }
