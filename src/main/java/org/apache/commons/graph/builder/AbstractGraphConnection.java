@@ -42,14 +42,14 @@ public abstract class AbstractGraphConnection<V, E>
         }
     }
 
-    protected final V addVertex( V vertex )
+    protected final <N extends V> N addVertex( N node )
     {
-        return connector.addVertex( vertex );
+        return connector.addVertex( node );
     }
 
-    protected final HeadVertexConnector<V, E> addEdge( E edge )
+    protected final <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
     {
-        return connector.addEdge( edge );
+        return connector.addEdge( arc );
     }
 
     public abstract void connect();
