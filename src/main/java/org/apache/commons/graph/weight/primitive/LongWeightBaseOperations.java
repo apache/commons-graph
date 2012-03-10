@@ -32,7 +32,7 @@ public class LongWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Long zero()
+    public Long identity()
     {
         return 0L;
     }

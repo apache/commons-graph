@@ -32,7 +32,7 @@ public class IntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Integer zero()
+    public Integer identity()
     {
         return 0;
     }

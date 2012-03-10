@@ -68,7 +68,7 @@ class FlowNetworkHandler<V, E, W>
         this.weightOperations = weightOperations;
         this.weightedEdges = weightedEdges;
 
-        maxFlow = weightOperations.zero();
+        maxFlow = weightOperations.identity();
 
         for ( E edge : flowNetwork.getEdges() )
         {
@@ -144,7 +144,7 @@ class FlowNetworkHandler<V, E, W>
     {
         W residualEdgeCapacity = residualEdgeCapacities.get( edge );
         // avoid expanding the edge when it has no residual capacity
-        if ( weightOperations.compare( residualEdgeCapacity, weightOperations.zero() ) <= 0 )
+        if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
         {
             return false;
         }

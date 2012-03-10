@@ -50,7 +50,7 @@ public final class MutableSpanningTree<V, WE, W>
         this.weightOperations = weightOperations;
         this.weightedEdges = weightedEdges;
 
-        this.weight = weightOperations.zero();
+        this.weight = weightOperations.identity();
     }
 
     /**

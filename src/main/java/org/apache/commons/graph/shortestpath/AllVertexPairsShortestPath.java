@@ -116,7 +116,7 @@ public final class AllVertexPairsShortestPath<V, WE, W>
 
         if ( source.equals( target ) )
         {
-            return weightOperations.zero();
+            return weightOperations.identity();
         }
 
         return shortestDistances.get( new VertexPair<V>( source, target ) );

@@ -64,7 +64,7 @@ final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends
 
         // Cost from start along best known path.
         final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( weightOperations );
-        gScores.setWeight( start, weightOperations.zero() );
+        gScores.setWeight( start, weightOperations.identity() );
 
         // Estimated total cost from start to goal through y.
         final ShortestDistances<V, W> fScores = new ShortestDistances<V, W>( weightOperations );

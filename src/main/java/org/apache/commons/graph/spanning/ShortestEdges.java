@@ -132,7 +132,7 @@ final class ShortestEdges<V, WE, W>
     {
         if ( source.equals( vertex ) )
         {
-            return weightOperations.zero();
+            return weightOperations.identity();
         }
 
         WE edge = predecessors.get( vertex );

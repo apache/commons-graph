@@ -68,7 +68,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE
         weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
 
         final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
-        shortestDistances.setWeight( source, weightOperations.zero() );
+        shortestDistances.setWeight( source, weightOperations.identity() );
 
         final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
         unsettledNodes.add( source );

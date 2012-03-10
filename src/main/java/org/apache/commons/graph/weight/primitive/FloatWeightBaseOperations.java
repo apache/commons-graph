@@ -32,7 +32,7 @@ public class FloatWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Float zero()
+    public Float identity()
     {
         return 0.0F;
     }

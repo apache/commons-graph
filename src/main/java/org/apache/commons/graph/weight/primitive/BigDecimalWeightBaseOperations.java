@@ -36,7 +36,7 @@ public class BigDecimalWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigDecimal zero()
+    public BigDecimal identity()
     {
         return ZERO;
     }

@@ -36,7 +36,7 @@ public class BigIntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigInteger zero()
+    public BigInteger identity()
     {
         return ZERO;
     }

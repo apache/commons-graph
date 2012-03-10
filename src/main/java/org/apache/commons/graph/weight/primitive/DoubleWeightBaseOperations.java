@@ -32,7 +32,7 @@ public class DoubleWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Double zero()
+    public Double identity()
     {
         return 0.0;
     }

@@ -52,7 +52,7 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
         weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
 
         final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
-        shortestDistances.setWeight( source, weightOperations.zero() );
+        shortestDistances.setWeight( source, weightOperations.identity() );
 
         final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
