@@ -140,7 +140,7 @@ final class DefaultPathSourceSelector<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public TargetSourceSelector<V, WE, W> from( V source )
+    public <H extends V> TargetSourceSelector<V, WE, W> from( H source )
     {
         source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
         return new DefaultTargetSourceSelector<V, WE, W>( graph, weightedEdges, source );

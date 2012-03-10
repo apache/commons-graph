@@ -28,6 +28,6 @@ public interface ToTailBuilder<V, WE, W>
      * @param tail
      * @return
      */
-    MaxFlowAlgorithmSelector<V, WE, W> to( V tail );
+    <T extends V> MaxFlowAlgorithmSelector<V, WE, W> to( T tail );
 
 }

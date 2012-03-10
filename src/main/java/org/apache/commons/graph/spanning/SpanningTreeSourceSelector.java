@@ -46,7 +46,7 @@ public interface SpanningTreeSourceSelector<V, W, WE>
      * @param source the source vertex to calculate the spanning tree.
      * @return the linked spanning tree algorithm builder
      */
-    SpanningTreeAlgorithmSelector<V, W, WE> fromSource( V source );
+    <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source );
 
     /**
      * Applies the <a href="http://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.

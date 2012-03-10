@@ -48,7 +48,7 @@ final class DefaultToTailBuilder<V, WE, W>
         this.head = head;
     }
 
-    public MaxFlowAlgorithmSelector<V, WE, W> to( V tail )
+    public <T extends V> MaxFlowAlgorithmSelector<V, WE, W> to( T tail )
     {
         tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
         return new DefaultMaxFlowAlgorithmSelector<V, WE, W>( graph, weightedEdges, head, tail );

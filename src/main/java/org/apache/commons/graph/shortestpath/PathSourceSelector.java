@@ -46,6 +46,6 @@ public interface PathSourceSelector<V, WE, W>
      *
      * @param source
      */
-    TargetSourceSelector<V, WE, W> from( V source );
+    <H extends V> TargetSourceSelector<V, WE, W> from( H source );
 
 }

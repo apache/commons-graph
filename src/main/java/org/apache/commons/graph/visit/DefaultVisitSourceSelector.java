@@ -45,7 +45,7 @@ public final class DefaultVisitSourceSelector<V, E, G extends Graph<V, E>>
     /**
      * {@inheritDoc}
      */
-    public VisitAlgorithmsSelector<V, E, G> from( V source )
+    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
     {
         source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );

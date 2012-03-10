@@ -71,7 +71,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
     /**
      * {@inheritDoc}
      */
-    public SpanningTreeAlgorithmSelector<V, W, WE> fromSource( V source )
+    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
     {
         source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );

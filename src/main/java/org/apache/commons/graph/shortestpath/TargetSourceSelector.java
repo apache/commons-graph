@@ -46,6 +46,6 @@ public interface TargetSourceSelector<V, WE, W>
      *
      * @param target
      */
-    ShortestPathAlgorithmSelector<V, WE, W> to( V target );
+    <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target );
 
 }

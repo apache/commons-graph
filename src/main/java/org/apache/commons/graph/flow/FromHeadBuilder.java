@@ -28,6 +28,6 @@ public interface FromHeadBuilder<V, WE, W>
      * @param head
      * @return
      */
-    ToTailBuilder<V, WE, W> from( V head );
+    <H extends V> ToTailBuilder<V, WE, W> from( H head );
 
 }

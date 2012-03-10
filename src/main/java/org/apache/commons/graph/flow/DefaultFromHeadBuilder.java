@@ -46,7 +46,7 @@ final class DefaultFromHeadBuilder<V, WE, W>
         this.weightedEdges = weightedEdges;
     }
 
-    public ToTailBuilder<V, WE, W> from( V head )
+    public <H extends V> ToTailBuilder<V, WE, W> from( H head )
     {
         head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
         return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );

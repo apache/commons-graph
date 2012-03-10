@@ -125,7 +125,7 @@ final class DefaultTargetSourceSelector<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public ShortestPathAlgorithmSelector<V, WE, W> to( V target )
+    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
     {
         target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
         return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
