@@ -32,24 +32,24 @@ import org.apache.commons.graph.Mapper;
  * @param <WE>
  * @param <G>
  */
-final class DefaultFromHeadBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
-    implements FromHeadBuilder<V, WE, W, G>
+final class DefaultFromHeadBuilder<V, WE, W>
+    implements FromHeadBuilder<V, WE, W>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
-    public DefaultFromHeadBuilder( G graph, Mapper<WE, W> weightedEdges )
+    public DefaultFromHeadBuilder( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
     }
 
-    public ToTailBuilder<V, WE, W, G> from( V head )
+    public ToTailBuilder<V, WE, W> from( V head )
     {
         head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
-        return new DefaultToTailBuilder<V, WE, W, G>( graph, weightedEdges, head );
+        return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );
     }
 
 }

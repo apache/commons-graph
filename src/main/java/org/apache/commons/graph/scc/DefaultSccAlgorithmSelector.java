@@ -31,18 +31,18 @@ import org.apache.commons.graph.Graph;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-public final class DefaultSccAlgorithmSelector<V, E, G extends DirectedGraph<V, E>>
-    implements SccAlgorithmSelector<V, E, G>
+public final class DefaultSccAlgorithmSelector<V, E>
+    implements SccAlgorithmSelector<V, E>
 {
     /** The graph. */
-    private final G graph;
+    private final DirectedGraph<V, E> graph;
 
     /**
      * Create a default {@link SccAlgorithmSelector} for the given {@link Graph}.
      *
      * @param graph the {@link Graph}.
      */
-    public DefaultSccAlgorithmSelector( final G graph )
+    public DefaultSccAlgorithmSelector( final DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }
@@ -52,7 +52,7 @@ public final class DefaultSccAlgorithmSelector<V, E, G extends DirectedGraph<V, 
      */
     public Set<V> applyingKosarajuSharir( final V source )
     {
-        return new KosarajuSharirAlgorithm<V, E, G>( graph ).perform( source );
+        return new KosarajuSharirAlgorithm<V, E>( graph ).perform( source );
     }
 
     /**
@@ -60,7 +60,7 @@ public final class DefaultSccAlgorithmSelector<V, E, G extends DirectedGraph<V, 
      */
     public Set<Set<V>> applyingKosarajuSharir()
     {
-        return applying( new KosarajuSharirAlgorithm<V, E, G>( graph ) );
+        return applying( new KosarajuSharirAlgorithm<V, E>( graph ) );
     }
 
     /**
@@ -68,7 +68,7 @@ public final class DefaultSccAlgorithmSelector<V, E, G extends DirectedGraph<V, 
      */
     public Set<Set<V>> applyingCheriyanMehlhornGabow()
     {
-        return applying( new CheriyanMehlhornGabowAlgorithm<V, E, G>( graph ) );
+        return applying( new CheriyanMehlhornGabowAlgorithm<V, E>( graph ) );
     }
 
     /**
@@ -76,7 +76,7 @@ public final class DefaultSccAlgorithmSelector<V, E, G extends DirectedGraph<V, 
      */
     public Set<Set<V>> applyingTarjan()
     {
-        return applying( new TarjanAlgorithm<V, E, G>( graph ) );
+        return applying( new TarjanAlgorithm<V, E>( graph ) );
     }
 
     /**

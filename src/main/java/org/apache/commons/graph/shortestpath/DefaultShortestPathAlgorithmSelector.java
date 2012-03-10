@@ -31,11 +31,11 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE>>
-    implements ShortestPathAlgorithmSelector<V, WE, W, G>
+final class DefaultShortestPathAlgorithmSelector<V, WE, W>
+    implements ShortestPathAlgorithmSelector<V, WE, W>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
@@ -43,7 +43,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE
 
     private final V target;
 
-    public DefaultShortestPathAlgorithmSelector( G graph, Mapper<WE, W> weightedEdges, V source, V target )
+    public DefaultShortestPathAlgorithmSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -54,10 +54,10 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
-        return new DefaultHeuristicBuilder<V, WE, W, G, WO>( graph, weightedEdges, source, target, weightOperations );
+        return new DefaultHeuristicBuilder<V, WE, W>( graph, weightedEdges, source, target, weightOperations );
     }
 
     /**

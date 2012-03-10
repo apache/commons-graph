@@ -24,25 +24,25 @@ import java.io.Writer;
 
 import org.apache.commons.graph.Graph;
 
-abstract class AbstractExporter<V, E, G extends Graph<V, E>>
+abstract class AbstractExporter<V, E>
 {
 
     private static final String G = "G";
 
-    private final G graph;
+    private final Graph<V, E> graph;
 
     private final Writer writer;
 
     private final String name;
 
-    public AbstractExporter( G graph, Writer writer, String name )
+    public AbstractExporter( Graph<V, E> graph, Writer writer, String name )
     {
         this.graph = graph;
         this.writer = writer;
         this.name = name != null ? name : G;
     }
 
-    protected final G getGraph()
+    protected final Graph<V, E> getGraph()
     {
         return graph;
     }

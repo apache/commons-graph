@@ -19,7 +19,6 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -31,7 +30,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-public interface ShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE>>
+public interface ShortestPathAlgorithmSelector<V, WE, W>
 {
 
     /**
@@ -41,7 +40,7 @@ public interface ShortestPathAlgorithmSelector<V, WE, W, G extends Graph<V, WE>>
      * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations );
+    <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations );
 
     /**
      *  Calculates the shortest path using Dijkstra's algorithm.

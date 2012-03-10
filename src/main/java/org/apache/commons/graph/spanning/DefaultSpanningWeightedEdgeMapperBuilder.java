@@ -24,21 +24,21 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
 
-public final class DefaultSpanningWeightedEdgeMapperBuilder<V, WE, G extends Graph<V, WE>>
-    implements SpanningWeightedEdgeMapperBuilder<V, WE, G>
+public final class DefaultSpanningWeightedEdgeMapperBuilder<V, WE>
+    implements SpanningWeightedEdgeMapperBuilder<V, WE>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
-    public DefaultSpanningWeightedEdgeMapperBuilder( G graph )
+    public DefaultSpanningWeightedEdgeMapperBuilder( Graph<V, WE> graph )
     {
         this.graph = graph;
     }
 
-    public <W> SpanningTreeSourceSelector<V, W, WE, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
+    public <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
     {
         weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph, weightedEdges );
+        return new DefaultSpanningTreeSourceSelector<V, W, WE>( graph, weightedEdges );
     }
 
 }

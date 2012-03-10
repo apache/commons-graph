@@ -21,15 +21,13 @@ package org.apache.commons.graph.scc;
 
 import java.util.Set;
 
-import org.apache.commons.graph.DirectedGraph;
-
 /**
  * Allows selecting the algorithm for calculating the strongly connected component.
  *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-public interface SccAlgorithmSelector<V, E, G extends DirectedGraph<V, E>>
+public interface SccAlgorithmSelector<V, E>
 {
 
     /**

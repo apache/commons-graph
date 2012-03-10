@@ -19,9 +19,7 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
-
-public interface ExportSelctor<V, E, G extends Graph<V, E>>
+public interface ExportSelctor<V, E>
 {
 
     /**

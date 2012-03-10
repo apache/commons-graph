@@ -24,21 +24,21 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
 
-public final class DefaultWeightedEdgesSelector<V, WE, G extends Graph<V, WE>>
-    implements PathWeightedEdgesBuilder<V, WE, G>
+public final class DefaultWeightedEdgesSelector<V, WE>
+    implements PathWeightedEdgesBuilder<V, WE>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
-    public DefaultWeightedEdgesSelector( G graph )
+    public DefaultWeightedEdgesSelector( Graph<V, WE> graph )
     {
         this.graph = graph;
     }
 
-    public <W> PathSourceSelector<V, WE, W, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
+    public <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
     {
         weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultPathSourceSelector<V, WE, W, G>( graph, weightedEdges );
+        return new DefaultPathSourceSelector<V, WE, W>( graph, weightedEdges );
     }
 
 }

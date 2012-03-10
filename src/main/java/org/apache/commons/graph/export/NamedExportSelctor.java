@@ -19,12 +19,10 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
-
-public interface NamedExportSelctor<V, E, G extends Graph<V, E>>
-    extends ExportSelctor<V, E, G>
+public interface NamedExportSelctor<V, E>
+    extends ExportSelctor<V, E>
 {
 
-    ExportSelctor<V, E, G> withName( String name );
+    ExportSelctor<V, E> withName( String name );
 
 }

@@ -19,7 +19,6 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
@@ -30,7 +29,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-public interface TargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
+public interface TargetSourceSelector<V, WE, W>
 {
 
     /**
@@ -47,6 +46,6 @@ public interface TargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
      *
      * @param target
      */
-    ShortestPathAlgorithmSelector<V, WE, W, G> to( V target );
+    ShortestPathAlgorithmSelector<V, WE, W> to( V target );
 
 }

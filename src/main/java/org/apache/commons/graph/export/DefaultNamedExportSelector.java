@@ -23,22 +23,22 @@ import java.io.Writer;
 
 import org.apache.commons.graph.Graph;
 
-final class DefaultNamedExportSelector<V, E, G extends Graph<V, E>>
-    implements NamedExportSelctor<V, E, G>
+final class DefaultNamedExportSelector<V, E>
+    implements NamedExportSelctor<V, E>
 {
 
-    private final G graph;
+    private final Graph<V, E> graph;
 
     private final Writer writer;
 
     private final String name;
 
-    public DefaultNamedExportSelector( G graph, Writer writer )
+    public DefaultNamedExportSelector( Graph<V, E> graph, Writer writer )
     {
         this( graph, writer, null );
     }
 
-    public DefaultNamedExportSelector( G graph, Writer writer, String name )
+    public DefaultNamedExportSelector( Graph<V, E> graph, Writer writer, String name )
     {
         this.graph = graph;
         this.writer = writer;
@@ -48,18 +48,18 @@ final class DefaultNamedExportSelector<V, E, G extends Graph<V, E>>
     public void usingDotNotation()
         throws GraphExportException
     {
-        new DotExporter<V, E, G>( graph, writer, name ).export();
+        new DotExporter<V, E>( graph, writer, name ).export();
     }
 
     public void usingGraphMLFormat()
         throws GraphExportException
     {
-        new GraphMLExporter<V, E, G>( graph, writer, name ).export();
+        new GraphMLExporter<V, E>( graph, writer, name ).export();
     }
 
-    public ExportSelctor<V, E, G> withName( String name )
+    public ExportSelctor<V, E> withName( String name )
     {
-        return new DefaultNamedExportSelector<V, E, G>( graph, writer, name );
+        return new DefaultNamedExportSelector<V, E>( graph, writer, name );
     }
 
 }

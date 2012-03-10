@@ -37,15 +37,15 @@ import org.apache.commons.graph.DirectedGraph;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class TarjanAlgorithm<V, E, G extends DirectedGraph<V, E>>
+final class TarjanAlgorithm<V, E>
     implements SccAlgorithm<V>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, E> graph;
 
     /**
      */
-    public TarjanAlgorithm( G graph )
+    public TarjanAlgorithm( DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }

@@ -32,13 +32,13 @@ import org.apache.commons.graph.UndirectedGraph;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public final class DefaultColorsBuilder<V, E, G extends UndirectedGraph<V, E>>
-    implements ColorsBuilder<V, E, G>
+public final class DefaultColorsBuilder<V, E>
+    implements ColorsBuilder<V, E>
 {
 
-    private final G graph;
+    private final UndirectedGraph<V, E> graph;
 
-    public DefaultColorsBuilder( G graph )
+    public DefaultColorsBuilder( UndirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }
@@ -46,10 +46,10 @@ public final class DefaultColorsBuilder<V, E, G extends UndirectedGraph<V, E>>
     /**
      * {@inheritDoc}
      */
-    public <C> ColoringAlgorithmsSelector<V, E, G, C> withColors( Set<C> colors )
+    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
     {
         colors = checkNotNull( colors, "Colors set must be not null" );
-        return new DefaultColoringAlgorithmsSelector<V, E, G, C>( graph, colors );
+        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
     }
 
 }

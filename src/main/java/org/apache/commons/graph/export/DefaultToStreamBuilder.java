@@ -30,18 +30,18 @@ import java.io.Writer;
 
 import org.apache.commons.graph.Graph;
 
-public final class DefaultToStreamBuilder<V, E, G extends Graph<V, E>>
-    implements ToStreamBuilder<V, E, G>
+public final class DefaultToStreamBuilder<V, E>
+    implements ToStreamBuilder<V, E>
 {
 
-    private final G graph;
+    private final Graph<V, E> graph;
 
-    public DefaultToStreamBuilder( G graph )
+    public DefaultToStreamBuilder( Graph<V, E> graph )
     {
         this.graph = graph;
     }
 
-    public NamedExportSelctor<V, E, G> to( File outputFile )
+    public NamedExportSelctor<V, E> to( File outputFile )
     {
         try
         {
@@ -53,15 +53,15 @@ public final class DefaultToStreamBuilder<V, E, G extends Graph<V, E>>
         }
     }
 
-    public NamedExportSelctor<V, E, G> to( OutputStream outputStream )
+    public NamedExportSelctor<V, E> to( OutputStream outputStream )
     {
         return to( new OutputStreamWriter( checkNotNull( outputStream, "Impossibe to export the graph in a null stream" ) ) );
     }
 
-    public NamedExportSelctor<V, E, G> to( Writer writer )
+    public NamedExportSelctor<V, E> to( Writer writer )
     {
         writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
-        return new DefaultNamedExportSelector<V, E, G>( graph, writer );
+        return new DefaultNamedExportSelector<V, E>( graph, writer );
     }
 
 }

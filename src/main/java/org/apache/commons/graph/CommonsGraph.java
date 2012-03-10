@@ -56,16 +56,16 @@ import org.apache.commons.graph.visit.VisitSourceSelector;
 public final class CommonsGraph<V, E, G extends Graph<V, E>>
 {
 
-    public static <V, E, G extends Graph<V, E>> ToStreamBuilder<V, E, G> export( G graph )
+    public static <V, E, G extends Graph<V, E>> ToStreamBuilder<V, E> export( G graph )
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultToStreamBuilder<V, E, G>( graph );
+        return new DefaultToStreamBuilder<V, E>( graph );
     }
 
-    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E, G> coloring( G graph )
+    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
     {
         graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
-        return new DefaultColorsBuilder<V, E, G>( graph );
+        return new DefaultColorsBuilder<V, E>( graph );
     }
 
     /**
@@ -78,10 +78,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph the input edge-weighted graph
      * @return
      */
-    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE, G> findMaxFlow( G graph )
+    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
-        return new DefaultFlowWeightedEdgesBuilder<V, WE, G>( graph );
+        return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
     }
 
     /**
@@ -89,10 +89,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph
      * @return
      */
-    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE, G> minimumSpanningTree( G graph )
+    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE, G>( graph );
+        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
     }
 
     /**
@@ -104,10 +104,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param <G>
      * @param graph
      */
-    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE, G> findShortestPath( G graph )
+    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
     {
         graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
-        return new DefaultWeightedEdgesSelector<V, WE, G>( graph );
+        return new DefaultWeightedEdgesSelector<V, WE>( graph );
     }
 
     /**
@@ -119,10 +119,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph the Graph which strongly connected component has to be verified.
      * @return the SCC algoritm selector
      */
-    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E, G> findStronglyConnectedComponent( G graph )
+    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
     {
         graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
-        return new DefaultSccAlgorithmSelector<V, E, G>( graph );
+        return new DefaultSccAlgorithmSelector<V, E>( graph );
     }
 
     /**
@@ -134,10 +134,10 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param graph the Graph which connected component has to be verified.
      * @return the Connectivity algorithm builder
      */
-    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E, G> findConnectedComponent( G graph )
+    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
     {
         graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
-        return new DefaultConnectivityBuilder<V, E, G>( graph );
+        return new DefaultConnectivityBuilder<V, E>( graph );
     }
 
     /**

@@ -19,7 +19,6 @@ package org.apache.commons.graph.coloring;
  * under the License.
  */
 
-import org.apache.commons.graph.UndirectedGraph;
 
 /**
  * Builder for selecting the coloring algorithm to perform.
@@ -29,7 +28,7 @@ import org.apache.commons.graph.UndirectedGraph;
  * @param <G> the Graph type
  * @param <C> the Color vertices type
  */
-public interface ColoringAlgorithmsSelector<V, E, G extends UndirectedGraph<V, E>, C>
+public interface ColoringAlgorithmsSelector<V, E, C>
 {
 
     /**

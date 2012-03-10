@@ -19,10 +19,9 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-public interface MaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V, WE>>
+public interface MaxFlowAlgorithmSelector<V, WE, W>
 {
 
     /**

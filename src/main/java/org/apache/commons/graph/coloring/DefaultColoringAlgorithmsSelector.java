@@ -36,8 +36,8 @@ import org.apache.commons.graph.UndirectedGraph;
  * @param <G> the Graph type
  * @param <C> the Color vertices type
  */
-final class DefaultColoringAlgorithmsSelector<V, E, G extends UndirectedGraph<V, E>, C>
-    implements ColoringAlgorithmsSelector<V, E, G, C>
+final class DefaultColoringAlgorithmsSelector<V, E, C>
+    implements ColoringAlgorithmsSelector<V, E, C>
 {
 
     private final UndirectedGraph<V, E> g;

@@ -19,9 +19,7 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import org.apache.commons.graph.DirectedGraph;
-
-public interface ToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
+public interface ToTailBuilder<V, WE, W>
 {
 
     /**
@@ -30,6 +28,6 @@ public interface ToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
      * @param tail
      * @return
      */
-    MaxFlowAlgorithmSelector<V, WE, W, G> to( V tail );
+    MaxFlowAlgorithmSelector<V, WE, W> to( V tail );
 
 }

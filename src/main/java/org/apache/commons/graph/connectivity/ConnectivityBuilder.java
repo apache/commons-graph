@@ -19,16 +19,13 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
-
 /**
  * Builder to specify the set of vertices included into a connected component.
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
- * @param <G> the Graph type
  */
-public interface ConnectivityBuilder<V, E, G extends Graph<V, E>>
+public interface ConnectivityBuilder<V, E>
 {
 
     /**
@@ -37,13 +34,13 @@ public interface ConnectivityBuilder<V, E, G extends Graph<V, E>>
      * @param vertices the set of vertices included into a connected component.
      * @return the connectivity algorithm selector.
      */
-    ConnectivityAlgorithmsSelector<V, E, G> includingVertices( V... vertices );
+    ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices );
 
     /**
      * Find all the connected components included into the specified graph
      *
      * @return the connectivity algorithm selector.
      */
-    ConnectivityAlgorithmsSelector<V, E, G> includingAllVertices();
+    ConnectivityAlgorithmsSelector<V, E> includingAllVertices();
 
 }

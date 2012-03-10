@@ -19,7 +19,6 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -31,7 +30,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE> the Graph weighted edges type
  * @param <G> the input Graph type
  */
-public interface SpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
+public interface SpanningTreeSourceSelector<V, W, WE>
 {
 
     /**
@@ -39,7 +38,7 @@ public interface SpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
      *
      * @return the linked spanning tree algorithm builder
      */
-    SpanningTreeAlgorithmSelector<V, W, WE, G> fromArbitrarySource();
+    SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource();
 
     /**
      * Allows specify a source vertex to calculate the spanning tree.
@@ -47,7 +46,7 @@ public interface SpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
      * @param source the source vertex to calculate the spanning tree.
      * @return the linked spanning tree algorithm builder
      */
-    SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source );
+    SpanningTreeAlgorithmSelector<V, W, WE> fromSource( V source );
 
     /**
      * Applies the <a href="http://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.

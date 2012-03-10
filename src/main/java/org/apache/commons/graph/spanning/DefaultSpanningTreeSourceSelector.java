@@ -45,15 +45,15 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE> the Graph weighted edges type
  * @param <G> the input Graph type
  */
-final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
-    implements SpanningTreeSourceSelector<V, W, WE, G>
+final class DefaultSpanningTreeSourceSelector<V, W, WE>
+    implements SpanningTreeSourceSelector<V, W, WE>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
-    public DefaultSpanningTreeSourceSelector( G graph, Mapper<WE, W> weightedEdges )
+    public DefaultSpanningTreeSourceSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -62,7 +62,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
     /**
      * {@inheritDoc}
      */
-    public SpanningTreeAlgorithmSelector<V, W, WE, G> fromArbitrarySource()
+    public SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource()
     {
         checkState( graph.getOrder() > 0, "Spanning tree cannot be calculated on an empty graph" );
         return fromSource( graph.getVertices().iterator().next() );
@@ -71,11 +71,11 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE, G extends Graph<V, WE>>
     /**
      * {@inheritDoc}
      */
-    public SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source )
+    public SpanningTreeAlgorithmSelector<V, W, WE> fromSource( V source )
     {
         source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE, G>( graph, weightedEdges, source );
+        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
     }
 
     /**

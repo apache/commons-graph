@@ -21,8 +21,6 @@ package org.apache.commons.graph.coloring;
 
 import java.util.Set;
 
-import org.apache.commons.graph.UndirectedGraph;
-
 /**
  * Builder to specify the set of colors for coloring the graph.
  *
@@ -30,7 +28,7 @@ import org.apache.commons.graph.UndirectedGraph;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public interface ColorsBuilder<V, E, G extends UndirectedGraph<V, E>>
+public interface ColorsBuilder<V, E>
 {
 
     /**
@@ -39,6 +37,6 @@ public interface ColorsBuilder<V, E, G extends UndirectedGraph<V, E>>
      * @param colors the set of colors for coloring the graph.
      * @return the coloring algorithm selector.
      */
-    <C> ColoringAlgorithmsSelector<V, E, G, C> withColors( Set<C> colors );
+    <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors );
 
 }

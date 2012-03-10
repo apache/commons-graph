@@ -32,11 +32,11 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends OrderedMonoid<W>>
-    implements HeuristicBuilder<V, WE, W, G, WO>
+final class DefaultHeuristicBuilder<V, WE, W>
+    implements HeuristicBuilder<V, WE, W>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
@@ -44,9 +44,9 @@ final class DefaultHeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends
 
     private final V goal;
 
-    private final WO weightOperations;
+    private final OrderedMonoid<W> weightOperations;
 
-    public DefaultHeuristicBuilder( G graph, Mapper<WE, W> weightedEdges, V source, V target, WO weightOperations )
+    public DefaultHeuristicBuilder( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target, OrderedMonoid<W> weightOperations )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;

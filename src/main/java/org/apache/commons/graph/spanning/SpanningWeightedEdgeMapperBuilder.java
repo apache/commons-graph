@@ -19,12 +19,11 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
 
-public interface SpanningWeightedEdgeMapperBuilder<V, WE, G extends Graph<V, WE>>
+public interface SpanningWeightedEdgeMapperBuilder<V, WE>
 {
 
-    <W> SpanningTreeSourceSelector<V, W, WE, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges );
+    <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges );
 
 }

@@ -27,8 +27,8 @@ import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.VertexPair;
 
-final class DotExporter<V, E, G extends Graph<V, E>>
-    extends AbstractExporter<V, E, G>
+final class DotExporter<V, E>
+    extends AbstractExporter<V, E>
 {
 
     private static final String GRAPH = "graph";
@@ -39,7 +39,7 @@ final class DotExporter<V, E, G extends Graph<V, E>>
 
     private static final String DICONNECTOR = "->";
 
-    public DotExporter( G graph, Writer writer, String name )
+    public DotExporter( Graph<V, E> graph, Writer writer, String name )
     {
         super( graph, writer, name );
     }

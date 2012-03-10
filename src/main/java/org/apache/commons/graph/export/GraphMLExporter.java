@@ -30,10 +30,9 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Weighted;
 
-final class GraphMLExporter<V, E, G extends Graph<V, E>>
-    extends AbstractExporter<V, E, G>
+final class GraphMLExporter<V, E>
+    extends AbstractExporter<V, E>
 {
 
     private static final String GRAPHML = "graphml";
@@ -84,7 +83,7 @@ final class GraphMLExporter<V, E, G extends Graph<V, E>>
 
     private static final String WEIGHT = "weight";
 
-    public GraphMLExporter( G graph, Writer writer, String name )
+    public GraphMLExporter( Graph<V, E> graph, Writer writer, String name )
     {
         super( graph, writer, name );
     }

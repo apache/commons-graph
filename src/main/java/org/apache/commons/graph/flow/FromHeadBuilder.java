@@ -19,9 +19,7 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import org.apache.commons.graph.DirectedGraph;
-
-public interface FromHeadBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
+public interface FromHeadBuilder<V, WE, W>
 {
 
     /**
@@ -30,6 +28,6 @@ public interface FromHeadBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
      * @param head
      * @return
      */
-    ToTailBuilder<V, WE, W, G> from( V head );
+    ToTailBuilder<V, WE, W> from( V head );
 
 }

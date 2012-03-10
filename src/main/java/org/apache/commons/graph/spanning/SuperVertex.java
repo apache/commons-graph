@@ -37,11 +37,11 @@ import org.apache.commons.graph.VertexPair;
  * @param <G>  the input Graph type
  * @param <WC> the weight operations
  */
-class SuperVertex<V, W, WE, G extends Graph<V, WE>>
+class SuperVertex<V, W, WE>
     implements Iterable<V> {
 
     /** The reference to the graph. */
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     /** The set of vertices combined in this {@link SuperVertex}. */
     private final Set<V> vertices;
@@ -57,7 +57,7 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>>
      * @param graph the underlying graph
      * @param weightComparator the comparator used to sort the weighted edges
      */
-    public SuperVertex( final V source, final G graph, final WeightedEdgesComparator<W, WE> weightComparator )
+    public SuperVertex( final V source, final Graph<V, WE> graph, final WeightedEdgesComparator<W, WE> weightComparator )
     {
         this.graph = graph;
 
@@ -87,7 +87,7 @@ class SuperVertex<V, W, WE, G extends Graph<V, WE>>
      *
      * @param other the {@link SuperVertex} to be merged into this
      */
-    public void merge( final SuperVertex<V, W, WE, G> other )
+    public void merge( final SuperVertex<V, W, WE> other )
     {
         for ( final V v : other.vertices )
         {

@@ -19,7 +19,6 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -31,7 +30,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE> the Graph weighted edges type
  * @param <G> the input Graph type
  */
-public interface SpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE>>
+public interface SpanningTreeAlgorithmSelector<V, W, WE>
 {
 
     /**

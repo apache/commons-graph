@@ -22,15 +22,13 @@ package org.apache.commons.graph.connectivity;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.graph.Graph;
-
 /**
  * Builder for selecting the connectivity algorithm to perform.
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public interface ConnectivityAlgorithmsSelector <V,  E, G extends Graph<V, E> >
+public interface ConnectivityAlgorithmsSelector<V, E>
 {
 
     /**

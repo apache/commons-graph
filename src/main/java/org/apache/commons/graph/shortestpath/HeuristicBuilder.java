@@ -19,9 +19,7 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  *
@@ -30,7 +28,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <W>
  * @param <G>
  */
-public interface HeuristicBuilder<V, WE, W, G extends Graph<V, WE>, WO extends OrderedMonoid<W>>
+public interface HeuristicBuilder<V, WE, W>
 {
 
     /**

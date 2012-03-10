@@ -30,29 +30,28 @@ import org.apache.commons.graph.Mapper;
  * @param <V>
  * @param <W>
  * @param <WE>
- * @param <G>
  */
-final class DefaultToTailBuilder<V, WE, W, G extends DirectedGraph<V, WE>>
-    implements ToTailBuilder<V, WE, W, G>
+final class DefaultToTailBuilder<V, WE, W>
+    implements ToTailBuilder<V, WE, W>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
     private final V head;
 
-    public DefaultToTailBuilder( G graph, Mapper<WE, W> weightedEdges, V head )
+    public DefaultToTailBuilder( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V head )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
         this.head = head;
     }
 
-    public MaxFlowAlgorithmSelector<V, WE, W, G> to( V tail )
+    public MaxFlowAlgorithmSelector<V, WE, W> to( V tail )
     {
         tail = checkNotNull( tail, "tail vertex has to be specifies when looking for the max flow" );
-        return new DefaultMaxFlowAlgorithmSelector<V, WE, W, G>( graph, weightedEdges, head, tail );
+        return new DefaultMaxFlowAlgorithmSelector<V, WE, W>( graph, weightedEdges, head, tail );
     }
 
 }

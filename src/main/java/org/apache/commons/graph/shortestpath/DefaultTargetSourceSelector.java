@@ -27,17 +27,17 @@ import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
-    implements TargetSourceSelector<V, WE, W, G>
+final class DefaultTargetSourceSelector<V, WE, W>
+    implements TargetSourceSelector<V, WE, W>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
     private final V source;
 
-    public DefaultTargetSourceSelector( G graph, Mapper<WE, W> weightedEdges, V source )
+    public DefaultTargetSourceSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -125,10 +125,10 @@ final class DefaultTargetSourceSelector<V, WE, W, G extends Graph<V, WE>>
     /**
      * {@inheritDoc}
      */
-    public ShortestPathAlgorithmSelector<V, WE, W, G> to( V target )
+    public ShortestPathAlgorithmSelector<V, WE, W> to( V target )
     {
         target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
-        return new DefaultShortestPathAlgorithmSelector<V, WE, W, G>( graph, weightedEdges, source, target );
+        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
     }
 
 }

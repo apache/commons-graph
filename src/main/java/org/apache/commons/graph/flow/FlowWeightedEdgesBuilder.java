@@ -19,12 +19,11 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Mapper;
 
-public interface FlowWeightedEdgesBuilder<V, WE, G extends DirectedGraph<V, WE>>
+public interface FlowWeightedEdgesBuilder<V, WE>
 {
 
-    <W> FromHeadBuilder<V, WE, W, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges );
+    <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges );
 
 }

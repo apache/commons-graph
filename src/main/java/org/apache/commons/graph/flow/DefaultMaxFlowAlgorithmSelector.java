@@ -37,11 +37,11 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE>
  * @param <G>
  */
-final class DefaultMaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V, WE>>
-    implements MaxFlowAlgorithmSelector<V, WE, W, G>
+final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
+    implements MaxFlowAlgorithmSelector<V, WE, W>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
@@ -49,7 +49,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V,
 
     private final V target;
 
-    public DefaultMaxFlowAlgorithmSelector( G graph, Mapper<WE, W> weightedEdges, V source, V target )
+    public DefaultMaxFlowAlgorithmSelector( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -113,7 +113,8 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W, G extends DirectedGraph<V,
         return flowNetworkHandler.onCompleted();
     }
 
-    private <WO extends OrderedMonoid<W>> DirectedGraph<V, EdgeWrapper<WE>> newFlowNetwok( final G graph, final WO weightOperations )
+    private <WO extends OrderedMonoid<W>> DirectedGraph<V, EdgeWrapper<WE>> newFlowNetwok( final DirectedGraph<V, WE> graph,
+                                                                                           final WO weightOperations )
     {
         return newDirectedMutableGraph( new AbstractGraphConnection<V, EdgeWrapper<WE>>()
         {

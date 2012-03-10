@@ -24,21 +24,21 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Mapper;
 
-public final class DefaultFlowWeightedEdgesBuilder<V, WE, G extends DirectedGraph<V, WE>>
-    implements FlowWeightedEdgesBuilder<V, WE, G>
+public final class DefaultFlowWeightedEdgesBuilder<V, WE>
+    implements FlowWeightedEdgesBuilder<V, WE>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, WE> graph;
 
-    public DefaultFlowWeightedEdgesBuilder( G graph )
+    public DefaultFlowWeightedEdgesBuilder( DirectedGraph<V, WE> graph )
     {
         this.graph = graph;
     }
 
-    public <W> FromHeadBuilder<V, WE, W, G> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
+    public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
     {
         weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
-        return new DefaultFromHeadBuilder<V, WE, W, G>( graph, weightedEdges );
+        return new DefaultFromHeadBuilder<V, WE, W>( graph, weightedEdges );
     }
 
 }

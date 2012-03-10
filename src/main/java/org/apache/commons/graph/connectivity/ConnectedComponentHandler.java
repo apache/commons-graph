@@ -25,8 +25,8 @@ import java.util.List;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
 
-final class ConnectedComponentHandler<V, E, G extends Graph<V, E>>
-    extends BaseGraphVisitHandler<V, E, G, List<V>>
+final class ConnectedComponentHandler<V, E>
+    extends BaseGraphVisitHandler<V, E, Graph<V, E>, List<V>>
 {
 
     private final List<V> touchedVertices = new LinkedList<V>();

@@ -46,11 +46,11 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <WE> the Graph weighted edges type
  * @param <G> the input Graph type
  */
-final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE>>
-    implements SpanningTreeAlgorithmSelector<V, W, WE, G>
+final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
+    implements SpanningTreeAlgorithmSelector<V, W, WE>
 {
     /** The graph. */
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     private final Mapper<WE, W> weightedEdges;
 
@@ -64,7 +64,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
      * @param graph the {@link Graph} to be used.
      * @param source the start {@link Vertex}.
      */
-    public DefaultSpanningTreeAlgorithmSelector( final G graph, Mapper<WE, W> weightedEdges, final V source )
+    public DefaultSpanningTreeAlgorithmSelector( final Graph<V, WE> graph, Mapper<WE, W> weightedEdges, final V source )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -93,14 +93,14 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
 
         final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
-        final Set<SuperVertex<V, W, WE, G>> components = new HashSet<SuperVertex<V, W, WE, G>>( graph.getOrder() );
+        final Set<SuperVertex<V, W, WE>> components = new HashSet<SuperVertex<V, W, WE>>( graph.getOrder() );
 
-        final Map<V, SuperVertex<V, W, WE, G>> mapping = new HashMap<V, SuperVertex<V, W, WE, G>>( graph.getOrder() );
+        final Map<V, SuperVertex<V, W, WE>> mapping = new HashMap<V, SuperVertex<V, W, WE>>( graph.getOrder() );
 
         for ( V v : graph.getVertices() )
         {
             // create a super vertex for each vertex
-            final SuperVertex<V, W, WE, G> sv = new SuperVertex<V, W, WE, G>( v, graph, new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
+            final SuperVertex<V, W, WE> sv = new SuperVertex<V, W, WE>( v, graph, new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
 
             components.add( sv );
 
@@ -114,7 +114,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
         while ( components.size() > 1 )
         {
             final List<WE> edges = new LinkedList<WE>();
-            for ( SuperVertex<V, W, WE, G> sv : components )
+            for ( SuperVertex<V, W, WE> sv : components )
             {
                 // get the minimum edge for each component to any other component
                 final WE edge = sv.getMinimumWeightEdge();
@@ -135,8 +135,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE, G extends Graph<V, WE
                 final V tail = pair.getTail();
 
                 // find the super vertices corresponding to this edge
-                final SuperVertex<V, W, WE, G> headSv = mapping.get( head );
-                final SuperVertex<V, W, WE, G> tailSv = mapping.get( tail );
+                final SuperVertex<V, W, WE> headSv = mapping.get( head );
+                final SuperVertex<V, W, WE> tailSv = mapping.get( tail );
 
                 // merge them, if they are not the same
                 if ( headSv != tailSv )
