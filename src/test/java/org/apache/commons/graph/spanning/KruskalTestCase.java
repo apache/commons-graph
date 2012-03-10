@@ -68,7 +68,7 @@ public final class KruskalTestCase
             fail( e.getMessage() );
         }
 
-        minimumSpanningTree( input ).fromSource( a ).applyingKruskalAlgorithm( null );
+        minimumSpanningTree( input ).fromSource( a ).applyingKruskalAlgorithm( (DoubleWeightBaseOperations) null );
     }
     
     @Test( expected = IllegalStateException.class )

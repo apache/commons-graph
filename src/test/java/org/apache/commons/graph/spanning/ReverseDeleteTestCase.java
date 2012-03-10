@@ -50,7 +50,7 @@ public class ReverseDeleteTestCase
     {
         UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input = null;
 
-        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( null );
+        minimumSpanningTree( input ).applyingReverseDeleteAlgorithm( (DoubleWeightBaseOperations) null );
     }
     
     @Test

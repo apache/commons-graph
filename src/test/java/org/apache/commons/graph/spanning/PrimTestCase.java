@@ -68,7 +68,7 @@ public final class PrimTestCase
             fail( e.getMessage() );
         }
 
-        minimumSpanningTree( input ).fromSource( a ).applyingBoruvkaAlgorithm( null );
+        minimumSpanningTree( input ).fromSource( a ).applyingBoruvkaAlgorithm( (DoubleWeightBaseOperations) null );
     }
     
     @Test( expected = IllegalStateException.class )

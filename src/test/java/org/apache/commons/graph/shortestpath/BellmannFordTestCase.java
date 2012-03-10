@@ -74,7 +74,7 @@ public final class BellmannFordTestCase
         }
 
         // the actual weighted path
-        findShortestPath( graph ).from( a ).applyingBelmannFord( null );
+        findShortestPath( graph ).from( a ).applyingBelmannFord( (DoubleWeightBaseOperations) null );
     }
 
     @Test( expected = PathNotFoundException.class )

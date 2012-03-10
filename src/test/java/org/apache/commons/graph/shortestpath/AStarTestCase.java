@@ -95,7 +95,7 @@ public final class AStarTestCase
             fail( e.getMessage() );
         }
 
-        findShortestPath( graph ).from( a ).to( b ).applyingAStar( null ).withHeuristic( heuristic );
+        findShortestPath( graph ).from( a ).to( b ).applyingAStar( (DoubleWeightBaseOperations) null ).withHeuristic( heuristic );
     }
 
     @Test( expected = PathNotFoundException.class )

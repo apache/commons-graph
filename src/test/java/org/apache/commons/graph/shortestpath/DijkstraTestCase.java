@@ -66,7 +66,7 @@ public final class DijkstraTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( null );
+        findShortestPath( graph ).from( a ).to( b ).applyingDijkstra( (DoubleWeightBaseOperations) null );
     }
 
     @Test( expected = PathNotFoundException.class )
