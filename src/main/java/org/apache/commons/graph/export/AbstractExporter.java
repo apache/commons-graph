@@ -69,9 +69,7 @@ abstract class AbstractExporter<V extends Vertex, E extends Edge, G extends Grap
         catch ( Exception e )
         {
             throw new GraphExportException( e, "an error occurred while exporting graph %s (named %s) to writer %s",
-                                            graph,
-                                            name,
-                                            writer );
+                                            graph, name, writer );
         }
         finally
         {

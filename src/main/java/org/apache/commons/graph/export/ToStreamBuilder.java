@@ -34,24 +34,24 @@ public interface ToStreamBuilder<V extends Vertex, E extends Edge, G extends Gra
      * Export the input Graph to a {@link File}.
      *
      * @param outputFile the file where exporting the Graph to
-     * @return
+     * @return the graph export format selector
      */
-    NamedExportSelctor<V, E, G> to( File outputFile );
+    NamedExportSelector<V, E, G> to( File outputFile );
 
     /**
      * Export the input Graph to an {@link OutputStream}.
      *
      * @param outputStream the output stream where exporting the Graph to
-     * @return
+     * @return the graph export format selector
      */
-    NamedExportSelctor<V, E, G> to( OutputStream outputStream );
+    NamedExportSelector<V, E, G> to( OutputStream outputStream );
 
     /**
      * Export the input Graph to a {@link Writer}.
      *
      * @param writer the writer where exporting the Graph to
-     * @return
+     * @return the graph export format selector
      */
-    NamedExportSelctor<V, E, G> to( Writer writer );
+    NamedExportSelector<V, E, G> to( Writer writer );
 
 }

@@ -26,7 +26,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
 final class DefaultNamedExportSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
-    implements NamedExportSelctor<V, E, G>
+    implements NamedExportSelector<V, E, G>
 {
 
     private final G graph;
@@ -35,31 +35,40 @@ final class DefaultNamedExportSelector<V extends Vertex, E extends Edge, G exten
 
     private final String name;
 
-    public DefaultNamedExportSelector( G graph, Writer writer )
+    public DefaultNamedExportSelector( final G graph, final Writer writer )
     {
         this( graph, writer, null );
     }
 
-    public DefaultNamedExportSelector( G graph, Writer writer, String name )
+    public DefaultNamedExportSelector( final G graph, final Writer writer, final String name )
     {
         this.graph = graph;
         this.writer = writer;
         this.name = name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void usingDotNotation()
         throws GraphExportException
     {
         new DotExporter<V, E, G>( graph, writer, name ).export();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void usingGraphMLFormat()
         throws GraphExportException
     {
         new GraphMLExporter<V, E, G>( graph, writer, name ).export();
     }
 
-    public ExportSelctor<V, E, G> withName( String name )
+    /**
+     * {@inheritDoc}
+     */
+    public ExportSelector<V, E, G> withName( final String graphName )
     {
         return new DefaultNamedExportSelector<V, E, G>( graph, writer, name );
     }

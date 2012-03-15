@@ -36,14 +36,23 @@ public final class DefaultToStreamBuilder<V extends Vertex, E extends Edge, G ex
     implements ToStreamBuilder<V, E, G>
 {
 
+    /** The graph to export. */
     private final G graph;
 
-    public DefaultToStreamBuilder( G graph )
+    /**
+     * Creates a new default {@link ToStreamBuilder} to export a {@link Graph}.
+     *
+     * @param graph the {@link Graph} to export
+     */
+    public DefaultToStreamBuilder( final G graph )
     {
         this.graph = graph;
     }
 
-    public NamedExportSelctor<V, E, G> to( File outputFile )
+    /**
+     * {@inheritDoc}
+     */
+    public NamedExportSelector<V, E, G> to( final File outputFile )
     {
         try
         {
@@ -55,14 +64,20 @@ public final class DefaultToStreamBuilder<V extends Vertex, E extends Edge, G ex
         }
     }
 
-    public NamedExportSelctor<V, E, G> to( OutputStream outputStream )
+    /**
+     * {@inheritDoc}
+     */
+    public NamedExportSelector<V, E, G> to( final OutputStream outputStream )
     {
         return to( new OutputStreamWriter( checkNotNull( outputStream, "Impossibe to export the graph in a null stream" ) ) );
     }
 
-    public NamedExportSelctor<V, E, G> to( Writer writer )
+    /**
+     * {@inheritDoc}
+     */
+    public NamedExportSelector<V, E, G> to( final Writer writer )
     {
-        writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
+        checkNotNull( writer, "Impossibe to export the graph in a null stream" );
         return new DefaultNamedExportSelector<V, E, G>( graph, writer );
     }
 

@@ -23,17 +23,19 @@ import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Vertex;
 
-public interface ExportSelctor<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public interface ExportSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
 {
 
     /**
      * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
+     * @throws GraphExportException in case an error occurred while exporting the graph
      */
     void usingDotNotation()
         throws GraphExportException;
 
     /**
      * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
+     * @throws GraphExportException in case an error occurred while exporting the graph
      */
     void usingGraphMLFormat()
         throws GraphExportException;

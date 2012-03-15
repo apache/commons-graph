@@ -21,13 +21,26 @@ package org.apache.commons.graph.export;
 
 import static java.lang.String.format;
 
+/**
+ * This exception is used to wrap any {@link Exception} that occurs while exporting a
+ * {@link Graph} instance.
+ */
 public final class GraphExportException
     extends Exception
 {
 
+    /** The serial version UID. */
     private static final long serialVersionUID = 1L;
 
-    public GraphExportException( Throwable cause, String messagePattern, Object...messageArguments )
+    /**
+     * Constructs a new graph exception with the specified detail message.
+     *
+     * @param cause the cause
+     * @param messagePattern the error message text pattern
+     * @param messageArguments arguments referenced by the format specifiers in the format string
+     * @see java.lang.String#format(String, Object...)
+     */
+    public GraphExportException( Throwable cause, String messagePattern, Object... messageArguments )
     {
         super( format( messagePattern, messageArguments ), cause );
     }
