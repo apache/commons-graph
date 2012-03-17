@@ -19,9 +19,16 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.*;
+
 import java.io.Writer;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
 
 final class DefaultNamedExportSelector<V, E>
     implements NamedExportSelctor<V, E>
@@ -30,6 +37,10 @@ final class DefaultNamedExportSelector<V, E>
     private final Graph<V, E> graph;
 
     private final Writer writer;
+
+    private final Map<String, Mapper<V, ?>> vertexProperties = new HashMap<String, Mapper<V,?>>();
+
+    private final Map<String, Mapper<E, ?>> edgeProperties = new HashMap<String, Mapper<E,?>>();
 
     private final String name;
 
@@ -48,18 +59,50 @@ final class DefaultNamedExportSelector<V, E>
     public void usingDotNotation()
         throws GraphExportException
     {
-        new DotExporter<V, E>( graph, writer, name ).export();
+        new DotExporter<V, E>( graph, writer, vertexProperties, edgeProperties, name ).export();
     }
 
     public void usingGraphMLFormat()
         throws GraphExportException
     {
-        new GraphMLExporter<V, E>( graph, writer, name ).export();
+        new GraphMLExporter<V, E>( graph, writer, vertexProperties, edgeProperties, name ).export();
     }
 
     public ExportSelctor<V, E> withName( String name )
     {
         return new DefaultNamedExportSelector<V, E>( graph, writer, name );
+    }
+
+    public EdgeMapperSelector<V, E> withEdgeProperty( String name )
+    {
+        final String checkedName = checkNotNull( name, "Null Edge property not admitted" );
+        return new EdgeMapperSelector<V, E>()
+        {
+
+            public ExportSelctor<V, E> expandedBy( Mapper<E, ?> mapper )
+            {
+                mapper = checkNotNull( mapper, "Null Edge mapper for property %s not admitted", checkedName );
+                edgeProperties.put( checkedName, mapper );
+                return DefaultNamedExportSelector.this;
+            }
+
+        };
+    }
+
+    public VertexMapperSelector<V, E> withVertexProperty( String name )
+    {
+        final String checkedName = checkNotNull( name, "Null Vertex property not admitted" );
+        return new VertexMapperSelector<V, E>()
+        {
+
+            public ExportSelctor<V, E> expandedBy( Mapper<V, ?> mapper )
+            {
+                mapper = checkNotNull( mapper, "Null Vertex mapper for property %s not admitted", checkedName );
+                vertexProperties.put( checkedName, mapper );
+                return DefaultNamedExportSelector.this;
+            }
+
+        };
     }
 
 }

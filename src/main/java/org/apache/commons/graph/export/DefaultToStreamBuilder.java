@@ -41,7 +41,7 @@ public final class DefaultToStreamBuilder<V, E>
         this.graph = graph;
     }
 
-    public NamedExportSelctor<V, E> to( File outputFile )
+    public ExportSelctor<V, E> to( File outputFile )
     {
         try
         {
@@ -53,12 +53,13 @@ public final class DefaultToStreamBuilder<V, E>
         }
     }
 
-    public NamedExportSelctor<V, E> to( OutputStream outputStream )
+    public ExportSelctor<V, E> to( OutputStream outputStream )
     {
-        return to( new OutputStreamWriter( checkNotNull( outputStream, "Impossibe to export the graph in a null stream" ) ) );
+        return to( new OutputStreamWriter(
+                                           checkNotNull( outputStream, "Impossibe to export the graph in a null stream" ) ) );
     }
 
-    public NamedExportSelctor<V, E> to( Writer writer )
+    public ExportSelctor<V, E> to( Writer writer )
     {
         writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
         return new DefaultNamedExportSelector<V, E>( graph, writer );

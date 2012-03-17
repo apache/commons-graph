@@ -32,7 +32,7 @@ public interface ToStreamBuilder<V, E>
      * @param outputFile the file where exporting the Graph to
      * @return
      */
-    NamedExportSelctor<V, E> to( File outputFile );
+    ExportSelctor<V, E> to( File outputFile );
 
     /**
      * Export the input Graph to an {@link OutputStream}.
@@ -40,7 +40,7 @@ public interface ToStreamBuilder<V, E>
      * @param outputStream the output stream where exporting the Graph to
      * @return
      */
-    NamedExportSelctor<V, E> to( OutputStream outputStream );
+    ExportSelctor<V, E> to( OutputStream outputStream );
 
     /**
      * Export the input Graph to a {@link Writer}.
@@ -48,6 +48,6 @@ public interface ToStreamBuilder<V, E>
      * @param writer the writer where exporting the Graph to
      * @return
      */
-    NamedExportSelctor<V, E> to( Writer writer );
+    ExportSelctor<V, E> to( Writer writer );
 
 }

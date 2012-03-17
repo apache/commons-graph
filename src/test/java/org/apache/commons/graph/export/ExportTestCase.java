@@ -22,12 +22,14 @@ package org.apache.commons.graph.export;
 import static org.apache.commons.graph.CommonsGraph.export;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ExportTestCase {
@@ -67,7 +69,23 @@ public class ExportTestCase {
     public void shouldPrintDotFormat()
         throws Exception
     {
-        export( actual ).to( System.out ).usingDotNotation();
+        export( actual ).to( System.out )
+                        .withVertexProperty( "label" ).expandedBy( new VertexLabelMapper() )
+                        .withEdgeProperty( "label" ).expandedBy( new EdgeLabelMapper() )
+                        .withEdgeProperty( "weight" ).expandedBy( new EdgeWeightMapper() )
+                        .usingDotNotation();
+    }
+
+    @Test
+    @Ignore
+    public void shouldPrintGraphML()
+        throws Exception
+    {
+        export( actual ).to( System.out )
+                        .withVertexProperty( "label" ).expandedBy( new VertexLabelMapper() )
+                        .withEdgeProperty( "label" ).expandedBy( new EdgeLabelMapper() )
+                        .withEdgeProperty( "weight" ).expandedBy( new EdgeWeightMapper() )
+                        .usingGraphMLFormat();
     }
 
     @Test
