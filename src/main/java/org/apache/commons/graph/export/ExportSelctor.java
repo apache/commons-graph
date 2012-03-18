@@ -1,7 +1,5 @@
 package org.apache.commons.graph.export;
 
-import org.apache.commons.graph.Mapper;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,20 +22,26 @@ import org.apache.commons.graph.Mapper;
 public interface ExportSelctor<V, E>
 {
 
-    VertexMapperSelector<V, E> withVertexProperty( String name );
+    //VertexMapperSelector<V, E> withVertexProperty( String name );
 
-    EdgeMapperSelector<V, E> withEdgeProperty( String name );
+    //EdgeMapperSelector<V, E> withEdgeProperty( String name );
 
     /**
      * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
      */
-    void usingDotNotation()
+    DotExporter<V, E> usingDotNotation()
+        throws GraphExportException;
+    
+    DotExporter<V, E> usingDotNotation( String name )
         throws GraphExportException;
 
     /**
      * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
      */
-    void usingGraphMLFormat()
+    GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException;
+    
+    GraphMLExporter<V, E> usingGraphMLFormat( String name )
+            throws GraphExportException;
 
 }

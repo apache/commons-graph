@@ -22,7 +22,6 @@ package org.apache.commons.graph.export;
 import static org.apache.commons.graph.CommonsGraph.export;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 
-import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
@@ -69,11 +68,13 @@ public class ExportTestCase {
     public void shouldPrintDotFormat()
         throws Exception
     {
-        export( actual ).to( System.out )
-                        .withVertexProperty( "label" ).expandedBy( new VertexLabelMapper() )
-                        .withEdgeProperty( "label" ).expandedBy( new EdgeLabelMapper() )
-                        .withEdgeProperty( "weight" ).expandedBy( new EdgeWeightMapper() )
-                        .usingDotNotation();
+    	
+    	export( actual ).usingDotNotation()
+    	                .withVertexLabels( new VertexLabelMapper() )
+    	                .withEdgeWeights( new EdgeWeightMapper() )
+    	                .withEdgeLabels( new EdgeLabelMapper() )
+    	                .to( System.out );
+
     }
 
     @Test
@@ -81,18 +82,20 @@ public class ExportTestCase {
     public void shouldPrintGraphML()
         throws Exception
     {
-        export( actual ).to( System.out )
-                        .withVertexProperty( "label" ).expandedBy( new VertexLabelMapper() )
-                        .withEdgeProperty( "label" ).expandedBy( new EdgeLabelMapper() )
-                        .withEdgeProperty( "weight" ).expandedBy( new EdgeWeightMapper() )
-                        .usingGraphMLFormat();
+    	
+    	export( actual ).usingGraphMLFormat()
+                        .withVertexLabels( new VertexLabelMapper() )
+                        .withEdgeWeights( new EdgeWeightMapper() )
+                        .withEdgeLabels( new EdgeLabelMapper() )
+                        .to( System.out );
+    	
     }
 
     @Test
     public void shouldPrintGraphMLFormat()
         throws Exception
     {
-        export( actual ).to( System.out ).usingGraphMLFormat();
+        export( actual ).usingGraphMLFormat().to( System.out );
     }
 
 }

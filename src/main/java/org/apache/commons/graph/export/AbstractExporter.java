@@ -21,7 +21,9 @@ package org.apache.commons.graph.export;
 
 import static java.lang.String.format;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,7 +61,41 @@ abstract class AbstractExporter<V, E>
         this.name = name != null ? name : G;
     }
 
-    protected final Graph<V, E> getGraph()
+    public AbstractExporter(Graph<V, E> graph) {
+    	this( graph, null );
+	}
+
+	public AbstractExporter(Graph<V, E> graph, String name) {
+		// TODO Auto-generated constructor stub
+		this.graph = graph;
+		this.writer = null;
+		this.vertexProperties = new HashMap<String, Mapper<V, ?>>();
+		this.edgeProperties = new HashMap<String, Mapper<E, ?>>();
+		this.name = name != null ? name : G;
+	}
+	
+	public abstract <N extends Number> AbstractExporter<V, E> withEdgeWeights(Mapper<E, N> edgeWeights);
+
+	public abstract <N extends Number> AbstractExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights );
+	
+	public abstract AbstractExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels );
+	
+	public abstract AbstractExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels );
+	
+	public void to( File outputFile ) {
+		// TODO
+	}
+	
+	public void to( OutputStream outputStream ) {
+		// TODO
+	}
+
+    public void to( Writer writer ) {
+    	// TODO
+    }
+	
+	
+	protected final Graph<V, E> getGraph()
     {
         return graph;
     }

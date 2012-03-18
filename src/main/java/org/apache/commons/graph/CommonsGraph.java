@@ -35,7 +35,9 @@ import org.apache.commons.graph.coloring.ColorsBuilder;
 import org.apache.commons.graph.coloring.DefaultColorsBuilder;
 import org.apache.commons.graph.connectivity.ConnectivityBuilder;
 import org.apache.commons.graph.connectivity.DefaultConnectivityBuilder;
+import org.apache.commons.graph.export.DefaultNamedExportSelector;
 import org.apache.commons.graph.export.DefaultToStreamBuilder;
+import org.apache.commons.graph.export.ExportSelctor;
 import org.apache.commons.graph.export.ToStreamBuilder;
 import org.apache.commons.graph.flow.DefaultFlowWeightedEdgesBuilder;
 import org.apache.commons.graph.flow.FlowWeightedEdgesBuilder;
@@ -56,10 +58,10 @@ import org.apache.commons.graph.visit.VisitSourceSelector;
 public final class CommonsGraph<V, E, G extends Graph<V, E>>
 {
 
-    public static <V, E, G extends Graph<V, E>> ToStreamBuilder<V, E> export( G graph )
+    public static <V, E, G extends Graph<V, E>> ExportSelctor<V, E> export( G graph )
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultToStreamBuilder<V, E>( graph );
+        return new DefaultNamedExportSelector<V, E>( graph );
     }
 
     public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )

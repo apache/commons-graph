@@ -62,7 +62,7 @@ public final class DefaultToStreamBuilder<V, E>
     public ExportSelctor<V, E> to( Writer writer )
     {
         writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
-        return new DefaultNamedExportSelector<V, E>( graph, writer );
+        return new DefaultNamedExportSelector<V, E>( graph );
     }
 
 }

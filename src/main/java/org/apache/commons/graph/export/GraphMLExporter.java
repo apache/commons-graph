@@ -86,7 +86,15 @@ final class GraphMLExporter<V, E>
         super( graph, writer, vertexProperties, edgeProperties, name );
     }
 
-    @Override
+    public GraphMLExporter(Graph<V, E> graph) {
+    	super( graph );
+	}
+
+	public GraphMLExporter(Graph<V, E> graph, String name) {
+		super( graph, name );
+	}
+
+	@Override
     protected void startSerialization()
         throws Exception
     {
@@ -182,5 +190,32 @@ final class GraphMLExporter<V, E>
         }
         return STRING;
     }
+
+	@Override
+	public <N extends Number> GraphMLExporter<V, E> 
+	    withEdgeWeights(Mapper<E, N> edgeWeights) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <N extends Number> GraphMLExporter<V, E> withVertexWeights(
+			Mapper<V, N> vertexWeights) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GraphMLExporter<V, E> withEdgeLabels(Mapper<E, String> edgeLabels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GraphMLExporter<V, E> withVertexLabels(
+			Mapper<V, String> vertexLabels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

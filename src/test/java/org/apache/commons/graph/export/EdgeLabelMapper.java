@@ -26,7 +26,6 @@ public final class EdgeLabelMapper
     implements Mapper<BaseLabeledWeightedEdge<Double>, String>
 {
 
-    @Override
     public String map( BaseLabeledWeightedEdge<Double> input )
     {
         return input.getLabel();

@@ -19,60 +19,43 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Assertions.*;
-
-import java.io.Writer;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Mapper;
 
-final class DefaultNamedExportSelector<V, E>
-    implements NamedExportSelctor<V, E>
+public final class DefaultNamedExportSelector<V, E>
+    implements ExportSelctor<V, E>
 {
 
     private final Graph<V, E> graph;
+    
+    public DefaultNamedExportSelector(Graph<V, E> graph) {
+    	this.graph = graph;
+	}
 
-    private final Writer writer;
-
-    private final Map<String, Mapper<V, ?>> vertexProperties = new HashMap<String, Mapper<V,?>>();
-
-    private final Map<String, Mapper<E, ?>> edgeProperties = new HashMap<String, Mapper<E,?>>();
-
-    private final String name;
-
-    public DefaultNamedExportSelector( Graph<V, E> graph, Writer writer )
-    {
-        this( graph, writer, null );
-    }
-
-    public DefaultNamedExportSelector( Graph<V, E> graph, Writer writer, String name )
-    {
-        this.graph = graph;
-        this.writer = writer;
-        this.name = name;
-    }
-
-    public void usingDotNotation()
+	public DotExporter<V, E> usingDotNotation()
         throws GraphExportException
     {
-        new DotExporter<V, E>( graph, writer, vertexProperties, edgeProperties, name ).export();
+        return new DotExporter<V, E>( graph );
     }
+	
+	public DotExporter<V, E> usingDotNotation(String name)
+			throws GraphExportException 
+	{
+		return new DotExporter<V, E>( graph, name );
+	}
 
-    public void usingGraphMLFormat()
+    public GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException
     {
-        new GraphMLExporter<V, E>( graph, writer, vertexProperties, edgeProperties, name ).export();
+        return new GraphMLExporter<V, E>( graph );
     }
+    
+	public GraphMLExporter<V, E> usingGraphMLFormat(String name)
+			throws GraphExportException 
+	{
+		return new GraphMLExporter<V, E>( graph, name );
+	}
 
-    public ExportSelctor<V, E> withName( String name )
-    {
-        return new DefaultNamedExportSelector<V, E>( graph, writer, name );
-    }
-
+    /*
     public EdgeMapperSelector<V, E> withEdgeProperty( String name )
     {
         final String checkedName = checkNotNull( name, "Null Edge property not admitted" );
@@ -103,6 +86,7 @@ final class DefaultNamedExportSelector<V, E>
             }
 
         };
-    }
+    }//*/
+
 
 }

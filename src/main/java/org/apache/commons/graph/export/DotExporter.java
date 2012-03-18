@@ -21,7 +21,6 @@ package org.apache.commons.graph.export;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -55,7 +54,15 @@ final class DotExporter<V, E>
         super( graph, writer, vertexProperties, edgeProperties, name );
     }
 
-    private PrintWriter printWriter;
+    public DotExporter(Graph<V, E> graph) {
+    	super( graph );
+	}
+
+	public DotExporter(Graph<V, E> graph, String name) {
+		super( graph, name );
+	}
+
+	private PrintWriter printWriter;
 
     private String connector;
 
@@ -162,5 +169,32 @@ final class DotExporter<V, E>
             printWriter.format( "];%n" );
         }
     }
+
+	@Override
+	public <N extends Number> DotExporter<V, E> 
+	    withEdgeWeights(Mapper<E, N> edgeWeights) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <N extends Number> DotExporter<V, E> withVertexWeights(
+			Mapper<V, N> vertexWeights) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DotExporter<V, E> withEdgeLabels(Mapper<E, String> edgeLabels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DotExporter<V, E> withVertexLabels(
+			Mapper<V, String> vertexLabels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
