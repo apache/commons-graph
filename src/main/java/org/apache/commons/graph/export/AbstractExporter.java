@@ -20,10 +20,14 @@ package org.apache.commons.graph.export;
  */
 
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,25 +45,13 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 
     private final Graph<V, E> graph;
 
-    private final Writer writer;
-
     private final Map<String, Mapper<V, ?>> vertexProperties;
 
     private final Map<String, Mapper<E, ?>> edgeProperties;
 
     private final String name;
 
-    public AbstractExporter( Graph<V, E> graph, Writer writer,
-                             Map<String, Mapper<V, ?>> vertexProperties,
-                             Map<String, Mapper<E, ?>> edgeProperties,
-                             String name )
-    {
-        this.graph = graph;
-        this.writer = writer;
-        this.vertexProperties = vertexProperties;
-        this.edgeProperties = edgeProperties;
-        this.name = name != null ? name : G;
-    }
+    private Writer writer;
 
     public AbstractExporter( Graph<V, E> graph )
     {
@@ -83,34 +75,30 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 
     public abstract T withVertexLabels( Mapper<V, String> vertexLabels );
 
-    public void to( File outputFile )
-    {
-        // TODO
-    }
-
-    public void to( OutputStream outputStream )
-    {
-        // TODO
-    }
-
-    public void to( Writer writer )
-    {
-        // TODO
-    }
-
-    protected final Graph<V, E> getGraph()
-    {
-        return graph;
-    }
-
-    protected final Writer getWriter()
-    {
-        return writer;
-    }
-
-    public final void export()
+    public final void to( File outputFile )
         throws GraphExportException
     {
+        try
+        {
+            to( new FileOutputStream( checkNotNull( outputFile, "Impossibe to export the graph in a null file" ) ) );
+        }
+        catch ( FileNotFoundException e )
+        {
+            throw new RuntimeException( e );
+        }
+    }
+
+    public final void to( OutputStream outputStream )
+        throws GraphExportException
+    {
+        to( new OutputStreamWriter( checkNotNull( outputStream, "Impossibe to export the graph in a null stream" ) ) );
+    }
+
+    public final void to( Writer writer )
+        throws GraphExportException
+    {
+        this.writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
+
         try
         {
             startSerialization();
@@ -174,6 +162,16 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
                 // swallow it
             }
         }
+    }
+
+    protected final Graph<V, E> getGraph()
+    {
+        return graph;
+    }
+
+    protected final Writer getWriter()
+    {
+        return writer;
     }
 
     protected abstract void startSerialization()

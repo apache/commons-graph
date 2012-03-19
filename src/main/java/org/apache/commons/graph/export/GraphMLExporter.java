@@ -19,8 +19,6 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import java.io.Writer;
-import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.graph.Graph;
@@ -77,14 +75,6 @@ final class GraphMLExporter<V, E>
     private static final String INT = "int";
 
     private static final String WEIGHT = "weight";
-
-    public GraphMLExporter( Graph<V, E> graph, Writer writer,
-                            Map<String, Mapper<V, ?>> vertexProperties,
-                            Map<String, Mapper<E, ?>> edgeProperties,
-                            String name )
-    {
-        super( graph, writer, vertexProperties, edgeProperties, name );
-    }
 
     public GraphMLExporter(Graph<V, E> graph) {
     	super( graph );

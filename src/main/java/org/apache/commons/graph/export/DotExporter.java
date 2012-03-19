@@ -20,7 +20,6 @@ package org.apache.commons.graph.export;
  */
 
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -45,14 +44,6 @@ final class DotExporter<V, E>
     private static final String CONNECTOR = "--";
 
     private static final String DICONNECTOR = "->";
-
-    public DotExporter( Graph<V, E> graph, Writer writer,
-                        Map<String, Mapper<V, ?>> vertexProperties,
-                        Map<String, Mapper<E, ?>> edgeProperties,
-                        String name )
-    {
-        super( graph, writer, vertexProperties, edgeProperties, name );
-    }
 
     public DotExporter(Graph<V, E> graph) {
     	super( graph );
