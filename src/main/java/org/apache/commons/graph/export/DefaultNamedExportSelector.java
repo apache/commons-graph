@@ -26,7 +26,7 @@ public final class DefaultNamedExportSelector<V, E>
 {
 
     private final Graph<V, E> graph;
-    
+
     public DefaultNamedExportSelector(Graph<V, E> graph) {
     	this.graph = graph;
 	}
@@ -34,11 +34,11 @@ public final class DefaultNamedExportSelector<V, E>
 	public DotExporter<V, E> usingDotNotation()
         throws GraphExportException
     {
-        return new DotExporter<V, E>( graph );
+        return new DotExporter<V, E>( graph, null );
     }
-	
+
 	public DotExporter<V, E> usingDotNotation(String name)
-			throws GraphExportException 
+			throws GraphExportException
 	{
 		return new DotExporter<V, E>( graph, name );
 	}
@@ -46,11 +46,11 @@ public final class DefaultNamedExportSelector<V, E>
     public GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException
     {
-        return new GraphMLExporter<V, E>( graph );
+        return new GraphMLExporter<V, E>( graph, null );
     }
-    
+
 	public GraphMLExporter<V, E> usingGraphMLFormat(String name)
-			throws GraphExportException 
+			throws GraphExportException
 	{
 		return new GraphMLExporter<V, E>( graph, name );
 	}

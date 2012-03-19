@@ -45,12 +45,7 @@ final class DotExporter<V, E>
 
     private static final String DICONNECTOR = "->";
 
-    public DotExporter( Graph<V, E> graph )
-    {
-        super( graph );
-    }
-
-    public DotExporter( Graph<V, E> graph, String name )
+    DotExporter( Graph<V, E> graph, String name )
     {
         super( graph, name );
     }
