@@ -52,38 +52,4 @@ public final class DefaultNamedExportSelector<V, E>
         return new GraphMLExporter<V, E>( graph, name );
     }
 
-    /*
-    public EdgeMapperSelector<V, E> withEdgeProperty( String name )
-    {
-        final String checkedName = checkNotNull( name, "Null Edge property not admitted" );
-        return new EdgeMapperSelector<V, E>()
-        {
-
-            public ExportSelctor<V, E> expandedBy( Mapper<E, ?> mapper )
-            {
-                mapper = checkNotNull( mapper, "Null Edge mapper for property %s not admitted", checkedName );
-                edgeProperties.put( checkedName, mapper );
-                return DefaultNamedExportSelector.this;
-            }
-
-        };
-    }
-
-    public VertexMapperSelector<V, E> withVertexProperty( String name )
-    {
-        final String checkedName = checkNotNull( name, "Null Vertex property not admitted" );
-        return new VertexMapperSelector<V, E>()
-        {
-
-            public ExportSelctor<V, E> expandedBy( Mapper<V, ?> mapper )
-            {
-                mapper = checkNotNull( mapper, "Null Vertex mapper for property %s not admitted", checkedName );
-                vertexProperties.put( checkedName, mapper );
-                return DefaultNamedExportSelector.this;
-            }
-
-        };
-    }//*/
-
-
 }
