@@ -27,21 +27,22 @@ public final class DefaultNamedExportSelector<V, E>
 
     private final Graph<V, E> graph;
 
-    public DefaultNamedExportSelector(Graph<V, E> graph) {
-    	this.graph = graph;
-	}
+    public DefaultNamedExportSelector( Graph<V, E> graph )
+    {
+        this.graph = graph;
+    }
 
-	public DotExporter<V, E> usingDotNotation()
+    public DotExporter<V, E> usingDotNotation()
         throws GraphExportException
     {
         return new DotExporter<V, E>( graph, null );
     }
 
-	public DotExporter<V, E> usingDotNotation(String name)
-			throws GraphExportException
-	{
-		return new DotExporter<V, E>( graph, name );
-	}
+    public DotExporter<V, E> usingDotNotation( String name )
+        throws GraphExportException
+    {
+        return new DotExporter<V, E>( graph, name );
+    }
 
     public GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException
@@ -49,11 +50,11 @@ public final class DefaultNamedExportSelector<V, E>
         return new GraphMLExporter<V, E>( graph, null );
     }
 
-	public GraphMLExporter<V, E> usingGraphMLFormat(String name)
-			throws GraphExportException
-	{
-		return new GraphMLExporter<V, E>( graph, name );
-	}
+    public GraphMLExporter<V, E> usingGraphMLFormat( String name )
+        throws GraphExportException
+    {
+        return new GraphMLExporter<V, E>( graph, name );
+    }
 
     /*
     public EdgeMapperSelector<V, E> withEdgeProperty( String name )
