@@ -35,7 +35,7 @@ import org.apache.commons.graph.Mapper;
  * @param <E>
  */
 final class DotExporter<V, E>
-    extends AbstractExporter<V, E>
+    extends AbstractExporter<V, E, DotExporter<V, E>>
 {
 
     private static final String GRAPH = "graph";
@@ -171,7 +171,7 @@ final class DotExporter<V, E>
     }
 
 	@Override
-	public <N extends Number> DotExporter<V, E> 
+	public <N extends Number> DotExporter<V, E>
 	    withEdgeWeights(Mapper<E, N> edgeWeights) {
 		// TODO Auto-generated method stub
 		return null;

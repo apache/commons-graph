@@ -27,7 +27,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
 
 final class GraphMLExporter<V, E>
-    extends AbstractExporter<V, E>
+    extends AbstractExporter<V, E, GraphMLExporter<V, E>>
 {
 
     private static final String GRAPHML = "graphml";
@@ -192,7 +192,7 @@ final class GraphMLExporter<V, E>
     }
 
 	@Override
-	public <N extends Number> GraphMLExporter<V, E> 
+	public <N extends Number> GraphMLExporter<V, E>
 	    withEdgeWeights(Mapper<E, N> edgeWeights) {
 		// TODO Auto-generated method stub
 		return null;

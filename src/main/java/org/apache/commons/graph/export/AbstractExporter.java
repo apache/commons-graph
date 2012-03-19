@@ -34,7 +34,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.VertexPair;
 
-abstract class AbstractExporter<V, E>
+abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 {
 
     private static final String G = "G";
@@ -61,41 +61,44 @@ abstract class AbstractExporter<V, E>
         this.name = name != null ? name : G;
     }
 
-    public AbstractExporter(Graph<V, E> graph) {
-    	this( graph, null );
-	}
-
-	public AbstractExporter(Graph<V, E> graph, String name) {
-		// TODO Auto-generated constructor stub
-		this.graph = graph;
-		this.writer = null;
-		this.vertexProperties = new HashMap<String, Mapper<V, ?>>();
-		this.edgeProperties = new HashMap<String, Mapper<E, ?>>();
-		this.name = name != null ? name : G;
-	}
-	
-	public abstract <N extends Number> AbstractExporter<V, E> withEdgeWeights(Mapper<E, N> edgeWeights);
-
-	public abstract <N extends Number> AbstractExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights );
-	
-	public abstract AbstractExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels );
-	
-	public abstract AbstractExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels );
-	
-	public void to( File outputFile ) {
-		// TODO
-	}
-	
-	public void to( OutputStream outputStream ) {
-		// TODO
-	}
-
-    public void to( Writer writer ) {
-    	// TODO
+    public AbstractExporter( Graph<V, E> graph )
+    {
+        this( graph, null );
     }
-	
-	
-	protected final Graph<V, E> getGraph()
+
+    public AbstractExporter( Graph<V, E> graph, String name )
+    {
+        this.graph = graph;
+        this.writer = null;
+        this.vertexProperties = new HashMap<String, Mapper<V, ?>>();
+        this.edgeProperties = new HashMap<String, Mapper<E, ?>>();
+        this.name = name != null ? name : G;
+    }
+
+    public abstract <N extends Number> T withEdgeWeights( Mapper<E, N> edgeWeights );
+
+    public abstract <N extends Number> T withVertexWeights( Mapper<V, N> vertexWeights );
+
+    public abstract T withEdgeLabels( Mapper<E, String> edgeLabels );
+
+    public abstract T withVertexLabels( Mapper<V, String> vertexLabels );
+
+    public void to( File outputFile )
+    {
+        // TODO
+    }
+
+    public void to( OutputStream outputStream )
+    {
+        // TODO
+    }
+
+    public void to( Writer writer )
+    {
+        // TODO
+    }
+
+    protected final Graph<V, E> getGraph()
     {
         return graph;
     }
@@ -117,7 +120,7 @@ abstract class AbstractExporter<V, E>
 
             // this is basically for the GraphML
 
-            
+
 
             // END
 
