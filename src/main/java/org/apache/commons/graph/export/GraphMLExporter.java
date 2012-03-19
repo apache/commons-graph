@@ -76,15 +76,17 @@ final class GraphMLExporter<V, E>
 
     private static final String WEIGHT = "weight";
 
-    public GraphMLExporter(Graph<V, E> graph) {
-    	super( graph );
-	}
+    public GraphMLExporter( Graph<V, E> graph )
+    {
+        super( graph );
+    }
 
-	public GraphMLExporter(Graph<V, E> graph, String name) {
-		super( graph, name );
-	}
+    public GraphMLExporter( Graph<V, E> graph, String name )
+    {
+        super( graph, name );
+    }
 
-	@Override
+    @Override
     protected void startSerialization()
         throws Exception
     {
