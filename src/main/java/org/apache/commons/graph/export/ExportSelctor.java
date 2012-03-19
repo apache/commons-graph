@@ -22,16 +22,12 @@ package org.apache.commons.graph.export;
 public interface ExportSelctor<V, E>
 {
 
-    //VertexMapperSelector<V, E> withVertexProperty( String name );
-
-    //EdgeMapperSelector<V, E> withEdgeProperty( String name );
-
     /**
      * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
      */
     DotExporter<V, E> usingDotNotation()
         throws GraphExportException;
-    
+
     DotExporter<V, E> usingDotNotation( String name )
         throws GraphExportException;
 
@@ -40,7 +36,7 @@ public interface ExportSelctor<V, E>
      */
     GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException;
-    
+
     GraphMLExporter<V, E> usingGraphMLFormat( String name )
             throws GraphExportException;
 
