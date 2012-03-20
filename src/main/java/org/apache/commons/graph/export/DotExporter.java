@@ -168,8 +168,8 @@ final class DotExporter<V, E>
 
             for ( Entry<String, Object> property : properties.entrySet() )
             {
-            	String formattedString = countAddedProperties == properties.size() - 1 ? "\"%s\"=%s" : 
-            		                                                                     "\"%s\"=%s ";
+            	String formattedString = countAddedProperties == properties.size() - 1 ? "%s=\"%s\"" : 
+            		                                                                     "%s=\"%s\" ";
                 printWriter.format( formattedString, property.getKey(), property.getValue() );
                 countAddedProperties++;
             }
