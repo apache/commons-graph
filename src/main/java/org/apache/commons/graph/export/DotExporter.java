@@ -158,31 +158,32 @@ final class DotExporter<V, E>
         }
     }
 
-	@Override
-	public <N extends Number> DotExporter<V, E>
-	    withEdgeWeights(Mapper<E, N> edgeWeights) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <N extends Number> DotExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
+    {
+        // TODO Auto-generated method stub
+        return this;
+    }
 
-	@Override
-	public <N extends Number> DotExporter<V, E> withVertexWeights(
-			Mapper<V, N> vertexWeights) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <N extends Number> DotExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
+    {
+        // TODO Auto-generated method stub
+        return this;
+    }
 
-	@Override
-	public DotExporter<V, E> withEdgeLabels(Mapper<E, String> edgeLabels) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public DotExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
+    {
+        // TODO Auto-generated method stub
+        return this;
+    }
 
-	@Override
-	public DotExporter<V, E> withVertexLabels(
-			Mapper<V, String> vertexLabels) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public DotExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
+    {
+        // TODO Auto-generated method stub
+        return this;
+    }
 
 }
