@@ -53,11 +53,6 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 
     private Writer writer;
 
-    public AbstractExporter( Graph<V, E> graph )
-    {
-        this( graph, null );
-    }
-
     public AbstractExporter( Graph<V, E> graph, String name )
     {
         this.graph = graph;
