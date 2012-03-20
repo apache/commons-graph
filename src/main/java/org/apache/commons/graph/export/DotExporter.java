@@ -20,6 +20,7 @@ package org.apache.commons.graph.export;
  */
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -48,13 +49,29 @@ final class DotExporter<V, E>
     private static final String WEIGHT = "weight";
     
     private static final String LABEL = "label";
+    
+    private final Map<V, Integer> vertexIdentifiers;
 
     DotExporter( Graph<V, E> graph, String name )
     {
         super( graph, name );
+        this.vertexIdentifiers = generateVertexIdentifiers( graph );
     }
 
-    private PrintWriter printWriter;
+    private Map<V, Integer> generateVertexIdentifiers(Graph<V, E> graph) 
+    {
+    	Map<V, Integer> vertexIdentifiers = new HashMap<V, Integer>();
+    	int count = 1;
+    	
+    	for(V vertex : graph.getVertices()) 
+    	{
+    		vertexIdentifiers.put( vertex, count++ );
+    	}
+    	
+		return vertexIdentifiers;
+	}
+
+	private PrintWriter printWriter;
 
     private String connector;
 
@@ -125,7 +142,7 @@ final class DotExporter<V, E>
     protected void vertex( V vertex, Map<String, Object> properties )
         throws Exception
     {
-        printWriter.format( "  %s", vertex.hashCode() );
+        printWriter.format( "  %s", vertexIdentifiers.get( vertex ) );
 
         printVertexOrEdgeProperties( properties );
     }
@@ -135,9 +152,9 @@ final class DotExporter<V, E>
         throws Exception
     {
         printWriter.format( "  %s %s %s",
-                            head.hashCode(),
+        		            vertexIdentifiers.get( head ),
                             connector,
-                            tail.hashCode() );
+                            vertexIdentifiers.get( tail ) );
 
         printVertexOrEdgeProperties( properties );
     }
