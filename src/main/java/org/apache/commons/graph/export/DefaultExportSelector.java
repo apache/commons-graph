@@ -21,13 +21,13 @@ package org.apache.commons.graph.export;
 
 import org.apache.commons.graph.Graph;
 
-public final class DefaultNamedExportSelector<V, E>
-    implements ExportSelctor<V, E>
+public final class DefaultExportSelector<V, E>
+    implements ExportSelector<V, E>
 {
 
     private final Graph<V, E> graph;
 
-    public DefaultNamedExportSelector( Graph<V, E> graph )
+    public DefaultExportSelector( Graph<V, E> graph )
     {
         this.graph = graph;
     }
