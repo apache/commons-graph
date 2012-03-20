@@ -62,14 +62,6 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
         this.name = name != null ? name : G;
     }
 
-    public abstract <N extends Number> T withEdgeWeights( Mapper<E, N> edgeWeights );
-
-    public abstract <N extends Number> T withVertexWeights( Mapper<V, N> vertexWeights );
-
-    public abstract T withEdgeLabels( Mapper<E, String> edgeLabels );
-
-    public abstract T withVertexLabels( Mapper<V, String> vertexLabels );
-
     public final void to( File outputFile )
         throws GraphExportException
     {
@@ -167,6 +159,16 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
     protected final Writer getWriter()
     {
         return writer;
+    }
+    
+    protected void addVertexProperty(String propertyName, Mapper<V, ?> vertexProperty) 
+    {
+    	this.vertexProperties.put(propertyName, vertexProperty);
+    }
+    
+    protected void addEdgeProperty(String propertyName, Mapper<E, ?> edgeProperty)
+    {
+    	this.edgeProperties.put(propertyName, edgeProperty);
     }
 
     protected abstract void startSerialization()

@@ -178,28 +178,24 @@ final class GraphMLExporter<V, E>
         return STRING;
     }
 
-    @Override
     public <N extends Number> GraphMLExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
     {
         // TODO Auto-generated method stub
         return this;
     }
 
-    @Override
     public <N extends Number> GraphMLExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
     {
         // TODO Auto-generated method stub
         return this;
     }
 
-    @Override
     public GraphMLExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
     {
         // TODO Auto-generated method stub
         return this;
     }
 
-    @Override
     public GraphMLExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
     {
         // TODO Auto-generated method stub
