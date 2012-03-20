@@ -127,17 +127,7 @@ final class DotExporter<V, E>
     {
         printWriter.format( "  %s", vertex.hashCode() );
 
-        if ( !properties.isEmpty() )
-        {
-            printWriter.write( '[' );
-
-            for ( Entry<String, Object> property : properties.entrySet() )
-            {
-                printWriter.format( "\"%s\"=%s", property.getKey(), property.getValue() );
-            }
-
-            printWriter.format( "];%n" );
-        }
+        printVertexOrEdgeProperties( properties );
     }
 
     @Override
@@ -149,13 +139,22 @@ final class DotExporter<V, E>
                             connector,
                             tail.hashCode() );
 
+        printVertexOrEdgeProperties( properties );
+    }
+    
+    private void printVertexOrEdgeProperties( Map<String, Object> properties )
+    {
         if ( !properties.isEmpty() )
         {
-            printWriter.write( '[' );
+        	int countAddedProperties = 0;
+            printWriter.write( " [" );
 
             for ( Entry<String, Object> property : properties.entrySet() )
             {
-                printWriter.format( "\"%s\"=%s", property.getKey(), property.getValue() );
+            	String formattedString = countAddedProperties == properties.size() - 1 ? "\"%s\"=%s" : 
+            		                                                                     "\"%s\"=%s ";
+                printWriter.format( formattedString, property.getKey(), property.getValue() );
+                countAddedProperties++;
             }
 
             printWriter.format( "];%n" );
