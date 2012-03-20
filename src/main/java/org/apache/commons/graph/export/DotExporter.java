@@ -44,6 +44,10 @@ final class DotExporter<V, E>
     private static final String CONNECTOR = "--";
 
     private static final String DICONNECTOR = "->";
+    
+    private static final String WEIGHT = "weight";
+    
+    private static final String LABEL = "label";
 
     DotExporter( Graph<V, E> graph, String name )
     {
@@ -160,19 +164,19 @@ final class DotExporter<V, E>
 
     public <N extends Number> DotExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
     {
-        // TODO Auto-generated method stub
+    	super.addEdgeProperty(WEIGHT, edgeWeights);
         return this;
     }
 
     public DotExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
     {
-        // TODO Auto-generated method stub
+    	super.addEdgeProperty(LABEL, edgeLabels);
         return this;
     }
 
     public DotExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
     {
-        // TODO Auto-generated method stub
+        super.addVertexProperty(LABEL, vertexLabels);
         return this;
     }
 
