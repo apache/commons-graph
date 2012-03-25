@@ -97,7 +97,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
 
         Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE>( graph, sortedEdge, visitedEdge );
 
-        for ( int i = 0; i < sortedEdge.size(); i++ ) 
+        while ( !sortedEdge.isEmpty() )
         {
             WE we = sortedEdge.poll();
 
