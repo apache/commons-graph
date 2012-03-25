@@ -22,7 +22,7 @@ package org.apache.commons.graph.elo;
 /**
  * A category is used for classification of players.
  */
-public interface Category<W>
+public interface Category
 {
 
     /**
@@ -30,13 +30,13 @@ public interface Category<W>
      *
      * @return the category minimum points.
      */
-    W getMinimum();
+    Double getMinimum();
 
     /**
      * Returns the category maximum points.
      *
      * @return the category maximum points.
      */
-    W getMaximum();
+    Double getMaximum();
 
 }
