@@ -19,12 +19,10 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
-public interface NamedExportSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
-    extends ExportSelector<V, E, G>
+public interface NamedExportSelector<V, E>
+    extends ExportSelector<V, E>
 {
 
     /**
@@ -33,6 +31,6 @@ public interface NamedExportSelector<V extends Vertex, E extends Edge, G extends
      * @param name the name to identify the {@link Graph}
      * @return the graph export format selector
      */
-    ExportSelector<V, E, G> withName( String name );
+    ExportSelector<V, E> withName( String name );
 
 }
