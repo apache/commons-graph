@@ -28,6 +28,7 @@ import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.shortestpath.PredecessorsList;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
+import org.apache.commons.graph.visit.VisitState;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
@@ -140,38 +141,38 @@ class FlowNetworkHandler<V, E, W>
      * {@inheritDoc}
      */
     @Override
-    public boolean discoverEdge( V head, E edge, V tail )
+    public VisitState discoverEdge( V head, E edge, V tail )
     {
         W residualEdgeCapacity = residualEdgeCapacities.get( edge );
         // avoid expanding the edge when it has no residual capacity
         if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
         {
-            return false;
+            return VisitState.SKIP;
         }
         predecessors.addPredecessor( tail, head );
-        return true;
+        return VisitState.CONTINUE;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean discoverVertex( V vertex )
+    public VisitState discoverVertex( V vertex )
     {
-        return !vertex.equals( target );
+        return !vertex.equals( target ) ? VisitState.CONTINUE : VisitState.SKIP;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean finishVertex( V vertex )
+    public VisitState finishVertex( V vertex )
     {
         if ( vertex.equals( target ) )
         {
             // search ends when target vertex is reached
             foundAugmentingPath = true;
-            return true;
+            return VisitState.ABORT;
         }
-        return false;
+        return VisitState.CONTINUE;
     }
 
     @Override

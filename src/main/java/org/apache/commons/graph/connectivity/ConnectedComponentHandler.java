@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
+import org.apache.commons.graph.visit.VisitState;
 
 final class ConnectedComponentHandler<V, E>
     extends BaseGraphVisitHandler<V, E, Graph<V, E>, List<V>>
@@ -42,11 +43,11 @@ final class ConnectedComponentHandler<V, E>
      * {@inheritDoc}
      */
     @Override
-    public boolean finishVertex( V vertex )
+    public VisitState finishVertex( V vertex )
     {
         untouchedVertices.remove( vertex );
         touchedVertices.add( vertex );
-        return false;
+        return VisitState.CONTINUE;
     }
 
     /**

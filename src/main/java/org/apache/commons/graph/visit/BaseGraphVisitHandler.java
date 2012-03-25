@@ -42,37 +42,37 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * {@inheritDoc}
      */
-    public boolean discoverVertex( V vertex )
+    public VisitState discoverVertex( V vertex )
     {
         // do nothing
-        return true;
+        return VisitState.CONTINUE;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean discoverEdge( V head, E edge, V tail )
+    public VisitState discoverEdge( V head, E edge, V tail )
     {
         // do nothing
-        return true;
+        return VisitState.CONTINUE;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean finishEdge( V head, E edge, V tail )
+    public VisitState finishEdge( V head, E edge, V tail )
     {
         // do nothing
-        return false;
+        return VisitState.CONTINUE;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean finishVertex( V vertex )
+    public VisitState finishVertex( V vertex )
     {
         // do nothing
-        return false;
+        return VisitState.CONTINUE;
     }
 
     /**

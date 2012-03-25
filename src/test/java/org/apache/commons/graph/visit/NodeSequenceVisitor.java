@@ -38,10 +38,10 @@ public final class NodeSequenceVisitor
      * {@inheritDoc}
      */
     @Override
-    public boolean discoverVertex( BaseLabeledVertex vertex )
+    public VisitState discoverVertex( BaseLabeledVertex vertex )
     {
         vertices.add( vertex );
-        return true;
+        return VisitState.CONTINUE;
     }
 
     /**

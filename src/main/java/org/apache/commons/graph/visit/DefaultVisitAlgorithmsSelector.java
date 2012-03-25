@@ -141,12 +141,12 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 }
                 else
                 {
-                    if ( !handler.discoverEdge( prevHead, e, v ) )
+                    if ( handler.discoverEdge( prevHead, e, v ) == VisitState.SKIP )
                     {
                         skipVertex = true;
                     }
 
-                    if ( handler.finishEdge( prevHead, e, v ) )
+                    if ( handler.finishEdge( prevHead, e, v ) == VisitState.ABORT )
                     {
                         skipVertex = true;
                         visitingGraph = false;
@@ -161,7 +161,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 visitedVertices.add( v );
             }
 
-            if ( !skipVertex && handler.discoverVertex( v ) )
+            if ( !skipVertex && handler.discoverVertex( v ) == VisitState.CONTINUE )
             {
                 Iterator<V> connected = ( graph instanceof DirectedGraph ) ?
                         ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator() :
@@ -177,7 +177,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 }
             }
 
-            if ( !skipVertex && handler.finishVertex( v ) )
+            if ( !skipVertex && handler.finishVertex( v ) == VisitState.ABORT )
             {
                 visitingGraph = false;
             }

@@ -36,30 +36,30 @@ public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * Performs operations on the input {@link Vertex} and checks if it should be expanded
      * in the search algorithm.
-     * @return true if the input {@link Vertex} should be expanded, false otherwise
+     * @return {@link VisitState.CONTINUE} if the input {@link Vertex} should be expanded, {@link VisitState.SKIP} otherwise
      */
-    boolean discoverVertex( V vertex );
+    VisitState discoverVertex( V vertex );
 
     /**
      * Performs operations on the input {@link Edge} and checks if it should be expanded
      * in the search algorithm.
-     * @return true if the input {@link Edge} should be expanded, false otherwise
+     * @return {@link VisitState.CONTINUE} if the input {@link Edge} should be expanded, {@link VisitState.SKIP} otherwise
      */
-    boolean discoverEdge( V head, E edge, V tail );
+    VisitState discoverEdge( V head, E edge, V tail );
 
     /**
      * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
      * visiting the input {@link Edge}.
-     * @return true if the search algorithm should be terminated after visiting the input {@link Edge}, false otherwise
+     * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input {@link Edge}, {@link VisitState.CONTINUE} otherwise
      */
-    boolean finishEdge( V head, E edge, V tail );
+    VisitState finishEdge( V head, E edge, V tail );
 
     /**
      * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
      * visiting the input {@link Vertex}.
-     * @return true if the search algorithm should be terminated after visiting the input {@link Vertex}, false otherwise
+     * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input {@link Vertex}, {@link VisitState.CONTINUE} otherwise
      */
-    boolean finishVertex( V vertex );
+    VisitState finishVertex( V vertex );
 
     /**
      * Called upon termination of the search algorithm.
