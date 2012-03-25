@@ -19,13 +19,17 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import org.apache.commons.graph.Graph;
 
 public final class DefaultExportSelector<V, E>
-    implements ExportSelector<V, E>
+    implements NamedExportSelector<V, E>
 {
 
     private final Graph<V, E> graph;
+
+    private String name = null;
 
     public DefaultExportSelector( Graph<V, E> graph )
     {
@@ -34,22 +38,18 @@ public final class DefaultExportSelector<V, E>
 
     public DotExporter<V, E> usingDotNotation()
     {
-        return new DotExporter<V, E>( graph, null );
-    }
-
-    public DotExporter<V, E> usingDotNotation( String name )
-    {
         return new DotExporter<V, E>( graph, name );
     }
 
     public GraphMLExporter<V, E> usingGraphMLFormat()
     {
-        return new GraphMLExporter<V, E>( graph, null );
+        return new GraphMLExporter<V, E>( graph, name );
     }
 
-    public GraphMLExporter<V, E> usingGraphMLFormat( String name )
+    public ExportSelector<V, E> withName( String name )
     {
-        return new GraphMLExporter<V, E>( graph, name );
+        this.name = checkNotNull( name, "Graph name cannot be null." );
+        return this;
     }
 
 }

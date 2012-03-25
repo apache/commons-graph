@@ -68,7 +68,8 @@ public class ExportTestCase {
     public void shouldPrintDotFormat()
         throws Exception
     {
-        export( actual ).usingDotNotation()
+        export( actual ).withName( "DotFormatGraph" )
+                        .usingDotNotation()
                         .withVertexLabels( new VertexLabelMapper() )
                         .withEdgeWeights( new EdgeWeightMapper() )
                         .withEdgeLabels( new EdgeLabelMapper() )
@@ -80,7 +81,8 @@ public class ExportTestCase {
     public void shouldPrintGraphML()
         throws Exception
     {
-        export( actual ).usingGraphMLFormat()
+        export( actual ).withName( "GraphMLGraph" )
+                        .usingGraphMLFormat()
                         .withVertexLabels( new VertexLabelMapper() )
                         .withEdgeWeights( new EdgeWeightMapper() )
                         .withEdgeLabels( new EdgeLabelMapper() )

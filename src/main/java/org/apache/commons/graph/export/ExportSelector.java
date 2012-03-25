@@ -28,16 +28,10 @@ public interface ExportSelector<V, E>
     DotExporter<V, E> usingDotNotation()
         throws GraphExportException;
 
-    DotExporter<V, E> usingDotNotation( String name )
-        throws GraphExportException;
-
     /**
      * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
      */
     GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException;
-
-    GraphMLExporter<V, E> usingGraphMLFormat( String name )
-            throws GraphExportException;
 
 }
