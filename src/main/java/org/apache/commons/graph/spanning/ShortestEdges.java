@@ -23,15 +23,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * The predecessor list is a list of {@link Vertex} of a {@link org.apache.commons.graph.Graph}.
@@ -41,23 +39,26 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <E> the Graph edges type
  * @param <W> the weight type
  */
-final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W, WO extends Monoid<W> & Comparator<W>>
+final class ShortestEdges<V, WE, W>
     implements Comparator<V>
 {
 
     private final Map<V, WE> predecessors = new HashMap<V, WE>();
 
-    private final WO weightOperations;
-    
+    private final OrderedMonoid<W> weightOperations;
+
+    private final Mapper<WE, W> weightedEdges;
+
     private final Graph<V, WE> graph;
 
     private final V source;
 
-    public ShortestEdges(Graph<V, WE> graph, V source, WO weightOperations )
+    public ShortestEdges( Graph<V, WE> graph, V source, OrderedMonoid<W> weightOperations, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.source = source;
         this.weightOperations = weightOperations;
+        this.weightedEdges = weightedEdges;
     }
 
     /**
@@ -78,7 +79,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W, WO ex
      */
     public SpanningTree<V, WE, W> createSpanningTree()
     {
-        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations );
+        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
         for ( WE edge : this.predecessors.values() )
         {
@@ -96,8 +97,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W, WO ex
         return spanningTree;
     }
 
-    private static <V extends Vertex, WE extends WeightedEdge<W>, W> void addEdgeIgnoringExceptions( V vertex,
-                                                                                                       MutableSpanningTree<V, WE, W> spanningTree )
+    private static <V, WE, W> void addEdgeIgnoringExceptions( V vertex, MutableSpanningTree<V, WE, W> spanningTree )
     {
         try
         {
@@ -121,7 +121,7 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W, WO ex
 
     /**
      * Returns the distance related to input vertex, or null if it does not exist.
-     * 
+     *
      * <b>NOTE</b>: the method {@link hasWeight} should be used first to check if
      * the input vertex has an assiged weight.
      *
@@ -142,9 +142,9 @@ final class ShortestEdges<V extends Vertex, WE extends WeightedEdge<W>, W, WO ex
             return null;
         }
 
-        return edge.getWeight();
+        return weightedEdges.map( edge );
     }
-    
+
     /**
      * Checks if there is a weight related to the input {@code Vertex}.
      *

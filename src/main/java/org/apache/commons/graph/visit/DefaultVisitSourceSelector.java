@@ -22,9 +22,7 @@ package org.apache.commons.graph.visit;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * {@link VisitSourceSelector} implementation.
@@ -33,7 +31,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public final class DefaultVisitSourceSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public final class DefaultVisitSourceSelector<V, E, G extends Graph<V, E>>
     implements VisitSourceSelector<V, E, G>
 {
 
@@ -47,7 +45,7 @@ public final class DefaultVisitSourceSelector<V extends Vertex, E extends Edge, 
     /**
      * {@inheritDoc}
      */
-    public VisitAlgorithmsSelector<V, E, G> from( V source )
+    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
     {
         source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
         checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );

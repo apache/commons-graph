@@ -27,9 +27,7 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 
 /**
@@ -39,7 +37,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-final class DefaultVisitAlgorithmsSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     implements VisitAlgorithmsSelector<V, E, G>
 {
 

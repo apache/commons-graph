@@ -1,4 +1,4 @@
-package org.apache.commons.graph.export;
+package org.apache.commons.graph.spanning;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,20 +19,26 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-public interface NamedExportSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
-    extends ExportSelector<V, E, G>
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
+
+public final class DefaultSpanningWeightedEdgeMapperBuilder<V, WE>
+    implements SpanningWeightedEdgeMapperBuilder<V, WE>
 {
 
-    /**
-     * Use the given name when exporting the {@link Graph} to a resource.
-     *
-     * @param name the name to identify the {@link Graph}
-     * @return the graph export format selector
-     */
-    ExportSelector<V, E, G> withName( String name );
+    private final Graph<V, WE> graph;
+
+    public DefaultSpanningWeightedEdgeMapperBuilder( Graph<V, WE> graph )
+    {
+        this.graph = graph;
+    }
+
+    public <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges )
+    {
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultSpanningTreeSourceSelector<V, W, WE>( graph, weightedEdges );
+    }
 
 }

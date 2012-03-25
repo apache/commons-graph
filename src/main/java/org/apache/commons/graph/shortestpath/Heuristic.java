@@ -1,6 +1,5 @@
 package org.apache.commons.graph.shortestpath;
 
-import org.apache.commons.graph.Vertex;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,7 +27,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <W> the weight type
  */
-public interface Heuristic<V extends Vertex, W>
+public interface Heuristic<V, W>
 {
 
     /**

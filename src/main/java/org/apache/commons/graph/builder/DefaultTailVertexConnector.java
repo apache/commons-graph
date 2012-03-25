@@ -21,11 +21,9 @@ package org.apache.commons.graph.builder;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.MutableGraph;
-import org.apache.commons.graph.Vertex;
 
-final class DefaultTailVertexConnector<V extends Vertex, E extends Edge>
+final class DefaultTailVertexConnector<V, E>
     implements TailVertexConnector<V, E>
 {
 
@@ -42,7 +40,7 @@ final class DefaultTailVertexConnector<V extends Vertex, E extends Edge>
         this.head = head;
     }
 
-    public void to( V tail )
+    public <T extends V> void to( T tail )
     {
         tail = checkNotNull( tail, "Null tail vertex not admitted" );
         graph.addEdge( head, edge, tail );

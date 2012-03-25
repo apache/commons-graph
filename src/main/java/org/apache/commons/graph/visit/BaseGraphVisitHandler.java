@@ -19,9 +19,7 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Base NOOP {@link GraphVisitHandler} implementation.
@@ -29,7 +27,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class BaseGraphVisitHandler<V extends Vertex, E extends Edge, G extends Graph<V, E>, O>
+public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     implements GraphVisitHandler<V, E, G, O>
 {
 

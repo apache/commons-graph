@@ -1,4 +1,4 @@
-package org.apache.commons.graph.model;
+package org.apache.commons.graph.shortestpath;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,22 +19,13 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.Mapper;
 
-/**
- * A memory-based implementation of a mutable, directed weighted Graph.
- *
- * This class is NOT thread safe!
- *
- * @param <V> the Graph vertices type
- * @param <WE> the WeightedEdge edges type
- */
-public class DirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
-    extends DirectedMutableGraph<V, WE> implements WeightedGraph<V, WE, W>
+// TODO find a better name
+public interface PathWeightedEdgesBuilder<V, WE>
 {
 
-    private static final long serialVersionUID = 3749802534265570596L;
+    // TODO find a better sentence
+    <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges );
 
 }

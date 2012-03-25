@@ -35,39 +35,37 @@ import org.apache.commons.graph.coloring.ColorsBuilder;
 import org.apache.commons.graph.coloring.DefaultColorsBuilder;
 import org.apache.commons.graph.connectivity.ConnectivityBuilder;
 import org.apache.commons.graph.connectivity.DefaultConnectivityBuilder;
-import org.apache.commons.graph.export.DefaultToStreamBuilder;
-import org.apache.commons.graph.export.ToStreamBuilder;
-import org.apache.commons.graph.flow.DefaultFromHeadBuilder;
-import org.apache.commons.graph.flow.FromHeadBuilder;
+import org.apache.commons.graph.export.DefaultExportSelector;
+import org.apache.commons.graph.export.ExportSelector;
+import org.apache.commons.graph.flow.DefaultFlowWeightedEdgesBuilder;
+import org.apache.commons.graph.flow.FlowWeightedEdgesBuilder;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
 import org.apache.commons.graph.scc.DefaultSccAlgorithmSelector;
 import org.apache.commons.graph.scc.SccAlgorithmSelector;
-import org.apache.commons.graph.shortestpath.DefaultPathSourceSelector;
-import org.apache.commons.graph.shortestpath.PathSourceSelector;
-import org.apache.commons.graph.spanning.DefaultSpanningTreeSourceSelector;
-import org.apache.commons.graph.spanning.SpanningTreeSourceSelector;
+import org.apache.commons.graph.shortestpath.DefaultWeightedEdgesSelector;
+import org.apache.commons.graph.shortestpath.PathWeightedEdgesBuilder;
+import org.apache.commons.graph.spanning.DefaultSpanningWeightedEdgeMapperBuilder;
+import org.apache.commons.graph.spanning.SpanningWeightedEdgeMapperBuilder;
 import org.apache.commons.graph.visit.DefaultVisitSourceSelector;
 import org.apache.commons.graph.visit.VisitSourceSelector;
 
 /**
  * The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
  */
-public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public final class CommonsGraph<V, E, G extends Graph<V, E>>
 {
 
-    public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> ToStreamBuilder<V, E, G> export( G graph )
+    public static <V, E, G extends Graph<V, E>> ExportSelector<V, E> export( G graph )
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultToStreamBuilder<V, E, G>( graph );
+        return new DefaultExportSelector<V, E>( graph );
     }
 
-    public static <V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E, G> coloring( G graph )
+    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
     {
         graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
-        return new DefaultColorsBuilder<V, E, G>( graph );
+        return new DefaultColorsBuilder<V, E>( graph );
     }
 
     /**
@@ -80,10 +78,10 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the input edge-weighted graph
      * @return
      */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE> & WeightedGraph<V, WE, W>> FromHeadBuilder<V, WE, W, G> findMaxFlow( G graph )
+    public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
-        return new DefaultFromHeadBuilder<V, WE, W, G>( graph );
+        return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
     }
 
     /**
@@ -91,10 +89,10 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph
      * @return
      */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>> SpanningTreeSourceSelector<V, W, WE, G> minimumSpanningTree( G graph )
+    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultSpanningTreeSourceSelector<V, W, WE, G>( graph );
+        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
     }
 
     /**
@@ -106,10 +104,10 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param <G>
      * @param graph
      */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>> PathSourceSelector<V, WE, W, G> findShortestPath( G graph )
+    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
     {
-        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultPathSourceSelector<V, WE, W, G>( graph );
+        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
+        return new DefaultWeightedEdgesSelector<V, WE>( graph );
     }
 
     /**
@@ -121,10 +119,10 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the Graph which strongly connected component has to be verified.
      * @return the SCC algoritm selector
      */
-    public static <V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E, G> findStronglyConnectedComponent( G graph )
+    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
     {
         graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
-        return new DefaultSccAlgorithmSelector<V, E, G>( graph );
+        return new DefaultSccAlgorithmSelector<V, E>( graph );
     }
 
     /**
@@ -136,10 +134,10 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the Graph which connected component has to be verified.
      * @return the Connectivity algorithm builder
      */
-    public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> ConnectivityBuilder<V, E, G> findConnectedComponent( G graph )
+    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
     {
         graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
-        return new DefaultConnectivityBuilder<V, E, G>( graph );
+        return new DefaultConnectivityBuilder<V, E>( graph );
     }
 
     /**
@@ -151,7 +149,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the Graph instance to apply graph algorithms
      * @return the graph algorithms selector
      */
-    public static <V extends Vertex, E extends Edge, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
+    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
     {
         graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
         return new DefaultVisitSourceSelector<V, E, G>( graph );
@@ -164,21 +162,9 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link DirectedMutableGraph} instance
      */
-    public static <V extends Vertex, E extends Edge> DirectedMutableGraph<V, E> newDirectedMutableGraph( GraphConnection<V, E> graphConnection )
+    public static <V, E> DirectedMutableGraph<V, E> newDirectedMutableGraph( GraphConnection<V, E> graphConnection )
     {
         return populate( new DirectedMutableGraph<V, E>() ).withConnections( graphConnection );
-    }
-
-    /**
-     * Creates a new {@link DirectedMutableWeightedGraph} instance where vertices
-     * are connected as described in the input {@link GraphConnection} instance.
-     *
-     * @param graphConnection the {@link GraphConnection} instance that describes vertices
-     * @return a new {@link DirectedMutableWeightedGraph} instance
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W> DirectedMutableWeightedGraph<V, WE, W> newDirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
-    {
-        return populate( new DirectedMutableWeightedGraph<V, WE, W>() ).withConnections( graphConnection );
     }
 
     /**
@@ -188,21 +174,9 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link UndirectedMutableGraph} instance
      */
-    public static <V extends Vertex, E extends Edge> UndirectedMutableGraph<V, E> newUndirectedMutableGraph( GraphConnection<V, E> graphConnection )
+    public static <V, E> UndirectedMutableGraph<V, E> newUndirectedMutableGraph( GraphConnection<V, E> graphConnection )
     {
         return populate( new UndirectedMutableGraph<V, E>() ).withConnections( graphConnection );
-    }
-
-    /**
-     * Creates a new {@link UndirectedMutableWeightedGraph} instance where vertices
-     * are connected as described in the input {@link GraphConnection} instance.
-     *
-     * @param graphConnection the {@link GraphConnection} instance that describes vertices
-     * @return a new {@link UndirectedMutableWeightedGraph} instance
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W> UndirectedMutableWeightedGraph<V, WE, W> newUndirectedMutableWeightedGraph( GraphConnection<V, WE> graphConnection )
-    {
-        return populate( new UndirectedMutableWeightedGraph<V, WE, W>() ).withConnections( graphConnection );
     }
 
     /**
@@ -211,7 +185,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph the graph has to be populated
      * @return the builder to configure vertices connection
      */
-    public static <V extends Vertex, E extends Edge, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate( G graph )
+    public static <V, E, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate( G graph )
     {
         return new DefaultLinkedConnectionBuilder<V, E, G>( checkNotNull( graph, "Impossible to configure null graph!" ) );
     }
@@ -222,7 +196,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph
      * @return
      */
-    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( Graph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize( Graph<V, E> graph )
     {
         return synchronizedObject( graph, Graph.class );
     }
@@ -233,7 +207,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph
      * @return
      */
-    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
     {
         return synchronizedObject( graph, DirectedGraph.class );
     }
@@ -244,7 +218,7 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph
      * @return
      */
-    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( UndirectedGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize( UndirectedGraph<V, E> graph )
     {
         return synchronizedObject( graph, UndirectedGraph.class );
     }
@@ -255,20 +229,9 @@ public final class CommonsGraph<V extends Vertex, E extends Edge, G extends Grap
      * @param graph
      * @return
      */
-    public static <V extends Vertex, E extends Edge> Graph<V, E> synchronize( MutableGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
     {
         return synchronizedObject( graph, MutableGraph.class );
-    }
-
-    /**
-     * Returns a synchronized (thread-safe) {@link WeightedGraph} backed by the specified Graph.
-     *
-     * @param graph
-     * @return
-     */
-    public static <V extends Vertex, WE extends WeightedEdge<W>, W> Graph<V, WE> synchronize( WeightedGraph<V, WE, W> graph )
-    {
-        return synchronizedObject( graph, WeightedGraph.class );
     }
 
    /**

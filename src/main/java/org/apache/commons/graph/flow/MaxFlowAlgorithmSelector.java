@@ -19,14 +19,9 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import java.util.Comparator;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
-import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.Monoid;
-
-public interface MaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+public interface MaxFlowAlgorithmSelector<V, WE, W>
 {
 
     /**
@@ -36,7 +31,7 @@ public interface MaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedE
      * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <WO extends Monoid<W> & Comparator<W>> W applyingFordFulkerson( WO weightOperations );
+    <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations );
 
     /**
      * Calculates the maximum flow using the Edmonds-Karp algorithm.
@@ -45,6 +40,6 @@ public interface MaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedE
      * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <WO extends Monoid<W> & Comparator<W>> W applyingEdmondsKarp( WO weightOperations );
+    <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations );
 
 }

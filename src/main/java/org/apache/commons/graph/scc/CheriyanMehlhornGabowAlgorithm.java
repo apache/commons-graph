@@ -29,8 +29,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
@@ -38,11 +36,11 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+final class CheriyanMehlhornGabowAlgorithm<V, E>
     implements SccAlgorithm<V>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, E> graph;
 
     private final Set<V> marked = new HashSet<V>();
 
@@ -58,7 +56,7 @@ final class CheriyanMehlhornGabowAlgorithm<V extends Vertex, E extends Edge, G e
 
     private int sscCounter = 0;
 
-    public CheriyanMehlhornGabowAlgorithm( G graph )
+    public CheriyanMehlhornGabowAlgorithm( DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }

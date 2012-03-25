@@ -1,4 +1,4 @@
-package org.apache.commons.graph.scc;
+package org.apache.commons.graph.flow;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,11 +19,26 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import java.util.Set;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-interface SccAlgorithm<V>
+import org.apache.commons.graph.DirectedGraph;
+import org.apache.commons.graph.Mapper;
+
+public final class DefaultFlowWeightedEdgesBuilder<V, WE>
+    implements FlowWeightedEdgesBuilder<V, WE>
 {
 
-    Set<Set<V>> perform();
+    private final DirectedGraph<V, WE> graph;
+
+    public DefaultFlowWeightedEdgesBuilder( DirectedGraph<V, WE> graph )
+    {
+        this.graph = graph;
+    }
+
+    public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
+    {
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultFromHeadBuilder<V, WE, W>( graph, weightedEdges );
+    }
 
 }

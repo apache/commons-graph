@@ -21,11 +21,9 @@ package org.apache.commons.graph.builder;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.MutableGraph;
-import org.apache.commons.graph.Vertex;
 
-final class DefaultGrapher<V extends Vertex, E extends Edge>
+final class DefaultGrapher<V, E>
     implements GraphConnector<V, E>
 {
 
@@ -36,17 +34,17 @@ final class DefaultGrapher<V extends Vertex, E extends Edge>
         this.graph = graph;
     }
 
-    public V addVertex( V vertex )
+    public <N extends V> N addVertex( N node )
     {
-        vertex = checkNotNull( vertex, "Null vertex not admitted" );
-        graph.addVertex( vertex );
-        return vertex;
+        node = checkNotNull( node, "Null vertex not admitted" );
+        graph.addVertex( node );
+        return node;
     }
 
-    public HeadVertexConnector<V, E> addEdge( E edge )
+    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
     {
-        edge = checkNotNull( edge, "Null edge not admitted" );
-        return new DefaultHeadVertexConnector<V, E>( graph, edge );
+        arc = checkNotNull( arc, "Null edge not admitted" );
+        return new DefaultHeadVertexConnector<V, E>( graph, arc );
     }
 
 }

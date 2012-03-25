@@ -1,4 +1,4 @@
-package org.apache.commons.graph.scc;
+package org.apache.commons.graph.export;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,11 +19,16 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import java.util.Set;
+import org.apache.commons.graph.Mapper;
+import org.apache.commons.graph.model.BaseLabeledVertex;
 
-interface SccAlgorithm<V>
+public final class VertexLabelMapper
+    implements Mapper<BaseLabeledVertex, String>
 {
 
-    Set<Set<V>> perform();
+    public String map( BaseLabeledVertex input )
+    {
+        return input.getLabel();
+    }
 
 }

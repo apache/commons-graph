@@ -19,16 +19,14 @@ package org.apache.commons.graph.weight.primitive;
  * under the License.
  */
 
-import java.util.Comparator;
-
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * The class {@link LongWeightBaseOperations} provides operations and properties
  * for weights of type {@link Long}.
  */
 public class LongWeightBaseOperations
-    implements Monoid<Long>, Comparator<Long>
+    implements OrderedMonoid<Long>
 {
 
     /**

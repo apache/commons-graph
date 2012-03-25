@@ -19,43 +19,41 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
+import static java.util.Arrays.asList;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import static java.util.Arrays.asList;
-
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  *
  */
-public class DefaultConnectivityBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
-    implements ConnectivityBuilder<V, E, G>
+public class DefaultConnectivityBuilder<V, E>
+    implements ConnectivityBuilder<V, E>
 {
 
-    private final G graph;
+    private final Graph<V, E> graph;
 
-    public DefaultConnectivityBuilder(G graph) {
+    public DefaultConnectivityBuilder( Graph<V, E> graph )
+    {
         this.graph = graph;
     }
 
     /**
      * {@inheritDoc}
      */
-    public ConnectivityAlgorithmsSelector<V, E, G> includingVertices( V... vertices )
+    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
     {
         vertices = checkNotNull( vertices,
                                  "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
-        return new DefaultConnectivityAlgorithmsSelector<V, E, G>( graph, asList( vertices ) );
+        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
     }
 
     /**
      * {@inheritDoc}
      */
-    public ConnectivityAlgorithmsSelector<V, E, G> includingAllVertices()
+    public ConnectivityAlgorithmsSelector<V, E> includingAllVertices()
     {
-        return new DefaultConnectivityAlgorithmsSelector<V, E, G>( graph, graph.getVertices() );
+        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, graph.getVertices() );
     }
 
 }

@@ -19,16 +19,14 @@ package org.apache.commons.graph.weight.primitive;
  * under the License.
  */
 
-import java.util.Comparator;
-
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * The class {@link DoubleWeightBaseOperations} provides operations and properties
  * for weights of type {@link Double}.
  */
 public class DoubleWeightBaseOperations
-    implements Monoid<Double>, Comparator<Double>
+    implements OrderedMonoid<Double>
 {
 
     /**

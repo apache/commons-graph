@@ -26,9 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * {@link ColoringAlgorithmsSelector} implementation.
@@ -38,8 +36,8 @@ import org.apache.commons.graph.Vertex;
  * @param <G> the Graph type
  * @param <C> the Color vertices type
  */
-final class DefaultColoringAlgorithmsSelector<V extends Vertex, E extends Edge, G extends UndirectedGraph<V, E>, C>
-    implements ColoringAlgorithmsSelector<V, E, G, C>
+final class DefaultColoringAlgorithmsSelector<V, E, C>
+    implements ColoringAlgorithmsSelector<V, E, C>
 {
 
     private final UndirectedGraph<V, E> g;

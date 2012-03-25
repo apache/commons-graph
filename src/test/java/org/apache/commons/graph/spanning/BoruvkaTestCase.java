@@ -19,18 +19,17 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+import org.apache.commons.graph.model.BaseWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
-import org.apache.commons.graph.model.UndirectedMutableWeightedGraph;
+import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 import org.junit.Test;
 
@@ -40,25 +39,31 @@ public final class BoruvkaTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        minimumSpanningTree( (WeightedGraph<Vertex, WeightedEdge<Double>, Double>) null ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromArbitrarySource()
+            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
     public void testNullVertex()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
-        minimumSpanningTree( input ).fromSource( null ).applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromSource( null )
+            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input = null;
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input = null;
         BaseLabeledVertex a = null;
         try
         {
-            input = new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+            input = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
             a = new BaseLabeledVertex( "A" );
             input.addVertex( a );
         }
@@ -68,25 +73,33 @@ public final class BoruvkaTestCase
             fail( e.getMessage() );
         }
 
-        minimumSpanningTree( input ).fromSource( a ).applyingBoruvkaAlgorithm( (DoubleWeightBaseOperations) null );
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromSource( a )
+            .applyingBoruvkaAlgorithm( null );
     }
-    
+
     @Test( expected = IllegalStateException.class )
     public void testNotExistVertex()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        minimumSpanningTree( input ).fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
     }
-    
+
     @Test( expected = IllegalStateException.class )
     public void testEmptyGraph()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromArbitrarySource()
+            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
     /**
@@ -95,8 +108,8 @@ public final class BoruvkaTestCase
     @Test
     public void verifyWikipediaMinimumSpanningTree()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         BaseLabeledVertex b = new BaseLabeledVertex( "B" );
@@ -131,7 +144,7 @@ public final class BoruvkaTestCase
         // expected
 
         MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations() );
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         for ( BaseLabeledVertex vertex : input.getVertices() )
         {
@@ -148,7 +161,10 @@ public final class BoruvkaTestCase
         // Actual
 
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-            minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+            minimumSpanningTree( input )
+                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                .fromArbitrarySource()
+                .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
 
         // assert!
 
@@ -161,8 +177,8 @@ public final class BoruvkaTestCase
     @Test( expected = IllegalStateException.class )
     public void verifySparseGraphMinimumSpanningTree()
     {
-        UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> input =
-            new UndirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         input.addVertex( new BaseLabeledVertex( "A" ) );
         input.addVertex( new BaseLabeledVertex( "B" ) );
@@ -172,7 +188,10 @@ public final class BoruvkaTestCase
         input.addVertex( new BaseLabeledVertex( "F" ) );
         input.addVertex( new BaseLabeledVertex( "G" ) );
 
-        minimumSpanningTree( input ).fromArbitrarySource().applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromArbitrarySource()
+            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
 }

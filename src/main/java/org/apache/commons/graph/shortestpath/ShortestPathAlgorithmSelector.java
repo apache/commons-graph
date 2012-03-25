@@ -19,13 +19,8 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import java.util.Comparator;
-
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  *
@@ -35,7 +30,7 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE>
  * @param <G>
  */
-public interface ShortestPathAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
+public interface ShortestPathAlgorithmSelector<V, WE, W>
 {
 
     /**
@@ -45,7 +40,7 @@ public interface ShortestPathAlgorithmSelector<V extends Vertex, WE extends Weig
      * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    <WO extends Monoid<W> & Comparator<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations );
+    <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations );
 
     /**
      *  Calculates the shortest path using Dijkstra's algorithm.
@@ -54,6 +49,6 @@ public interface ShortestPathAlgorithmSelector<V extends Vertex, WE extends Weig
      * @param weightOperations the class responsible for operations on weights
      * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
      */
-    <WO extends Monoid<W> & Comparator<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations );
+    <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations );
 
 }

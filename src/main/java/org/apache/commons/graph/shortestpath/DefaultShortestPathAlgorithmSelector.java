@@ -21,31 +21,32 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
-    implements ShortestPathAlgorithmSelector<V, WE, W, G>
+final class DefaultShortestPathAlgorithmSelector<V, WE, W>
+    implements ShortestPathAlgorithmSelector<V, WE, W>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
+
+    private final Mapper<WE, W> weightedEdges;
 
     private final V source;
 
     private final V target;
 
-    public DefaultShortestPathAlgorithmSelector( G graph, V source, V target )
+    public DefaultShortestPathAlgorithmSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
         this.source = source;
         this.target = target;
     }
@@ -53,20 +54,20 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
     /**
      * {@inheritDoc}
      */
-    public <WO extends Monoid<W> & Comparator<W>> HeuristicBuilder<V, WE, W, G, WO> applyingAStar( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "A* algorithm can not be applied using null weight operations" );
-        return new DefaultHeuristicBuilder<V, WE, W, G, WO>( graph, source, target, weightOperations );
+        return new DefaultHeuristicBuilder<V, WE, W>( graph, weightedEdges, source, target, weightOperations );
     }
 
     /**
      * {@inheritDoc}
      */
-    public <WO extends Monoid<W> & Comparator<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
 
-        final ShortestDistances<V, W, WO> shortestDistances = new ShortestDistances<V, W, WO>( weightOperations );
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
         shortestDistances.setWeight( source, weightOperations.identity() );
 
         final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
@@ -74,7 +75,7 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
 
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
@@ -97,7 +98,7 @@ final class DefaultShortestPathAlgorithmSelector<V extends Vertex, WE extends We
                     WE edge = graph.getEdge( vertex, v );
                     if ( shortestDistances.alreadyVisited( vertex ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), edge.getWeight() );
+                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.map( edge ) );
 
                         if ( !shortestDistances.alreadyVisited( v )
                                 || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )

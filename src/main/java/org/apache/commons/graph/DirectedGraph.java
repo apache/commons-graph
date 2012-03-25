@@ -29,7 +29,7 @@ package org.apache.commons.graph;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public interface DirectedGraph<V extends Vertex, E extends Edge>
+public interface DirectedGraph<V, E>
     extends Graph<V, E>
 {
 

@@ -1,4 +1,4 @@
-package org.apache.commons.graph.model;
+package org.apache.commons.graph.export;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,22 +19,37 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.Graph;
 
-/**
- * A memory-based implementation of a mutable, undirected weighted Graph.
- *
- * This class is NOT thread safe!
- *
- * @param <V> the Graph vertices type
- * @param <WE> the WeightedEdge edges type
- */
-public class UndirectedMutableWeightedGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
-    extends UndirectedMutableGraph<V, WE> implements WeightedGraph<V, WE, W>
+public final class DefaultExportSelector<V, E>
+    implements ExportSelector<V, E>
 {
 
-    private static final long serialVersionUID = -4846482321351740099L;
+    private final Graph<V, E> graph;
+
+    public DefaultExportSelector( Graph<V, E> graph )
+    {
+        this.graph = graph;
+    }
+
+    public DotExporter<V, E> usingDotNotation()
+    {
+        return new DotExporter<V, E>( graph, null );
+    }
+
+    public DotExporter<V, E> usingDotNotation( String name )
+    {
+        return new DotExporter<V, E>( graph, name );
+    }
+
+    public GraphMLExporter<V, E> usingGraphMLFormat()
+    {
+        return new GraphMLExporter<V, E>( graph, null );
+    }
+
+    public GraphMLExporter<V, E> usingGraphMLFormat( String name )
+    {
+        return new GraphMLExporter<V, E>( graph, name );
+    }
 
 }

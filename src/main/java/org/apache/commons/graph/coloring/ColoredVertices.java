@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Maintains the color for each {@link Vertex} and the required number of colors for {@link Graph} coloring.
@@ -35,7 +34,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type.
  * @param <C> the Color type.
  */
-public final class ColoredVertices<V extends Vertex, C>
+public final class ColoredVertices<V, C>
 {
 
     private final Map<V, C> coloredVertices = new HashMap<V, C>();

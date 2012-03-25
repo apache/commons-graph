@@ -21,48 +21,49 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
-public final class DefaultPathSourceSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>>
-    implements PathSourceSelector<V, WE, W, G>
+final class DefaultPathSourceSelector<V, WE, W>
+    implements PathSourceSelector<V, WE, W>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
 
-    public DefaultPathSourceSelector( G graph )
+    private final Mapper<WE, W> weightedEdges;
+
+    public DefaultPathSourceSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
     }
 
     /**
      * {@inheritDoc}
      */
-    public <WO extends Monoid<W> & Comparator<W>> AllVertexPairsShortestPath<V, WE, W, WO> applyingFloydWarshall( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Floyd-Warshall algorithm can not be applied using null weight operations" );
 
-        AllVertexPairsShortestPath<V, WE, W, WO> shortestPaths = new AllVertexPairsShortestPath<V, WE, W, WO>( weightOperations );
+        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
         Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
 
         // init
         for ( WE we : graph.getEdges() )
         {
             VertexPair<V> vertexPair = graph.getVertices( we );
-            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), we.getWeight() );
+            shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), weightedEdges.map( we ) );
 
             if ( graph instanceof UndirectedGraph )
             {
-                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), we.getWeight() );
+                shortestPaths.addShortestDistance( vertexPair.getTail(), vertexPair.getHead(), weightedEdges.map( we ) );
             }
         }
 
@@ -97,7 +98,7 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
             {
                 if ( !source.equals( target ) )
                 {
-                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations );
+                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
                     pathReconstruction( predecessorsList, source, target, next );
                     if ( !predecessorsList.isEmpty() )
@@ -119,7 +120,7 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
                                      V source, V target,
                                      Map<VertexPair<V>, V> next )
     {
-        V k = next.get( new VertexPair<Vertex>( source, target ) );
+        V k = next.get( new VertexPair<V>( source, target ) );
         if ( k == null )
         {
             // there is a direct path between a and b
@@ -139,10 +140,10 @@ public final class DefaultPathSourceSelector<V extends Vertex, WE extends Weight
     /**
      * {@inheritDoc}
      */
-    public TargetSourceSelector<V, WE, W, G> from( V source )
+    public <H extends V> TargetSourceSelector<V, WE, W> from( H source )
     {
         source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
-        return new DefaultTargetSourceSelector<V, WE, W, G>( graph, source );
+        return new DefaultTargetSourceSelector<V, WE, W>( graph, weightedEdges, source );
     }
 
 }

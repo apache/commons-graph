@@ -19,11 +19,9 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.MutableGraph;
-import org.apache.commons.graph.Vertex;
 
-public interface LinkedConnectionBuilder<V extends Vertex, E extends Edge, G extends MutableGraph<V, E>>
+public interface LinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
 {
 
     G withConnections( GraphConnection<V, E> graphConnection );

@@ -19,13 +19,8 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import java.util.Comparator;
-
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Spanning Tree source selector.
@@ -35,7 +30,7 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE> the Graph weighted edges type
  * @param <G> the input Graph type
  */
-public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>>
+public interface SpanningTreeSourceSelector<V, W, WE>
 {
 
     /**
@@ -43,7 +38,7 @@ public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends Weig
      *
      * @return the linked spanning tree algorithm builder
      */
-    SpanningTreeAlgorithmSelector<V, W, WE, G> fromArbitrarySource();
+    SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource();
 
     /**
      * Allows specify a source vertex to calculate the spanning tree.
@@ -51,7 +46,7 @@ public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends Weig
      * @param source the source vertex to calculate the spanning tree.
      * @return the linked spanning tree algorithm builder
      */
-    SpanningTreeAlgorithmSelector<V, W, WE, G> fromSource( V source );
+    <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source );
 
     /**
      * Applies the <a href="http://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.
@@ -73,6 +68,6 @@ public interface SpanningTreeSourceSelector<V extends Vertex, W, WE extends Weig
      * @param weightOperations the weight operations
      * @return the calculated spanning tree
      */
-    <WO extends Monoid<W> & Comparator<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations );
+    <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations );
 
 }

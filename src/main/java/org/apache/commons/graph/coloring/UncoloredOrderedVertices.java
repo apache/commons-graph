@@ -27,14 +27,12 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.graph.Vertex;
-
 /**
  * 
  *
  * @param <V>
  */
-final class UncoloredOrderedVertices<V extends Vertex>
+final class UncoloredOrderedVertices<V>
     implements Comparator<Integer>, Iterable<V>
 {
 

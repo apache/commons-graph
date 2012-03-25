@@ -28,10 +28,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 
 /**
@@ -43,7 +41,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public abstract class BaseGraph<V extends Vertex, E extends Edge>
+public abstract class BaseGraph<V, E>
     implements Graph<V, E>
 {
 
@@ -107,7 +105,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
         checkGraphCondition( containsVertex( source ), "Vertex %s does not exist in the Graph", source );
         checkGraphCondition( containsVertex( target ), "Vertex %s does not exist in the Graph", target );
 
-        return indexedEdges.get( new VertexPair<Vertex>( source, target ) );
+        return indexedEdges.get( new VertexPair<V>( source, target ) );
     }
 
     /**
@@ -167,7 +165,7 @@ public abstract class BaseGraph<V extends Vertex, E extends Edge>
 
         @SuppressWarnings( "unchecked" )
         // test against any Graph typed instance
-        BaseGraph<Vertex, Edge> other = (BaseGraph<Vertex, Edge>) obj;
+        BaseGraph<Object, Object> other = (BaseGraph<Object, Object>) obj;
         if ( !adjacencyList.equals( other.getAdjacencyList() ) )
         {
             return false;

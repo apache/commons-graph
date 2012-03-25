@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.export;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,15 +19,16 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-/**
- * A weighted graph associates a label (weight) with every edge in the graph.
- *
- * @param <V> the Graph vertices type.
- * @param <WE> the Graph weighted edges type.
- * @param <W> the weight type
- */
-public interface WeightedGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
-    extends Graph<V, WE>
+import org.apache.commons.graph.Mapper;
+import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+
+public final class EdgeWeightMapper
+    implements Mapper<BaseLabeledWeightedEdge<Double>, Double>
 {
+
+    public Double map( BaseLabeledWeightedEdge<Double> input )
+    {
+        return input.getWeight();
+    }
 
 }

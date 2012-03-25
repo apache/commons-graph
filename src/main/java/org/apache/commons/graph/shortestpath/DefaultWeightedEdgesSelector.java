@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.shortestpath;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,14 +19,26 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-/**
- * A WeightedEdge is an {@link Edge} that is assigned a weight to represent, for example,
- * costs, lengths or capacities, etc. depending on the problem.
- *
- * @param <W> the weight type
- */
-public interface WeightedEdge<W>
-    extends Edge, Weighted<W>
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
+
+public final class DefaultWeightedEdgesSelector<V, WE>
+    implements PathWeightedEdgesBuilder<V, WE>
 {
+
+    private final Graph<V, WE> graph;
+
+    public DefaultWeightedEdgesSelector( Graph<V, WE> graph )
+    {
+        this.graph = graph;
+    }
+
+    public <W, M extends Mapper<WE, W>> PathSourceSelector<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
+    {
+        weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
+        return new DefaultPathSourceSelector<V, WE, W>( graph, weightedEdges );
+    }
 
 }

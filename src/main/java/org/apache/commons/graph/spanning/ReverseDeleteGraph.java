@@ -24,18 +24,14 @@ import java.util.List;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.GraphException;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
 
 /**
  * @param <V>
  * @param <WE>
- * @param <W>
  */
-final class ReverseDeleteGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
-    implements WeightedGraph<V, WE, W>
+final class ReverseDeleteGraph<V, WE>
+    implements Graph<V, WE>
 {
 
     private static final long serialVersionUID = -543197749473412325L;
@@ -138,7 +134,7 @@ final class ReverseDeleteGraph<V extends Vertex, WE extends WeightedEdge<W>, W>
     {
         return graph.containsVertex( v );
     }
-    
+
     public boolean containsEdge( WE e )
     {
         return graph.containsEdge( e );

@@ -1,6 +1,4 @@
-package org.apache.commons.graph;
-
-import java.io.Serializable;
+package org.apache.commons.graph.flow;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,16 +19,11 @@ import java.io.Serializable;
  * under the License.
  */
 
-/**
- * An {@code Edge} is the link that connect a pair of {@link Vertex}.
- *
- * A {@link Graph} in which {@link Edge}s have no orientation, {@link Vertex} members are not ordered pairs.
- *
- * In a {@link DirectedGraph}, {@link Edge}s have orientation, so relation expressed by the {@link Edge} has to be
- * intended from {@link #getHead()} to {@link #getTail()}.
- */
-public interface Edge
-    extends Serializable
+import org.apache.commons.graph.Mapper;
+
+public interface FlowWeightedEdgesBuilder<V, WE>
 {
+
+    <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges );
 
 }

@@ -28,12 +28,11 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
+import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.junit.Test;
 
@@ -42,13 +41,12 @@ import org.junit.Test;
 public final class FindConnectedComponetTestCase
 {
 
-    
     @Test(expected=NullPointerException.class)
     public void verifyNullGraph()
     {
-        findConnectedComponent( (Graph<Vertex, Edge>) null ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        findConnectedComponent( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
     }
-    
+
     @Test
     public void verifyEmptyGraph()
     {
@@ -60,7 +58,7 @@ public final class FindConnectedComponetTestCase
         assertNotNull( c );
         assertEquals( 0, c.size() );
     }
-    
+
     @Test
     public void verifyNullVerticesGraph()
     {
@@ -80,7 +78,7 @@ public final class FindConnectedComponetTestCase
         assertNotNull( c );
         assertEquals( 0, c.size() );
     }
-    
+
     @Test
     public void verifyConnectedComponents()
     {

@@ -21,34 +21,35 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-import org.apache.commons.graph.WeightedGraph;
+import org.apache.commons.graph.Graph;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.collections.FibonacciHeap;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
-final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends WeightedGraph<V, WE, W>, WO extends Monoid<W> & Comparator<W>>
-    implements HeuristicBuilder<V, WE, W, G, WO>
+final class DefaultHeuristicBuilder<V, WE, W>
+    implements HeuristicBuilder<V, WE, W>
 {
 
-    private final G graph;
+    private final Graph<V, WE> graph;
+
+    private final Mapper<WE, W> weightedEdges;
 
     private final V start;
 
     private final V goal;
 
-    private final WO weightOperations;
+    private final OrderedMonoid<W> weightOperations;
 
-    public DefaultHeuristicBuilder( G graph, V source, V target, WO weightOperations )
+    public DefaultHeuristicBuilder( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target, OrderedMonoid<W> weightOperations )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
         this.start = source;
         this.goal = target;
         this.weightOperations = weightOperations;
@@ -62,11 +63,11 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
         heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
 
         // Cost from start along best known path.
-        final ShortestDistances<V, W, WO> gScores = new ShortestDistances<V, W, WO>( weightOperations );
+        final ShortestDistances<V, W> gScores = new ShortestDistances<V, W>( weightOperations );
         gScores.setWeight( start, weightOperations.identity() );
 
         // Estimated total cost from start to goal through y.
-        final ShortestDistances<V, W, WO> fScores = new ShortestDistances<V, W, WO>( weightOperations );
+        final ShortestDistances<V, W> fScores = new ShortestDistances<V, W>( weightOperations );
         W hScore = heuristic.applyHeuristic( start, goal );
         fScores.setWeight( start, hScore );
 
@@ -78,7 +79,7 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
         openSet.add( start );
 
         // The of navigated nodes
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations );
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )
@@ -92,8 +93,7 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
             }
 
             closedSet.add( current );
-            
-            @SuppressWarnings( "unchecked" ) // unsafe cast protected by the instanceof statement that already verifies the assignment   
+
             Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
                                                                        : graph.getConnectedVertices( current );
             for ( V v : connected )
@@ -102,7 +102,7 @@ final class DefaultHeuristicBuilder<V extends Vertex, WE extends WeightedEdge<W>
                 {
                     WE edge = graph.getEdge( current, v );
                     // note that the weight of current can never be undefined
-                    W tentativeGScore = weightOperations.append( gScores.getWeight( current ), edge.getWeight() );
+                    W tentativeGScore = weightOperations.append( gScores.getWeight( current ), weightedEdges.map( edge ) );
 
                     // if the first condition fails, v has already been visited (its weight is defined)
                     if ( openSet.add( v ) || weightOperations.compare( tentativeGScore, gScores.getWeight( v ) ) < 0 )

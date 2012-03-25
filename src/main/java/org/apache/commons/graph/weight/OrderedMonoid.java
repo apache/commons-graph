@@ -1,4 +1,4 @@
-package org.apache.commons.graph.scc;
+package org.apache.commons.graph.weight;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,11 +19,15 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import java.util.Set;
+import java.util.Comparator;
 
-interface SccAlgorithm<V>
+/**
+ * An {@link OrderedMonoid} is a {@link Monoid} with a total order defined on it.
+ *
+ * @param <M> the type of the elements in the {@link OrderedMonoid}
+ */
+public interface OrderedMonoid<M>
+    extends Monoid<M>, Comparator<M>
 {
-
-    Set<Set<V>> perform();
 
 }

@@ -19,9 +19,7 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Search root node selector.
@@ -30,7 +28,7 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
-public interface VisitSourceSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+public interface VisitSourceSelector<V, E, G extends Graph<V, E>>
 {
 
     /**
@@ -39,6 +37,6 @@ public interface VisitSourceSelector<V extends Vertex, E extends Edge, G extends
      * @param source the root node the search begins from
      * @return the search visit algorithm selector
      */
-    VisitAlgorithmsSelector<V, E, G> from( V source );
+    <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source );
 
 }

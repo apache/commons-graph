@@ -22,32 +22,22 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.WeightedEdge;
-
-/**
- *
- */
-public class BaseLabeledWeightedEdge<W>
-    extends BaseLabeledEdge
-    implements WeightedEdge<W>
+public class BaseLabeledEdge
 {
 
-    private static final long serialVersionUID = 4093288823907255359L;
+    private final String label;
 
-    private final W weight;
-
-    public BaseLabeledWeightedEdge( String label, W weight )
+    public BaseLabeledEdge( String label )
     {
-        super( label );
-        this.weight = checkNotNull( weight, "Argument 'weight' must not be null" );
+        this.label = checkNotNull( label, "Argument 'label' must not be null" );
     }
 
     /**
      * {@inheritDoc}
      */
-    public W getWeight()
+    public String getLabel()
     {
-        return weight;
+        return label;
     }
 
     /**
@@ -57,8 +47,8 @@ public class BaseLabeledWeightedEdge<W>
     public int hashCode()
     {
         final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + weight.hashCode();
+        int result = 1;
+        result = prime * result + label.hashCode();
         return result;
     }
 
@@ -73,7 +63,7 @@ public class BaseLabeledWeightedEdge<W>
             return true;
         }
 
-        if ( !super.equals( obj ) )
+        if ( obj == null )
         {
             return false;
         }
@@ -82,9 +72,10 @@ public class BaseLabeledWeightedEdge<W>
         {
             return false;
         }
-        @SuppressWarnings( "unchecked" )
-        BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
-        if ( !weight.equals( other.getWeight() ) )
+
+        BaseLabeledEdge other = (BaseLabeledEdge) obj;
+
+        if ( !label.equals( other.label ) )
         {
             return false;
         }
@@ -98,7 +89,7 @@ public class BaseLabeledWeightedEdge<W>
     @Override
     public String toString()
     {
-        return format( "%s( %s )", getLabel(), weight );
+        return format( "%s()", getLabel() );
     }
 
 }

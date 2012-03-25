@@ -19,15 +19,13 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * A {@link GraphVisitHandler} controls the execution of breadth-first and depth-first search
  * algorithms in {@link Visit}.
  */
-public interface GraphVisitHandler<V extends Vertex, E extends Edge, G extends Graph<V, E>, O>
+public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
 {
 
     /**

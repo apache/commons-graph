@@ -19,18 +19,16 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.shortestpath.PredecessorsList;
 import org.apache.commons.graph.visit.BaseGraphVisitHandler;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Provides standard operations for max-flow algorithms,
@@ -39,39 +37,42 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <V> the vertex type
  * @param <W> the weight type
  */
-class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<W>>
-    extends BaseGraphVisitHandler<V, WeightedEdge<W>, DirectedGraph<V, WeightedEdge<W>>, W>
+class FlowNetworkHandler<V, E, W>
+    extends BaseGraphVisitHandler<V, E, DirectedGraph<V, E>, W>
 {
 
-    private final DirectedGraph<V, WeightedEdge<W>> flowNetwork;
+    private final DirectedGraph<V, E> flowNetwork;
 
     private final V source;
 
     private final V target;
 
-    private final WO weightOperations;
+    private final OrderedMonoid<W> weightOperations;
+
+    private final Mapper<E, W> weightedEdges;
 
     private W maxFlow;
 
-    private final Map<WeightedEdge<W>, W> residualEdgeCapacities = new HashMap<WeightedEdge<W>, W>();
+    private final Map<E, W> residualEdgeCapacities = new HashMap<E, W>();
 
     // these are new for each new visit of the graph
-    private PredecessorsList<V, WeightedEdge<W>, W> predecessors;
+    private PredecessorsList<V, E, W> predecessors;
 
     private boolean foundAugmentingPath;
 
-    FlowNetworkHandler( DirectedGraph<V, WeightedEdge<W>> flowNetwork, V source, V target, WO weightOperations )
+    FlowNetworkHandler( DirectedGraph<V, E> flowNetwork, V source, V target, OrderedMonoid<W> weightOperations, Mapper<E, W> weightedEdges )
     {
         this.flowNetwork = flowNetwork;
         this.source = source;
         this.target = target;
         this.weightOperations = weightOperations;
+        this.weightedEdges = weightedEdges;
 
         maxFlow = weightOperations.identity();
 
-        for ( WeightedEdge<W> edge : flowNetwork.getEdges() )
+        for ( E edge : flowNetwork.getEdges() )
         {
-            residualEdgeCapacities.put( edge, edge.getWeight() );
+            residualEdgeCapacities.put( edge, weightedEdges.map( edge ) );
         }
 
         predecessors = null;
@@ -94,11 +95,11 @@ class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<
     void updateResidualNetworkWithCurrentAugmentingPath()
     {
         // build actual augmenting path
-        WeightedPath<V, WeightedEdge<W>, W> augmentingPath = predecessors.buildPath( source, target );
-        
+        WeightedPath<V, E, W> augmentingPath = predecessors.buildPath( source, target );
+
         // find flow increment
         W flowIncrement = null;
-        for ( WeightedEdge<W> edge : augmentingPath.getEdges() )
+        for ( E edge : augmentingPath.getEdges() )
         {
             W edgeCapacity = residualEdgeCapacities.get( edge );
             if ( flowIncrement == null
@@ -110,7 +111,7 @@ class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<
 
         // update max flow and capacities accordingly
         maxFlow = weightOperations.append( maxFlow, flowIncrement );
-        for ( WeightedEdge<W> edge : augmentingPath.getEdges() )
+        for ( E edge : augmentingPath.getEdges() )
         {
             // decrease capacity for direct edge
             W directCapacity = residualEdgeCapacities.get( edge );
@@ -118,7 +119,7 @@ class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<
 
             // increase capacity for inverse edge
             VertexPair<V> vertexPair = flowNetwork.getVertices( edge );
-            WeightedEdge<W> inverseEdge = flowNetwork.getEdge( vertexPair.getTail(), vertexPair.getHead() );
+            E inverseEdge = flowNetwork.getEdge( vertexPair.getTail(), vertexPair.getHead() );
             W inverseCapacity = residualEdgeCapacities.get( inverseEdge );
             residualEdgeCapacities.put( inverseEdge, weightOperations.append( inverseCapacity, flowIncrement ) );
         }
@@ -128,10 +129,10 @@ class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<
      * {@inheritDoc}
      */
     @Override
-    public void discoverGraph( DirectedGraph<V, WeightedEdge<W>> graph )
+    public void discoverGraph( DirectedGraph<V, E> graph )
     {
         // reset ausiliary structures for a new graph visit
-        predecessors = new PredecessorsList<V, WeightedEdge<W>, W>( graph, weightOperations );
+        predecessors = new PredecessorsList<V, E, W>( graph, weightOperations, weightedEdges );
         foundAugmentingPath = false;
     }
 
@@ -139,7 +140,7 @@ class FlowNetworkHandler<V extends Vertex, W, WO extends Monoid<W> & Comparator<
      * {@inheritDoc}
      */
     @Override
-    public boolean discoverEdge( V head, WeightedEdge<W> edge, V tail )
+    public boolean discoverEdge( V head, E edge, V tail )
     {
         W residualEdgeCapacity = residualEdgeCapacities.get( edge );
         // avoid expanding the edge when it has no residual capacity

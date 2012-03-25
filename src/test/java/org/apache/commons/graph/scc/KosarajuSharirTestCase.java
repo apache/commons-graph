@@ -33,7 +33,6 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.apache.commons.graph.model.DirectedMutableWeightedGraph;
 import org.junit.Test;
 
 /**
@@ -46,7 +45,7 @@ public final class KosarajuSharirTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph = null;
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
     }
 
@@ -55,8 +54,8 @@ public final class KosarajuSharirTestCase
     {
 
         final BaseLabeledVertex a = null;
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
     }
@@ -64,8 +63,8 @@ public final class KosarajuSharirTestCase
     @Test( expected = IllegalStateException.class )
     public void testNotExistVertex()
     {
-        DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer> graph =
-            new DirectedMutableWeightedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>, Integer>();
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir( new BaseLabeledVertex( "NOT EXISTS" ) );
     }

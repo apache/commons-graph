@@ -28,8 +28,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 
@@ -79,7 +77,7 @@ abstract class AbstractColoringTest
      * @param g
      * @param coloredVertices
      */
-    protected <V extends Vertex, E extends Edge, C> void checkColoring( UndirectedMutableGraph<V, E> g,
+    protected <V, E, C> void checkColoring( UndirectedMutableGraph<V, E> g,
                                                                         ColoredVertices<V, C> coloredVertices )
     {
         for ( E e : g.getEdges() )

@@ -19,14 +19,12 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
-public interface GraphConnector<V extends Vertex, E extends Edge>
+public interface GraphConnector<V, E>
 {
 
-    V addVertex( V vertex );
+    <N extends V> N addVertex( N node );
 
-    HeadVertexConnector<V, E> addEdge( E edge );
+    <A extends E> HeadVertexConnector<V, E> addEdge( A arc );
 
 }

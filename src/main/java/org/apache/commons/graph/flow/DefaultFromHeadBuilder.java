@@ -22,8 +22,7 @@ package org.apache.commons.graph.flow;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.Mapper;
 
 /**
  * {@link FromHeadBuilder} implementation.
@@ -33,21 +32,24 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <WE>
  * @param <G>
  */
-public final class DefaultFromHeadBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
-    implements FromHeadBuilder<V, WE, W, G>
+final class DefaultFromHeadBuilder<V, WE, W>
+    implements FromHeadBuilder<V, WE, W>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, WE> graph;
 
-    public DefaultFromHeadBuilder( G graph )
+    private final Mapper<WE, W> weightedEdges;
+
+    public DefaultFromHeadBuilder( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
     }
 
-    public ToTailBuilder<V, WE, W, G> from( V head )
+    public <H extends V> ToTailBuilder<V, WE, W> from( H head )
     {
         head = checkNotNull( head, "head vertex has to be specifies when looking for the max flow" );
-        return new DefaultToTailBuilder<V, WE, W, G>( graph, head );
+        return new DefaultToTailBuilder<V, WE, W>( graph, weightedEdges, head );
     }
 
 }

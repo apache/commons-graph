@@ -21,15 +21,12 @@ package org.apache.commons.graph.shortestpath;
 
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.WeightedPath;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.
@@ -38,19 +35,19 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type
  */
-public final class AllVertexPairsShortestPath<V extends Vertex, WE extends WeightedEdge<W>, W, WO extends Monoid<W> & Comparator<W>>
+public final class AllVertexPairsShortestPath<V, WE, W>
 {
 
     private final Map<VertexPair<V>, WeightedPath<V, WE, W>> paths = new HashMap<VertexPair<V>, WeightedPath<V, WE, W>>();
 
     private final Map<VertexPair<V>, W> shortestDistances = new HashMap<VertexPair<V>, W>();
 
-    private final WO weightOperations;
+    private final OrderedMonoid<W> weightOperations;
 
     /**
      * Constructor visible only inside the package
      */
-    AllVertexPairsShortestPath( WO weightOperations )
+    AllVertexPairsShortestPath( OrderedMonoid<W> weightOperations )
     {
         this.weightOperations = weightOperations;
     }

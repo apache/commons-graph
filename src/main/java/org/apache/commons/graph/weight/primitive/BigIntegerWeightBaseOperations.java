@@ -22,16 +22,15 @@ package org.apache.commons.graph.weight.primitive;
 import static java.math.BigInteger.ZERO;
 
 import java.math.BigInteger;
-import java.util.Comparator;
 
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * The class {@link BigIntegerWeightBaseOperations} provides operations and properties
  * for weights of type {@link BigInteger}.
  */
 public class BigIntegerWeightBaseOperations
-    implements Monoid<BigInteger>, Comparator<BigInteger>
+    implements OrderedMonoid<BigInteger>
 {
 
     /**

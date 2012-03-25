@@ -1,4 +1,4 @@
-package org.apache.commons.graph.scc;
+package org.apache.commons.graph.spanning;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,11 +19,11 @@ package org.apache.commons.graph.scc;
  * under the License.
  */
 
-import java.util.Set;
+import org.apache.commons.graph.Mapper;
 
-interface SccAlgorithm<V>
+public interface SpanningWeightedEdgeMapperBuilder<V, WE>
 {
 
-    Set<Set<V>> perform();
+    <W> SpanningTreeSourceSelector<V, W, WE> whereEdgesHaveWeights( Mapper<WE, W> weightedEdges );
 
 }

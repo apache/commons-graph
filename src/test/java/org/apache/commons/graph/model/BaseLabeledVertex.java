@@ -22,18 +22,12 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Labeled;
-
-public class BaseLabeledEdge
-    implements Edge, Labeled
+public class BaseLabeledVertex
 {
-
-    private static final long serialVersionUID = 1L;
 
     private final String label;
 
-    public BaseLabeledEdge( String label )
+    public BaseLabeledVertex( String label )
     {
         this.label = checkNotNull( label, "Argument 'label' must not be null" );
     }
@@ -41,7 +35,7 @@ public class BaseLabeledEdge
     /**
      * {@inheritDoc}
      */
-    public String getLabel()
+    public final String getLabel()
     {
         return label;
     }
@@ -79,9 +73,8 @@ public class BaseLabeledEdge
             return false;
         }
 
-        BaseLabeledEdge other = (BaseLabeledEdge) obj;
-
-        if ( !label.equals( other.label ) )
+        BaseLabeledVertex other = (BaseLabeledVertex) obj;
+        if ( !label.equals( other.getLabel() ) )
         {
             return false;
         }
@@ -95,7 +88,7 @@ public class BaseLabeledEdge
     @Override
     public String toString()
     {
-        return format( "%s()", getLabel() );
+        return format( "{ %s }", label );
     }
 
 }

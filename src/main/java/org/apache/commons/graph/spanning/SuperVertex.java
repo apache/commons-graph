@@ -19,16 +19,13 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 
 /**
  * A {@link SuperVertex} is a collection of {@link Vertex} objects and is only
@@ -40,11 +37,11 @@ import org.apache.commons.graph.WeightedEdge;
  * @param <G>  the input Graph type
  * @param <WC> the weight operations
  */
-class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Graph<V, WE>, WC extends Comparator<W>>
+class SuperVertex<V, W, WE>
     implements Iterable<V> {
 
     /** The reference to the graph. */
-    private final G graph;
+    private final Graph<V, WE> graph;
 
     /** The set of vertices combined in this {@link SuperVertex}. */
     private final Set<V> vertices;
@@ -60,23 +57,26 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      * @param graph the underlying graph
      * @param weightComparator the comparator used to sort the weighted edges
      */
-    public SuperVertex( final V source, final G graph, final WC weightComparator ) {
+    public SuperVertex( final V source, final Graph<V, WE> graph, final WeightedEdgesComparator<W, WE> weightComparator )
+    {
         this.graph = graph;
 
         vertices = new HashSet<V>();
         vertices.add( source );
 
-        orderedEdges = new TreeSet<WE>( new WeightedEdgesComparator<W, WE>( weightComparator ) );
+        orderedEdges = new TreeSet<WE>( weightComparator );
 
         // add all edges for this vertex to the sorted set
-        for ( final V w : graph.getConnectedVertices( source )) {
+        for ( final V w : graph.getConnectedVertices( source ) )
+        {
             WE edge = graph.getEdge( source, w );
             orderedEdges.add( edge );
         }
     }
 
     /** {@inheritDoc} */
-    public Iterator<V> iterator() {
+    public Iterator<V> iterator()
+    {
         return vertices.iterator();
     }
 
@@ -87,14 +87,18 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      *
      * @param other the {@link SuperVertex} to be merged into this
      */
-    public void merge( final SuperVertex<V, W, WE, G, WC> other ) {
-        for ( final V v : other.vertices ) {
-            vertices.add(v);
+    public void merge( final SuperVertex<V, W, WE> other )
+    {
+        for ( final V v : other.vertices )
+        {
+            vertices.add( v );
         }
 
-        for ( final WE edge : other.orderedEdges) {
+        for ( final WE edge : other.orderedEdges )
+        {
             final VertexPair<V> pair = graph.getVertices( edge );
-            if ( ! vertices.contains(pair.getHead()) || ! vertices.contains(pair.getTail()) ) {
+            if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
+            {
                 orderedEdges.add( edge );
             }
         }
@@ -106,13 +110,16 @@ class SuperVertex<V extends Vertex, W, WE extends WeightedEdge<W>, G extends Gra
      *
      * @return the minimum weight edge or <code>null</code> if there is no edge
      */
-    public WE getMinimumWeightEdge() {
+    public WE getMinimumWeightEdge()
+    {
         boolean found = false;
         WE edge = null;
-        while ( ! found && ! orderedEdges.isEmpty() ) {
+        while ( !found && !orderedEdges.isEmpty() )
+        {
             edge = orderedEdges.pollFirst();
             VertexPair<V> pair = graph.getVertices( edge );
-            if ( ! vertices.contains( pair.getHead() ) || ! vertices.contains( pair.getTail() ) ) {
+            if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
+            {
                 found = true;
             }
         }

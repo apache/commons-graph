@@ -19,19 +19,15 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import static org.apache.commons.graph.CommonsGraph.newDirectedMutableWeightedGraph;
+import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 import static org.apache.commons.graph.CommonsGraph.visit;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-import java.util.Comparator;
-
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.VertexPair;
-import org.apache.commons.graph.WeightedEdge;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
-import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * {@link MaxFlowAlgorithmSelector} implementation.
@@ -41,19 +37,22 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE>
  * @param <G>
  */
-final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
-    implements MaxFlowAlgorithmSelector<V, WE, W, G>
+final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
+    implements MaxFlowAlgorithmSelector<V, WE, W>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, WE> graph;
+
+    private final Mapper<WE, W> weightedEdges;
 
     private final V source;
 
     private final V target;
 
-    public DefaultMaxFlowAlgorithmSelector( G graph, V source, V target )
+    public DefaultMaxFlowAlgorithmSelector( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
     {
         this.graph = graph;
+        this.weightedEdges = weightedEdges;
         this.source = source;
         this.target = target;
     }
@@ -61,15 +60,16 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
     /**
      * {@inheritDoc}
      */
-    public <WO extends Monoid<W> & Comparator<W>> W applyingFordFulkerson( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations )
     {
         final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
         // create flow network
-        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
+        final DirectedGraph<V, EdgeWrapper<WE>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
 
         // create flow network handler
-        final FlowNetworkHandler<V, W, WO> flowNetworkHandler = new FlowNetworkHandler<V, W, WO>( flowNetwork, source, target, checkedWeightOperations );
+        final FlowNetworkHandler<V, EdgeWrapper<WE>, W> flowNetworkHandler =
+                        new FlowNetworkHandler<V, EdgeWrapper<WE>, W>( flowNetwork, source, target, checkedWeightOperations, new MapperWrapper<WE, W, WO>( checkedWeightOperations, weightedEdges ) );
 
         // perform depth first search
         visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
@@ -88,15 +88,16 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
     /**
      * {@inheritDoc}
      */
-    public <WO extends Monoid<W> & Comparator<W>> W applyingEdmondsKarp( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations )
     {
         final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
         // create flow network
-        final DirectedGraph<V, WeightedEdge<W>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
+        final DirectedGraph<V, EdgeWrapper<WE>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
 
         // create flow network handler
-        final FlowNetworkHandler<V, W, WO> flowNetworkHandler = new FlowNetworkHandler<V, W, WO>( flowNetwork, source, target, checkedWeightOperations );
+        final FlowNetworkHandler<V, EdgeWrapper<WE>, W> flowNetworkHandler =
+                        new FlowNetworkHandler<V, EdgeWrapper<WE>, W>( flowNetwork, source, target, checkedWeightOperations, new MapperWrapper<WE, W, WO>( checkedWeightOperations, weightedEdges ) );
 
         // perform breadth first search
         visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
@@ -112,9 +113,10 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
         return flowNetworkHandler.onCompleted();
     }
 
-    private <WO extends Monoid<W> & Comparator<W>> DirectedGraph<V, WeightedEdge<W>> newFlowNetwok( final G graph, final WO weightOperations )
+    private <WO extends OrderedMonoid<W>> DirectedGraph<V, EdgeWrapper<WE>> newFlowNetwok( final DirectedGraph<V, WE> graph,
+                                                                                           final WO weightOperations )
     {
-        return newDirectedMutableWeightedGraph( new AbstractGraphConnection<V, WeightedEdge<W>>()
+        return newDirectedMutableGraph( new AbstractGraphConnection<V, EdgeWrapper<WE>>()
         {
             @Override
             public void connect()
@@ -131,17 +133,63 @@ final class DefaultMaxFlowAlgorithmSelector<V extends Vertex, WE extends Weighte
                     V head = edgeVertices.getHead();
                     V tail = edgeVertices.getTail();
 
-                    addEdge( edge ).from( head ).to( tail );
+                    addEdge( new EdgeWrapper<WE>( edge ) ).from( head ).to( tail );
 
                     if ( graph.getEdge( tail, head ) == null )
                     {
                         // complete the flow network with a zero-capacity inverse edge
-                        addEdge( new BaseLabeledWeightedEdge<W>( "Inverse edge for " + edge, weightOperations.identity() ) )
-                            .from( tail ).to( head );
+                        addEdge( new EdgeWrapper<WE>() ).from( tail ).to( head );
                     }
                 }
             }
         } );
+    }
+
+    private static final class EdgeWrapper<WE>
+    {
+
+        private final WE wrapped;
+
+        public EdgeWrapper()
+        {
+            this( null );
+        }
+
+        public EdgeWrapper( WE wrapped )
+        {
+            this.wrapped = wrapped;
+        }
+
+        public WE getWrapped()
+        {
+            return wrapped;
+        }
+
+    }
+
+    private static final class MapperWrapper<WE, W, WO extends OrderedMonoid<W>>
+        implements Mapper<EdgeWrapper<WE>, W>
+    {
+
+        private final WO weightOperations;
+
+        private final Mapper<WE, W> weightedEdges;
+
+        public MapperWrapper( WO weightOperations, Mapper<WE, W> weightedEdges )
+        {
+            this.weightOperations = weightOperations;
+            this.weightedEdges = weightedEdges;
+        }
+
+        public W map( EdgeWrapper<WE> input )
+        {
+            if ( input.getWrapped() == null )
+            {
+                return weightOperations.identity();
+            }
+            return weightedEdges.map( input.getWrapped() );
+        }
+
     }
 
 }

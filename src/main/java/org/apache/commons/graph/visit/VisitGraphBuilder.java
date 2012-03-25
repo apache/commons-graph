@@ -20,9 +20,7 @@ package org.apache.commons.graph.visit;
  */
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 import org.apache.commons.graph.model.BaseMutableGraph;
 import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
@@ -33,7 +31,7 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
-final class VisitGraphBuilder<V extends Vertex, E extends Edge, G extends Graph<V, E>>
+final class VisitGraphBuilder<V, E, G extends Graph<V, E>>
     extends BaseGraphVisitHandler<V, E, G, Graph<V, E>>
 {
 

@@ -23,8 +23,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.weight.Monoid;
+import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  * Stores and compares Graph Vertices weights.
@@ -32,15 +31,15 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <V> the Graph vertices type
  * @param <W> the weight type
  */
-final class ShortestDistances<V extends Vertex, W, WO extends Monoid<W> & Comparator<W>>
+final class ShortestDistances<V, W>
     implements Comparator<V>
 {
 
     private final Map<V, W> distances = new HashMap<V, W>();
 
-    private final WO weightOperations;
+    private final OrderedMonoid<W> weightOperations;
 
-    public ShortestDistances( WO weightOperations )
+    public ShortestDistances( OrderedMonoid<W> weightOperations )
     {
         this.weightOperations = weightOperations;
     }

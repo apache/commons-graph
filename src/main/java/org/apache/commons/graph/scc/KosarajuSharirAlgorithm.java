@@ -32,8 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
+import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.model.RevertedGraph;
 
 /**
@@ -43,18 +42,18 @@ import org.apache.commons.graph.model.RevertedGraph;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class KosarajuSharirAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+final class KosarajuSharirAlgorithm<V, E>
     implements SccAlgorithm<V>
 {
     /** The graph. */
-    private final G graph;
+    private final DirectedGraph<V, E> graph;
 
     /**
      * Create a new {@link KosarajuSharirAlgorithm} instance for the given {@link Graph}.
      *
      * @param graph the {@link Graph} on which to apply the algorithm
      */
-    public KosarajuSharirAlgorithm( final G graph )
+    public KosarajuSharirAlgorithm( final DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }

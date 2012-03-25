@@ -27,22 +27,20 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.Graph;
-import org.apache.commons.graph.Vertex;
 
 /**
  *
  */
-final class DefaultConnectivityAlgorithmsSelector<V extends Vertex, E extends Edge, G extends Graph<V, E>>
-    implements ConnectivityAlgorithmsSelector<V, E, G>
+final class DefaultConnectivityAlgorithmsSelector<V, E>
+    implements ConnectivityAlgorithmsSelector<V, E>
 {
 
-    final private G graph;
+    final private Graph<V, E> graph;
 
     final private Iterable<V> includedVertices;
 
-    public DefaultConnectivityAlgorithmsSelector( G graph, Iterable<V> includedVertices )
+    public DefaultConnectivityAlgorithmsSelector( Graph<V, E> graph, Iterable<V> includedVertices )
     {
         this.graph = graph;
         this.includedVertices = includedVertices;
@@ -67,7 +65,7 @@ final class DefaultConnectivityAlgorithmsSelector<V extends Vertex, E extends Ed
         {
             V source = untouchedVertices.remove( 0 );
 
-            connectedVertices.add( visit( graph ).from( source ).applyingDepthFirstSearch( new ConnectedComponentHandler<V, E, G>( untouchedVertices ) ) );
+            connectedVertices.add( visit( graph ).from( source ).applyingDepthFirstSearch( new ConnectedComponentHandler<V, E>( untouchedVertices ) ) );
         }
         return connectedVertices;
     }

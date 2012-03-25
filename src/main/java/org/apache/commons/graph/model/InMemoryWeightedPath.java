@@ -21,8 +21,7 @@ package org.apache.commons.graph.model;
 
 import static java.lang.String.format;
 
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
+import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.Monoid;
 
@@ -34,7 +33,7 @@ import org.apache.commons.graph.weight.Monoid;
  * @param <WE> the Graph weighted edges type
  * @param <W> the weight type
  */
-public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdge<W>, W>
+public final class InMemoryWeightedPath<V, WE, W>
     extends InMemoryPath<V, WE>
     implements WeightedPath<V, WE, W>
 {
@@ -44,14 +43,18 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
      */
     private static final long serialVersionUID = 7937494144459068796L;
 
+    private final Monoid<W> weightOperations;
+
+    private final Mapper<WE, W> weightedEdges;
+
     private W weight;
 
-    private Monoid<W> weightOperations;
-
-    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations )
+    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
     {
         super( start, target );
         this.weightOperations = weightOperations;
+        this.weightedEdges = weightedEdges;
+
         this.weight = weightOperations.identity();
     }
 
@@ -82,7 +85,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
      */
     private void increaseWeight( WE edge )
     {
-        weight = weightOperations.append( edge.getWeight(), weight );
+        weight = weightOperations.append( weightedEdges.map( edge ), weight );
     }
 
     /**
@@ -127,7 +130,7 @@ public final class InMemoryWeightedPath<V extends Vertex, WE extends WeightedEdg
         }
 
         @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
-        InMemoryWeightedPath<Vertex, WeightedEdge<W>, W> other = (InMemoryWeightedPath<Vertex, WeightedEdge<W>, W>) obj;
+        InMemoryWeightedPath<Object, Object, W> other = (InMemoryWeightedPath<Object, Object, W>) obj;
         if ( !weight.equals( other.getWeight() ) )
         {
             return false;

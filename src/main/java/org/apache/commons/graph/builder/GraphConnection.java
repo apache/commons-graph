@@ -19,10 +19,8 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
-public interface GraphConnection<V extends Vertex, E extends Edge>
+public interface GraphConnection<V, E>
 {
 
     void connect( GraphConnector<V, E> grapher );

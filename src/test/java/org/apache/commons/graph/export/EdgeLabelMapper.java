@@ -1,4 +1,4 @@
-package org.apache.commons.graph;
+package org.apache.commons.graph.export;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,17 +19,16 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-/**
- * A {@code Label} is an identifier to be assigned to a {@link Vertex} or to an {@link Edge}.
- */
-public interface Labeled
+import org.apache.commons.graph.Mapper;
+import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
+
+public final class EdgeLabelMapper
+    implements Mapper<BaseLabeledWeightedEdge<Double>, String>
 {
 
-    /**
-     * Gets the label attribute of the {@code Labeled} object.
-     *
-     * @return the label attribute of the {@code Labeled} object.
-     */
-    String getLabel();
+    public String map( BaseLabeledWeightedEdge<Double> input )
+    {
+        return input.getLabel();
+    }
 
 }

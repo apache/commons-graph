@@ -28,8 +28,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Edge;
-import org.apache.commons.graph.Vertex;
 
 /**
  * Implements Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding
@@ -39,15 +37,15 @@ import org.apache.commons.graph.Vertex;
  * @param <E> the Graph edges type.
  * @param <G> the directed graph type
  */
-final class TarjanAlgorithm<V extends Vertex, E extends Edge, G extends DirectedGraph<V, E>>
+final class TarjanAlgorithm<V, E>
     implements SccAlgorithm<V>
 {
 
-    private final G graph;
+    private final DirectedGraph<V, E> graph;
 
     /**
      */
-    public TarjanAlgorithm( G graph )
+    public TarjanAlgorithm( DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }
@@ -91,7 +89,7 @@ final class TarjanAlgorithm<V extends Vertex, E extends Edge, G extends Directed
         return vertexMetaInfo;
     }
 
-    private static <V extends Vertex, E extends Edge> void strongConnect( DirectedGraph<V, E> graph,
+    private static <V, E> void strongConnect( DirectedGraph<V, E> graph,
                                                                           V vertex,
                                                                           Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
                                                                           Stack<V> s,

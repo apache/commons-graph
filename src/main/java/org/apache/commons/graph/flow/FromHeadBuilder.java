@@ -19,11 +19,7 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
-import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Vertex;
-import org.apache.commons.graph.WeightedEdge;
-
-public interface FromHeadBuilder<V extends Vertex, WE extends WeightedEdge<W>, W, G extends DirectedGraph<V, WE>>
+public interface FromHeadBuilder<V, WE, W>
 {
 
     /**
@@ -32,6 +28,6 @@ public interface FromHeadBuilder<V extends Vertex, WE extends WeightedEdge<W>, W
      * @param head
      * @return
      */
-    ToTailBuilder<V, WE, W, G> from( V head );
+    <H extends V> ToTailBuilder<V, WE, W> from( H head );
 
 }

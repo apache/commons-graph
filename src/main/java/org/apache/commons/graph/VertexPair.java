@@ -19,19 +19,20 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Assertions.checkNotNull;
-
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 /**
  * Indicates a {@link Vertex} pair.
  *
  * @param <V> the Graph vertices type
  */
-public final class VertexPair<V extends Vertex>
+public final class VertexPair<V>
 {
+
     /** The head vertex. */
     private final V head;
+
     /** The tail vertex. */
     private final V tail;
 

@@ -19,9 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import org.apache.commons.graph.Edge;
 import org.apache.commons.graph.UndirectedGraph;
-import org.apache.commons.graph.Vertex;
 
 /**
  * A memory-based implementation of a mutable undirected Graph.
@@ -31,7 +29,7 @@ import org.apache.commons.graph.Vertex;
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
-public class UndirectedMutableGraph<V extends Vertex, E extends Edge>
+public class UndirectedMutableGraph<V, E>
     extends BaseMutableGraph<V, E>
     implements UndirectedGraph<V, E>
 {
