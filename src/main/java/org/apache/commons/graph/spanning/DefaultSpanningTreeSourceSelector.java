@@ -20,14 +20,14 @@ package org.apache.commons.graph.spanning;
  */
 
 import static java.util.Collections.reverseOrder;
-import static java.util.Collections.sort;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
@@ -86,23 +86,20 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
 
         checkNotNull( weightOperations, "The Reverse-Delete algorithm cannot be calulated with null weight operations" );
 
-        final List<WE> sortedEdge = new ArrayList<WE>();
+        final Queue<WE> sortedEdge = new PriorityQueue<WE>( 11, reverseOrder( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) ) );
         final List<WE> visitedEdge = new ArrayList<WE>();
 
         Iterable<WE> edges = graph.getEdges();
         for ( WE we : edges )
         {
-            sortedEdge.add( we );
+            sortedEdge.offer( we );
         }
-
-        sort( sortedEdge, reverseOrder( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) ) );
 
         Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE>( graph, sortedEdge, visitedEdge );
 
-        for ( Iterator<WE> iterator = sortedEdge.iterator(); iterator.hasNext(); )
+        for ( int i = 0; i < sortedEdge.size(); i++ ) 
         {
-            WE we = iterator.next();
-            iterator.remove();
+            WE we = sortedEdge.poll();
 
             VertexPair<V> vertices = graph.getVertices( we );
 

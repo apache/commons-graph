@@ -20,6 +20,7 @@ package org.apache.commons.graph.spanning;
  */
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.graph.Graph;
@@ -38,11 +39,11 @@ final class ReverseDeleteGraph<V, WE>
 
     private final Graph<V, WE> graph;
 
-    private final List<WE> sortedEdge;
+    private final Collection<WE> sortedEdge;
 
-    private final List<WE> visitedEdge;
+    private final Collection<WE> visitedEdge;
 
-    public ReverseDeleteGraph( Graph<V, WE> graph, List<WE> sortedEdge, List<WE> visitedEdge )
+    public ReverseDeleteGraph( Graph<V, WE> graph, Collection<WE> sortedEdge, Collection<WE> visitedEdge )
     {
         this.graph = graph;
         this.sortedEdge = sortedEdge;
