@@ -22,7 +22,6 @@ package org.apache.commons.graph.elo;
 import static java.lang.Math.pow;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Mapper;
 
 final class EloRankingCalculator<P>
 {
@@ -35,12 +34,12 @@ final class EloRankingCalculator<P>
 
     private final DirectedGraph<P, GameResult> tournamentGraph;
 
-    private final Mapper<P, Double> playerRanking;
+    private final PlayersRank<P> playerRanking;
 
     private final int kFactor;
 
     public EloRankingCalculator( DirectedGraph<P, GameResult> tournamentGraph,
-                                 Mapper<P, Double> playerRanking, int kFactor )
+                                 PlayersRank<P> playerRanking, int kFactor )
     {
         this.tournamentGraph = tournamentGraph;
         this.playerRanking = playerRanking;
@@ -105,7 +104,7 @@ final class EloRankingCalculator<P>
     private void updateRanking( P player, double kFactor, double sFactor, double eFactor )
     {
         double newRanking = playerRanking.map( player ) + ( kFactor * ( sFactor - eFactor ) );
-        // TODO find a way to set the new calculated ranking to the current player
+        playerRanking.update( player, newRanking );
     }
 
 }
