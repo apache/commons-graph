@@ -19,6 +19,8 @@ package org.apache.commons.graph.connectivity;
  * under the License.
  */
 
+import static org.apache.commons.graph.visit.VisitState.CONTINUE;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ final class ConnectedComponentHandler<V, E>
     {
         untouchedVertices.remove( vertex );
         touchedVertices.add( vertex );
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     /**

@@ -19,6 +19,10 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+import static org.apache.commons.graph.visit.VisitState.ABORT;
+import static org.apache.commons.graph.visit.VisitState.CONTINUE;
+import static org.apache.commons.graph.visit.VisitState.SKIP;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -147,10 +151,10 @@ class FlowNetworkHandler<V, E, W>
         // avoid expanding the edge when it has no residual capacity
         if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
         {
-            return VisitState.SKIP;
+            return SKIP;
         }
         predecessors.addPredecessor( tail, head );
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     /**
@@ -158,7 +162,7 @@ class FlowNetworkHandler<V, E, W>
      */
     public VisitState discoverVertex( V vertex )
     {
-        return !vertex.equals( target ) ? VisitState.CONTINUE : VisitState.SKIP;
+        return !vertex.equals( target ) ? CONTINUE : SKIP;
     }
 
     /**
@@ -170,9 +174,9 @@ class FlowNetworkHandler<V, E, W>
         {
             // search ends when target vertex is reached
             foundAugmentingPath = true;
-            return VisitState.ABORT;
+            return ABORT;
         }
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     @Override
