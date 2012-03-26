@@ -19,6 +19,8 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
+import static org.apache.commons.graph.visit.VisitState.CONTINUE;
+
 import org.apache.commons.graph.Graph;
 
 /**
@@ -45,7 +47,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     public VisitState discoverVertex( V vertex )
     {
         // do nothing
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     /**
@@ -54,7 +56,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     public VisitState discoverEdge( V head, E edge, V tail )
     {
         // do nothing
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     /**
@@ -63,7 +65,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     public VisitState finishEdge( V head, E edge, V tail )
     {
         // do nothing
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     /**
@@ -72,7 +74,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     public VisitState finishVertex( V vertex )
     {
         // do nothing
-        return VisitState.CONTINUE;
+        return CONTINUE;
     }
 
     /**
