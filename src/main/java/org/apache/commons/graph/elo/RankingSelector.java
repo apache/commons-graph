@@ -22,6 +22,6 @@ package org.apache.commons.graph.elo;
 public interface RankingSelector<P>
 {
 
-    void herePlayersArRankedIn( PlayersRank<P> playersRank );
+    void werePlayersArRankedIn( PlayersRank<P> playersRank );
 
 }

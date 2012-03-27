@@ -34,7 +34,7 @@ public final class DefaultRankingSelector<P>
         this.tournamentGraph = tournamentGraph;
     }
 
-    public void herePlayersArRankedIn( PlayersRank<P> playersRank )
+    public void werePlayersArRankedIn( PlayersRank<P> playersRank )
     {
         playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
     }
