@@ -19,11 +19,11 @@ package org.apache.commons.graph.elo;
  * under the License.
  */
 
-public interface PlayersRank<P>
+public interface KFactorBuilder<P>
 {
 
-    Double getRanking( P player );
+    void withDefaultKFactor();
 
-    void updateRanking( P player, Double ranking );
+    void withKFactor( int kFactor );
 
 }

@@ -23,7 +23,8 @@ import static java.lang.Math.pow;
 
 import org.apache.commons.graph.DirectedGraph;
 
-final class EloRankingCalculator<P>
+final class DefaultKFactorBuilder<P>
+    implements KFactorBuilder<P>
 {
 
     private static final double DEFAULT_POW_BASE = 10;
@@ -36,30 +37,32 @@ final class EloRankingCalculator<P>
 
     private final PlayersRank<P> playerRanking;
 
-    private final int kFactor;
-
-    public EloRankingCalculator( DirectedGraph<P, GameResult> tournamentGraph,
-                                 PlayersRank<P> playerRanking, int kFactor )
+    public DefaultKFactorBuilder( DirectedGraph<P, GameResult> tournamentGraph,
+                                 PlayersRank<P> playerRanking )
     {
         this.tournamentGraph = tournamentGraph;
         this.playerRanking = playerRanking;
-        this.kFactor = kFactor;
     }
 
-    // TODO find a way to improve performances, this impl is just a spike
-    public void calculateRate()
+    public void withDefaultKFactor()
     {
+        withKFactor( DEFAULT_K_FACTOR );
+    }
+
+    public void withKFactor( int kFactor )
+    {
+        // TODO find a way to improve performances, this impl is just a spike
         for ( P player : tournamentGraph.getVertices() )
         {
             for ( P opponent : tournamentGraph.getOutbound( player ) )
             {
                 GameResult gameResult = tournamentGraph.getEdge( player, opponent );
-                evaluateMatch( player, gameResult, opponent );
+                evaluateMatch( player, gameResult, opponent, kFactor );
             }
         }
     }
 
-    private boolean evaluateMatch( P playerA, GameResult gameResult, P playerB )
+    private boolean evaluateMatch( P playerA, GameResult gameResult, P playerB, int kFactor )
     {
         double qA = calculateQFactor( playerA );
         double qB = calculateQFactor( playerB );
@@ -92,7 +95,7 @@ final class EloRankingCalculator<P>
 
     private double calculateQFactor( P player )
     {
-        double ranking = playerRanking.map( player );
+        double ranking = playerRanking.getRanking( player );
         return pow( DEFAULT_POW_BASE, ranking / DEFAULT_DIVISOR);
     }
 
@@ -103,8 +106,8 @@ final class EloRankingCalculator<P>
 
     private void updateRanking( P player, double kFactor, double sFactor, double eFactor )
     {
-        double newRanking = playerRanking.map( player ) + ( kFactor * ( sFactor - eFactor ) );
-        playerRanking.update( player, newRanking );
+        double newRanking = playerRanking.getRanking( player ) + ( kFactor * ( sFactor - eFactor ) );
+        playerRanking.updateRanking( player, newRanking );
     }
 
 }

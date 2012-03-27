@@ -22,6 +22,6 @@ package org.apache.commons.graph.elo;
 public interface RankingSelector<P>
 {
 
-    void werePlayersArRankedIn( PlayersRank<P> playersRank );
+    KFactorBuilder<P> werePlayersArRankedIn( PlayersRank<P> playersRank );
 
 }
