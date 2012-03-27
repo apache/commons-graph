@@ -35,6 +35,9 @@ import org.apache.commons.graph.coloring.ColorsBuilder;
 import org.apache.commons.graph.coloring.DefaultColorsBuilder;
 import org.apache.commons.graph.connectivity.ConnectivityBuilder;
 import org.apache.commons.graph.connectivity.DefaultConnectivityBuilder;
+import org.apache.commons.graph.elo.DefaultRankingSelector;
+import org.apache.commons.graph.elo.GameResult;
+import org.apache.commons.graph.elo.RankingSelector;
 import org.apache.commons.graph.export.DefaultExportSelector;
 import org.apache.commons.graph.export.NamedExportSelector;
 import org.apache.commons.graph.flow.DefaultFlowWeightedEdgesBuilder;
@@ -153,6 +156,20 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     {
         graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
         return new DefaultVisitSourceSelector<V, E, G>( graph );
+    }
+
+    /**
+     * Ranks the players (vertices) that took part in a tournament (graph) depending on the game results (edges),
+     * applying the <a href="http://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
+     *
+     * @param <P> the players involved in the tournament
+     * @param tournamentGraph the graph representing the tournament
+     * @return the builder for the functor which returns/update the players ranking
+     */
+    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
+    {
+        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
+        return new DefaultRankingSelector<P>( tournamentGraph );
     }
 
     /**
