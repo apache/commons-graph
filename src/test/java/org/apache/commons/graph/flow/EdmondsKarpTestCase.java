@@ -155,7 +155,7 @@ public class EdmondsKarpTestCase
                             .to( g )
                             .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
 
-        assertEquals( actual, expected );
+        assertEquals( expected, actual );
     }
 
 }

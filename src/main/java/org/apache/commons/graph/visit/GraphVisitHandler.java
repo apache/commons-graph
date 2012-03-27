@@ -34,16 +34,26 @@ public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
     void discoverGraph( G graph );
 
     /**
-     * Performs operations on the input {@link Vertex} and checks if it should be expanded
-     * in the search algorithm.
-     * @return {@link VisitState.CONTINUE} if the input {@link Vertex} should be expanded, {@link VisitState.SKIP} otherwise
+     * Performs operations on the input {@link Vertex} and determines the behavior of the visit algorithm
+     * based on the return value:
+     * <ul>
+     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
+     *   <li>{@link VisitState.SKIP} continues the visit skipping the input {@link Vertex};</li>
+     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
+     * </ul>
+     * @return the state of the visit after operations on the vertex
      */
     VisitState discoverVertex( V vertex );
 
     /**
-     * Performs operations on the input {@link Edge} and checks if it should be expanded
-     * in the search algorithm.
-     * @return {@link VisitState.CONTINUE} if the input {@link Edge} should be expanded, {@link VisitState.SKIP} otherwise
+     * Performs operations on the input {@link Edge} and determines the behavior of the visit algorithm
+     * based on the return value:
+     * <ul>
+     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
+     *   <li>{@link VisitState.SKIP} continues the visit skipping the input {@link Edge};</li>
+     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
+     * </ul>
+     * @return the state of the visit after operations on the edge
      */
     VisitState discoverEdge( V head, E edge, V tail );
 

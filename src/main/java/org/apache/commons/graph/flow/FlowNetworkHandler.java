@@ -162,7 +162,7 @@ class FlowNetworkHandler<V, E, W>
      */
     public VisitState discoverVertex( V vertex )
     {
-        return !vertex.equals( target ) ? CONTINUE : SKIP;
+        return finishVertex( vertex );
     }
 
     /**

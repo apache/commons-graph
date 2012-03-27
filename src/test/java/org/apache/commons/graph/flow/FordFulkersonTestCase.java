@@ -184,7 +184,7 @@ public final class FordFulkersonTestCase
                             .to( d )
                             .applyingFordFulkerson( new IntegerWeightBaseOperations() );
 
-        assertEquals( actual, expected );
+        assertEquals( expected, actual );
     }
 
 }

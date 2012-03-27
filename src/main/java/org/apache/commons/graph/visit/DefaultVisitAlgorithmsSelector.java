@@ -32,7 +32,7 @@ import org.apache.commons.graph.VertexPair;
 
 /**
  * {@link VisitAlgorithmsSelector} implementation.
- *
+ * 
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  * @param <G> the Graph type
@@ -48,9 +48,8 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     private final V source;
 
     /**
-     * Create a default {@link VisitAlgorithmsSelector} for the given {@link Graph} and
-     * start {@link Vertex}.
-     *
+     * Create a default {@link VisitAlgorithmsSelector} for the given {@link Graph} and start {@link Vertex}.
+     * 
      * @param graph the {@link Graph} to be used.
      * @param source the start {@link Vertex}.
      */
@@ -93,15 +92,13 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     }
 
     /**
-     * A generalized graph search algorithm to be used to implement depth-first and
-     * breadth-first searches. Depending on the used collection, the algorithm traverses
-     * the graph in a different way:
-     *
+     * A generalized graph search algorithm to be used to implement depth-first and breadth-first searches. Depending on
+     * the used collection, the algorithm traverses the graph in a different way:
      * <ul>
-     *  <li>Queue (FIFO): breadth-first</li>
-     *  <li>Stack (LIFO): depth-first</li>
+     * <li>Queue (FIFO): breadth-first</li>
+     * <li>Stack (LIFO): depth-first</li>
      * </ul>
-     *
+     * 
      * @param handler the handler intercepts visits
      * @param enqueue defines the collection behavior used to traverse the graph: true is a Queue, false is a Stack
      * @return the result of {@link GraphVisitHandler#onCompleted()}
@@ -141,9 +138,14 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 }
                 else
                 {
-                    if ( handler.discoverEdge( prevHead, e, v ) == VisitState.SKIP )
+                    VisitState stateAfterEdgeDiscovery = handler.discoverEdge( prevHead, e, v );
+                    if ( stateAfterEdgeDiscovery != VisitState.CONTINUE )
                     {
                         skipVertex = true;
+                        if ( stateAfterEdgeDiscovery == VisitState.ABORT )
+                        {
+                            visitingGraph = false;
+                        }
                     }
 
                     if ( handler.finishEdge( prevHead, e, v ) == VisitState.ABORT )
@@ -156,16 +158,27 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
 
             // only mark the current vertex as visited, if the
             // edge leading to it should be expanded
+            boolean vertexWasDiscovered = false;
             if ( !skipVertex )
             {
                 visitedVertices.add( v );
+                VisitState stateAfterVertexDiscovery = handler.discoverVertex( v );
+                vertexWasDiscovered = true;
+                if ( stateAfterVertexDiscovery != VisitState.CONTINUE )
+                {
+                    skipVertex = true;
+                    if ( stateAfterVertexDiscovery == VisitState.ABORT )
+                    {
+                        visitingGraph = false;
+                    }
+                }
             }
 
-            if ( !skipVertex && handler.discoverVertex( v ) == VisitState.CONTINUE )
+            if ( !skipVertex )
             {
-                Iterator<V> connected = ( graph instanceof DirectedGraph ) ?
-                        ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator() :
-                            graph.getConnectedVertices( v ).iterator();
+                Iterator<V> connected =
+                    ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
+                                    : graph.getConnectedVertices( v ).iterator();
 
                 while ( connected.hasNext() )
                 {
@@ -177,7 +190,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 }
             }
 
-            if ( !skipVertex && handler.finishVertex( v ) == VisitState.ABORT )
+            if ( vertexWasDiscovered && handler.finishVertex( v ) == VisitState.ABORT )
             {
                 visitingGraph = false;
             }
