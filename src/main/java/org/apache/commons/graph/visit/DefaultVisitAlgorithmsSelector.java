@@ -141,16 +141,16 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 else
                 {
                     VisitState stateAfterEdgeDiscovery = handler.discoverEdge( prevHead, e, v );
-                    if ( stateAfterEdgeDiscovery != CONTINUE )
+                    if ( CONTINUE != stateAfterEdgeDiscovery )
                     {
                         skipVertex = true;
-                        if ( stateAfterEdgeDiscovery == ABORT )
+                        if ( ABORT == stateAfterEdgeDiscovery )
                         {
                             visitingGraph = false;
                         }
                     }
 
-                    if ( handler.finishEdge( prevHead, e, v ) == ABORT )
+                    if ( ABORT == handler.finishEdge( prevHead, e, v ) )
                     {
                         skipVertex = true;
                         visitingGraph = false;
@@ -166,10 +166,10 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 visitedVertices.add( v );
                 VisitState stateAfterVertexDiscovery = handler.discoverVertex( v );
                 vertexWasDiscovered = true;
-                if ( stateAfterVertexDiscovery != CONTINUE )
+                if ( CONTINUE != stateAfterVertexDiscovery )
                 {
                     skipVertex = true;
-                    if ( stateAfterVertexDiscovery == ABORT )
+                    if ( ABORT == stateAfterVertexDiscovery )
                     {
                         visitingGraph = false;
                     }
@@ -192,7 +192,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 }
             }
 
-            if ( vertexWasDiscovered && handler.finishVertex( v ) == ABORT )
+            if ( vertexWasDiscovered && ABORT == handler.finishVertex( v ) )
             {
                 visitingGraph = false;
             }
