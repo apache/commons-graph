@@ -26,7 +26,8 @@ import static org.apache.commons.graph.utils.Objects.hash;
 
 import java.io.Serializable;
 
-public class BaseLabeledVertex implements Serializable
+public class BaseLabeledVertex
+    implements Serializable
 {
 
     private static final long serialVersionUID = -5167021719818162490L;

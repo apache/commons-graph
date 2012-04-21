@@ -31,7 +31,8 @@ import java.io.Serializable;
  *
  * @param <V> the Graph vertices type
  */
-public final class VertexPair<V> implements Serializable
+public final class VertexPair<V>
+    implements Serializable
 {
     private static final long serialVersionUID = 2333503391707156055L;
 

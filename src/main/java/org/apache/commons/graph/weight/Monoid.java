@@ -26,7 +26,8 @@ import java.io.Serializable;
  *
  * @param <E> the type of the elements in the {@link Monoid}
  */
-public interface Monoid<E> extends Serializable
+public interface Monoid<E>
+    extends Serializable
 {
 
     /**

@@ -26,7 +26,8 @@ import static org.apache.commons.graph.utils.Objects.hash;
 
 import java.io.Serializable;
 
-public class BaseLabeledEdge implements Serializable
+public class BaseLabeledEdge
+    implements Serializable
 {
 
     private static final long serialVersionUID = -4985890761880816592L;

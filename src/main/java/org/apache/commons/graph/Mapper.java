@@ -21,7 +21,8 @@ import java.io.Serializable;
  * under the License.
  */
 
-public interface Mapper<I, O> extends Serializable
+public interface Mapper<I, O>
+    extends Serializable
 {
 
     O map( I input );
