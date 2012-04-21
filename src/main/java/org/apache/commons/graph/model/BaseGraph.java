@@ -19,6 +19,7 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Objects.*;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
@@ -153,12 +154,7 @@ public abstract class BaseGraph<V, E>
             return true;
         }
 
-        if ( obj == null )
-        {
-            return false;
-        }
-
-        if ( getClass() != obj.getClass() )
+        if ( obj == null || getClass() != obj.getClass() )
         {
             return false;
         }
@@ -166,11 +162,7 @@ public abstract class BaseGraph<V, E>
         @SuppressWarnings( "unchecked" )
         // test against any Graph typed instance
         BaseGraph<Object, Object> other = (BaseGraph<Object, Object>) obj;
-        if ( !adjacencyList.equals( other.getAdjacencyList() ) )
-        {
-            return false;
-        }
-        return true;
+        return eq( adjacencyList, other.getAdjacencyList() );
     }
 
     /**

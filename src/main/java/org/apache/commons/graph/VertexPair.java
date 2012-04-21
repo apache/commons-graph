@@ -21,6 +21,8 @@ package org.apache.commons.graph;
 
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Objects.eq;
+import static org.apache.commons.graph.utils.Objects.hash;
 
 import java.io.Serializable;
 
@@ -73,11 +75,7 @@ public final class VertexPair<V> implements Serializable
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ( ( head == null ) ? 0 : head.hashCode() );
-        result = prime * result + ( ( tail == null ) ? 0 : tail.hashCode() );
-        return result;
+        return hash( 1, 31, head, tail );
     }
 
     /**
@@ -91,29 +89,15 @@ public final class VertexPair<V> implements Serializable
             return true;
         }
 
-        if ( obj == null )
-        {
-            return false;
-        }
-
-        if ( getClass() != obj.getClass() )
+        if ( obj == null || getClass() != obj.getClass() )
         {
             return false;
         }
 
         @SuppressWarnings( "unchecked" ) // equals() invoked against only same VertexPair type
         VertexPair<V> other = (VertexPair<V>) obj;
-        if ( !head.equals( other.getHead() ) )
-        {
-            return false;
-        }
-
-        if ( !tail.equals( other.getTail() ) )
-        {
-            return false;
-        }
-
-        return true;
+        return eq( head, other.getHead() )
+            && eq( tail, other.getTail() );
     }
 
     @Override

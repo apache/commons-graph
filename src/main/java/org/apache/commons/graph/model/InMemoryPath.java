@@ -24,6 +24,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 import static org.apache.commons.graph.utils.Assertions.checkArgument;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Objects.eq;
+import static org.apache.commons.graph.utils.Objects.hash;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -224,13 +226,7 @@ public class InMemoryPath<V, E>
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ( ( edges == null ) ? 0 : edges.hashCode() );
-        result = prime * result + ( ( source == null ) ? 0 : source.hashCode() );
-        result = prime * result + ( ( target == null ) ? 0 : target.hashCode() );
-        result = prime * result + ( ( vertices == null ) ? 0 : vertices.hashCode() );
-        return result;
+        return hash( 1, 31, edges, source, target, vertices );
     }
 
     /**
@@ -244,39 +240,17 @@ public class InMemoryPath<V, E>
             return true;
         }
 
-        if ( obj == null )
-        {
-            return false;
-        }
-
-        if ( getClass() != obj.getClass() )
+        if ( obj == null || getClass() != obj.getClass() )
         {
             return false;
         }
 
         @SuppressWarnings( "unchecked" ) // test against any Path typed instance
         InMemoryPath<Object, Object> other = (InMemoryPath<Object, Object>) obj;
-        if ( !source.equals( other.getSource() ) )
-        {
-            return false;
-        }
-
-        if ( !target.equals( other.getTarget() ) )
-        {
-            return false;
-        }
-
-        if ( !vertices.equals( other.getVertices() ) )
-        {
-            return false;
-        }
-
-        if ( !edges.equals( other.getEdges() ) )
-        {
-            return false;
-        }
-
-        return true;
+        return eq( source, other.getSource() )
+            && eq( target, other.getTarget() )
+            && eq( vertices, other.getVertices() )
+            && eq( edges, other.getEdges() );
     }
 
     /**

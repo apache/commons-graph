@@ -21,6 +21,8 @@ package org.apache.commons.graph.model;
 
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Objects.eq;
+import static org.apache.commons.graph.utils.Objects.hash;
 
 import java.io.Serializable;
 
@@ -49,10 +51,7 @@ public class BaseLabeledVertex implements Serializable
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + label.hashCode();
-        return result;
+        return hash( 1, 31, label );
     }
 
     /**
@@ -66,23 +65,13 @@ public class BaseLabeledVertex implements Serializable
             return true;
         }
 
-        if ( obj == null )
-        {
-            return false;
-        }
-
-        if ( getClass() != obj.getClass() )
+        if ( obj == null || getClass() != obj.getClass() )
         {
             return false;
         }
 
         BaseLabeledVertex other = (BaseLabeledVertex) obj;
-        if ( !label.equals( other.getLabel() ) )
-        {
-            return false;
-        }
-
-        return true;
+        return eq( label, other.getLabel() );
     }
 
     /**

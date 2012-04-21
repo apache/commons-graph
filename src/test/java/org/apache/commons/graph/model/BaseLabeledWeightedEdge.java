@@ -21,6 +21,8 @@ package org.apache.commons.graph.model;
 
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+import static org.apache.commons.graph.utils.Objects.eq;
+import static org.apache.commons.graph.utils.Objects.hash;
 
 /**
  *
@@ -53,10 +55,7 @@ public class BaseLabeledWeightedEdge<W>
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + weight.hashCode();
-        return result;
+        return hash( super.hashCode(), 31, weight );
     }
 
     /**
@@ -81,12 +80,7 @@ public class BaseLabeledWeightedEdge<W>
         }
         @SuppressWarnings( "unchecked" )
         BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
-        if ( !weight.equals( other.getWeight() ) )
-        {
-            return false;
-        }
-
-        return true;
+        return eq( weight, other.getWeight() );
     }
 
     /**

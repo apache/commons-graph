@@ -20,6 +20,7 @@ package org.apache.commons.graph.model;
  */
 
 import static java.lang.String.format;
+import static org.apache.commons.graph.utils.Objects.eq;
 
 import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.WeightedPath;
@@ -131,11 +132,7 @@ public final class InMemoryWeightedPath<V, WE, W>
 
         @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
         InMemoryWeightedPath<Object, Object, W> other = (InMemoryWeightedPath<Object, Object, W>) obj;
-        if ( !weight.equals( other.getWeight() ) )
-        {
-            return false;
-        }
-        return true;
+        return eq( weight, other.getWeight() );
     }
 
     /**
