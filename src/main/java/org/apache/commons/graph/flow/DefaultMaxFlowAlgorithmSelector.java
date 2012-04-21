@@ -167,6 +167,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
 
     }
 
+    @SuppressWarnings( "serial" ) //the algorithm isn't serializable.
     private static final class MapperWrapper<WE, W, WO extends OrderedMonoid<W>>
         implements Mapper<EdgeWrapper<WE>, W>
     {

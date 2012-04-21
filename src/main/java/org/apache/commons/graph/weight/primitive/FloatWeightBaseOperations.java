@@ -29,6 +29,8 @@ public class FloatWeightBaseOperations
     implements OrderedMonoid<Float>
 {
 
+    private static final long serialVersionUID = 8542498901286671169L;
+
     /**
      * {@inheritDoc}
      */

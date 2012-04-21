@@ -1,5 +1,7 @@
 package org.apache.commons.graph.weight;
 
+import java.io.Serializable;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,7 +26,7 @@ package org.apache.commons.graph.weight;
  *
  * @param <E> the type of the elements in the {@link Monoid}
  */
-public interface Monoid<E>
+public interface Monoid<E> extends Serializable
 {
 
     /**

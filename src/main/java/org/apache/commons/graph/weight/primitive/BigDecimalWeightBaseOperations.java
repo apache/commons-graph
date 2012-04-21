@@ -33,6 +33,8 @@ public class BigDecimalWeightBaseOperations
     implements OrderedMonoid<BigDecimal>
 {
 
+    private static final long serialVersionUID = -317234195461348466L;
+
     /**
      * {@inheritDoc}
      */

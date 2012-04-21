@@ -22,9 +22,12 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-public class BaseLabeledEdge
+import java.io.Serializable;
+
+public class BaseLabeledEdge implements Serializable
 {
 
+    private static final long serialVersionUID = -4985890761880816592L;
     private final String label;
 
     public BaseLabeledEdge( String label )

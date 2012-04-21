@@ -29,6 +29,8 @@ public class IntegerWeightBaseOperations
     implements OrderedMonoid<Integer>
 {
 
+    private static final long serialVersionUID = -8641477350652350485L;
+
     /**
      * {@inheritDoc}
      */

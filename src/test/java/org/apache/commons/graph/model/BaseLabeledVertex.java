@@ -22,9 +22,12 @@ package org.apache.commons.graph.model;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
-public class BaseLabeledVertex
+import java.io.Serializable;
+
+public class BaseLabeledVertex implements Serializable
 {
 
+    private static final long serialVersionUID = -5167021719818162490L;
     private final String label;
 
     public BaseLabeledVertex( String label )

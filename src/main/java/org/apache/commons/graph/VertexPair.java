@@ -22,13 +22,16 @@ package org.apache.commons.graph;
 import static java.lang.String.format;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
+import java.io.Serializable;
+
 /**
  * Indicates a {@link Vertex} pair.
  *
  * @param <V> the Graph vertices type
  */
-public final class VertexPair<V>
+public final class VertexPair<V> implements Serializable
 {
+    private static final long serialVersionUID = 2333503391707156055L;
 
     /** The head vertex. */
     private final V head;

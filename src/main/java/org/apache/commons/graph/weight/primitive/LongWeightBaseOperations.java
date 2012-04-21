@@ -29,6 +29,8 @@ public class LongWeightBaseOperations
     implements OrderedMonoid<Long>
 {
 
+    private static final long serialVersionUID = 3149327896191098756L;
+
     /**
      * {@inheritDoc}
      */

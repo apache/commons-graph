@@ -1,5 +1,7 @@
 package org.apache.commons.graph;
 
+import java.io.Serializable;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,7 +21,7 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-public interface Mapper<I, O>
+public interface Mapper<I, O> extends Serializable
 {
 
     O map( I input );

@@ -28,6 +28,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 public class DoubleWeightBaseOperations
     implements OrderedMonoid<Double>
 {
+    private static final long serialVersionUID = 4440399710792243877L;
 
     /**
      * {@inheritDoc}

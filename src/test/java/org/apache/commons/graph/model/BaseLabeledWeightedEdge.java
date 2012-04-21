@@ -29,6 +29,8 @@ public class BaseLabeledWeightedEdge<W>
     extends BaseLabeledEdge
 {
 
+    private static final long serialVersionUID = 5935967858178091436L;
+
     private final W weight;
 
     public BaseLabeledWeightedEdge( String label, W weight )
