@@ -19,14 +19,7 @@ package org.apache.commons.graph;
  * under the License.
  */
 
-import static java.lang.reflect.Proxy.newProxyInstance;
 import static org.apache.commons.graph.utils.Assertions.checkNotNull;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.commons.graph.builder.DefaultLinkedConnectionBuilder;
 import org.apache.commons.graph.builder.GraphConnection;
@@ -208,118 +201,111 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     }
 
     /**
-     * Returns a synchronized (thread-safe) {@link Graph} backed by the specified Graph.
-     *
-     * @param graph
-     * @return
+     * Returns a synchronized (thread-safe) {@link Graph} backed by the specified Graph. 
+     * 
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     * <pre>
+     *     Graph syncGraph = synchronize( graph );
+     *         ...
+     *     synchronized(syncGraph) {
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         {
+     *            foo( v )
+     *         }
+     *   }
+     * </pre> 
+     * 
+     * Failure to follow this advice may result in non-deterministic behavior.
+     * 
+     * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
+     *  
+     * @param the input graph
+     * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( Graph<V, E> graph )
     {
-        return synchronizedObject( graph, Graph.class );
+        return new SynchronizedGraph<V, E>( graph );
     }
 
     /**
      * Returns a synchronized (thread-safe) {@link DirectedGraph} backed by the specified Graph.
+     * 
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     * <pre>
+     *     Graph syncGraph = synchronize( graph );
+     *         ...
+     *     synchronized(syncGraph) {
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         {
+     *            foo( v )
+     *         }
+     *   }
+     * </pre> 
+     * 
+     * Failure to follow this advice may result in non-deterministic behavior.
      *
-     * @param graph
-     * @return
+     * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
+     *  
+     * @param the input graph
+     * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
     {
-        return synchronizedObject( graph, DirectedGraph.class );
+        return new SynchronizedDirectedGraph<V, E>( graph );
     }
 
     /**
      * Returns a synchronized (thread-safe) {@link UndirectedGraph} backed by the specified Graph.
-     *
-     * @param graph
-     * @return
+     * 
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     * <pre>
+     *     Graph syncGraph = synchronize( graph );
+     *         ...
+     *     synchronized(syncGraph) {
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         {
+     *            foo( v )
+     *         }
+     *   }
+     * </pre> 
+     * 
+     * Failure to follow this advice may result in non-deterministic behavior.
+     * 
+     * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
+     * 
+     * @param the input graph
+     * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( UndirectedGraph<V, E> graph )
     {
-        return synchronizedObject( graph, UndirectedGraph.class );
+        return new SynchronizedUndirectedGraph<V, E>( graph );
     }
 
     /**
      * Returns a synchronized (thread-safe) {@link MutableGraph} backed by the specified Graph.
-     *
-     * @param graph
-     * @return
+     * 
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     * <pre>
+     *     Graph syncGraph = synchronize( graph );
+     *         ...
+     *     synchronized(syncGraph) {
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         {
+     *            foo( v )
+     *         }
+     *   }
+     * </pre> 
+     * 
+     * Failure to follow this advice may result in non-deterministic behavior.
+     * 
+     * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
+     * 
+     * @param the input graph
+     * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
     {
-        return synchronizedObject( graph, MutableGraph.class );
-    }
-
-   /**
-    * Wrap the given object in a proxed one where all methods declared in the given interface will be synchronized.
-    *
-    * @param <T> the object type has to be proxed
-    * @param toBeSynchronized to object which methods have to be synchronized
-    * @param type the interface has to be proxed
-    * @return the dynamic synchronized proxy
-    */
-    private static <T> T synchronizedObject( T toBeSynchronized, final Class<T> type )
-    {
-        final T checkedToBeSynchronized = checkNotNull( toBeSynchronized, "Impossible to synchronize a null graph!" );
-
-        /*
-         * Used to synchronize method declared on the Graph interface only.
-         */
-        final Set<Method> synchronizedMethods = new HashSet<Method>();
-
-        for ( Method method : type.getDeclaredMethods() )
-        {
-            synchronizedMethods.add( method );
-        }
-        GraphInvocationHandler<T> handler =
-            new GraphInvocationHandler<T>( synchronizedMethods, checkedToBeSynchronized );
-        Object proxy = newProxyInstance( type.getClassLoader(), new Class<?>[] { type }, handler );
-        handler.lock = proxy;
-        return type.cast( proxy );
-    }
-
-    private static class GraphInvocationHandler<T>
-        implements InvocationHandler
-    {
-        protected Object lock;
-
-        private final Set<Method> synchronizedMethods;
-
-        private final T checkedToBeSynchronized;
-
-        public GraphInvocationHandler( Set<Method> synchronizedMethods, T checkedToBeSynchronized )
-        {
-            this.synchronizedMethods = synchronizedMethods;
-            this.checkedToBeSynchronized = checkedToBeSynchronized;
-        }
-
-        public Object invoke( Object proxy, Method method, Object[] args )
-            throws Throwable
-        {
-            if ( synchronizedMethods.contains( method ) )
-            {
-                synchronized ( lock )
-                {
-                    return invoke( method, args );
-                }
-            }
-            return invoke( method, args );
-        }
-
-        private Object invoke( Method method, Object[] args )
-            throws Throwable
-        {
-            try
-            {
-                return method.invoke( checkedToBeSynchronized, args );
-            }
-            catch ( InvocationTargetException e )
-            {
-                throw e.getTargetException();
-            }
-        }
-
+        return new SynchronizedMutableGraph<V, E>( graph );
     }
 
     /**

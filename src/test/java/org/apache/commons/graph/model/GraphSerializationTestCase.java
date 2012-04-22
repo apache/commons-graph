@@ -116,6 +116,16 @@ public class GraphSerializationTestCase
     }
 
     @Test
+    public void serializeSyncronyzedDirectedWeightdGraph()
+        throws Exception
+    {
+        Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+            CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) newDirectedMutableGraph( buildWeightedGraphConnections() ) );
+
+        checkSerialization( g );
+    }
+
+    @Test
     public void serializePath()
         throws Exception
     {
