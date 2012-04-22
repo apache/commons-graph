@@ -22,8 +22,8 @@ package org.apache.commons.graph;
 import java.io.Serializable;
 
 /**
- * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs, called {@link Edge}s or
- * arcs, of certain entities called {@link Vertex} or node. As in mathematics, an {@link Edge} {@code (x,y)} is said to
+ * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs, called edges or
+ * arcs, of certain entities called vertex or node. As in mathematics, an edge {@code (x,y)} is said to
  * point or go from {@code x} to {@code y}.
  *
  * @param <V> the Graph vertices type
@@ -74,14 +74,14 @@ public interface Graph<V, E>
     int getSize();
 
     /**
-     * The degree (or valency) of a {@link Vertex} of a {@link Graph}
-     * is the number of {@link Edge}s incident to the {@link Vertex}.
+     * The degree (or valency) of a vertex of a {@link Graph}
+     * is the number of edges incident to the vertex.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param v the {@link Vertex} which degree has to be returned.
-     * @return the number of {@link Edge}s incident to the {@link Vertex}.
+     * @param v the vertex which degree has to be returned.
+     * @return the number of edges incident to the vertex.
      */
     int getDegree( V v );
 
@@ -91,7 +91,7 @@ public interface Graph<V, E>
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param v the {@link Vertex} which connected vertices have to be returned.
+     * @param v the vertex which connected vertices have to be returned.
      * @return all vertices which touch this vertex.
      */
     Iterable<V> getConnectedVertices( V v );
@@ -109,13 +109,13 @@ public interface Graph<V, E>
     E getEdge( V source, V target );
 
     /**
-     * Return the set of {@link Vertex} on the input {@link Edge} (2 for normal edges, > 2 for HyperEdges)
+     * Return the set of vertex on the input edge (2 for normal edges, > 2 for HyperEdges)
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param e the input {@link Edge}
-     * @return the set of {@link Vertex} on this Edge.
+     * @param e the input edge
+     * @return the set of vertex on this Edge.
      */
     VertexPair<V> getVertices( E e );
 
@@ -125,7 +125,7 @@ public interface Graph<V, E>
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param v the {@link Vertex} to be checked
+     * @param v the vertex to be checked
      * @return Returns true if the vertex is contained into the graph, false otherwise
      */
     boolean containsVertex( V v );
@@ -136,7 +136,7 @@ public interface Graph<V, E>
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param e the {@link Edge} to be checked
+     * @param e the edge to be checked
      * @return Returns true if the edge is contained into the graph, false otherwise
      */
     boolean containsEdge( E e );

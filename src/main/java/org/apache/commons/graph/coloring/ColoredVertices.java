@@ -29,7 +29,7 @@ import java.util.Map;
 import org.apache.commons.graph.Graph;
 
 /**
- * Maintains the color for each {@link Vertex} and the required number of colors for {@link Graph} coloring.
+ * Maintains the color for each vertex and the required number of colors for {@link Graph} coloring.
  *
  * @param <V> the Graph vertices type.
  * @param <C> the Color type.
@@ -50,10 +50,10 @@ public final class ColoredVertices<V, C>
     }
 
     /**
-     * Store the input {@link Vertex} color.
+     * Store the input vertex color.
      *
-     * @param v the {@link Vertex} for which storing the color.
-     * @param color the input {@link Vertex} color.
+     * @param v the vertex for which storing the color.
+     * @param color the input vertex color.
      */
     void addColor( V v, C color )
     {
@@ -70,9 +70,9 @@ public final class ColoredVertices<V, C>
     }
 
     /**
-     * Remove the input {@link Vertex} color.
+     * Remove the input vertex color.
      *
-     * @param v the {@link Vertex} for which storing the color.
+     * @param v the vertex for which storing the color.
      */
     void removeColor( V v )
     {
@@ -81,10 +81,10 @@ public final class ColoredVertices<V, C>
     }
 
     /**
-     * Returns the color associated to the input {@link Vertex}.
+     * Returns the color associated to the input vertex.
      *
-     * @param v the {@link Vertex} for which getting the color.
-     * @return the color associated to the input {@link Vertex}.
+     * @param v the vertex for which getting the color.
+     * @return the color associated to the input vertex.
      */
     public C getColor( V v )
     {

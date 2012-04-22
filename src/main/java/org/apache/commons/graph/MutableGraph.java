@@ -20,7 +20,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * The {@code MutableGraph} is a graph that supports the addition and removal of {@link Vertex} and {@link Edge}s.
+ * The {@code MutableGraph} is a graph that supports the addition and removal of vertex and edges.
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
@@ -30,44 +30,44 @@ public interface MutableGraph<V, E>
 {
 
     /**
-     * Adds a feature to the {@link Vertex} attribute of the {@code MutableGraph} object.
+     * Adds a feature to the vertex attribute of the {@code MutableGraph} object.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param v the {@link Vertex} has to be added in this {@code MutableGraph} instance.
+     * @param v the vertex has to be added in this {@code MutableGraph} instance.
      */
     void addVertex( V v );
 
     /**
-     * Removes the {@link Vertex} from the {@code MutableGraph} object.
+     * Removes the vertex from the {@code MutableGraph} object.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param v the {@link Vertex} has to be removed from this {@code MutableGraph} instance.
+     * @param v the vertex has to be removed from this {@code MutableGraph} instance.
      */
     void removeVertex( V v );
 
     /**
-     * Adds a feature to the {@link Edge} attribute of the {@code MutableGraph} object
+     * Adds a feature to the edge attribute of the {@code MutableGraph} object
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param head the head {@link Vertex}
-     * @param e the {@link Edge} has to be added in this {@code MutableGraph} instance.
-     * @param tail the tail {@link Vertex}
+     * @param head the head vertex
+     * @param e the edge has to be added in this {@code MutableGraph} instance.
+     * @param tail the tail vertex
      */
     void addEdge( V head, E e, V tail );
 
     /**
-     * Removed the {@link Edge} from the {@code MutableGraph} object.
+     * Removed the edge from the {@code MutableGraph} object.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @param e the {@link Edge} has to be removed from this {@code MutableGraph} instance.
+     * @param e the edge has to be removed from this {@code MutableGraph} instance.
      */
     void removeEdge( E e );
 

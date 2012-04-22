@@ -50,10 +50,10 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     private final V source;
 
     /**
-     * Create a default {@link VisitAlgorithmsSelector} for the given {@link Graph} and start {@link Vertex}.
+     * Create a default {@link VisitAlgorithmsSelector} for the given {@link Graph} and start vertex.
      *
      * @param graph the {@link Graph} to be used.
-     * @param source the start {@link Vertex}.
+     * @param source the start vertex.
      */
     public DefaultVisitAlgorithmsSelector( final G graph, final V source )
     {

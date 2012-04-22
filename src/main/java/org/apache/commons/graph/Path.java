@@ -20,8 +20,8 @@ package org.apache.commons.graph;
  */
 
 /**
- * A {@code Path} in a {@link Graph} is a sequence of {@link Vertex} such that from each of its vertices there is an
- * {@link Edge} to the next {@link Vertex} in the sequence.
+ * A {@code Path} in a {@link Graph} is a sequence of vertex such that from each of its vertices there is an
+ * edge to the next vertex in the sequence.
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type

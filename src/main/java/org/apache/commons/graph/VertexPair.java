@@ -27,7 +27,7 @@ import static org.apache.commons.graph.utils.Objects.hash;
 import java.io.Serializable;
 
 /**
- * Indicates a {@link Vertex} pair.
+ * Indicates a vertex pair.
  *
  * @param <V> the Graph vertices type
  */
@@ -43,7 +43,7 @@ public final class VertexPair<V>
     private final V tail;
 
     /**
-     * Initializes a new {@link Vertex} pair.
+     * Initializes a new vertex pair.
      *
      * @param head the head Vertex
      * @param tail the tail Vertex

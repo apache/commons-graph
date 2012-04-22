@@ -54,15 +54,15 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
 
     private final Mapper<WE, W> weightedEdges;
 
-    /** The start {@link Vertex}. */
+    /** The start vertex. */
     private final V source;
 
     /**
      * Creates a default {@link SpanningTreeAlgorithmSelector} for the given {@link Graph} and
-     * start {@link Vertex}.
+     * start vertex.
      *
      * @param graph the {@link Graph} to be used.
-     * @param source the start {@link Vertex}.
+     * @param source the start vertex.
      */
     public DefaultSpanningTreeAlgorithmSelector( final Graph<V, WE> graph, Mapper<WE, W> weightedEdges, final V source )
     {

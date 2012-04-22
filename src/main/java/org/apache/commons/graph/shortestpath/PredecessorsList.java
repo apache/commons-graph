@@ -29,8 +29,8 @@ import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.weight.Monoid;
 
 /**
- * The predecessor list is a list of {@link Vertex} of a {@link org.apache.commons.graph.Graph}.
- * Each {@link Vertex}' entry contains the index of its predecessor in a path through the graph.
+ * The predecessor list is a list of vertex of a {@link org.apache.commons.graph.Graph}.
+ * Each vertex' entry contains the index of its predecessor in a path through the graph.
  *
  * @param <V> the Graph vertices type
  * @param <WE> the Graph weighted edges type
@@ -55,7 +55,7 @@ public final class PredecessorsList<V, WE, W>
     }
 
     /**
-     * Add an {@link Edge} in the predecessor list associated to the input {@link Vertex}.
+     * Add an edge in the predecessor list associated to the input vertex.
      *
      * @param tail the predecessor vertex
      * @param head the edge that succeeds to the input vertex

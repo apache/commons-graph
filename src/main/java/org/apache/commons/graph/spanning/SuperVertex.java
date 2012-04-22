@@ -28,7 +28,7 @@ import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.VertexPair;
 
 /**
- * A {@link SuperVertex} is a collection of {@link Vertex} objects and is only
+ * A {@link SuperVertex} is a collection of vertex objects and is only
  * used internally by Boruvka's algorithm to find a minimum spanning tree.
  *
  * @param <V>  the Graph vertices type

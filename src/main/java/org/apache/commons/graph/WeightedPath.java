@@ -20,7 +20,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * A {@code Path} whose {@link Edge}s are {@link Weighted}.
+ * A {@code Path} whose edges are {@link Weighted}.
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph weighted edges type
