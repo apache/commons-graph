@@ -48,16 +48,38 @@ import org.apache.commons.graph.visit.VisitSourceSelector;
 
 /**
  * The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ * @param <G> the Graph type
  */
 public final class CommonsGraph<V, E, G extends Graph<V, E>>
 {
-
+    /**
+     * Export the graph in DOT or GraphML format. 
+     * 
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param <G> the Graph type
+     * @param graph the input graph
+     * @return an instance of {@link NamedExportSelector}
+     */
     public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
     {
         graph = checkNotNull( graph, "Null graph can not be exported" );
         return new DefaultExportSelector<V, E>( graph );
     }
 
+    
+    /**
+     * Create a color builder.
+     * 
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param <G> the Graph type
+     * @param graph the input graph
+     * @return an instance of {@link ColorsBuilder}
+     */
     public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
     {
         graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
@@ -67,12 +89,11 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     /**
      * Find the maximum flow on the input {@link Graph}.
      *
-     * @param <V>
-     * @param <WE>
-     * @param <W>
-     * @param <G>
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph edges type
+     * @param <G> the Graph type
      * @param graph the input edge-weighted graph
-     * @return
+     * @return an instance of {@link FlowWeightedEdgesBuilder}
      */
     public static <V, WE, G extends DirectedGraph<V, WE>> FlowWeightedEdgesBuilder<V, WE> findMaxFlow( G graph )
     {
@@ -81,9 +102,13 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     }
 
     /**
+     * Find the minimum spanning tree on the input {@link Graph}
      *
-     * @param graph
-     * @return
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph edges type
+     * @param <G> the Graph type
+     * @param graph the input edge-weighted graph
+     * @return the caluculated minimun spanning tree 
      */
     public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
     {
@@ -92,13 +117,13 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     }
 
     /**
+     * Find the sortest on the input {@link Graph}
      *
-     *
-     * @param <V>
-     * @param <W>
-     * @param <WE>
-     * @param <G>
-     * @param graph
+     * @param <V> the Graph vertices type
+     * @param <WE> the Graph edges type
+     * @param <G> the Graph type
+     * @param graph the input edge-weighted graph
+     * @return the caluculated the sortest 
      */
     public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
     {
@@ -156,6 +181,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * applying the <a href="http://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
      *
      * @param <P> the players involved in the tournament
+     * @param <TG> the Tournament Graph type
      * @param tournamentGraph the graph representing the tournament
      * @return the builder for the functor which returns/update the players ranking
      */
@@ -168,7 +194,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     /**
      * Creates a new {@link DirectedMutableGraph} instance where vertices
      * are connected as described in the input {@link GraphConnection} instance.
-     *
+     * 
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link DirectedMutableGraph} instance
      */
@@ -181,6 +209,8 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * Creates a new {@link UndirectedMutableGraph} instance where vertices
      * are connected as described in the input {@link GraphConnection} instance.
      *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link UndirectedMutableGraph} instance
      */
@@ -192,6 +222,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     /**
      * Allows populate the given {@link MutableGraph}.
      *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param <G> the Graph type
      * @param graph the graph has to be populated
      * @return the builder to configure vertices connection
      */
@@ -219,7 +252,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * 
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      *  
-     * @param the input graph
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( Graph<V, E> graph )
@@ -246,7 +281,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      *  
-     * @param the input graph
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type  
+     * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
@@ -273,7 +310,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * 
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      * 
-     * @param the input graph
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type 
+     * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( UndirectedGraph<V, E> graph )
@@ -300,7 +339,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * 
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      * 
-     * @param the input graph
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type 
+     * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
     public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
