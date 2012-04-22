@@ -20,7 +20,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * 
+ * A synchronized (thread-safe) {@link Graph} backed by the specified Graph.
  */
 class SynchronizedUndirectedGraph<V, E>
     extends SynchronizedGraph<V, E>
@@ -30,7 +30,8 @@ class SynchronizedUndirectedGraph<V, E>
     private static final long serialVersionUID = 2207884889346410427L;
 
     /**
-     * @param g
+     * Creates a new thread-safe instence of {@link SynchronizedUndirectedGraph}.
+     * @param g The {@link Graph} that has to be synchronized
      */
     public SynchronizedUndirectedGraph( Graph<V, E> g )
     {

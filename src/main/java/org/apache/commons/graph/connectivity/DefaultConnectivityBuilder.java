@@ -25,7 +25,8 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.Graph;
 
 /**
- *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
 public class DefaultConnectivityBuilder<V, E>
     implements ConnectivityBuilder<V, E>

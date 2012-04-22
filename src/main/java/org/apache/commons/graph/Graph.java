@@ -1,7 +1,5 @@
 package org.apache.commons.graph;
 
-import java.io.Serializable;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,6 +18,8 @@ import java.io.Serializable;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+import java.io.Serializable;
 
 /**
  * A Graph data structure consists of a finite (and possibly mutable) set of ordered pairs, called {@link Edge}s or

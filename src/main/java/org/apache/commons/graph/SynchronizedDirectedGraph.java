@@ -20,7 +20,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * 
+ * A synchronized (thread-safe) {@link Graph} backed by the specified Graph.
  */
 class SynchronizedDirectedGraph<V, E>
     extends SynchronizedGraph<V, E>
@@ -29,10 +29,11 @@ class SynchronizedDirectedGraph<V, E>
 
     private static final long serialVersionUID = 2275587906693672253L;
 
-    final private DirectedGraph<V, E> directedGraph;
+    private final DirectedGraph<V, E> directedGraph;
 
     /**
-     * @param g
+     * Creates a new thread-safe instence of {@link SynchronizedDirectedGraph}.
+     * @param g The {@link Graph} that has to be synchronized
      */
     public SynchronizedDirectedGraph( DirectedGraph<V, E> g )
     {
@@ -40,6 +41,9 @@ class SynchronizedDirectedGraph<V, E>
         directedGraph = g;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getInDegree( V v )
     {
         synchronized ( lock )
@@ -48,6 +52,9 @@ class SynchronizedDirectedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Iterable<V> getInbound( V v )
     {
         synchronized ( lock )
@@ -56,6 +63,9 @@ class SynchronizedDirectedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getOutDegree( V v )
     {
         synchronized ( lock )
@@ -64,6 +74,9 @@ class SynchronizedDirectedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Iterable<V> getOutbound( V v )
     {
         synchronized ( lock )

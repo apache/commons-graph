@@ -76,7 +76,7 @@ public final class FibonacciHeap<E>
 
     public FibonacciHeap()
     {
-        this(null);
+        this( null );
     }
 
     public FibonacciHeap( /* @Nullable */Comparator<? super E> comparator )

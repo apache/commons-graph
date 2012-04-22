@@ -55,6 +55,7 @@ public final class DisjointSet<E>
     /**
      * Performs the find applying the <i>path compression</i>.
      *
+     * @param <E> the type of elements held in this collection.
      * @param node
      * @return
      */

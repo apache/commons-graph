@@ -20,7 +20,7 @@ package org.apache.commons.graph;
  */
 
 /**
- * 
+ * A synchronized (thread-safe) {@link Graph} backed by the specified Graph.
  */
 class SynchronizedMutableGraph<V, E>
     extends SynchronizedGraph<V, E>
@@ -28,14 +28,21 @@ class SynchronizedMutableGraph<V, E>
 {
     private static final long serialVersionUID = -5985121601939852063L;
 
-    private MutableGraph<V, E> mutableGraph;
+    private final MutableGraph<V, E> mutableGraph;
 
+    /**
+     * Creates a new thread-safe instence of {@link SynchronizedMutableGraph}.
+     * @param g The {@link Graph} that has to be synchronized
+     */
     public SynchronizedMutableGraph( MutableGraph<V, E> g )
     {
         super( g );
         this.mutableGraph = g;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void addVertex( V v )
     {
         synchronized ( lock )
@@ -43,7 +50,10 @@ class SynchronizedMutableGraph<V, E>
             mutableGraph.addVertex( v );
         }
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     public void removeVertex( V v )
     {
         synchronized ( lock )
@@ -52,6 +62,9 @@ class SynchronizedMutableGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void addEdge( V head, E e, V tail )
     {
         synchronized ( lock )
@@ -60,6 +73,9 @@ class SynchronizedMutableGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void removeEdge( E e )
     {
         synchronized ( lock )

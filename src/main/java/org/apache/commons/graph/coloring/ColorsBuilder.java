@@ -26,7 +26,6 @@ import java.util.Set;
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
- * @param <G> the Graph type
  */
 public interface ColorsBuilder<V, E>
 {
@@ -34,6 +33,7 @@ public interface ColorsBuilder<V, E>
     /**
      * Specifies the set of colors for coloring the graph.
      *
+     * @param <C> the Color type.
      * @param colors the set of colors for coloring the graph.
      * @return the coloring algorithm selector.
      */

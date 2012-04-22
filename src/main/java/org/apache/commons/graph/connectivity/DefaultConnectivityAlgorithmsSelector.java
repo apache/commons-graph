@@ -30,15 +30,16 @@ import java.util.List;
 import org.apache.commons.graph.Graph;
 
 /**
- *
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
  */
 final class DefaultConnectivityAlgorithmsSelector<V, E>
     implements ConnectivityAlgorithmsSelector<V, E>
 {
 
-    final private Graph<V, E> graph;
+    private final Graph<V, E> graph;
 
-    final private Iterable<V> includedVertices;
+    private final Iterable<V> includedVertices;
 
     public DefaultConnectivityAlgorithmsSelector( Graph<V, E> graph, Iterable<V> includedVertices )
     {

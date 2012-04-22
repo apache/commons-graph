@@ -105,6 +105,9 @@ public final class ColoredVertices<V, C>
 
     /**
      * Tests if the 'vertex' is colored.
+     * 
+     * @param vertex the vertex 
+     * @return true if the colored vertex is contained into the map, false otherwise
      */
     public boolean containsColoredVertex( V vertex )
     {

@@ -25,7 +25,6 @@ package org.apache.commons.graph.coloring;
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
- * @param <G> the Graph type
  * @param <C> the Color vertices type
  */
 public interface ColoringAlgorithmsSelector<V, E, C>

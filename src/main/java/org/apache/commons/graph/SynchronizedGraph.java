@@ -1,7 +1,5 @@
 package org.apache.commons.graph;
 
-import static org.apache.commons.graph.utils.Objects.eq;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -21,8 +19,10 @@ import static org.apache.commons.graph.utils.Objects.eq;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Objects.eq;
+
 /**
- * 
+ * A synchronized (thread-safe) {@link Graph} backed by the specified Graph.
  */
 class SynchronizedGraph<V, E>
     implements Graph<V, E>
@@ -30,12 +30,13 @@ class SynchronizedGraph<V, E>
 
     private static final long serialVersionUID = 4472623111635514693L;
 
-    final protected Object lock;
+    protected final Object lock;
 
-    final protected Graph<V, E> g;
+    protected final Graph<V, E> g;
 
     /**
-     * 
+     * Creates a new thread-safe instence of {@link SynchronizedGraph}.
+     * @param g The {@link Graph} that has to be synchronized
      */
     public SynchronizedGraph( Graph<V, E> g )
     {
@@ -43,6 +44,9 @@ class SynchronizedGraph<V, E>
         this.lock = this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Iterable<V> getVertices()
     {
         synchronized ( lock )
@@ -51,6 +55,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getOrder()
     {
         synchronized ( lock )
@@ -59,6 +66,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Iterable<E> getEdges()
     {
         synchronized ( lock )
@@ -67,6 +77,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getSize()
     {
         synchronized ( lock )
@@ -75,6 +88,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getDegree( V v )
     {
         synchronized ( lock )
@@ -83,6 +99,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Iterable<V> getConnectedVertices( V v )
     {
         synchronized ( lock )
@@ -91,6 +110,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public E getEdge( V source, V target )
     {
         synchronized ( lock )
@@ -99,6 +121,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public VertexPair<V> getVertices( E e )
     {
         synchronized ( lock )
@@ -107,6 +132,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean containsVertex( V v )
     {
         synchronized ( lock )
@@ -115,6 +143,9 @@ class SynchronizedGraph<V, E>
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean containsEdge( E e )
     {
         synchronized ( lock )

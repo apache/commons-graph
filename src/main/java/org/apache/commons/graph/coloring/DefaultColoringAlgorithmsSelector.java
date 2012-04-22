@@ -33,7 +33,6 @@ import org.apache.commons.graph.UndirectedGraph;
  *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
- * @param <G> the Graph type
  * @param <C> the Color vertices type
  */
 final class DefaultColoringAlgorithmsSelector<V, E, C>
