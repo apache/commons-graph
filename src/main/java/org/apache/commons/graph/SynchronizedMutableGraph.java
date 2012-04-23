@@ -22,7 +22,7 @@ package org.apache.commons.graph;
 /**
  * A synchronized (thread-safe) {@link Graph} backed by the specified Graph.
  */
-class SynchronizedMutableGraph<V, E>
+final class SynchronizedMutableGraph<V, E>
     extends SynchronizedGraph<V, E>
     implements MutableGraph<V, E>
 {
