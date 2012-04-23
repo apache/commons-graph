@@ -169,7 +169,7 @@ public class GraphSerializationTestCase
         assertEquals( g, cloned );
     }
 
-    private GraphConnection<BaseLabeledVertex, BaseLabeledEdge> buildGraphConnections()
+    private static GraphConnection<BaseLabeledVertex, BaseLabeledEdge> buildGraphConnections()
     {
         GraphConnection<BaseLabeledVertex, BaseLabeledEdge> connections =
             new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
@@ -192,7 +192,7 @@ public class GraphSerializationTestCase
         return connections;
     }
 
-    private GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> buildWeightedGraphConnections()
+    private static GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> buildWeightedGraphConnections()
     {
         GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> connections =
             new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
