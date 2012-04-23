@@ -176,14 +176,10 @@ public class GraphSerializationTestCase
                 @Override
                 public void connect()
                 {
-                    BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-                    BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-                    BaseLabeledVertex c = new BaseLabeledVertex( "c" );
-                    BaseLabeledVertex d = new BaseLabeledVertex( "d" );
-                    addVertex( a );
-                    addVertex( b );
-                    addVertex( c );
-                    addVertex( d );
+                    BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
 
                     addEdge( new BaseLabeledEdge( "a -> c" ) ).from( a ).to( c );
                     addEdge( new BaseLabeledEdge( "c -> d" ) ).from( c ).to( d );
@@ -202,14 +198,10 @@ public class GraphSerializationTestCase
                 @Override
                 public void connect()
                 {
-                    BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-                    BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-                    BaseLabeledVertex c = new BaseLabeledVertex( "c" );
-                    BaseLabeledVertex d = new BaseLabeledVertex( "d" );
-                    addVertex( a );
-                    addVertex( b );
-                    addVertex( c );
-                    addVertex( d );
+                    BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
 
                     addEdge( new BaseLabeledWeightedEdge<Double>( "a -> c", 1D ) ).from( a ).to( c );
                     addEdge( new BaseLabeledWeightedEdge<Double>( "c -> d", 1D ) ).from( c ).to( d );
