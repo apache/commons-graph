@@ -171,48 +171,44 @@ public class GraphSerializationTestCase
 
     private static GraphConnection<BaseLabeledVertex, BaseLabeledEdge> buildGraphConnections()
     {
-        GraphConnection<BaseLabeledVertex, BaseLabeledEdge> connections =
-            new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+        return new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+        {
+
+            @Override
+            public void connect()
             {
+                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
 
-                @Override
-                public void connect()
-                {
-                    BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
-                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
+                addEdge( new BaseLabeledEdge( "a -> c" ) ).from( a ).to( c );
+                addEdge( new BaseLabeledEdge( "c -> d" ) ).from( c ).to( d );
+                addEdge( new BaseLabeledEdge( "d -> b" ) ).from( d ).to( b );
+            }
 
-                    addEdge( new BaseLabeledEdge( "a -> c" ) ).from( a ).to( c );
-                    addEdge( new BaseLabeledEdge( "c -> d" ) ).from( c ).to( d );
-                    addEdge( new BaseLabeledEdge( "d -> b" ) ).from( d ).to( b );
-                }
-
-            };
-        return connections;
+        };
     }
 
     private static GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> buildWeightedGraphConnections()
     {
-        GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> connections =
-            new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
+        return new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
+        {
+
+            @Override
+            public void connect()
             {
+                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
 
-                @Override
-                public void connect()
-                {
-                    BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
-                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "a -> c", 1D ) ).from( a ).to( c );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "c -> d", 1D ) ).from( c ).to( d );
+                addEdge( new BaseLabeledWeightedEdge<Double>( "d -> b", 1D ) ).from( d ).to( b );
+            }
 
-                    addEdge( new BaseLabeledWeightedEdge<Double>( "a -> c", 1D ) ).from( a ).to( c );
-                    addEdge( new BaseLabeledWeightedEdge<Double>( "c -> d", 1D ) ).from( c ).to( d );
-                    addEdge( new BaseLabeledWeightedEdge<Double>( "d -> b", 1D ) ).from( d ).to( b );
-                }
-
-            };
-        return connections;
+        };
     }
 
 }
