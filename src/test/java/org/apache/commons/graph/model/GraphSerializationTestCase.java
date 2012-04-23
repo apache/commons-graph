@@ -22,6 +22,8 @@ package org.apache.commons.graph.model;
 import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
+import static org.apache.commons.graph.CommonsGraph.populate;
+import static org.apache.commons.graph.CommonsGraph.synchronize;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +34,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import org.apache.commons.graph.CommonsGraph;
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
@@ -106,7 +107,7 @@ public class GraphSerializationTestCase
                                                                                                  new DoubleWeightBaseOperations(),
                                                                                                  new BaseWeightedEdge<Double>() );
 
-        CommonsGraph.populate( spanningTree ).withConnections( buildWeightedGraphConnections() );
+        populate( spanningTree ).withConnections( buildWeightedGraphConnections() );
 
         checkSerialization( spanningTree );
     }
@@ -116,7 +117,7 @@ public class GraphSerializationTestCase
         throws Exception
     {
         Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
-            CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) newDirectedMutableGraph( buildWeightedGraphConnections() ) );
+            synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) newDirectedMutableGraph( buildWeightedGraphConnections() ) );
 
         checkSerialization( g );
     }
