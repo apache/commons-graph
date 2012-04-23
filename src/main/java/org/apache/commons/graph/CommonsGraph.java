@@ -48,12 +48,8 @@ import org.apache.commons.graph.visit.VisitSourceSelector;
 
 /**
  * The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
- *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
- * @param <G> the Graph type
  */
-public final class CommonsGraph<V, E, G extends Graph<V, E>>
+public final class CommonsGraph
 {
 
     /**
