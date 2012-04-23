@@ -174,6 +174,7 @@ public class GraphSerializationTestCase
         GraphConnection<BaseLabeledVertex, BaseLabeledEdge> connections =
             new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
             {
+
                 @Override
                 public void connect()
                 {
@@ -185,8 +186,8 @@ public class GraphSerializationTestCase
                     addEdge( new BaseLabeledEdge( "a -> c" ) ).from( a ).to( c );
                     addEdge( new BaseLabeledEdge( "c -> d" ) ).from( c ).to( d );
                     addEdge( new BaseLabeledEdge( "d -> b" ) ).from( d ).to( b );
-
                 }
+
             };
         return connections;
     }
@@ -196,6 +197,7 @@ public class GraphSerializationTestCase
         GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> connections =
             new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
             {
+
                 @Override
                 public void connect()
                 {
@@ -207,8 +209,8 @@ public class GraphSerializationTestCase
                     addEdge( new BaseLabeledWeightedEdge<Double>( "a -> c", 1D ) ).from( a ).to( c );
                     addEdge( new BaseLabeledWeightedEdge<Double>( "c -> d", 1D ) ).from( c ).to( d );
                     addEdge( new BaseLabeledWeightedEdge<Double>( "d -> b", 1D ) ).from( d ).to( b );
-
                 }
+
             };
         return connections;
     }
