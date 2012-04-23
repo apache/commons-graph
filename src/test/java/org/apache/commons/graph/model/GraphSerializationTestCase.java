@@ -63,7 +63,6 @@ public class GraphSerializationTestCase
     public void serializeUndirectedGraph()
         throws Exception
     {
-
         MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newUndirectedMutableGraph( buildGraphConnections() );
 
         checkSerialization( g );
@@ -73,7 +72,6 @@ public class GraphSerializationTestCase
     public void serializeDirectedGraph()
         throws Exception
     {
-
         MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newDirectedMutableGraph( buildGraphConnections() );
 
         checkSerialization( g );
@@ -83,7 +81,6 @@ public class GraphSerializationTestCase
     public void serializeUndirectedWeightdGraph()
         throws Exception
     {
-
         MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
             newUndirectedMutableGraph( buildWeightedGraphConnections() );
 
@@ -94,7 +91,6 @@ public class GraphSerializationTestCase
     public void serializeDirectedWeightdGraph()
         throws Exception
     {
-
         MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
             newDirectedMutableGraph( buildWeightedGraphConnections() );
 
@@ -129,7 +125,6 @@ public class GraphSerializationTestCase
     public void serializePath()
         throws Exception
     {
-
         BaseLabeledVertex start = new BaseLabeledVertex( "start" );
         BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
         BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -149,7 +144,6 @@ public class GraphSerializationTestCase
         g.addConnectionInTail( c, new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ), goal );
 
         checkSerialization( g );
-
     }
 
     /**
@@ -176,7 +170,6 @@ public class GraphSerializationTestCase
 
     private GraphConnection<BaseLabeledVertex, BaseLabeledEdge> buildGraphConnections()
     {
-
         GraphConnection<BaseLabeledVertex, BaseLabeledEdge> connections =
             new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
             {
@@ -203,7 +196,6 @@ public class GraphSerializationTestCase
 
     private GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> buildWeightedGraphConnections()
     {
-
         GraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> connections =
             new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
             {
@@ -227,4 +219,5 @@ public class GraphSerializationTestCase
             };
         return connections;
     }
+
 }
