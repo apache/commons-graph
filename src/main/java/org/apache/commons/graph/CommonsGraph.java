@@ -48,16 +48,17 @@ import org.apache.commons.graph.visit.VisitSourceSelector;
 
 /**
  * The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
- * 
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  * @param <G> the Graph type
  */
 public final class CommonsGraph<V, E, G extends Graph<V, E>>
 {
+
     /**
-     * Export the graph in DOT or GraphML format. 
-     * 
+     * Export the graph in DOT or GraphML format.
+     *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
      * @param <G> the Graph type
@@ -70,10 +71,9 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
         return new DefaultExportSelector<V, E>( graph );
     }
 
-    
     /**
      * Create a color builder.
-     * 
+     *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
      * @param <G> the Graph type
@@ -108,7 +108,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param <WE> the Graph edges type
      * @param <G> the Graph type
      * @param graph the input edge-weighted graph
-     * @return the caluculated minimun spanning tree 
+     * @return the caluculated minimun spanning tree
      */
     public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
     {
@@ -123,7 +123,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param <WE> the Graph edges type
      * @param <G> the Graph type
      * @param graph the input edge-weighted graph
-     * @return the caluculated the sortest 
+     * @return the caluculated the sortest
      */
     public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
     {
@@ -194,7 +194,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     /**
      * Creates a new {@link DirectedMutableGraph} instance where vertices
      * are connected as described in the input {@link GraphConnection} instance.
-     * 
+     *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
@@ -234,24 +234,24 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
     }
 
     /**
-     * Returns a synchronized (thread-safe) {@link Graph} backed by the specified Graph. 
-     * 
-     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     * Returns a synchronized (thread-safe) {@link Graph} backed by the specified Graph.
+     *
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
      * <pre>
      *     Graph syncGraph = synchronize( graph );
      *         ...
      *     synchronized(syncGraph) {
-     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block
      *         {
      *            foo( v )
      *         }
      *   }
-     * </pre> 
-     * 
+     * </pre>
+     *
      * Failure to follow this advice may result in non-deterministic behavior.
-     * 
+     *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
-     *  
+     *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
      * @param graph the input {@link Graph}
@@ -264,25 +264,25 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
 
     /**
      * Returns a synchronized (thread-safe) {@link DirectedGraph} backed by the specified Graph.
-     * 
-     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     *
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
      * <pre>
      *     Graph syncGraph = synchronize( graph );
      *         ...
      *     synchronized(syncGraph) {
-     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block
      *         {
      *            foo( v )
      *         }
      *   }
-     * </pre> 
-     * 
+     * </pre>
+     *
      * Failure to follow this advice may result in non-deterministic behavior.
      *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
-     *  
+     *
      * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type  
+     * @param <E> the Graph edges type
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
@@ -293,25 +293,25 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
 
     /**
      * Returns a synchronized (thread-safe) {@link UndirectedGraph} backed by the specified Graph.
-     * 
-     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     *
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
      * <pre>
      *     Graph syncGraph = synchronize( graph );
      *         ...
      *     synchronized(syncGraph) {
-     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block
      *         {
      *            foo( v )
      *         }
      *   }
-     * </pre> 
-     * 
+     * </pre>
+     *
      * Failure to follow this advice may result in non-deterministic behavior.
-     * 
+     *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
-     * 
+     *
      * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type 
+     * @param <E> the Graph edges type
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
@@ -322,25 +322,25 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
 
     /**
      * Returns a synchronized (thread-safe) {@link MutableGraph} backed by the specified Graph.
-     * 
-     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections: 
+     *
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
      * <pre>
      *     Graph syncGraph = synchronize( graph );
      *         ...
      *     synchronized(syncGraph) {
-     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block 
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block
      *         {
      *            foo( v )
      *         }
      *   }
-     * </pre> 
-     * 
+     * </pre>
+     *
      * Failure to follow this advice may result in non-deterministic behavior.
-     * 
+     *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
-     * 
+     *
      * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type 
+     * @param <E> the Graph edges type
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
