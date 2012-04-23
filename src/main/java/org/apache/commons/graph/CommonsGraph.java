@@ -342,7 +342,7 @@ public final class CommonsGraph<V, E, G extends Graph<V, E>>
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
      * @param graph the input {@link Graph}
-     * @return the syncronyzed graph
+     * @return the synchronized graph
      */
     public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
     {
