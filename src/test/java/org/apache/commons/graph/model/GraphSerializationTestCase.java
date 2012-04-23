@@ -152,7 +152,7 @@ public class GraphSerializationTestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    private void checkSerialization( Graph<BaseLabeledVertex, ? extends Serializable> g )
+    private static void checkSerialization( Graph<BaseLabeledVertex, ? extends Serializable> g )
         throws FileNotFoundException, IOException, ClassNotFoundException
     {
         FileOutputStream fout = new FileOutputStream( FILE_NAME );
