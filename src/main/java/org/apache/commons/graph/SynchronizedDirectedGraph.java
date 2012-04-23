@@ -84,4 +84,5 @@ class SynchronizedDirectedGraph<V, E>
             return directedGraph.getOutbound( v );
         }
     }
+
 }

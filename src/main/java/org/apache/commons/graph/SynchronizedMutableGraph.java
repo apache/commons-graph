@@ -26,6 +26,7 @@ class SynchronizedMutableGraph<V, E>
     extends SynchronizedGraph<V, E>
     implements MutableGraph<V, E>
 {
+
     private static final long serialVersionUID = -5985121601939852063L;
 
     private final MutableGraph<V, E> mutableGraph;
@@ -50,7 +51,7 @@ class SynchronizedMutableGraph<V, E>
             mutableGraph.addVertex( v );
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -83,4 +84,5 @@ class SynchronizedMutableGraph<V, E>
             mutableGraph.removeEdge( e );
         }
     }
+
 }
