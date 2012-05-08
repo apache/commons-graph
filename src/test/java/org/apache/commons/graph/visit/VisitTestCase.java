@@ -36,7 +36,6 @@ import org.junit.Test;
 public final class VisitTestCase
 {
 
-    
     @Test( expected = IllegalStateException.class )
     public void testNotExistVertex()
     {
@@ -53,7 +52,7 @@ public final class VisitTestCase
 
         visit( input ).from( new BaseLabeledVertex( "NOT EXIST" ) );
     }
-    
+
     /**
      * Graph picture can be see
      * <a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/breadthSearch.htm">here</a>
