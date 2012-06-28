@@ -164,6 +164,14 @@ final class FibonacciHeapNode<E>
     }
 
     /**
+     * Sets the number of children in the child list to {@code 0}.
+     */
+    public void resetDegree()
+    {
+        degree = 0;
+    }
+
+    /**
      * Increases the degree of current node.
      *
      * @see #getDegree()

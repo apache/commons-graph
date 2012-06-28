@@ -558,6 +558,19 @@ public final class FibonacciHeap<E>
      */
     private void insert( FibonacciHeapNode<E> node )
     {
+        // 1  degree[x] &larr; 0
+        node.resetDegree();
+        // 2  p[x] <- NIL
+        node.setParent( null );
+        // 3  child[x] <- NIL
+        node.setChild( null );
+        // 4  left[x] <- x
+        node.setLeft( node );
+        // 5  right[x] <- x
+        node.setRight( node );
+        // 6  mark[x] <- FALSE
+        node.setMarked( false );
+
         // if min[H] = NIL
         if ( isEmpty() )
         {
