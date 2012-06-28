@@ -20,25 +20,36 @@ package org.apache.commons.graph.collections;
  */
 
 /**
+ * The {@link FibonacciHeap} node reference.
+ *
  * @param <E> the type of elements held in the {@link FibonacciHeap} collection.
  */
 final class FibonacciHeapNode<E>
 {
 
+    /**
+     * The stored node value.
+     */
     private final E element;
 
+    /**
+     * Reference to the parent node, if any.
+     */
     private FibonacciHeapNode<E> parent;
 
     /**
-     * {@code left[x]}
+     * {@code left[x]}.
      */
     private FibonacciHeapNode<E> left = this;
 
     /**
-     * {@code right[x]}
+     * {@code right[x]}.
      */
     private FibonacciHeapNode<E> right = this;
 
+    /**
+     * Reference to the first child node.
+     */
     private FibonacciHeapNode<E> child;
 
     /**
@@ -52,76 +63,151 @@ final class FibonacciHeapNode<E>
      */
     private boolean marked = false;
 
+    /**
+     * Build a new {@link FibonacciHeap} node with the given value.
+     *
+     * @param element the node value has to be stored.
+     */
     public FibonacciHeapNode( E element )
     {
         this.element = element;
     }
 
+    /**
+     * Returns the reference to the parent node, if any.
+     *
+     * @return the reference to the parent node, if any.
+     */
     public FibonacciHeapNode<E> getParent()
     {
         return parent;
     }
 
+    /**
+     * Sets the reference to the parent node.
+     *
+     * @param parent the reference to the parent node
+     */
     public void setParent( FibonacciHeapNode<E> parent )
     {
         this.parent = parent;
     }
 
+    /**
+     * Returns the left node reference.
+     *
+     * @return the left node reference.
+     */
     public FibonacciHeapNode<E> getLeft()
     {
         return left;
     }
 
+    /**
+     * Sets the left node reference.
+     *
+     * @param left the left node reference.
+     */
     public void setLeft( FibonacciHeapNode<E> left )
     {
         this.left = left;
     }
 
+    /**
+     * Returns the right node reference.
+     *
+     * @return the right node reference.
+     */
     public FibonacciHeapNode<E> getRight()
     {
         return right;
     }
 
+    /**
+     * Sets the right node reference.
+     *
+     * @param left the right node reference.
+     */
     public void setRight( FibonacciHeapNode<E> right )
     {
         this.right = right;
     }
 
+    /**
+     * Returns the reference to the first child node.
+     *
+     * @return the reference to the first child node.
+     */
     public FibonacciHeapNode<E> getChild()
     {
         return child;
     }
 
+    /**
+     * Sets the reference to the first child node.
+     *
+     * @param child the reference to the first child node.
+     */
     public void setChild( FibonacciHeapNode<E> child )
     {
         this.child = child;
     }
 
+    /**
+     * Returns the number of children in the child list of node {@code x} is stored in {@code degree[x]}.
+     *
+     * @return the number of children in the child list of node {@code x} is stored in {@code degree[x]}.
+     */
     public int getDegree()
     {
         return degree;
     }
 
+    /**
+     * Increases the degree of current node.
+     *
+     * @see #getDegree()
+     */
     public void incraeseDegree()
     {
         degree++;
     }
 
+    /**
+     * Decreases the degree of current node.
+     *
+     * @see #getDegree()
+     */
     public void decraeseDegree()
     {
         degree--;
     }
 
+    /**
+     * Returns the current node mark status.
+     *
+     * @return true, if the node is marked, false otherwise.
+     */
     public boolean isMarked()
     {
         return marked;
     }
 
+    /**
+     * Flags the current node as marked.
+     *
+     * @param marked the current node mark status.
+     */
     public void setMarked( boolean marked )
     {
         this.marked = marked;
     }
 
+    /**
+     * Returns the adapted element by this node.
+     *
+     * @return the adapted element by this node.
+     */
     public E getElement()
     {
         return element;
