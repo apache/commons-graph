@@ -466,8 +466,8 @@ public final class FibonacciHeap<E>
      * <pre>CUT(H,x,y)
      * 1  remove x from the child list of y, decrementing degree[y]
      * 2  add x to the root list of H
-     * 3  p[x] &lt;- NIL
-     * 4  mark[x] &lt;- FALSE</pre>
+     * 3  p[x] &larr; NIL
+     * 4  mark[x] &larr; FALSE</pre>
      *
      * @param x the node has to be removed from {@code y} children
      * @param y the node has to be updated
@@ -493,10 +493,10 @@ public final class FibonacciHeap<E>
      * Implements the {@code CASCADING-CUT(H,y)} function.
      *
      * <pre>CASCADING-CUT(H,y)
-     * 1  z &lt;- p[y]
+     * 1  z &larr; p[y]
      * 2  if z &ne; NIL
      * 3     then if mark[y] = FALSE
-     * 4             then mark[y] &lt;- TRUE
+     * 4             then mark[y] &larr; TRUE
      * 5             else CUT(H,y,z)
      * 6                  CASCADING-CUT(H,z)</pre>
      *
@@ -541,16 +541,16 @@ public final class FibonacciHeap<E>
      * Adds a node in the current structure.
      *
      * <pre>FIB-HEAP-INSERT(H, x)
-     * 1  degree[x] &lt;- 0
-     * 2  p[x] &lt;- NIL
-     * 3  child[x] &lt;- NIL
-     * 4  left[x] &lt;- x
-     * 5  right[x] &lt;- x
-     * 6  mark[x] &lt;- FALSE
+     * 1  degree[x] &larr; 0
+     * 2  p[x] &larr; NIL
+     * 3  child[x] &larr; NIL
+     * 4  left[x] &larr; x
+     * 5  right[x] &larr; x
+     * 6  mark[x] &larr; FALSE
      * 7  concatenate the root list containing x with root list H
      * 8  if min[H] = NIL or key[x] &lt; key[min[H]]
-     * 9     then min[H] &lt;- x
-     * 10  n[H] &lt;- n[H] + 1</pre>
+     * 9     then min[H] &larr; x
+     * 10  n[H] &larr; n[H] + 1</pre>
      *
      * @param node the node has to be added.
      * @see #offer(Object)
