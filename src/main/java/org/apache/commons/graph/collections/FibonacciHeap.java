@@ -315,20 +315,33 @@ public final class FibonacciHeap<E>
 
     /**
      * {@inheritDoc}
+     *
+     * <pre>FIB-HEAP-EXTRACT-MIN(H)
+     * 1  z &larr; min[H]
+     * 2  if z &ne; NIL
+     * 3      then for each child x of z
+     * 4               do add x to the root list of H
+     * 5                  p[x] &larr; NIL
+     * 6           remove z from the root list of H
+     * 7           if z = right[z]
+     * 8              then min[H] &larr; NIL
+     * 9              else min[H] &larr; right[z]
+     * 10                   CONSOLIDATE(H)
+     * 11           n[H] &larr; n[H] - 1
+     * 12  return z</pre>
      */
     public E poll()
     {
-        // FIB-HEAP-EXTRACT-MIN(H)
-
+        // 2  if z &ne; NIL
         if ( isEmpty() )
         {
             return null;
         }
 
-        // z <- min[H]
+        // 1  z <- min[H]
         FibonacciHeapNode<E> z = minimumNode;
 
-        // for each child x of z
+        // 3  for each child x of z
         if ( z.getDegree() > 0 )
         {
             FibonacciHeapNode<E> x = z.getChild();
@@ -338,17 +351,17 @@ public final class FibonacciHeap<E>
             {
                 tempRight = x.getRight();
 
-                // remove x from child list
+                // 4  do add x to the root list of H
                 x.getLeft().setRight( x.getRight() );
                 x.getRight().setLeft( x.getLeft() );
 
-                // add x to the root list of H
+                // 4  add x to the root list of H
                 z.getLeft().setRight( x );
                 x.setLeft( z.getLeft() );
                 z.setLeft( x );
                 x.setRight( z );
 
-                // p[x] <- NIL
+                // 5  p[x] <- NIL
                 x.setParent( null );
 
                 x = tempRight;
@@ -356,27 +369,26 @@ public final class FibonacciHeap<E>
             while ( x != z.getChild() );
         }
 
-        // remove z from the root list of H
+        // 6  remove z from the root list of H
         z.getLeft().setRight( z.getRight() );
         z.getRight().setLeft( z.getLeft() );
 
-        // if z = right[z]
+        // 7  if z = right[z]
         if ( z == z.getRight() )
         {
-            // min[H] <- NIL
+            // 8  min[H] <- NIL
             minimumNode = null;
         }
         else
         {
-            // min[H] <- right[z]
+            // 9  min[H] <- right[z]
             minimumNode = z.getRight();
-            // CONSOLIDATE(H)
+            // 10  CONSOLIDATE(H)
             consolidate();
         }
 
         // n[H] <- n[H] - 1
         size--;
-        trees--;
 
         E minimum = z.getElement();
         elementsIndex.remove( minimum );
