@@ -117,10 +117,6 @@ public final class FibonacciHeap<E>
 
         elementsIndex.add( e );
 
-        // n[H] <- n[H] + 1
-        size++;
-        trees++;
-
         return true;
     }
 
@@ -583,6 +579,9 @@ public final class FibonacciHeap<E>
                 minimumNode = node;
             }
         }
+
+        // n[H] <- n[H] + 1
+        size++;
     }
 
     /**
