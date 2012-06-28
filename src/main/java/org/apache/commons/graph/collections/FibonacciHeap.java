@@ -113,13 +113,6 @@ public final class FibonacciHeap<E>
             throw new NullPointerException();
         }
 
-        // FIB-HEAP-INSERT(H, x)
-
-        // p[x] <- NIL
-        // child[x] <- NIL
-        // left[x] <- x
-        // right[x] <- x
-        // mark[x] <- FALSE
         insert( new FibonacciHeapNode<E>( e ) );
 
         elementsIndex.add( e );
@@ -550,6 +543,18 @@ public final class FibonacciHeap<E>
 
     /**
      * Adds a node in the current structure.
+     *
+     * <pre>FIB-HEAP-INSERT(H, x)
+     * 1  degree[x] &lt;- 0
+     * 2  p[x] &lt;- NIL
+     * 3  child[x] &lt;- NIL
+     * 4  left[x] &lt;- x
+     * 5  right[x] &lt;- x
+     * 6  mark[x] &lt;- FALSE
+     * 7  concatenate the root list containing x with root list H
+     * 8  if min[H] = NIL or key[x] &lt; key[min[H]]
+     * 9     then min[H] &lt;- x
+     * 10  n[H] &lt;- n[H] + 1</pre>
      *
      * @param node the node has to be added.
      * @see #offer(Object)
