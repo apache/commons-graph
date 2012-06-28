@@ -504,14 +504,17 @@ public final class FibonacciHeap<E>
         // if z != NIL
         if ( z != null )
         {
-            // mark[y] = FALSE
+            // if mark[y] = FALSE
             if ( !y.isMarked() )
             {
+                // then mark[y]  TRUE
                 y.setMarked( true );
             }
             else
             {
+                // else CUT(H,y,z)
                 cut( y, z );
+                // CASCADING-CUT(H,z)
                 cascadingCut( z );
             }
         }
