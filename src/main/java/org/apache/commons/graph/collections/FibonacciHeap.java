@@ -146,6 +146,7 @@ public final class FibonacciHeap<E>
         size = 0;
         trees = 0;
         markedNodes = 0;
+        elementsIndex.clear();
     }
 
     /**
