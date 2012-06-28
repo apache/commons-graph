@@ -203,7 +203,7 @@ public final class FibonacciHeap<E>
      */
     public Iterator<E> iterator()
     {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -211,7 +211,7 @@ public final class FibonacciHeap<E>
      */
     public boolean remove( Object o )
     {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -219,7 +219,7 @@ public final class FibonacciHeap<E>
      */
     public boolean removeAll( Collection<?> c )
     {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -227,7 +227,7 @@ public final class FibonacciHeap<E>
      */
     public boolean retainAll( Collection<?> c )
     {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -243,7 +243,7 @@ public final class FibonacciHeap<E>
      */
     public Object[] toArray()
     {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -251,7 +251,7 @@ public final class FibonacciHeap<E>
      */
     public <T> T[] toArray( T[] a )
     {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     /**
