@@ -474,6 +474,12 @@ public final class FibonacciHeap<E>
     /**
      * Implements the {@code CUT(H,x,y)} function.
      *
+     * <pre>CUT(H,x,y)
+     * 1  remove x from the child list of y, decrementing degree[y]
+     * 2  add x to the root list of H
+     * 3  p[x] &lt;- NIL
+     * 4  mark[x] &lt;- FALSE</pre>
+     *
      * @param x the node has to be removed from {@code y} children
      * @param y the node has to be updated
      */
@@ -484,6 +490,9 @@ public final class FibonacciHeap<E>
         x.getRight().setLeft( x.getLeft() );
         y.decraeseDegree();
 
+        // add x to the root list of H
+        // TODO!!!
+
         // p[x] <- NIL
         x.setParent( null );
 
@@ -493,6 +502,14 @@ public final class FibonacciHeap<E>
 
     /**
      * Implements the {@code CASCADING-CUT(H,y)} function.
+     *
+     * <pre>CASCADING-CUT(H,y)
+     * 1  z  p[y]
+     * 2  if z  NIL
+     * 3     then if mark[y] = FALSE
+     * 4             then mark[y]  TRUE
+     * 5             else CUT(H,y,z)
+     * 6                  CASCADING-CUT(H,z)</pre>
      *
      * @param y the target node to apply CASCADING-CUT
      */
