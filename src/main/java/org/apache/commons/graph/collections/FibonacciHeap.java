@@ -136,7 +136,12 @@ public final class FibonacciHeap<E>
      */
     public boolean addAll( Collection<? extends E> c )
     {
-        return false;
+        for ( E element : c )
+        {
+            add( element );
+        }
+
+        return true;
     }
 
     /**
