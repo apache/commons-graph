@@ -387,11 +387,12 @@ public final class FibonacciHeap<E>
             consolidate();
         }
 
-        // n[H] <- n[H] - 1
+        // 11  n[H] <- n[H] - 1
         size--;
 
         E minimum = z.getElement();
         elementsIndex.remove( minimum );
+        // 12  return z
         return minimum;
     }
 
