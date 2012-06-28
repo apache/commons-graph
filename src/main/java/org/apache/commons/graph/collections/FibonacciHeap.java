@@ -38,6 +38,8 @@ import java.util.Set;
  * <a href="http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm">University of Science and Technology of
  * China</a> lesson.
  *
+ * <b>Note</b>: this class is NOT thread safe!
+ *
  * @param <E> the type of elements held in this collection.
  */
 public final class FibonacciHeap<E>
