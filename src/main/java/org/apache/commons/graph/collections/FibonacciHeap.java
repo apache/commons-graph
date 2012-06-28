@@ -501,7 +501,7 @@ public final class FibonacciHeap<E>
         // z <- p[y]
         FibonacciHeapNode<E> z = y.getParent();
 
-        // if z <- NIL
+        // if z != NIL
         if ( z != null )
         {
             // mark[y] = FALSE
