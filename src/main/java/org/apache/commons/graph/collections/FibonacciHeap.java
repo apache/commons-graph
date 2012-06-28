@@ -47,7 +47,7 @@ public final class FibonacciHeap<E>
 {
 
     /**
-     * The Phi constant value.
+     * The <i>Phi</i> constant value.
      */
     private static final double LOG_PHI = log( ( 1 + sqrt( 5 ) ) / 2 );
 
