@@ -120,7 +120,7 @@ public final class FibonacciHeap<E>
         // left[x] <- x
         // right[x] <- x
         // mark[x] <- FALSE
-        addNode( new FibonacciHeapNode<E>( e ) );
+        insert( new FibonacciHeapNode<E>( e ) );
 
         elementsIndex.add( e );
 
@@ -443,7 +443,7 @@ public final class FibonacciHeap<E>
             // if A[i] != NIL
             if ( pointer != null )
             {
-                addNode( pointer );
+                insert( pointer );
             }
         }
     }
@@ -555,7 +555,7 @@ public final class FibonacciHeap<E>
      * @see #offer(Object)
      * @see #add(Object)
      */
-    private void addNode( FibonacciHeapNode<E> node )
+    private void insert( FibonacciHeapNode<E> node )
     {
         // if min[H] = NIL
         if ( isEmpty() )
