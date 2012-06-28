@@ -440,21 +440,26 @@ public final class FibonacciHeap<E>
     /**
      * Implements the {@code FIB-HEAP-LINK(H, y, x)} function.
      *
+     * <pre>FIB-HEAP-LINK(H, y, x)
+     * 1  remove y from the root list of H
+     * 2  make y a child of x, incrementing degree[x]
+     * 3  mark[y]  FALSE</pre>
+     *
      * @param y the node has to be removed from the root list
      * @param x the node has to to become fater of {@code y}
      */
     private void link( FibonacciHeapNode<E> y, FibonacciHeapNode<E> x )
     {
-        // remove y from the root list of H
+        // 1  remove y from the root list of H
         y.getLeft().setRight( y.getRight() );
         y.getRight().setLeft( y.getLeft() );
 
-        // make y a child of x, incrementing degree[x]
+        // 2  make y a child of x, incrementing degree[x]
         x.setChild( y );
         y.setParent( x );
         x.incraeseDegree();
 
-        // mark[y] <- FALSE
+        // 3  mark[y] <- FALSE
         y.setMarked( false );
 
         trees--;
