@@ -504,10 +504,10 @@ public final class FibonacciHeap<E>
      * Implements the {@code CASCADING-CUT(H,y)} function.
      *
      * <pre>CASCADING-CUT(H,y)
-     * 1  z  p[y]
-     * 2  if z  NIL
+     * 1  z &lt;- p[y]
+     * 2  if z &ne; NIL
      * 3     then if mark[y] = FALSE
-     * 4             then mark[y]  TRUE
+     * 4             then mark[y] &lt;- TRUE
      * 5             else CUT(H,y,z)
      * 6                  CASCADING-CUT(H,z)</pre>
      *
