@@ -38,7 +38,9 @@ import java.util.Set;
  * <a href="http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm">University of Science and Technology of
  * China</a> lesson.
  *
- * <b>Note</b>: this class is NOT thread safe!
+ * <p><b>Note 1</b>: this class is NOT thread safe!</p>
+ *
+ * <p><b>Note 2</b>: this class doesn't support {@code null} values</p>
  *
  * @param <E> the type of elements held in this collection.
  */
