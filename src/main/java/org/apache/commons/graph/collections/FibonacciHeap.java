@@ -461,8 +461,6 @@ public final class FibonacciHeap<E>
 
         // 3  mark[y] <- FALSE
         y.setMarked( false );
-
-        trees--;
     }
 
     /**
