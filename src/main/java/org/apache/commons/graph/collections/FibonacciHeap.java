@@ -363,6 +363,27 @@ public final class FibonacciHeap<E>
 
     /**
      * Implements the {@code CONSOLIDATE(H)} function.
+     *
+     * <pre>CONSOLIDATE(H)
+     * 1 for i &larr; 0 to D(n[H])
+     * 2      do A[i] &larr; NIL
+     * 3 for each node w in the root list of H
+     * 4      do x &larr; w
+     * 5         d &larr; degree[x]
+     * 6         while A[d] &ne; NIL
+     * 7            do y &larr; A[d]
+     * 8               if key[x] &gt; key[y]
+     * 9                  then exchange x &harr; y
+     * 10                FIB-HEAP-LINK(H,y,x)
+     * 11                A[d] &larr; NIL
+     * 12                d &larr; d + 1
+     * 13         A[d] &larr; x
+     * 14 min[H] &larr; NIL
+     * 15 for i &larr; 0 to D(n[H])
+     * 16      do if A[i] &ne; NIL
+     * 17            then add A[i] to the root list of H
+     * 18                 if min[H] = NIL or key[A[i]] &le; key[min[H]]
+     * 19                    then min[H] &larr; A[i]</pre>
      */
     private void consolidate()
     {
@@ -376,62 +397,64 @@ public final class FibonacciHeap<E>
         // -> D( n[H] ) = log( n[H] ) / log( phi )
         int arraySize = ( (int) floor( log( size ) / LOG_PHI ) );
 
-        // for i <- 0 to D(n[H])
+        // 1  for i <- 0 to D(n[H])
         List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>( arraySize );
         for ( int i = 0; i < arraySize; i++ )
         {
-            // A[i] <- NIL
+            // 2      do A[i] <- NIL
             nodeSequence.add( i, null );
         }
 
-        // for each node x in the root list of H
+        // 3  for each node x in the root list of H
+        // 4  do x &larr; w
         FibonacciHeapNode<E> x = minimumNode;
         do
         {
-            // d <- degree[x]
+            // 5  d <- degree[x]
             int degree = x.getDegree();
 
-            // while A[d] != NIL
+            // 6  while A[d] != NIL
             while ( nodeSequence.get( degree ) != null )
             {
-                // do y <- A[d]
+                // 7  do y <- A[d]
                 FibonacciHeapNode<E> y = nodeSequence.get( degree );
 
-                // if key[x] > key[y]
+                // 8  if key[x] > key[y]
                 if ( compare( x, y ) > 0 )
                 {
-                    // exchange x <-> y
+                    // 9  exchange x <-> y
                     FibonacciHeapNode<E> pointer = y;
                     y = x;
                     x = pointer;
                 }
 
-                // FIB-HEAP-LINK(H,y,x)
+                // 10  FIB-HEAP-LINK(H,y,x)
                 link( y, x );
 
-                // A[d] <- NIL
+                // 11  A[d] <- NIL
                 nodeSequence.set( degree, null );
 
-                // d <- d + 1
+                // 12  d <- d + 1
                 degree++;
             }
 
-            // A[d] <- x
+            // 13  A[d] <- x
             nodeSequence.set( degree, x );
 
             x = x.getRight();
         }
         while ( x != minimumNode );
 
-        // min[H] <- NIL
+        // 14  min[H] <- NIL
         minimumNode = null;
 
-        // for i <- 0 to D(n[H])
+        // 15  for i <- 0 to D(n[H])
         for ( FibonacciHeapNode<E> pointer : nodeSequence )
         {
-            // if A[i] != NIL
+            // 16 if A[i] != NIL
             if ( pointer != null )
             {
+                // FIXME this is totally wrong!!!
                 insert( pointer );
             }
         }
