@@ -571,7 +571,7 @@ public final class FibonacciHeap<E>
         // 6  mark[x] <- FALSE
         node.setMarked( false );
 
-        // if min[H] = NIL
+        // 8'  if min[H] = NIL
         if ( isEmpty() )
         {
             // then min[H] <- x
@@ -579,21 +579,21 @@ public final class FibonacciHeap<E>
         }
         else
         {
-            // concatenate the root list containing x with root list H
+            // 7 concatenate the root list containing x with root list H
             minimumNode.getLeft().setRight( node );
             node.setLeft( minimumNode.getLeft() );
             node.setRight( minimumNode );
             minimumNode.setLeft( node );
 
-            // if key[x] < key[min[H]]
+            // 8''  if key[x] < key[min[H]]
             if ( compare( node, minimumNode ) < 0 )
             {
-                // then min[H] <- x
+                // 9     then min[H] <- x
                 minimumNode = node;
             }
         }
 
-        // n[H] <- n[H] + 1
+        // 10  n[H] <- n[H] + 1
         size++;
     }
 
