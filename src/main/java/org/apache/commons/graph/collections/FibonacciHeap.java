@@ -76,11 +76,20 @@ public final class FibonacciHeap<E>
      */
     private FibonacciHeapNode<E> minimumNode;
 
+    /**
+     * Creates a {@link FibonacciHeap} that orders its elements according to their natural ordering.
+     */
     public FibonacciHeap()
     {
         this( null );
     }
 
+    /**
+     * Creates a {@link FibonacciHeap} that orders its elements according to the specified comparator.
+     *
+     * @param comparator the comparator that will be used to order this queue.
+     *                   If null, the natural ordering of the elements will be used.
+     */
     public FibonacciHeap( /* @Nullable */Comparator<? super E> comparator )
     {
         this.comparator = comparator;
@@ -428,8 +437,8 @@ public final class FibonacciHeap<E>
     /**
      * Implements the {@code FIB-HEAP-LINK(H, y, x)} function.
      *
-     * @param y
-     * @param x
+     * @param y the node has to be removed from the root list
+     * @param x the node has to to become fater of {@code y}
      */
     private void link( FibonacciHeapNode<E> y, FibonacciHeapNode<E> x )
     {
@@ -451,8 +460,8 @@ public final class FibonacciHeap<E>
     /**
      * Implements the {@code CUT(H,x,y)} function.
      *
-     * @param x
-     * @param y
+     * @param x the node has to be removed from {@code y} children
+     * @param y the node has to be updated
      */
     private void cut( FibonacciHeapNode<E> x, FibonacciHeapNode<E> y )
     {
@@ -471,7 +480,7 @@ public final class FibonacciHeap<E>
     /**
      * Implements the {@code CASCADING-CUT(H,y)} function.
      *
-     * @param y
+     * @param y the target node to apply CASCADING-CUT
      */
     private void cascadingCut( FibonacciHeapNode<E> y )
     {
@@ -505,6 +514,13 @@ public final class FibonacciHeap<E>
         return trees + 2 * markedNodes;
     }
 
+    /**
+     * Adds a node in the current structure.
+     *
+     * @param node the node has to be added.
+     * @see #offer(Object)
+     * @see #add(Object)
+     */
     private void addNode( FibonacciHeapNode<E> node )
     {
         // if min[H] = NIL
@@ -530,6 +546,15 @@ public final class FibonacciHeap<E>
         }
     }
 
+    /**
+     * Compare the given objects according to to the specified comparator if not null,
+     * according to their natural ordering otherwise.
+     *
+     * @param o1 the first {@link FibonacciHeap} node to be compared
+     * @param o2 the second {@link FibonacciHeap} node to be compared
+     * @return a negative integer, zero, or a positive integer as the first argument is
+     *         less than, equal to, or greater than the second
+     */
     private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
     {
         if ( comparator != null )
