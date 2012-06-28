@@ -55,13 +55,13 @@ final class FibonacciHeapNode<E>
     /**
      * The number of children in the child list of node {@code x} is stored in {@code degree[x]}.
      */
-    private int degree = 0;
+    private int degree;
 
     /**
      * {@code mark[x]} indicates whether node {@code x} has lost a child since
      * the last time {@code x} was made the child of another node.
      */
-    private boolean marked = false;
+    private boolean marked;
 
     /**
      * Build a new {@link FibonacciHeap} node with the given value.
@@ -70,6 +70,20 @@ final class FibonacciHeapNode<E>
      */
     public FibonacciHeapNode( E element )
     {
+        // 1  degree[x] &larr; 0
+        degree = 0;
+        // 2  p[x] <- NIL
+        setParent( null );
+        // 3  child[x] <- NIL
+        setChild( null );
+        // 4  left[x] <- x
+        setLeft( this );
+        // 5  right[x] <- x
+        setRight( this );
+        // 6  mark[x] <- FALSE
+        setMarked( false );
+
+        // set the adapted element
         this.element = element;
     }
 
@@ -161,14 +175,6 @@ final class FibonacciHeapNode<E>
     public int getDegree()
     {
         return degree;
-    }
-
-    /**
-     * Sets the number of children in the child list to {@code 0}.
-     */
-    public void resetDegree()
-    {
-        degree = 0;
     }
 
     /**

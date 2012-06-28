@@ -105,6 +105,18 @@ public final class FibonacciHeap<E>
 
     /**
      * {@inheritDoc}
+     *
+     * <pre>FIB-HEAP-INSERT(H, x)
+     * 1  degree[x] &larr; 0
+     * 2  p[x] &larr; NIL
+     * 3  child[x] &larr; NIL
+     * 4  left[x] &larr; x
+     * 5  right[x] &larr; x
+     * 6  mark[x] &larr; FALSE
+     * 7  concatenate the root list containing x with root list H
+     * 8  if min[H] = NIL or key[x] &lt; key[min[H]]
+     * 9     then min[H] &larr; x
+     * 10  n[H] &larr; n[H] + 1</pre>
      */
     public boolean add( E e )
     {
@@ -113,7 +125,32 @@ public final class FibonacciHeap<E>
             throw new NullPointerException();
         }
 
-        insert( new FibonacciHeapNode<E>( e ) );
+        // 1-6 performed in the node initialization
+        FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
+        // 8'  if min[H] = NIL
+        if ( isEmpty() )
+        {
+            // then min[H] <- x
+            minimumNode = node;
+        }
+        else
+        {
+            // 7 concatenate the root list containing x with root list H
+            minimumNode.getLeft().setRight( node );
+            node.setLeft( minimumNode.getLeft() );
+            node.setRight( minimumNode );
+            minimumNode.setLeft( node );
+
+            // 8''  if key[x] < key[min[H]]
+            if ( compare( node, minimumNode ) < 0 )
+            {
+                // 9     then min[H] <- x
+                minimumNode = node;
+            }
+        }
+
+        // 10  n[H] <- n[H] + 1
+        size++;
 
         elementsIndex.add( e );
 
@@ -454,8 +491,12 @@ public final class FibonacciHeap<E>
             // 16 if A[i] != NIL
             if ( pointer != null )
             {
-                // FIXME this is totally wrong!!!
-                insert( pointer );
+                // TODO 17            then add A[i] to the root list of H
+                // TODO 18                 if min[H] = NIL or key[A[i]] &le; key[min[H]]
+                // TODO 19                    then min[H] &larr; A[i]</pre>
+
+                // FIXME this should be wrong
+                add( pointer.getElement() );
             }
         }
     }
@@ -561,66 +602,6 @@ public final class FibonacciHeap<E>
     public int potential()
     {
         return trees + 2 * markedNodes;
-    }
-
-    /**
-     * Adds a node in the current structure.
-     *
-     * <pre>FIB-HEAP-INSERT(H, x)
-     * 1  degree[x] &larr; 0
-     * 2  p[x] &larr; NIL
-     * 3  child[x] &larr; NIL
-     * 4  left[x] &larr; x
-     * 5  right[x] &larr; x
-     * 6  mark[x] &larr; FALSE
-     * 7  concatenate the root list containing x with root list H
-     * 8  if min[H] = NIL or key[x] &lt; key[min[H]]
-     * 9     then min[H] &larr; x
-     * 10  n[H] &larr; n[H] + 1</pre>
-     *
-     * @param node the node has to be added.
-     * @see #offer(Object)
-     * @see #add(Object)
-     */
-    private void insert( FibonacciHeapNode<E> node )
-    {
-        // 1  degree[x] &larr; 0
-        node.resetDegree();
-        // 2  p[x] <- NIL
-        node.setParent( null );
-        // 3  child[x] <- NIL
-        node.setChild( null );
-        // 4  left[x] <- x
-        node.setLeft( node );
-        // 5  right[x] <- x
-        node.setRight( node );
-        // 6  mark[x] <- FALSE
-        node.setMarked( false );
-
-        // 8'  if min[H] = NIL
-        if ( isEmpty() )
-        {
-            // then min[H] <- x
-            minimumNode = node;
-        }
-        else
-        {
-            // 7 concatenate the root list containing x with root list H
-            minimumNode.getLeft().setRight( node );
-            node.setLeft( minimumNode.getLeft() );
-            node.setRight( minimumNode );
-            minimumNode.setLeft( node );
-
-            // 8''  if key[x] < key[min[H]]
-            if ( compare( node, minimumNode ) < 0 )
-            {
-                // 9     then min[H] <- x
-                minimumNode = node;
-            }
-        }
-
-        // 10  n[H] <- n[H] + 1
-        size++;
     }
 
     /**
