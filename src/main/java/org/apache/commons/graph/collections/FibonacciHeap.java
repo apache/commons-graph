@@ -46,8 +46,14 @@ public final class FibonacciHeap<E>
     implements Queue<E>
 {
 
+    /**
+     * The Phi constant value.
+     */
     private static final double LOG_PHI = log( ( 1 + sqrt( 5 ) ) / 2 );
 
+    /**
+     * A simple index of stored elements.
+     */
     private final Set<E> elementsIndex = new HashSet<E>();
 
     /**
