@@ -104,6 +104,39 @@ public final class FibonacciHeap<E>
     }
 
     /**
+     * Moves the target node in the {@code H} root nodes.
+     *
+     * @param node the node has to be moved in the {@code H} root nodes
+     * @see #add(Object)
+     * @see #consolidate()
+     * @see #cut(FibonacciHeapNode, FibonacciHeapNode)
+     */
+    private void moveToRoot( FibonacciHeapNode<E> node )
+    {
+        // 8'  if min[H] = NIL
+        if ( isEmpty() )
+        {
+            // then min[H] <- x
+            minimumNode = node;
+        }
+        else
+        {
+            // 7 concatenate the root list containing x with root list H
+            minimumNode.getLeft().setRight( node );
+            node.setLeft( minimumNode.getLeft() );
+            node.setRight( minimumNode );
+            minimumNode.setLeft( node );
+
+            // 8''  if key[x] < key[min[H]]
+            if ( compare( node, minimumNode ) < 0 )
+            {
+                // 9     then min[H] <- x
+                minimumNode = node;
+            }
+        }
+    }
+
+    /**
      * {@inheritDoc}
      *
      * <pre>FIB-HEAP-INSERT(H, x)
@@ -127,27 +160,9 @@ public final class FibonacciHeap<E>
 
         // 1-6 performed in the node initialization
         FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
-        // 8'  if min[H] = NIL
-        if ( isEmpty() )
-        {
-            // then min[H] <- x
-            minimumNode = node;
-        }
-        else
-        {
-            // 7 concatenate the root list containing x with root list H
-            minimumNode.getLeft().setRight( node );
-            node.setLeft( minimumNode.getLeft() );
-            node.setRight( minimumNode );
-            minimumNode.setLeft( node );
 
-            // 8''  if key[x] < key[min[H]]
-            if ( compare( node, minimumNode ) < 0 )
-            {
-                // 9     then min[H] <- x
-                minimumNode = node;
-            }
-        }
+        // 7-9 performed in the #moveToRoot( FibonacciHeapNode<E> ) method
+        moveToRoot( node );
 
         // 10  n[H] <- n[H] + 1
         size++;
@@ -504,12 +519,7 @@ public final class FibonacciHeap<E>
             // 16 if A[i] != NIL
             if ( pointer != null )
             {
-                // TODO 17            then add A[i] to the root list of H
-                // TODO 18                 if min[H] = NIL or key[A[i]] &le; key[min[H]]
-                // TODO 19                    then min[H] &larr; A[i]</pre>
-
-                // FIXME this should be wrong
-                add( pointer.getElement() );
+                moveToRoot( pointer );
             }
         }
     }
@@ -560,7 +570,7 @@ public final class FibonacciHeap<E>
         y.decraeseDegree();
 
         // add x to the root list of H
-        // TODO!!!
+        moveToRoot( x );
 
         // p[x] <- NIL
         x.setParent( null );
