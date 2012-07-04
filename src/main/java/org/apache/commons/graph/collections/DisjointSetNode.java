@@ -31,7 +31,7 @@ final class DisjointSetNode<E>
     /**
      * The stored node value.
      */
-    private final E e;
+    private final E element;
 
     /**
      * The {@code DisjointSetNode} parent node, {@code this} by default.
@@ -46,11 +46,11 @@ final class DisjointSetNode<E>
     /**
      * Creates a new {@link DisjointSet} node with the given value.
      *
-     * @param e the node value has to be stored.
+     * @param element the node value has to be stored.
      */
-    public DisjointSetNode( E e )
+    public DisjointSetNode( E element )
     {
-        this.e = e;
+        this.element = element;
     }
 
     /**
@@ -60,7 +60,7 @@ final class DisjointSetNode<E>
      */
     public E getElement()
     {
-        return e;
+        return element;
     }
 
     /**
