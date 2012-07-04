@@ -547,6 +547,7 @@ public final class FibonacciHeap<E>
 
         // 3  mark[y] <- FALSE
         y.setMarked( false );
+        markedNodes++;
     }
 
     /**
@@ -576,6 +577,7 @@ public final class FibonacciHeap<E>
 
         // mark[x] <- FALSE
         x.setMarked( false );
+        markedNodes--;
     }
 
     /**
@@ -604,6 +606,7 @@ public final class FibonacciHeap<E>
             {
                 // then mark[y]  TRUE
                 y.setMarked( true );
+                markedNodes++;
             }
             else
             {
