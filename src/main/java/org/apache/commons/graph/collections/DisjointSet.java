@@ -30,12 +30,15 @@ import java.util.Map;
 public final class DisjointSet<E>
 {
 
+    /**
+     * The map to store the related {@link DisjointSetNode} for each added element.
+     */
     private final Map<E, DisjointSetNode<E>> disjointSets = new HashMap<E, DisjointSetNode<E>>();
 
     /**
-     * Performs the find applying the <i>path compression</i>.
+     * Performs the {@code find} operation applying the <i>path compression</i>.
      *
-     * @param e
+     * @param e the element has to be find in this {@code DisjointSet} instance
      * @return
      */
     public E find( E e )
@@ -53,11 +56,10 @@ public final class DisjointSet<E>
     }
 
     /**
-     * Performs the find applying the <i>path compression</i>.
+     * Performs the @code{ find} operation by applying the <i>path compression</i>.
      *
-     * @param <E> the type of elements held in this collection.
-     * @param node
-     * @return
+     * @param node the input DisjointSet node for the @code{ find} operation
+     * @return the root node of the path
      */
     private DisjointSetNode<E> find( DisjointSetNode<E> node )
     {
@@ -69,10 +71,10 @@ public final class DisjointSet<E>
     }
 
     /**
-     * Performs the merge by applying the <i>union by rank</i>.
+     * Join two subsets into a single subset, performing the merge by applying the <i>union by rank</i>.
      *
-     * @param e1
-     * @param e2
+     * @param e1 the first element which related subset has to be merged
+     * @param e2 the second element which related subset has to be merged
      */
     public void union( E e1, E e2 )
     {
@@ -100,6 +102,13 @@ public final class DisjointSet<E>
         }
     }
 
+    /**
+     * Retrieves the {@code DisjointSetNode} from the {@link #disjointSets},
+     * if already previously set, creates a new one and push it in {@link #disjointSets} otherwise.
+     *
+     * @param e the element which related subset has to be returned
+     * @return the input element {@code DisjointSetNode}
+     */
     private DisjointSetNode<E> getNode( E e )
     {
         DisjointSetNode<E> node = disjointSets.get( e );
