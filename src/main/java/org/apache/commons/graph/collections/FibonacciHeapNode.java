@@ -233,7 +233,7 @@ final class FibonacciHeapNode<E>
     @Override
     public String toString()
     {
-        return String.valueOf( element );
+        return element.toString();
     }
 
 }
