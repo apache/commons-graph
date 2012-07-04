@@ -19,6 +19,8 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
+import static org.apache.commons.graph.utils.Assertions.checkNotNull;
+
 import static java.lang.Math.floor;
 import static java.lang.Math.log;
 import static java.lang.Math.sqrt;
@@ -153,10 +155,7 @@ public final class FibonacciHeap<E>
      */
     public boolean add( E e )
     {
-        if ( e == null )
-        {
-            throw new NullPointerException();
-        }
+        checkNotNull( e, "Null elements not allowed in this FibonacciHeap implementation." );
 
         // 1-6 performed in the node initialization
         FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
