@@ -28,47 +28,84 @@ final class DisjointSetNode<E>
     implements Comparable<DisjointSetNode<E>>
 {
 
+    /**
+     * The stored node value.
+     */
     private final E e;
 
+    /**
+     * The {@code DisjointSetNode} parent node, {@code this} by default.
+     */
     private DisjointSetNode<E> parent = this;
 
+    /**
+     * The current node rank.
+     */
     private Integer rank = 0;
 
     /**
-     * 
+     * Creates a new {@link DisjointSet} node with the given value.
      *
-     * @param e
+     * @param e the node value has to be stored.
      */
     public DisjointSetNode( E e )
     {
         this.e = e;
     }
 
+    /**
+     * Returns the adapted element by this node.
+     *
+     * @return the adapted element by this node.
+     */
     public E getElement()
     {
         return e;
     }
 
+    /**
+     * Returns the reference to the parent node, the node itself by default.
+     *
+     * @return the reference to the parent node, the node itself by default.
+     */
     public DisjointSetNode<E> getParent()
     {
         return parent;
     }
 
+    /**
+     * Sets the reference to a new parent node.
+     *
+     * @param parent the reference to a new parent node.
+     */
     public void setParent( DisjointSetNode<E> parent )
     {
         this.parent = parent;
     }
 
+    /**
+     * Returns this node rank.
+     *
+     * @return this node rank
+     */
     public Integer getRank()
     {
         return rank;
     }
 
+    /**
+     * Increases this node rank.
+     */
     public void increaseRank()
     {
         rank++;
     }
 
+    /**
+     * Sets a new different rank.
+     *
+     * @param rank the new rank to this node.
+     */
     public void setRank( int rank )
     {
         this.rank = rank;
