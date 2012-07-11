@@ -744,5 +744,4 @@ public final class FibonacciHeap<E>
         return buf.toString();
     }
 
-
 }
