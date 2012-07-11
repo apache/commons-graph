@@ -111,7 +111,6 @@ public final class FibonacciHeapTestCase
         queue.add( 100 );
         queue.add( 50 );
 
-
         assertThat( queue.poll(), is( 50 ) );
         assertThat( queue.poll(), is( 50 ) );
         assertThat( queue.poll(), is( 100 ) );
@@ -139,4 +138,5 @@ public final class FibonacciHeapTestCase
             assertThat( i, is( integer ) );
         }
     }
+
 }
