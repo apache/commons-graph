@@ -19,11 +19,12 @@ package org.apache.commons.graph.collections;
  * under the License.
  */
 
+import static java.util.Collections.sort;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
@@ -130,7 +131,7 @@ public final class FibonacciHeapTestCase
 
             queue.add( number );
         }
-        Collections.sort( expected );
+        sort( expected );
 
         for ( Integer integer : expected )
         {
