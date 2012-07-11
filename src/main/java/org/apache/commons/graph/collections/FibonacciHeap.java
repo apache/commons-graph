@@ -355,11 +355,11 @@ public final class FibonacciHeap<E>
 
         // 1  z <- min[H]
         FibonacciHeapNode<E> z = minimumNode;
-        int numOfKids = z.getDegree(); 
-        
+        int numOfKids = z.getDegree();
+
         FibonacciHeapNode<E> x = z.getChild();
         FibonacciHeapNode<E> tempRight;
-        
+
         while ( numOfKids > 0 )
         {
             // 3  for each child x of z
@@ -469,31 +469,31 @@ public final class FibonacciHeap<E>
         }
 
         int numRoots = 0;
-        
+
         // 3  for each node x in the root list of H
         // 4  do x &larr; w
         FibonacciHeapNode<E> x = minimumNode;
-        
-        if ( x != null ) 
+
+        if ( x != null )
         {
             numRoots++;
             x = x.getRight();
-            
+
             while ( x != minimumNode )
             {
                 numRoots++;
                 x = x.getRight();
             }
         }
-        
-        
+
+
         while ( numRoots > 0 )
         {
             // 5  d <- degree[x]
             int degree = x.getDegree();
             FibonacciHeapNode<E> next = x.getRight();
 
-            
+
             // 6  while A[d] != NIL
             while ( nodeSequence.get( degree ) != null )
             {
@@ -525,7 +525,7 @@ public final class FibonacciHeap<E>
             x = next;
             numRoots--;
         }
-        
+
 
         // 14  min[H] <- NIL
         minimumNode = null;
@@ -538,7 +538,7 @@ public final class FibonacciHeap<E>
             {
                 minimumNode = pointer;
             }
-             
+
             // 16 if A[i] != NIL
             // We've got a live one, add it to root list.
             if ( minimumNode != null )
@@ -546,7 +546,7 @@ public final class FibonacciHeap<E>
                 //  First remove node from root list.
                 pointer.getLeft().setRight( pointer.getRight() );
                 pointer.getRight().setLeft( pointer.getLeft() );
-                
+
                 moveToRoot( pointer );
             }
         }
@@ -585,9 +585,9 @@ public final class FibonacciHeap<E>
             x.getChild().setRight( y );
             y.getRight().setLeft( y );
         }
-        
+
         x.incraeseDegree();
-        
+
         // 3 mark[y] <- FALSE
         y.setMarked( false );
         markedNodes++;
@@ -691,8 +691,8 @@ public final class FibonacciHeap<E>
         Comparable<? super E> o1Comparable = (Comparable<? super E>) o1.getElement();
         return o1Comparable.compareTo( o2.getElement() );
     }
-    
-    
+
+
     /**
     * Creates a String representation of this Fibonacci heap.
     *
