@@ -693,10 +693,10 @@ public final class FibonacciHeap<E>
     }
 
     /**
-    * Creates a String representation of this Fibonacci heap.
-    *
-    * @return String of this.
-    */
+     * Creates a String representation of this Fibonacci heap.
+     *
+     * @return String of this.
+     */
     public String toString()
     {
         if ( minimumNode == null )
