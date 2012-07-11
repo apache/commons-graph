@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import org.apache.commons.graph.Graph;
@@ -172,7 +173,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
         checkNotNull( weightOperations, "The Kruskal algorithm cannot be calculated with null weight operations" );
         final Set<V> settledNodes = new HashSet<V>();
 
-        final FibonacciHeap<WE> orderedEdges =
+        final Queue<WE> orderedEdges =
                         new FibonacciHeap<WE>( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
 
         for ( WE edge : graph.getEdges() )
@@ -219,7 +220,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
 
         final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, weightOperations, weightedEdges );
 
-        final FibonacciHeap<V> unsettledNodes = new FibonacciHeap<V>( shortestEdges );
+        final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestEdges );
         unsettledNodes.add( source );
 
         final Set<WE> settledEdges = new HashSet<WE>();
@@ -247,7 +248,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
                 }
             }
         }
-        
+
         return shortestEdges.createSpanningTree();
     }
 
