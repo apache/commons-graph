@@ -369,11 +369,7 @@ public final class FibonacciHeap<E>
             x.getLeft().setRight( x.getRight() );
             x.getRight().setLeft( x.getLeft() );
 
-            // 4  add x to the root list of H
-            x.setLeft( minimumNode );
-            x.setRight( minimumNode.getRight() );
-            minimumNode.setRight( x );
-            x.getRight().setLeft( x );
+            moveToRoot( x );
 
             // 5  p[x] <- NIL
             x.setParent( null );
