@@ -530,7 +530,10 @@ public final class FibonacciHeap<E>
         // 15  for i <- 0 to D(n[H])
         for ( FibonacciHeapNode<E> pointer : nodeSequence )
         {
-            if ( pointer == null ) continue;
+            if ( pointer == null )
+            {
+                continue;
+            }
             if ( minimumNode == null )
             {
                 minimumNode = pointer;
