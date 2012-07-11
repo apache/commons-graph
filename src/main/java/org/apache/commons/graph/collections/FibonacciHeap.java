@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * A Fibonacci Heap implementation based on
@@ -124,10 +125,10 @@ public final class FibonacciHeap<E>
         else
         {
             // 7 concatenate the root list containing x with root list H
-            minimumNode.getLeft().setRight( node );
-            node.setLeft( minimumNode.getLeft() );
-            node.setRight( minimumNode );
-            minimumNode.setLeft( node );
+            node.setLeft( minimumNode );
+            node.setRight( minimumNode.getRight() );
+            minimumNode.setRight( node );
+            node.getRight().setLeft( node );
 
             // 8''  if key[x] < key[min[H]]
             if ( compare( node, minimumNode ) < 0 )
@@ -354,33 +355,31 @@ public final class FibonacciHeap<E>
 
         // 1  z <- min[H]
         FibonacciHeapNode<E> z = minimumNode;
-
-        // 3  for each child x of z
-        if ( z.getDegree() > 0 )
+        int numOfKids = z.getDegree(); 
+        
+        FibonacciHeapNode<E> x = z.getChild();
+        FibonacciHeapNode<E> tempRight;
+        
+        while ( numOfKids > 0 )
         {
-            FibonacciHeapNode<E> x = z.getChild();
-            FibonacciHeapNode<E> tempRight;
+            // 3  for each child x of z
+            tempRight = x.getRight();
 
-            do
-            {
-                tempRight = x.getRight();
+            // 4  do add x to the root list of H
+            x.getLeft().setRight( x.getRight() );
+            x.getRight().setLeft( x.getLeft() );
 
-                // 4  do add x to the root list of H
-                x.getLeft().setRight( x.getRight() );
-                x.getRight().setLeft( x.getLeft() );
+            // 4  add x to the root list of H
+            x.setLeft( minimumNode );
+            x.setRight( minimumNode.getRight() );
+            minimumNode.setRight( x );
+            x.getRight().setLeft( x );
 
-                // 4  add x to the root list of H
-                z.getLeft().setRight( x );
-                x.setLeft( z.getLeft() );
-                z.setLeft( x );
-                x.setRight( z );
+            // 5  p[x] <- NIL
+            x.setParent( null );
 
-                // 5  p[x] <- NIL
-                x.setParent( null );
-
-                x = tempRight;
-            }
-            while ( x != z.getChild() );
+            x = tempRight;
+            numOfKids--;
         }
 
         // 6  remove z from the root list of H
@@ -469,14 +468,32 @@ public final class FibonacciHeap<E>
             nodeSequence.add( i, null );
         }
 
+        int numRoots = 0;
+        
         // 3  for each node x in the root list of H
         // 4  do x &larr; w
         FibonacciHeapNode<E> x = minimumNode;
-        do
+        
+        if ( x != null ) 
+        {
+            numRoots++;
+            x = x.getRight();
+            
+            while ( x != minimumNode )
+            {
+                numRoots++;
+                x = x.getRight();
+            }
+        }
+        
+        
+        while ( numRoots > 0 )
         {
             // 5  d <- degree[x]
             int degree = x.getDegree();
+            FibonacciHeapNode<E> next = x.getRight();
 
+            
             // 6  while A[d] != NIL
             while ( nodeSequence.get( degree ) != null )
             {
@@ -505,9 +522,10 @@ public final class FibonacciHeap<E>
             // 13  A[d] <- x
             nodeSequence.set( degree, x );
 
-            x = x.getRight();
+            x = next;
+            numRoots--;
         }
-        while ( x != minimumNode );
+        
 
         // 14  min[H] <- NIL
         minimumNode = null;
@@ -515,9 +533,20 @@ public final class FibonacciHeap<E>
         // 15  for i <- 0 to D(n[H])
         for ( FibonacciHeapNode<E> pointer : nodeSequence )
         {
-            // 16 if A[i] != NIL
-            if ( pointer != null )
+            if ( pointer == null ) continue;
+            if ( minimumNode == null )
             {
+                minimumNode = pointer;
+            }
+             
+            // 16 if A[i] != NIL
+            // We've got a live one, add it to root list.
+            if ( minimumNode != null )
+            {
+                //  First remove node from root list.
+                pointer.getLeft().setRight( pointer.getRight() );
+                pointer.getRight().setLeft( pointer.getLeft() );
+                
                 moveToRoot( pointer );
             }
         }
@@ -536,16 +565,30 @@ public final class FibonacciHeap<E>
      */
     private void link( FibonacciHeapNode<E> y, FibonacciHeapNode<E> x )
     {
-        // 1  remove y from the root list of H
+        // 1 remove y from the root list of H
         y.getLeft().setRight( y.getRight() );
         y.getRight().setLeft( y.getLeft() );
 
-        // 2  make y a child of x, incrementing degree[x]
-        x.setChild( y );
         y.setParent( x );
-        x.incraeseDegree();
 
-        // 3  mark[y] <- FALSE
+        if ( x.getChild() == null )
+        {
+            // 2 make y a child of x, incrementing degree[x]
+            x.setChild( y );
+            y.setRight( y );
+            y.setLeft( y );
+        }
+        else
+        {
+            y.setLeft( x.getChild() );
+            y.setRight( x.getChild().getRight() );
+            x.getChild().setRight( y );
+            y.getRight().setLeft( y );
+        }
+        
+        x.incraeseDegree();
+        
+        // 3 mark[y] <- FALSE
         y.setMarked( false );
         markedNodes++;
     }
@@ -648,5 +691,60 @@ public final class FibonacciHeap<E>
         Comparable<? super E> o1Comparable = (Comparable<? super E>) o1.getElement();
         return o1Comparable.compareTo( o2.getElement() );
     }
+    
+    
+    /**
+    * Creates a String representation of this Fibonacci heap.
+    *
+    * @return String of this.
+    */
+    public String toString()
+    {
+        if ( minimumNode == null )
+        {
+            return "FibonacciHeap=[]";
+        }
+
+        // create a new stack and put root on it
+        Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
+        stack.push( minimumNode );
+
+        StringBuffer buf = new StringBuffer( 512 );
+        buf.append( "FibonacciHeap=[" );
+
+        // do a simple breadth-first traversal on the tree
+        while ( !stack.empty() )
+        {
+            FibonacciHeapNode<E> curr = stack.pop();
+            buf.append( curr );
+            buf.append( ", " );
+
+            if ( curr.getChild() != null )
+            {
+                stack.push( curr.getChild() );
+            }
+
+            FibonacciHeapNode<E> start = curr;
+            curr = curr.getRight();
+
+            while ( curr != start )
+            {
+                buf.append( curr );
+                buf.append( ", " );
+
+                if ( curr.getChild() != null )
+                {
+                    stack.push( curr.getChild() );
+                }
+
+                curr = curr.getRight();
+            }
+        }
+
+        buf.append( ']' );
+
+        return buf.toString();
+    }
+
 
 }

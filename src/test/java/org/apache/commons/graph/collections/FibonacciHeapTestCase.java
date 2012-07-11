@@ -22,7 +22,11 @@ package org.apache.commons.graph.collections;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
@@ -90,5 +94,49 @@ public final class FibonacciHeapTestCase
         assertThat( queue.poll(), is( 100 ) );
         assertThat( queue.isEmpty(), is( true ) );
     }
+    
+    @Test
+    public void insertSingleItem()
+    {
+        queue.add( 50 );
 
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+    
+    @Test
+    public void insertSameValuesAndReturnsOrderedItems()
+    {
+        queue.add( 50 );
+        queue.add( 100 );
+        queue.add( 50 );
+
+
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.poll(), is( 100 ) );
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+
+    @Test
+    public void returnsOrderedItemsFromRandomInsert()
+    {
+        final Random r = new Random( System.currentTimeMillis() );
+        final List<Integer> expected = new ArrayList<Integer>();
+        
+        for ( int i = 0; i < 1000; i++ )
+        {
+            Integer number = new Integer( r.nextInt(10000) );
+            expected.add( number );
+            
+            queue.add( number );
+        }
+        Collections.sort( expected );
+        
+        for ( Integer integer : expected )
+        {
+            Integer i = queue.poll();
+            assertThat( i, is( integer ) );
+        }
+    }
 }

@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Set;
 
 import org.apache.commons.graph.Graph;
@@ -35,6 +34,7 @@ import org.apache.commons.graph.Mapper;
 import org.apache.commons.graph.SpanningTree;
 import org.apache.commons.graph.VertexPair;
 import org.apache.commons.graph.collections.DisjointSet;
+import org.apache.commons.graph.collections.FibonacciHeap;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.weight.OrderedMonoid;
 
@@ -172,8 +172,8 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
         checkNotNull( weightOperations, "The Kruskal algorithm cannot be calculated with null weight operations" );
         final Set<V> settledNodes = new HashSet<V>();
 
-        final PriorityQueue<WE> orderedEdges =
-            new PriorityQueue<WE>( graph.getSize(), new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
+        final FibonacciHeap<WE> orderedEdges =
+                        new FibonacciHeap<WE>( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
 
         for ( WE edge : graph.getEdges() )
         {
@@ -219,7 +219,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
 
         final ShortestEdges<V, WE, W> shortestEdges = new ShortestEdges<V, WE, W>( graph, source, weightOperations, weightedEdges );
 
-        final PriorityQueue<V> unsettledNodes = new PriorityQueue<V>( graph.getOrder(), shortestEdges );
+        final FibonacciHeap<V> unsettledNodes = new FibonacciHeap<V>( shortestEdges );
         unsettledNodes.add( source );
 
         final Set<WE> settledEdges = new HashSet<WE>();
@@ -232,7 +232,6 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
             for ( V v : graph.getConnectedVertices( vertex ) )
             {
                 WE edge = graph.getEdge( vertex, v );
-
                 // if the edge has not been already visited and its weight is
                 // less then the current Vertex weight
                 boolean weightLessThanCurrent = !shortestEdges.hasWeight( v ) ||
@@ -248,7 +247,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
                 }
             }
         }
-
+        
         return shortestEdges.createSpanningTree();
     }
 

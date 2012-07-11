@@ -220,7 +220,7 @@ public final class PrimTestCase
 
         expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 7D ), b );
         expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> d", 5D ), d );
-        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> e", 9D ), e );
+        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> e", 7D ), e );
         expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> e", 5D ), e );
         expected.addEdge( d, new BaseLabeledWeightedEdge<Double>( "d <-> f", 6D ), f );
         expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> g", 9D ), g );
