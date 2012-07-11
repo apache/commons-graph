@@ -708,8 +708,7 @@ public final class FibonacciHeap<E>
         Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
         stack.push( minimumNode );
 
-        StringBuffer buf = new StringBuffer( 512 );
-        buf.append( "FibonacciHeap=[" );
+        StringBuilder buf = new StringBuilder( "FibonacciHeap=[" );
 
         // do a simple breadth-first traversal on the tree
         while ( !stack.empty() )
