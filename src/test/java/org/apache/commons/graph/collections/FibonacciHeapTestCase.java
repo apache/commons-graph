@@ -94,7 +94,7 @@ public final class FibonacciHeapTestCase
         assertThat( queue.poll(), is( 100 ) );
         assertThat( queue.isEmpty(), is( true ) );
     }
-    
+
     @Test
     public void insertSingleItem()
     {
@@ -103,7 +103,7 @@ public final class FibonacciHeapTestCase
         assertThat( queue.poll(), is( 50 ) );
         assertThat( queue.isEmpty(), is( true ) );
     }
-    
+
     @Test
     public void insertSameValuesAndReturnsOrderedItems()
     {
@@ -123,16 +123,16 @@ public final class FibonacciHeapTestCase
     {
         final Random r = new Random( System.currentTimeMillis() );
         final List<Integer> expected = new ArrayList<Integer>();
-        
+
         for ( int i = 0; i < 1000; i++ )
         {
             Integer number = new Integer( r.nextInt(10000) );
             expected.add( number );
-            
+
             queue.add( number );
         }
         Collections.sort( expected );
-        
+
         for ( Integer integer : expected )
         {
             Integer i = queue.poll();
