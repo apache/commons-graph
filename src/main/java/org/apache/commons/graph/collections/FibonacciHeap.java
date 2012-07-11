@@ -692,7 +692,6 @@ public final class FibonacciHeap<E>
         return o1Comparable.compareTo( o2.getElement() );
     }
 
-
     /**
     * Creates a String representation of this Fibonacci heap.
     *
