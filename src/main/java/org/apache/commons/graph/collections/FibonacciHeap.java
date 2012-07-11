@@ -486,13 +486,11 @@ public final class FibonacciHeap<E>
             }
         }
 
-
         while ( numRoots > 0 )
         {
             // 5  d <- degree[x]
             int degree = x.getDegree();
             FibonacciHeapNode<E> next = x.getRight();
-
 
             // 6  while A[d] != NIL
             while ( nodeSequence.get( degree ) != null )
@@ -525,7 +523,6 @@ public final class FibonacciHeap<E>
             x = next;
             numRoots--;
         }
-
 
         // 14  min[H] <- NIL
         minimumNode = null;
