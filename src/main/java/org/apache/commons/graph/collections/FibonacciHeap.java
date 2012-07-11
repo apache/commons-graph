@@ -125,6 +125,9 @@ public final class FibonacciHeap<E>
         else
         {
             // 7 concatenate the root list containing x with root list H
+            node.getLeft().setRight( node.getRight() );
+            node.getRight().setLeft( node.getLeft() );
+            
             node.setLeft( minimumNode );
             node.setRight( minimumNode.getRight() );
             minimumNode.setRight( node );
@@ -366,9 +369,6 @@ public final class FibonacciHeap<E>
             tempRight = x.getRight();
 
             // 4  do add x to the root list of H
-            x.getLeft().setRight( x.getRight() );
-            x.getRight().setLeft( x.getLeft() );
-
             moveToRoot( x );
 
             // 5  p[x] <- NIL
@@ -540,9 +540,6 @@ public final class FibonacciHeap<E>
             if ( minimumNode != null )
             {
                 //  First remove node from root list.
-                pointer.getLeft().setRight( pointer.getRight() );
-                pointer.getRight().setLeft( pointer.getLeft() );
-
                 moveToRoot( pointer );
             }
         }
@@ -603,14 +600,11 @@ public final class FibonacciHeap<E>
      */
     private void cut( FibonacciHeapNode<E> x, FibonacciHeapNode<E> y )
     {
-        // remove x from the child list of y, decrementing degree[y]
-        x.getLeft().setRight( x.getRight() );
-        x.getRight().setLeft( x.getLeft() );
-        y.decraeseDegree();
-
         // add x to the root list of H
         moveToRoot( x );
 
+        // remove x from the child list of y, decrementing degree[y]
+        y.decraeseDegree();
         // p[x] <- NIL
         x.setParent( null );
 
