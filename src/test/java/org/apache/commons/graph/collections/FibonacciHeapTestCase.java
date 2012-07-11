@@ -198,6 +198,6 @@ public final class FibonacciHeapTestCase
     @Test( expected = NoSuchElementException.class )
     public void elementThrowsException()
     {
-        assertThat( queue.element(), is( 20 ) );
+        queue.element();
     }
 }
