@@ -126,7 +126,7 @@ public final class FibonacciHeapTestCase
 
         for ( int i = 0; i < 1000; i++ )
         {
-            Integer number = new Integer( r.nextInt(10000) );
+            Integer number = new Integer( r.nextInt( 10000 ) );
             expected.add( number );
 
             queue.add( number );
