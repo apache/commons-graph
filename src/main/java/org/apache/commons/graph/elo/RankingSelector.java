@@ -32,6 +32,6 @@ public interface RankingSelector<P>
      * @param playersRank 
      * @return
      */
-    KFactorBuilder<P> werePlayersArRankedIn( PlayersRank<P> playersRank );
+    KFactorBuilder<P> werePlayersAreRankedIn( PlayersRank<P> playersRank );
 
 }

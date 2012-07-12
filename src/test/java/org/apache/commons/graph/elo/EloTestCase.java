@@ -83,7 +83,7 @@ public final class EloTestCase
 
         PlayersRank<String> playersRank = new SimplePlayersRank();
 
-        eloRate( tournament ).werePlayersArRankedIn( playersRank ).withKFactor( 80 );
+        eloRate( tournament ).werePlayersAreRankedIn( playersRank ).withKFactor( 80 );
 
         System.out.println( playersRank );
     }

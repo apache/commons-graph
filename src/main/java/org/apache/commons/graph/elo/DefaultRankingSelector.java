@@ -46,7 +46,7 @@ public final class DefaultRankingSelector<P>
     /**
      * {@inheritDoc}
      */
-    public KFactorBuilder<P> werePlayersArRankedIn( PlayersRank<P> playersRank )
+    public KFactorBuilder<P> werePlayersAreRankedIn( PlayersRank<P> playersRank )
     {
         playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
         return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
