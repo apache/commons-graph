@@ -143,6 +143,18 @@ public abstract class BaseGraph<V, E>
         return adjacencyList;
     }
 
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ( ( adjacencyList == null ) ? 0 : adjacencyList.hashCode() );
+        result = prime * result + ( ( allEdges == null ) ? 0 : allEdges.hashCode() );
+        result = prime * result + ( ( indexedEdges == null ) ? 0 : indexedEdges.hashCode() );
+        result = prime * result + ( ( indexedVertices == null ) ? 0 : indexedVertices.hashCode() );
+        return result;
+    }
+
     /**
      * {@inheritDoc}
      */
