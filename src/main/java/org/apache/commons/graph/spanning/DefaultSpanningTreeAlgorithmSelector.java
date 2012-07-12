@@ -235,8 +235,9 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
                 WE edge = graph.getEdge( vertex, v );
                 // if the edge has not been already visited and its weight is
                 // less then the current Vertex weight
-                boolean weightLessThanCurrent = !shortestEdges.hasWeight( v ) ||
-                        weightOperations.compare( weightedEdges.map( edge ), shortestEdges.getWeight( v ) ) < 0;
+                boolean weightLessThanCurrent =
+                    !shortestEdges.hasWeight( v )
+                        || weightOperations.compare( weightedEdges.map( edge ), shortestEdges.getWeight( v ) ) < 0;
                 if ( settledEdges.add( edge ) && weightLessThanCurrent )
                 {
                     if ( !unsettledNodes.contains( v ) )

@@ -18,6 +18,7 @@ package org.apache.commons.graph.utils;
  * specific language governing permissions and limitations
  * under the License.
  */
+
 /**
  * Object simple utility methods.
  */

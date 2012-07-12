@@ -161,14 +161,14 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
         return writer;
     }
     
-    protected void addVertexProperty(String propertyName, Mapper<V, ?> vertexProperty) 
+    protected void addVertexProperty( String propertyName, Mapper<V, ?> vertexProperty )
     {
-    	this.vertexProperties.put(propertyName, vertexProperty);
+        this.vertexProperties.put( propertyName, vertexProperty );
     }
     
-    protected void addEdgeProperty(String propertyName, Mapper<E, ?> edgeProperty)
+    protected void addEdgeProperty( String propertyName, Mapper<E, ?> edgeProperty )
     {
-    	this.edgeProperties.put(propertyName, edgeProperty);
+        this.edgeProperties.put( propertyName, edgeProperty );
     }
 
     protected abstract void startSerialization()

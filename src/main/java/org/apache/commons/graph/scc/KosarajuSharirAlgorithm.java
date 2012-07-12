@@ -98,7 +98,7 @@ final class KosarajuSharirAlgorithm<V, E>
         final LinkedHashSet<V> stack = new LinkedHashSet<V>();
         for ( int i = expandedVertexList.size() - 1; i >= 0; i-- )
         {
-            stack.add(expandedVertexList.get( i ) );
+            stack.add( expandedVertexList.get( i ) );
         }
 
         while ( stack.size() > 0 )
@@ -125,7 +125,7 @@ final class KosarajuSharirAlgorithm<V, E>
      */
     private List<V> getExpandedVertexList( final V source, final Set<V> visitedVertices )
     {
-        final int size = (source != null) ? 13 : graph.getOrder();
+        final int size = ( source != null ) ? 13 : graph.getOrder();
         final Set<V> vertices = new HashSet<V>( size );
 
         if ( source != null )

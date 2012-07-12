@@ -97,12 +97,12 @@ final class DefaultKFactorBuilder<P>
     private double calculateQFactor( P player )
     {
         double ranking = playerRanking.getRanking( player );
-        return pow( DEFAULT_POW_BASE, ranking / DEFAULT_DIVISOR);
+        return pow( DEFAULT_POW_BASE, ranking / DEFAULT_DIVISOR );
     }
 
     private static double calculateEFactor( double qA, double qB )
     {
-        return qA / (qA + qB);
+        return qA / ( qA + qB );
     }
 
     private void updateRanking( P player, double kFactor, double sFactor, double eFactor )
