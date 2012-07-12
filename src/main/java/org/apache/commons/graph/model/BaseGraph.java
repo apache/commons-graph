@@ -23,6 +23,7 @@ import static java.lang.String.format;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
 import static org.apache.commons.graph.utils.Objects.eq;
+import static org.apache.commons.graph.utils.Objects.hash;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -143,16 +144,14 @@ public abstract class BaseGraph<V, E>
         return adjacencyList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode()
     {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + ( ( adjacencyList == null ) ? 0 : adjacencyList.hashCode() );
-        result = prime * result + ( ( allEdges == null ) ? 0 : allEdges.hashCode() );
-        result = prime * result + ( ( indexedEdges == null ) ? 0 : indexedEdges.hashCode() );
-        result = prime * result + ( ( indexedVertices == null ) ? 0 : indexedVertices.hashCode() );
-        return result;
+        return hash( 1, prime, adjacencyList, allEdges, indexedEdges, indexedVertices );
     }
 
     /**
