@@ -19,10 +19,10 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import static org.apache.commons.graph.utils.Objects.*;
 import static java.lang.String.format;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableSet;
+import static org.apache.commons.graph.utils.Objects.eq;
 
 import java.util.HashMap;
 import java.util.HashSet;
