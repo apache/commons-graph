@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.model.RevertedGraph;
 
 /**
@@ -48,9 +47,9 @@ final class KosarajuSharirAlgorithm<V, E>
     private final DirectedGraph<V, E> graph;
 
     /**
-     * Create a new {@link KosarajuSharirAlgorithm} instance for the given {@link Graph}.
+     * Create a new {@link KosarajuSharirAlgorithm} instance for the given {@link org.apache.commons.graph.Graph}.
      *
-     * @param graph the {@link Graph} on which to apply the algorithm
+     * @param graph the {@link org.apache.commons.graph.Graph} on which to apply the algorithm
      */
     public KosarajuSharirAlgorithm( final DirectedGraph<V, E> graph )
     {

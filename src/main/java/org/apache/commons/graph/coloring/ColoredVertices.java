@@ -26,10 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.graph.Graph;
-
 /**
- * Maintains the color for each vertex and the required number of colors for {@link Graph} coloring.
+ * Maintains the color for each vertex and the required number of colors for {@link org.apache.commons.graph.Graph} coloring.
  *
  * @param <V> the Graph vertices type.
  * @param <C> the Color type.

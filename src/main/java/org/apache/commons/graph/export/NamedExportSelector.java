@@ -19,16 +19,14 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
-import org.apache.commons.graph.Graph;
-
 public interface NamedExportSelector<V, E>
     extends ExportSelector<V, E>
 {
 
     /**
-     * Use the given name when exporting the {@link Graph} to a resource.
+     * Use the given name when exporting the {@link org.apache.commons.graph.Graph} to a resource.
      *
-     * @param name the name to identify the {@link Graph}
+     * @param name the name to identify the {@link org.apache.commons.graph.Graph}
      * @return the graph export format selector
      */
     ExportSelector<V, E> withName( String name );

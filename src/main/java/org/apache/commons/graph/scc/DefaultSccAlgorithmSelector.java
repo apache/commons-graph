@@ -22,7 +22,6 @@ package org.apache.commons.graph.scc;
 import java.util.Set;
 
 import org.apache.commons.graph.DirectedGraph;
-import org.apache.commons.graph.Graph;
 
 /**
  * {@link SccAlgorithmSelector} implementation
@@ -37,9 +36,9 @@ public final class DefaultSccAlgorithmSelector<V, E>
     private final DirectedGraph<V, E> graph;
 
     /**
-     * Create a default {@link SccAlgorithmSelector} for the given {@link Graph}.
+     * Create a default {@link SccAlgorithmSelector} for the given {@link org.apache.commons.graph.Graph}.
      *
-     * @param graph the {@link Graph}.
+     * @param graph the {@link org.apache.commons.graph.Graph}.
      */
     public DefaultSccAlgorithmSelector( final DirectedGraph<V, E> graph )
     {

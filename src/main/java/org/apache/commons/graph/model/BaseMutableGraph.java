@@ -21,12 +21,11 @@ package org.apache.commons.graph.model;
 
 import java.util.LinkedHashSet;
 
-import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.VertexPair;
 
 /**
- * Basic abstract in-memory based of a simple mutable {@link Graph} implementation.
+ * Basic abstract in-memory based of a simple mutable {@link org.apache.commons.graph.Graph} implementation.
  *
  * This class is NOT thread safe!
  *
