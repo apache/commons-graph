@@ -23,17 +23,29 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.DirectedGraph;
 
+/**
+ * TODO Fill me!!
+ *  
+ * @param <P> The player's type
+ */
 public final class DefaultRankingSelector<P>
     implements RankingSelector<P>
 {
 
     private final DirectedGraph<P, GameResult> tournamentGraph;
 
+    /**
+     * Creates a new instance of {@link DefaultRankingSelector} for gived graph.
+     * @param tournamentGraph the graph
+     */
     public DefaultRankingSelector( DirectedGraph<P, GameResult> tournamentGraph )
     {
         this.tournamentGraph = tournamentGraph;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public KFactorBuilder<P> werePlayersArRankedIn( PlayersRank<P> playersRank )
     {
         playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );

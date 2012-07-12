@@ -30,6 +30,8 @@ import java.util.List;
 import org.apache.commons.graph.Graph;
 
 /**
+ * TODO Fill me!!
+ * 
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
@@ -41,6 +43,12 @@ final class DefaultConnectivityAlgorithmsSelector<V, E>
 
     private final Iterable<V> includedVertices;
 
+    /**
+     * Create a new instance of {@link DefaultConnectivityAlgorithmsSelector} calculated for a set of included vertices
+     * 
+     * @param graph the graph
+     * @param includedVertices included vertices
+     */
     public DefaultConnectivityAlgorithmsSelector( Graph<V, E> graph, Iterable<V> includedVertices )
     {
         this.graph = graph;

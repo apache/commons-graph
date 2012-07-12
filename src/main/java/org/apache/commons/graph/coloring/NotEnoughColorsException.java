@@ -25,12 +25,21 @@ import java.util.Set;
 
 import org.apache.commons.graph.GraphException;
 
+/**
+ * Exception used by Coloring algorithms. Used when there are not enough colors to 
+ * color the graph. 
+ *
+ */
 public class NotEnoughColorsException
     extends GraphException
 {
 
     private static final long serialVersionUID = -8782950517745777605L;
 
+    /**
+     * Creates new instance of {@link NotEnoughColorsException}. 
+     * @param colors the set of color.
+     */
     public NotEnoughColorsException( Set<?> colors )
     {
         super( format( "Input color set %s has not enough colors to color the given graph", colors ) );

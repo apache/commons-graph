@@ -19,9 +19,19 @@ package org.apache.commons.graph.elo;
  * under the License.
  */
 
+/**
+ * Ranking selector
+ * @param <P> the player's type
+ */
 public interface RankingSelector<P>
 {
 
+    /**
+     * TODO Fill me!!!
+     * 
+     * @param playersRank 
+     * @return
+     */
     KFactorBuilder<P> werePlayersArRankedIn( PlayersRank<P> playersRank );
 
 }

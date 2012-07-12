@@ -37,6 +37,10 @@ public final class DefaultColorsBuilder<V, E>
 
     private final UndirectedGraph<V, E> graph;
 
+    /**
+     * Creates a new instance of {@link DefaultColorsBuilder} for the input graph.
+     * @param graph the graph
+     */
     public DefaultColorsBuilder( UndirectedGraph<V, E> graph )
     {
         this.graph = graph;

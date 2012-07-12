@@ -54,6 +54,7 @@ public abstract class AbstractGraphConnection<V, E>
     /**
      * Adds a new vertex to graph connector.
      * 
+     * @param <N> the Graph vertex type
      * @param node the vertex to add
      * @return the vertex added
      */
@@ -65,6 +66,7 @@ public abstract class AbstractGraphConnection<V, E>
     /**
      * Adds a new edge to graph connector.
      * 
+     * @param <A> the Graph edges type
      * @param arc the edge to add.
      * @return the {@link HeadVertexConnector}
      */

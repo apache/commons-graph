@@ -19,11 +19,26 @@ package org.apache.commons.graph.elo;
  * under the License.
  */
 
+/**
+ * The player rank
+ * 
+ * @param <P> the player's type
+ */
 public interface PlayersRank<P>
 {
 
+    /**
+     * Returns the ranking for the player
+     * @param player the player
+     * @return Returns the ranking for the player
+     */
     Double getRanking( P player );
 
+    /**
+     * Update the ranking for the player
+     * @param player the player 
+     * @param ranking the ranking value
+     */
     void updateRanking( P player, Double ranking );
 
 }

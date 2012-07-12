@@ -39,7 +39,7 @@ public final class DisjointSet<E>
      * Performs the {@code find} operation applying the <i>path compression</i>.
      *
      * @param e the element has to be find in this {@code DisjointSet} instance
-     * @return
+     * @return the value found 
      */
     public E find( E e )
     {
