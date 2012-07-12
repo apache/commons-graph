@@ -25,7 +25,14 @@ package org.apache.commons.graph.elo;
 public enum GameResult
 {
 
+    /**
+     * WIN
+     */
     WIN,
+    
+    /**
+     * DRAW
+     */
     DRAW;
 
 }

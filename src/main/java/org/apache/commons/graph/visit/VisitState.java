@@ -19,11 +19,24 @@ package org.apache.commons.graph.visit;
  * under the License.
  */
 
+/**
+ * Represents the states that the visit can assume.
+ */
 public enum VisitState
 {
-
+    /**
+     * ABORT state
+     */
     ABORT,
+    
+    /**
+     * CONTINUE state
+     */
     CONTINUE,
+    
+    /**
+     * SKIP state
+     */
     SKIP;
 
 }
