@@ -20,9 +20,21 @@ package org.apache.commons.graph.builder;
  */
 
 
+/**
+ * TODO Fillme!!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ */
 public interface HeadVertexConnector<V, E>
 {
 
+    /**
+     * Specifies the head vertex for the edge
+     * 
+     * @param head the head vertex 
+     * @return {@link TailVertexConnector} builded from the head
+     */
     <H extends V> TailVertexConnector<V, E> from( H head );
 
 }

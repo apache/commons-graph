@@ -19,10 +19,19 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-
+/**
+ * TODO Fillme!!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ */
 public interface TailVertexConnector<V, E>
 {
-
+    
+    /**
+     * Specifies the tail vertex for the edge
+     * @param tail the tail vertex 
+     */
     <T extends V> void to( T tail );
 
 }

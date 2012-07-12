@@ -21,9 +21,22 @@ package org.apache.commons.graph.builder;
 
 import org.apache.commons.graph.MutableGraph;
 
+/**
+ * TODO Fillme!!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ * @param <G> the Graph type
+ */
 public interface LinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
 {
 
+    /**
+     * Connects the graph.
+     * 
+     * @param graphConnection the {@link GraphConnection}
+     * @return the {@link org.apache.commons.graph.Graph} built from the connections.
+     */
     G withConnections( GraphConnection<V, E> graphConnection );
 
 }

@@ -21,10 +21,21 @@ package org.apache.commons.graph;
 
 import java.io.Serializable;
 
+/**
+ * TODO Fill the java doc
+ * 
+ * @param <I> the input type
+ * @param <O> the output type
+ */
 public interface Mapper<I, O>
     extends Serializable
 {
 
+    /**
+     * TODO Fill the java doc
+     * @param input
+     * @return
+     */
     O map( I input );
 
 }

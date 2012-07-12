@@ -19,10 +19,19 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-
+/**
+ * TODO Fillme!!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ */
 public interface GraphConnection<V, E>
 {
 
+    /**
+     * TODO Fillme!!
+     * @param grapher 
+     */
     void connect( GraphConnector<V, E> grapher );
 
 }

@@ -23,17 +23,32 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 
 import org.apache.commons.graph.MutableGraph;
 
+/**
+ * TODO Fillme!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ * @param <G> the Graph type
+ */
 public final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
     implements LinkedConnectionBuilder<V, E, G>
 {
 
     private final G graph;
 
+    /**
+     * Creates a new {@link DefaultLinkedConnectionBuilder} for the graph.
+     * 
+     * @param graph the graph
+     */
     public DefaultLinkedConnectionBuilder( G graph )
     {
         this.graph = graph;
     }
 
+    /**
+     * {@inheritDoc}
+     */ 
     public G withConnections( GraphConnection<V, E> graphConnection )
     {
         graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );

@@ -21,12 +21,21 @@ package org.apache.commons.graph.builder;
 
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
+/**
+ * TODO fill me!! 
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ */
 public abstract class AbstractGraphConnection<V, E>
     implements GraphConnection<V, E>
 {
 
     private GraphConnector<V, E> connector;
 
+    /**
+     * {@inheritDoc}
+     */
     public final void connect( GraphConnector<V, E> connector )
     {
         checkState( this.connector == null, "Re-entry not allowed!" );
@@ -42,16 +51,31 @@ public abstract class AbstractGraphConnection<V, E>
         }
     }
 
+    /**
+     * Adds a new vertex to graph connector.
+     * 
+     * @param node the vertex to add
+     * @return the vertex added
+     */
     protected final <N extends V> N addVertex( N node )
     {
         return connector.addVertex( node );
     }
 
+    /**
+     * Adds a new edge to graph connector.
+     * 
+     * @param arc the edge to add.
+     * @return the {@link HeadVertexConnector}
+     */
     protected final <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
     {
         return connector.addEdge( arc );
     }
 
+    /**
+     * Connets the graph
+     */
     public abstract void connect();
 
 }

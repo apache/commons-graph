@@ -19,12 +19,29 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-
+/**
+ * TODO Fillme!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <E> the Graph edges type
+ */
 public interface GraphConnector<V, E>
 {
 
+    /**
+     * Adds a new vertex to graph.
+     * 
+     * @param node the vertex to add
+     * @return the vertex added
+     */
     <N extends V> N addVertex( N node );
 
+    /**
+     * Adds a new edge to graph.
+     * 
+     * @param arc the edge to add.
+     * @return the {@link HeadVertexConnector}
+     */
     <A extends E> HeadVertexConnector<V, E> addEdge( A arc );
 
 }
