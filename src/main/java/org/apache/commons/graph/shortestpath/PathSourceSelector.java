@@ -23,11 +23,9 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 
 /**
  *
- *
- * @param <V>
- * @param <W>
- * @param <WE>
- * @param <G>
+ * @param <V> the Graph vertices type.
+ * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
 public interface PathSourceSelector<V, WE, W>
 {

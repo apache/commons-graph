@@ -28,7 +28,6 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <V> the Graph vertices type
  * @param <W> the weight type
  * @param <WE> the Graph weighted edges type
- * @param <G> the input Graph type
  */
 public interface SpanningTreeSourceSelector<V, W, WE>
 {

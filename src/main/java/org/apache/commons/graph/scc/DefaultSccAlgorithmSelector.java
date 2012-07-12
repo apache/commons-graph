@@ -29,7 +29,6 @@ import org.apache.commons.graph.Graph;
  *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
- * @param <G> the directed graph type
  */
 public final class DefaultSccAlgorithmSelector<V, E>
     implements SccAlgorithmSelector<V, E>

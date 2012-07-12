@@ -22,11 +22,10 @@ package org.apache.commons.graph.shortestpath;
 import org.apache.commons.graph.WeightedPath;
 
 /**
- *
- * @param <V>
- * @param <WE>
- * @param <W>
- * @param <G>
+ * 
+ * @param <V> the Graph vertices type.
+ * @param <WE> the Graph weighted edges type
+ * @param <W> the weight type
  */
 public interface HeuristicBuilder<V, WE, W>
 {

@@ -70,7 +70,6 @@ public final class PredecessorsList<V, WE, W>
      *
      * @param source the path source vertex
      * @param target the path target vertex
-     * @param cost the path cost
      * @return the weighted path related to source to target
      */
     public WeightedPath<V, WE, W> buildPath( V source, V target )

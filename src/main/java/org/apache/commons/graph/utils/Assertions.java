@@ -89,6 +89,7 @@ public final class Assertions
      * method is not null.
      *
      * @param reference an object reference
+     * @param <T> the reference type
      * @param errorMessageTemplate a template for the exception message should the
      *     check fail. The message is formed by replacing each {@code %s}
      *     placeholder in the template with an argument. These are matched by

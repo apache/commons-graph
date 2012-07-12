@@ -45,7 +45,6 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * @param <V> the Graph vertices type
  * @param <W> the weight type
  * @param <WE> the Graph weighted edges type
- * @param <G> the input Graph type
  */
 final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
     implements SpanningTreeAlgorithmSelector<V, W, WE>
