@@ -21,4 +21,5 @@
 <suppressions>
   <suppress checks="RegexpHeader" files="package-info.java" lines="0-9999" />
   <suppress checks="HiddenField" files=".+\.java" lines="0-9999" />
+  <suppress checks="LineLength" files=".+\.java" lines="0-9999" />
 </suppressions>
