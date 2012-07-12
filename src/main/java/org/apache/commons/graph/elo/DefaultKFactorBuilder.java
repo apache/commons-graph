@@ -80,8 +80,9 @@ final class DefaultKFactorBuilder<P>
                 break;
 
             case DRAW:
-                sA = 0.5;
-                sB = 0.5;
+                final double number = 0.5;
+                sA = number;
+                sB = number;
                 break;
 
             default: // should not happen

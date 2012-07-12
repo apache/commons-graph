@@ -75,8 +75,9 @@ public final class VertexPair<V>
      */
     @Override
     public int hashCode()
-    {
-        return hash( 1, 31, head, tail );
+    {        
+        final int prime = 31;
+        return hash( 1, prime, head, tail );
     }
 
     /**

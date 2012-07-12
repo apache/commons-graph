@@ -226,7 +226,8 @@ public class InMemoryPath<V, E>
     @Override
     public int hashCode()
     {
-        return hash( 1, 31, edges, source, target, vertices );
+        final int prime = 31;
+        return hash( 1, prime, edges, source, target, vertices );
     }
 
     /**
