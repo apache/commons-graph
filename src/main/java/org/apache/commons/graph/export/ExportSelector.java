@@ -19,17 +19,27 @@ package org.apache.commons.graph.export;
  * under the License.
  */
 
+/**
+ * TODO Fill me!!
+ * 
+ * @param <V> the Graph vertices type.
+ * @param <E> the Graph edges type.
+ */
 public interface ExportSelector<V, E>
 {
 
     /**
      * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
+     * @return {@link DotExporter} instance
+     * @throws GraphExportException
      */
     DotExporter<V, E> usingDotNotation()
         throws GraphExportException;
 
     /**
      * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
+     * @return {@link GraphMLExporter} instance
+     * @throws GraphExportException
      */
     GraphMLExporter<V, E> usingGraphMLFormat()
         throws GraphExportException;

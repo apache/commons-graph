@@ -19,11 +19,22 @@ package org.apache.commons.graph.elo;
  * under the License.
  */
 
+/**
+ * TODO Fill me!!
+ * 
+ * @param <P>
+ */
 public interface KFactorBuilder<P>
 {
 
+    /**
+     * TODO Fill me!!
+     */
     void withDefaultKFactor();
 
+    /**
+     * TODO Fill me!!
+     */
     void withKFactor( int kFactor );
 
 }

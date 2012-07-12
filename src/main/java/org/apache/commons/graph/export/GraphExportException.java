@@ -21,12 +21,24 @@ package org.apache.commons.graph.export;
 
 import static java.lang.String.format;
 
+/**
+ *  {@link GraphExportException} throws when some errors occurs during the graph export.
+ *
+ */
 public final class GraphExportException
     extends Exception
 {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constructs a new graph export exception with the specified detail message.
+     * 
+     * @param cause the cause
+     * @param messagePattern  A <a href="../util/Formatter.html#syntax">format string</a>
+     * @param messageArguments Arguments referenced by the format specifiers in the format string
+     * @see java.lang.String#format(String, Object...)
+     */
     public GraphExportException( Throwable cause, String messagePattern, Object...messageArguments )
     {
         super( format( messagePattern, messageArguments ), cause );
