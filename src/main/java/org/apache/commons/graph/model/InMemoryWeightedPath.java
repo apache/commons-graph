@@ -39,9 +39,6 @@ public final class InMemoryWeightedPath<V, WE, W>
     implements WeightedPath<V, WE, W>
 {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 7937494144459068796L;
 
     private final Monoid<W> weightOperations;
@@ -50,6 +47,14 @@ public final class InMemoryWeightedPath<V, WE, W>
 
     private W weight;
 
+    /**
+     * Creates a new instance of {@link InMemoryWeightedPath}.
+     * 
+     * @param start the start vertex
+     * @param target the target vertex
+     * @param weightOperations 
+     * @param weightedEdges
+     */
     public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
     {
         super( start, target );

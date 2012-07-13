@@ -45,6 +45,12 @@ public final class MutableSpanningTree<V, WE, W>
 
     private W weight;
 
+    /**
+     * Creates a new instance of {@link MutableSpanningTree}
+     * 
+     * @param weightOperations 
+     * @param weightedEdges
+     */
     public MutableSpanningTree( Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
     {
         this.weightOperations = weightOperations;

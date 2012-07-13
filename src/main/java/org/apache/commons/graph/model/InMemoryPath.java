@@ -62,6 +62,11 @@ public class InMemoryPath<V, E>
 
     private final Map<E, VertexPair<V>> indexedVertices = new HashMap<E, VertexPair<V>>();
 
+    /**
+     * Creates a new instance of {@link InMemoryPath} from {@code start} vertex to {@code taget} vertex
+     * @param start the start vertex.
+     * @param target the target vertex.
+     */
     public InMemoryPath( V start, V target )
     {
         this.source = checkNotNull( start, "Path source cannot be null" );
@@ -100,6 +105,13 @@ public class InMemoryPath<V, E>
         return vertices.size();
     }
 
+    /**
+     * Adds the edge in head.
+     * 
+     * @param head the head vertex
+     * @param edge the edge
+     * @param tail the tail vertex
+     */
     public void addConnectionInHead( V head, E edge, V tail )
     {
         if ( target.equals( tail ) )
@@ -113,6 +125,13 @@ public class InMemoryPath<V, E>
         addConnection( head, edge, tail );
     }
 
+    /**
+     * Adds the edge in tail.
+     * 
+     * @param head the head vertex
+     * @param edge the edge
+     * @param tail the tail vertex
+     */
     public void addConnectionInTail( V head, E edge, V tail )
     {
         vertices.addLast( head );

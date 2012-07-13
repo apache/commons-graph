@@ -53,7 +53,8 @@ public abstract class BaseMutableGraph<V, E>
     }
 
     /**
-     * @param v
+     * Executes additional actions to vertex that will be added  
+     * @param v the vertex
      */
     protected abstract void decorateAddVertex( V v );
 
@@ -75,9 +76,8 @@ public abstract class BaseMutableGraph<V, E>
     }
 
     /**
-     *
-     *
-     * @param v
+     * Executes additional actions to vertex that will be removed  
+     * @param v the vertex
      */
     protected abstract void decorateRemoveVertex( V v );
 
@@ -100,6 +100,13 @@ public abstract class BaseMutableGraph<V, E>
         decorateAddEdge( head, e, tail );
     }
 
+    /**
+     * Performs the internal operations to add the edge
+     * 
+     * @param head the head vertex
+     * @param e the edge
+     * @param tail the tail vertex
+     */
     protected void internalAddEdge( V head, E e, V tail )
     {
         getAdjacencyList().get( head ).add( tail );
@@ -113,6 +120,13 @@ public abstract class BaseMutableGraph<V, E>
         }
     }
 
+    /**
+     * Performs the internal operations to remove the edge.
+     * 
+     * @param head the head vertex
+     * @param e the edge
+     * @param tail the tail vertex
+     */
     protected void internalRemoveEdge( V head, E e, V tail )
     {
         final VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
@@ -122,7 +136,10 @@ public abstract class BaseMutableGraph<V, E>
     }
 
     /**
-     * @param e
+     * Executes additional actions to edge that will be added  
+     * @param head the head vertex
+     * @param e the edge
+     * @param tail the tail vertex
      */
     protected abstract void decorateAddEdge( V head, E e, V tail );
 
@@ -141,9 +158,8 @@ public abstract class BaseMutableGraph<V, E>
     }
 
     /**
-     *
-     *
-     * @param e
+     * Executes additional actions to edge that will be removed  
+     * @param e the edge
      */
     protected abstract void decorateRemoveEdge( E e );
 

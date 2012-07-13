@@ -21,9 +21,21 @@ package org.apache.commons.graph.flow;
 
 import org.apache.commons.graph.Mapper;
 
+/**
+ * TODO Fill Me! 
+ * 
+ * @param <V> the Graph vertices type
+ * @param <WE> the Graph edges type
+ */
 public interface FlowWeightedEdgesBuilder<V, WE>
 {
 
+    /**
+     * TODO Fill me!!
+     * 
+     * @param weightedEdges
+     * @return
+     */
     <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges );
 
 }

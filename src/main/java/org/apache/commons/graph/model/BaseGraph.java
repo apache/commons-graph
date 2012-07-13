@@ -186,7 +186,8 @@ public abstract class BaseGraph<V, E>
     }
 
     /**
-     * @return
+     * Return the edge {@link Set}
+     * @return the edge {@link Set}
      */
     protected Set<E> getAllEdges()
     {
@@ -194,7 +195,9 @@ public abstract class BaseGraph<V, E>
     }
 
     /**
-     * @return the indexedEdges
+     * Returns the {@code Map} of indexed edges.
+     * 
+     * @return the {@link Map} of indexed edges
      */
     protected Map<VertexPair<V>, E> getIndexedEdges()
     {
@@ -202,13 +205,31 @@ public abstract class BaseGraph<V, E>
     }
 
     /**
-     * @return the indexedVertices
+     * Returns the {@code Map} of indexed vertices.
+     * 
+     * @return the indexed vertices {@link Map}
      */
     protected Map<E, VertexPair<V>> getIndexedVertices()
     {
         return indexedVertices;
     }
 
+    /**
+     * Ensures the truth of an expression involving one or more parameters to the
+     * calling method.
+     *
+     * @param expression a boolean expression
+     * @param errorMessageTemplate a template for the exception message should the
+     *     check fail. The message is formed by replacing each {@code %s}
+     *     placeholder in the template with an argument. These are matched by
+     *     position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc.
+     *     Unmatched arguments will be appended to the formatted message in square
+     *     braces. Unmatched placeholders will be left as-is.
+     * @param errorMessageArgs the arguments to be substituted into the message
+     *     template. Arguments are converted to strings using
+     *     {@link String#valueOf(Object)}.
+     * @throws GraphException if {@code expression} is false
+     */
     protected static void checkGraphCondition( boolean expression, String errorMessageTemplate, Object...errorMessageArgs )
     {
         if ( !expression )
