@@ -27,9 +27,9 @@ import org.apache.commons.graph.Mapper;
 /**
  * {@link DefaultToTailBuilder} implementation.
  *
- * @param <V>
- * @param <W>
- * @param <WE>
+ * @param <V> the Graph vertices type
+ * @param <WE> the Graph edges type
+ * @param <W> the Graph weight type
  */
 final class DefaultToTailBuilder<V, WE, W>
     implements ToTailBuilder<V, WE, W>

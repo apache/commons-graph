@@ -27,10 +27,10 @@ import org.apache.commons.graph.Mapper;
 /**
  * {@link FromHeadBuilder} implementation.
  *
- * @param <V>
- * @param <W>
- * @param <WE>
- * @param <G>
+ *
+ * @param <V> the Graph vertices type
+ * @param <WE> the Graph edges type
+ * @param <W> the Graph weight type
  */
 final class DefaultFromHeadBuilder<V, WE, W>
     implements FromHeadBuilder<V, WE, W>

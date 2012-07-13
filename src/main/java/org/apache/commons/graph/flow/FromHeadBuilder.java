@@ -19,12 +19,18 @@ package org.apache.commons.graph.flow;
  * under the License.
  */
 
+/**
+ * TODO Fill me!!!
+ * 
+ * @param <V> the Graph vertices type
+ * @param <WE> the Graph edges type
+ * @param <W> the Graph weight type
+ */
 public interface FromHeadBuilder<V, WE, W>
 {
 
     /**
-     *
-     *
+     * TODO Fill me !!!
      * @param head
      * @return
      */

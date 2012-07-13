@@ -21,6 +21,13 @@ package org.apache.commons.graph.flow;
 
 import org.apache.commons.graph.weight.OrderedMonoid;
 
+/**
+ * Maximum Flow algorithm selector
+ *
+ * @param <V> the Graph vertices type
+ * @param <WE> the Graph edges type
+ * @param <W> the Graph weight type
+ */
 public interface MaxFlowAlgorithmSelector<V, WE, W>
 {
 
@@ -29,7 +36,7 @@ public interface MaxFlowAlgorithmSelector<V, WE, W>
      *
      * @param <WO> the type of weight operations
      * @param weightOperations the class responsible for operations on weights
-     * @return
+     * @return the max flow calculate with Ford and Furkenson algorithm
      */
     <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations );
 
@@ -38,7 +45,7 @@ public interface MaxFlowAlgorithmSelector<V, WE, W>
      *
      * @param <WO> the type of weight operations
      * @param weightOperations the class responsible for operations on weights
-     * @return
+     * @return the max flow calculate with Edmonds and Karp algorithm
      */
     <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations );
 

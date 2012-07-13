@@ -24,8 +24,8 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.Graph;
 
 /**
- * TODO Fill me!!
- *
+ * {@link NamedExportSelector} implementation
+ * 
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
@@ -38,7 +38,7 @@ public final class DefaultExportSelector<V, E>
     private String name = null;
 
     /**
-     * Creates  anew instance of export selector for the given graph
+     * Creates a new instance of export selector for the given graph
      * @param graph the graph
      */
     public DefaultExportSelector( Graph<V, E> graph )

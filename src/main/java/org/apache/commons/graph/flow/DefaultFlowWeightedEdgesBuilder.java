@@ -24,17 +24,30 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.Mapper;
 
+/**
+ * {@link FlowWeightedEdgesBuilder} implementation
+ * 
+ * @param <V> the Graph vertices type
+ * @param <WE> the Graph edges type
+ */
 public final class DefaultFlowWeightedEdgesBuilder<V, WE>
     implements FlowWeightedEdgesBuilder<V, WE>
 {
 
     private final DirectedGraph<V, WE> graph;
 
+    /**
+     * Creates  a new instance of flow weighted edges builder for the given graph
+     * @param graph the graph
+     */
     public DefaultFlowWeightedEdgesBuilder( DirectedGraph<V, WE> graph )
     {
         this.graph = graph;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public <W, M extends Mapper<WE, W>> FromHeadBuilder<V, WE, W> whereEdgesHaveWeights( M weightedEdges )
     {
         weightedEdges = checkNotNull( weightedEdges, "Function to calculate edges weight can not be null." );
