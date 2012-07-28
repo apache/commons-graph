@@ -26,6 +26,8 @@ public final class EdgeWeightMapper
     implements Mapper<BaseLabeledWeightedEdge<Double>, Double>
 {
 
+    private static final long serialVersionUID = 20120728L;
+
     public Double map( BaseLabeledWeightedEdge<Double> input )
     {
         return input.getWeight();

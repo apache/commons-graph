@@ -26,6 +26,8 @@ public final class EdgeLabelMapper
     implements Mapper<BaseLabeledWeightedEdge<Double>, String>
 {
 
+    private static final long serialVersionUID = 20120728L;
+
     public String map( BaseLabeledWeightedEdge<Double> input )
     {
         return input.getLabel();

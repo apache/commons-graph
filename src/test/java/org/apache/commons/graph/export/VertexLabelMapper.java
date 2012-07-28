@@ -26,6 +26,8 @@ public final class VertexLabelMapper
     implements Mapper<BaseLabeledVertex, String>
 {
 
+    private static final long serialVersionUID = 20120728L;
+
     public String map( BaseLabeledVertex input )
     {
         return input.getLabel();
