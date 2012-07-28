@@ -20,8 +20,8 @@ package org.apache.commons.graph.export;
  */
 
 /**
- * TODO Fill me!!
- * 
+ * Allows users selecting the format of graph serialization.
+ *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
  */
@@ -30,6 +30,7 @@ public interface ExportSelector<V, E>
 
     /**
      * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
+     *
      * @return {@link DotExporter} instance
      * @throws GraphExportException
      */
@@ -38,6 +39,7 @@ public interface ExportSelector<V, E>
 
     /**
      * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
+     *
      * @return {@link GraphMLExporter} instance
      * @throws GraphExportException
      */
