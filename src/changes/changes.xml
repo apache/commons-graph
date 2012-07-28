@@ -29,9 +29,6 @@
     <action issue="SANDBOX-400" dev="simonetripodi" type="fix">
       Switch the Base graph implementation underlying data structures to the thread safe version
     </action>
-    <action issue="SANDBOX-392" dev="marcosperanza" type="fix">
-      Add test for Kosaraju Sharir Algorithm
-    </action>
     <action issue="SANDBOX-395" dev="cs" type="fix">
       Correct names for classes and variables related to operations on weights
     </action>
@@ -40,6 +37,9 @@
     </action>
     <action issue="SANDBOX-393" dev="marcosperanza" type="fix">
       Add test for Spanning tree
+    </action>
+    <action issue="SANDBOX-392" dev="marcosperanza" type="fix">
+      Add test for Kosaraju Sharir Algorithm
     </action>
     <action issue="SANDBOX-391" dev="marcosperanza" type="fix">
       removeEdge method: missing implementation
