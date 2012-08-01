@@ -25,7 +25,7 @@ import org.apache.commons.graph.MutableGraph;
 
 /**
  * TODO Fillme!!
- * 
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  * @param <G> the Graph type
@@ -38,7 +38,7 @@ public final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V
 
     /**
      * Creates a new {@link DefaultLinkedConnectionBuilder} for the graph.
-     * 
+     *
      * @param graph the graph
      */
     public DefaultLinkedConnectionBuilder( G graph )
@@ -48,7 +48,7 @@ public final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V
 
     /**
      * {@inheritDoc}
-     */ 
+     */
     public G withConnections( GraphConnection<V, E> graphConnection )
     {
         graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );

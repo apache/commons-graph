@@ -19,10 +19,9 @@ package org.apache.commons.graph.builder;
  * under the License.
  */
 
-
 /**
  * TODO Fillme!!!
- * 
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
@@ -31,9 +30,9 @@ public interface HeadVertexConnector<V, E>
 
     /**
      * Specifies the head vertex for the edge
-     * 
+     *
      * @param <H> the Graph vertex type
-     * @param head the head vertex 
+     * @param head the head vertex
      * @return {@link TailVertexConnector} builded from the head
      */
     <H extends V> TailVertexConnector<V, E> from( H head );

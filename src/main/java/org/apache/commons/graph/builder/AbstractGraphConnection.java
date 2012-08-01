@@ -22,8 +22,8 @@ package org.apache.commons.graph.builder;
 import static org.apache.commons.graph.utils.Assertions.checkState;
 
 /**
- * TODO fill me!! 
- * 
+ * TODO fill me!!
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
@@ -53,7 +53,7 @@ public abstract class AbstractGraphConnection<V, E>
 
     /**
      * Adds a new vertex to graph connector.
-     * 
+     *
      * @param <N> the Graph vertex type
      * @param node the vertex to add
      * @return the vertex added
@@ -65,7 +65,7 @@ public abstract class AbstractGraphConnection<V, E>
 
     /**
      * Adds a new edge to graph connector.
-     * 
+     *
      * @param <A> the Graph edges type
      * @param arc the edge to add.
      * @return the {@link HeadVertexConnector}
@@ -76,7 +76,7 @@ public abstract class AbstractGraphConnection<V, E>
     }
 
     /**
-     * Connets the graph
+     * Connects the graph.
      */
     public abstract void connect();
 

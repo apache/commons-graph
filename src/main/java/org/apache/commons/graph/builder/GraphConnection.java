@@ -21,7 +21,7 @@ package org.apache.commons.graph.builder;
 
 /**
  * TODO Fillme!!!
- * 
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
@@ -30,7 +30,8 @@ public interface GraphConnection<V, E>
 
     /**
      * TODO Fillme!!
-     * @param grapher 
+     *
+     * @param grapher
      */
     void connect( GraphConnector<V, E> grapher );
 
