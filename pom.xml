@@ -77,6 +77,11 @@
       <id>tn</id>
       <email>tn AT apache DOT org</email>
     </developer>
+    <developer>
+      <name>Tommaso Teofili</name>
+      <id>tommaso</id>
+      <email>tommaso AT apache DOT org</email>
+    </developer>
   </developers>
   <contributors>
     <contributor>
