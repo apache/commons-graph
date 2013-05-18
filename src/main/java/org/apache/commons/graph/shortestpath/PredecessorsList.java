@@ -95,6 +95,53 @@ public final class PredecessorsList<V, WE, W>
     }
 
     /**
+     * Build a {@link WeightedPath} instance related to source-target path.
+     *
+     * @param source the path source vertex
+     * @param touch the node where search frontiers meet, producing the shortest path
+     * @param target the path target vertex
+     * @param backwardsList the predecessor list in backwards search space along reversed edges
+     * @return the weighted path related to source to target
+     */
+    public WeightedPath<V, WE, W> buildPath( V source, V touch, V target, PredecessorsList<V, WE, W> backwardsList ) {
+        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
+
+        V vertex = touch;
+        while ( !source.equals( vertex ) )
+        {
+            V predecessor = predecessors.get( vertex );
+            if ( predecessor == null )
+            {
+                throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
+            }
+            WE edge = graph.getEdge( predecessor, vertex );
+
+            path.addConnectionInHead(predecessor, edge, vertex);
+
+            vertex = predecessor;
+        }
+
+        vertex = touch;
+
+        while ( !target.equals( vertex ) )
+        {
+            // 'predecessor' is actually a successor.
+            V predecessor = backwardsList.predecessors.get( vertex );
+            if ( predecessor == null )
+            {
+                throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
+            }
+            WE edge = graph.getEdge( vertex, predecessor );
+
+            path.addConnectionInTail( vertex, edge, predecessor );
+
+            vertex = predecessor;
+        }
+
+        return path;
+    }
+
+    /**
      * Checks the predecessor list has no elements.
      *
      * @return true, if the predecessor list has no elements, false otherwise.

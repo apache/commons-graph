@@ -24,6 +24,7 @@ import static org.apache.commons.graph.utils.Assertions.checkNotNull;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
+import org.apache.commons.graph.DirectedGraph;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
@@ -119,4 +120,127 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
         throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingBidirectionalDijkstra( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Bidirectional Dijkstra algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistancesForward = new ShortestDistances<V, W>( weightOperations );
+        shortestDistancesForward.setWeight( source, weightOperations.identity() );
+
+        final ShortestDistances<V, W> shortestDistancesBackwards = new ShortestDistances<V, W>( weightOperations );
+        shortestDistancesBackwards.setWeight( target, weightOperations.identity() );
+
+        final Queue<V> openForward = new FibonacciHeap<V>( shortestDistancesForward );
+        openForward.add( source );
+
+        final Queue<V> openBackwards = new FibonacciHeap<V>( shortestDistancesBackwards );
+        openBackwards.add( target );
+
+        final Set<V> closedForward = new HashSet<V>();
+
+        final Set<V> closedBackwards = new HashSet<V>();
+
+        final PredecessorsList<V, WE, W> predecessorsForward = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
+
+        final PredecessorsList<V, WE, W> predecessorsBackwards = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
+
+        W best = null;
+        V touch = null;
+
+        while (!openForward.isEmpty() && !openBackwards.isEmpty())
+        {
+            if ( best != null )
+            {
+                final W tmp = weightOperations.append( shortestDistancesForward.getWeight( openForward.peek() ),
+                                                       shortestDistancesBackwards.getWeight( openBackwards.peek() ) );
+
+                if ( weightOperations.compare( tmp, best ) >= 0 )
+                {
+                    return predecessorsForward.buildPath( source, touch, target, predecessorsBackwards );
+                }
+            }
+
+            V vertex = openForward.remove();
+
+            closedForward.add( vertex );
+
+            for ( V v : graph.getConnectedVertices( vertex ) )
+            {
+                if ( !closedForward.contains( v ) )
+                {
+                    WE edge = graph.getEdge( vertex, v );
+                    if ( shortestDistancesForward.alreadyVisited( vertex ) )
+                    {
+                        W shortDist = weightOperations.append( shortestDistancesForward.getWeight( vertex ), weightedEdges.map( edge ) );
+
+                        if ( !shortestDistancesForward.alreadyVisited( v )
+                                || weightOperations.compare( shortDist, shortestDistancesForward.getWeight( v ) ) < 0 )
+                        {
+                            shortestDistancesForward.setWeight( v, shortDist );
+                            openForward.add( v );
+                            predecessorsForward.addPredecessor( v, vertex );
+
+                            if ( closedBackwards.contains( v ) )
+                            {
+                                W tmpBest = weightOperations.append( shortDist, shortestDistancesBackwards.getWeight( v ) );
+
+                                if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
+                                {
+                                    best = tmpBest;
+                                    touch = v;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            vertex = openBackwards.remove();
+
+            closedBackwards.add( vertex );
+
+            Iterable<V> parentsIterable = ( graph instanceof DirectedGraph ? ((DirectedGraph<V, WE>) graph).getInbound( vertex ) : graph.getConnectedVertices( vertex ) );
+
+            for ( V v : parentsIterable )
+            {
+                if ( !closedBackwards.contains( v ) )
+                {
+                    WE edge = graph.getEdge( v, vertex );
+                    if ( shortestDistancesBackwards.alreadyVisited( vertex ) )
+                    {
+                        W shortDist = weightOperations.append( shortestDistancesBackwards.getWeight( vertex ), weightedEdges.map( edge ) );
+
+                        if ( !shortestDistancesBackwards.alreadyVisited( v )
+                                || weightOperations.compare( shortDist, shortestDistancesBackwards.getWeight( v ) ) < 0 )
+                        {
+                            shortestDistancesBackwards.setWeight( v, shortDist );
+                            openBackwards.add( v );
+                            predecessorsBackwards.addPredecessor( v, vertex );
+
+                            if ( closedForward.contains( v ) )
+                            {
+                                W tmpBest = weightOperations.append( shortDist, shortestDistancesForward.getWeight( v ) );
+
+                                if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
+                                {
+                                    best = tmpBest;
+                                    touch = v;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if ( touch == null )
+        {
+            throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph);
+        }
+
+        return predecessorsForward.buildPath( source, touch, target, predecessorsBackwards );
+    }
 }

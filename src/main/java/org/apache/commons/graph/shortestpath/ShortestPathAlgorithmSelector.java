@@ -50,4 +50,13 @@ public interface ShortestPathAlgorithmSelector<V, WE, W>
      */
     <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations );
 
+    /**
+     *  Calculates the shortest path using bidirectional Dijkstra's algorithm.
+     *
+     * @param <WO> the type of weight operations
+     * @param weightOperations the class responsible for operations on weights
+     * @return a path which describes the shortest path, if any, otherwise a {@link PathNotFoundException} will be thrown
+     */
+    <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingBidirectionalDijkstra( WO weightOperations );
+
 }
