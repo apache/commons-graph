@@ -27,9 +27,9 @@
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-graph</artifactId>
   <version>0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
-  <name>Apache Commons Graph</name>
+  <name>Apache Commons Graph - Parent</name>
   <description>
     The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
   </description>
@@ -116,6 +116,28 @@
     </site>
   </distributionManagement>
 
+  <modules>
+    <!-- foundation libs -->
+    <module>api</module>
+    <module>model</module>
+    <!-- aux collections -->
+    <module>collections/disjoint-set</module>
+    <module>collections/fibonacci-heap</module>
+    <!-- algorithms -->
+    <module>coloring</module>
+    <module>connectivity</module>
+    <module>elo</module>
+    <module>flow</module>
+    <module>scc</module>
+    <module>shortestpath</module>
+    <module>spanning</module>
+    <module>visit</module>
+    <!-- graph format export -->
+    <module>export</module>
+    <!-- aux tests -->
+    <module>benchmarks</module>
+  </modules>
+
   <properties>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
@@ -133,17 +155,6 @@
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-        <directory>${basedir}</directory>
-        <targetPath>META-INF</targetPath>
-        <includes>
-          <include>NOTICE.txt</include>
-          <include>LICENSE.txt</include>
-        </includes>
-      </resource>
-    </resources>
-
     <pluginManagement>
       <plugins>
         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
@@ -192,47 +203,12 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
-            <descriptor>src/main/assembly/bin.xml</descriptor>
-            <descriptor>src/main/assembly/src.xml</descriptor>
+            <descriptor>${basedir}/src/main/assembly/bin.xml</descriptor>
+            <descriptor>${basedir}/src/main/assembly/src.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
+          <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>jarjar-maven-plugin</artifactId>
-        <version>1.5</version>
-        <configuration>
-          <input>{classes}</input>
-          <output>${project.build.directory}/classes</output>
-          <overwrite>true</overwrite>
-          <skipManifest>true</skipManifest>
-          <excludes>
-            <exclude>*:*</exclude>
-          </excludes>
-          <rules>
-            <rule>
-              <pattern>org.apache.commons.graph.**.Default*</pattern>
-              <result>org.apache.commons.graph.@1.$@2</result>
-            </rule>
-            <rule>
-              <pattern>org.apache.commons.graph.utils.*</pattern>
-              <result>org.apache.commons.graph.utils.$@1</result>
-            </rule>
-            <keep>
-              <pattern>org.apache.commons.graph.**</pattern>
-            </keep>
-          </rules>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>jarjar</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
@@ -294,75 +270,6 @@
           <url>${commons.deployment.protocol}://people.apache.org/www/people.apache.org/builds/commons/${commons.componentid}/${commons.release.version}/${commons.rc.version}/site</url>
         </site>
       </distributionManagement>
-    </profile>
-
-    <profile>
-      <id>benchmarks</id>
-      <activation>
-        <property>
-          <name>skipBenchmarks</name>
-          <value>!true</value>
-        </property>
-      </activation>
-
-      <dependencies>
-        <dependency>
-          <groupId>com.carrotsearch</groupId>
-          <artifactId>junit-benchmarks</artifactId>
-          <classifier>jdk15</classifier>
-          <version>0.3.0</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>1.6.1</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <version>1.3.158</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.7</version>
-            <executions>
-              <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${basedir}/src/benchmarks/java</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <systemPropertyVariables>
-                <jub.consumers>CONSOLE,XML,H2</jub.consumers>
-                <jub.db.file>${project.build.directory}/benchmarks/database</jub.db.file>
-                <jub.xml.file>${project.build.directory}/benchmarks.xml</jub.xml.file>
-                <jub.charts.dir>${project.build.directory}/site</jub.charts.dir>
-              </systemPropertyVariables>
-              <argLine>-Xmx512m -Xms512m</argLine>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
   </profiles>
 </project>
