@@ -29,7 +29,7 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Apache Commons Graph</name>
+  <name>Apache Commons Graph (Sandbox)</name>
   <description>
     The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
   </description>
