@@ -226,4 +226,154 @@ public final class KruskalTestCase
         assertEquals( expected, actual );
     }
 
+    /**
+     * Test the the minimum spanning tree on a path graph with 4 vertices
+     * and unit weights.
+     */
+    @Test
+    public void testP4UniformWeightsMinimumSpanningTree()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
+            = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+
+
+        input.addVertex( a );
+        input.addVertex( b );
+        input.addVertex( c );
+        input.addVertex( d );
+
+        input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 1D ), b );
+        input.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 1D ), c );
+        input.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> d", 1D ), d );
+
+
+        // Expected
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
+
+        for ( BaseLabeledVertex vertex : input.getVertices() )
+        {
+            expected.addVertex( vertex );
+        }
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 1D ), b );
+        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 1D ), c );
+        expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> d", 1D ), d );
+
+
+        // Actual
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+                        minimumSpanningTree( input )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                            .fromArbitrarySource()
+                            .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+
+        // assert!
+        assertEquals( expected, actual );
+    }
+
+    /**
+     * Test the algorithm with a disconnected graph on 4 vertices.  In this
+     * case, we expect the Minimum spanning "tree" to actually be a minimum
+     * spanning forest with 2 components.
+     */
+    @Test
+    public void testDisconnectedMinimumSpanningTree()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
+            = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+
+
+        input.addVertex( a );
+        input.addVertex( b );
+        input.addVertex( c );
+        input.addVertex( d );
+
+        input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 4D ), b );
+        input.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> d", 2D ), d );
+
+
+        // Expected
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
+
+        for ( BaseLabeledVertex vertex : input.getVertices() )
+        {
+            expected.addVertex( vertex );
+        }
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 4D ), b );
+        expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> d", 2D ), d );
+
+
+        // Actual
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+                        minimumSpanningTree( input )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                            .fromArbitrarySource()
+                            .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+
+        // assert!
+        assertEquals( expected, actual );
+    }
+
+    /**
+     * Test the the minimum spanning tree on a path graph with 4 vertices
+     * and non-uniform weights.
+     */
+    @Test
+    public void testP4NonUniformWeightsMinimumSpanningTree()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
+            = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+
+
+        input.addVertex( a );
+        input.addVertex( b );
+        input.addVertex( c );
+        input.addVertex( d );
+
+        input.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 4D ), b );
+        input.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ), c );
+        input.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> d", 2D ), d );
+
+
+        // Expected
+        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
+
+        for ( BaseLabeledVertex vertex : input.getVertices() )
+        {
+            expected.addVertex( vertex );
+        }
+        expected.addEdge( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 4D ), b );
+        expected.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ), c );
+        expected.addEdge( c, new BaseLabeledWeightedEdge<Double>( "c <-> d", 2D ), d );
+
+
+        // Actual
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+                        minimumSpanningTree( input )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                            .fromArbitrarySource()
+                            .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+
+        // assert!
+        assertEquals( expected, actual );
+    }
+
+
 }
