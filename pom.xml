@@ -21,10 +21,9 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>25</version>
+    <version>50</version>
   </parent>
 
-  <groupId>org.apache.commons</groupId>
   <artifactId>commons-graph</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -117,8 +116,10 @@
   </distributionManagement>
 
   <properties>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <commons.componentid>graph</commons.componentid>
     <commons.jira.componentid>12314503</commons.jira.componentid>
   </properties>
@@ -271,7 +272,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
         <configuration>
-          <targetJdk>${maven.compile.target}</targetJdk>
+          <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
         <!--Use default rules-->
       </plugin>
