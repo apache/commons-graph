@@ -189,8 +189,13 @@ public class GraphColoringTestCase extends AbstractColoringTest
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildSudokuGraph( g1 );
 
+        //Optimal solution is to use 9 colors, not all algorithms can find solution with minimal colors.
+        //greedy algorithm needs 13 colors to fetch solution ATM.
+
+        Set<Integer> col = createColorsList( 9 );
+
         ColoredVertices<BaseLabeledVertex, Integer> sudoku =
-                        coloring( g1 ).withColors( colors ).applyingGreedyAlgorithm();
+                        coloring( g1 ).withColors( col ).applyingBackTrackingAlgorithm();
         checkColoring( g1, sudoku );
     }
 
