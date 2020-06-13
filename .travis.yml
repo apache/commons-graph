@@ -19,6 +19,8 @@ cache:
     - $HOME/.m2
 jdk:
   - openjdk8
+  - openjdk11
+  - openjdk14
 
 # The default build is so verbose the travis log file can exceed the allowed limit.
 # Run a custom install that hides all the Maven ‘Downloading’ messages.
