@@ -55,7 +55,7 @@ Documentation
 
 More information can be found on the [Apache Commons Graph (Sandbox) homepage](https://commons.apache.org/sandbox/commons-graph/).
 The [Javadoc](https://commons.apache.org/sandbox/commons-graph/apidocs) can be browsed.
-Questions related to the usage of Apache Commons Graph (Sandbox) should be posted to the [user mailing list][https://commons.apache.org/mail-lists.html].
+Questions related to the usage of Apache Commons Graph (Sandbox) should be posted to the [user mailing list](https://commons.apache.org/mail-lists.html).
 
 Where can I get the latest release?
 -----------------------------------
@@ -64,7 +64,7 @@ Yet to release.
 Contributing
 ------------
 
-We accept Pull Requests via GitHub. The [developer mailing list][https://commons.apache.org/mail-lists.html] is the main channel of communication for contributors.
+We accept Pull Requests via GitHub. The [developer mailing list](https://commons.apache.org/mail-lists.html) is the main channel of communication for contributors.
 There are some guidelines which will make applying PRs easier for us:
 + No tabs! Please use spaces for indentation.
 + Respect the code style.
