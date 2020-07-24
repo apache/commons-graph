@@ -27,7 +27,6 @@ install:
 
 script:
   - mvn
-  - mvn verify apache-rat:check checkstyle:check
 
 after_success:
   - mvn jacoco:report coveralls:report

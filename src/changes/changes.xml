@@ -23,6 +23,9 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
+    <action issue="SANDBOX-510" dev="kinow" due-to="Amey Jadiye" type="fix">
+      Unit tests failures in recently migrated "Commons Graph"
+    </action>
     <action issue="SANDBOX-425" dev="marcosperanza" type="fix">
       FibonacciHeap enters in an infinite loop when applying SpannigTree algorithms
     </action>

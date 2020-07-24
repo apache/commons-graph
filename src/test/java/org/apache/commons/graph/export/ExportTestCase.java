@@ -77,7 +77,6 @@ public class ExportTestCase {
     }
 
     @Test
-    @Ignore
     public void shouldPrintGraphML()
         throws Exception
     {
