@@ -37,8 +37,8 @@ final class DefaultKFactorBuilder<P>
 
     private final PlayersRank<P> playerRanking;
 
-    public DefaultKFactorBuilder( DirectedGraph<P, GameResult> tournamentGraph,
-                                 PlayersRank<P> playerRanking )
+    public DefaultKFactorBuilder(final DirectedGraph<P, GameResult> tournamentGraph,
+                                 final PlayersRank<P> playerRanking )
     {
         this.tournamentGraph = tournamentGraph;
         this.playerRanking = playerRanking;
@@ -49,29 +49,29 @@ final class DefaultKFactorBuilder<P>
         withKFactor( DEFAULT_K_FACTOR );
     }
 
-    public void withKFactor( int kFactor )
+    public void withKFactor(final int kFactor )
     {
         // TODO find a way to improve performances, this impl is just a spike
-        for ( P player : tournamentGraph.getVertices() )
+        for ( final P player : tournamentGraph.getVertices() )
         {
-            for ( P opponent : tournamentGraph.getOutbound( player ) )
+            for ( final P opponent : tournamentGraph.getOutbound( player ) )
             {
-                GameResult gameResult = tournamentGraph.getEdge( player, opponent );
+                final GameResult gameResult = tournamentGraph.getEdge( player, opponent );
                 evaluateMatch( player, gameResult, opponent, kFactor );
             }
         }
     }
 
-    private boolean evaluateMatch( P playerA, GameResult gameResult, P playerB, int kFactor )
+    private boolean evaluateMatch(final P playerA, final GameResult gameResult, final P playerB, final int kFactor )
     {
-        double qA = calculateQFactor( playerA );
-        double qB = calculateQFactor( playerB );
+        final double qA = calculateQFactor( playerA );
+        final double qB = calculateQFactor( playerB );
 
-        double eA = calculateEFactor( qA, qB );
-        double eB = calculateEFactor( qB, qA );
+        final double eA = calculateEFactor( qA, qB );
+        final double eB = calculateEFactor( qB, qA );
 
-        double sA;
-        double sB;
+        final double sA;
+        final double sB;
         switch ( gameResult )
         {
             case WIN:
@@ -94,20 +94,20 @@ final class DefaultKFactorBuilder<P>
         return true;
     }
 
-    private double calculateQFactor( P player )
+    private double calculateQFactor(final P player )
     {
-        double ranking = playerRanking.getRanking( player );
+        final double ranking = playerRanking.getRanking( player );
         return pow( DEFAULT_POW_BASE, ranking / DEFAULT_DIVISOR );
     }
 
-    private static double calculateEFactor( double qA, double qB )
+    private static double calculateEFactor(final double qA, final double qB )
     {
         return qA / ( qA + qB );
     }
 
-    private void updateRanking( P player, double kFactor, double sFactor, double eFactor )
+    private void updateRanking(final P player, final double kFactor, final double sFactor, final double eFactor )
     {
-        double newRanking = playerRanking.getRanking( player ) + ( kFactor * ( sFactor - eFactor ) );
+        final double newRanking = playerRanking.getRanking( player ) + ( kFactor * ( sFactor - eFactor ) );
         playerRanking.updateRanking( player, newRanking );
     }
 

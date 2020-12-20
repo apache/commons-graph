@@ -41,7 +41,7 @@ public final class DefaultExportSelector<V, E>
      * Creates a new instance of export selector for the given graph
      * @param graph the graph
      */
-    public DefaultExportSelector( Graph<V, E> graph )
+    public DefaultExportSelector(final Graph<V, E> graph )
     {
         this.graph = graph;
     }
@@ -65,7 +65,7 @@ public final class DefaultExportSelector<V, E>
     /**
      * {@inheritDoc}
      */
-    public ExportSelector<V, E> withName( String name )
+    public ExportSelector<V, E> withName(final String name )
     {
         this.name = checkNotNull( name, "Graph name cannot be null." );
         return this;

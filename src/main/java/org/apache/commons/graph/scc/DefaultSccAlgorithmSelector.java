@@ -83,7 +83,7 @@ public final class DefaultSccAlgorithmSelector<V, E>
      * @param algorithm
      * @return
      */
-    private Set<Set<V>> applying( SccAlgorithm<V> algorithm )
+    private Set<Set<V>> applying(final SccAlgorithm<V> algorithm )
     {
         return algorithm.perform();
     }

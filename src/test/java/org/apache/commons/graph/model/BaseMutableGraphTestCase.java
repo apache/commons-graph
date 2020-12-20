@@ -52,34 +52,34 @@ public class BaseMutableGraphTestCase
     {
 
         // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 50, g );
 
         assertEquals( 50, g.getOrder() );
         assertEquals( 1225, g.getSize() );
-        for ( BaseLabeledVertex v : g.getVertices() )
+        for ( final BaseLabeledVertex v : g.getVertices() )
         {
             assertEquals( 49, g.getDegree( v ) );
         }
 
         // Test a complete direct graph.
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> gDirect =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> gDirect =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 50, gDirect );
 
         assertEquals( 50, gDirect.getOrder() );
         assertEquals( 2450, gDirect.getSize() );
-        for ( BaseLabeledVertex v : gDirect.getVertices() )
+        for ( final BaseLabeledVertex v : gDirect.getVertices() )
         {
             assertEquals( 98, gDirect.getDegree( v ) );
         }
 
         // Test
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> gSimple =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> gSimple =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        BaseLabeledVertex one = new BaseLabeledVertex( "1" );
-        BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+        final BaseLabeledVertex one = new BaseLabeledVertex( "1" );
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
         gSimple.addVertex( one );
         gSimple.addVertex( two );
 
@@ -105,16 +105,16 @@ public class BaseMutableGraphTestCase
     public final void testGetConnectedVertices()
     {
         // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 10, g );
 
         final BaseLabeledVertex testVertex = new BaseLabeledVertex( valueOf( 1 ) );
-        Iterable<BaseLabeledVertex> connectedVertices = g.getConnectedVertices( testVertex );
+        final Iterable<BaseLabeledVertex> connectedVertices = g.getConnectedVertices( testVertex );
         assertNotNull( connectedVertices );
 
         final List<BaseLabeledVertex> v = new ArrayList<BaseLabeledVertex>();
-        for ( BaseLabeledVertex baseLabeledVertex : connectedVertices )
+        for ( final BaseLabeledVertex baseLabeledVertex : connectedVertices )
         {
             v.add( baseLabeledVertex );
         }
@@ -131,22 +131,22 @@ public class BaseMutableGraphTestCase
     public final void testGetConnectedVerticesOnNotConnectedGraph()
     {
         // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
         // building a not connected Graph
         for ( int i = 0; i < 4; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
         }
 
         final BaseLabeledVertex testVertex = new BaseLabeledVertex( valueOf( 1 ) );
-        Iterable<BaseLabeledVertex> connectedVertices = g.getConnectedVertices( testVertex );
+        final Iterable<BaseLabeledVertex> connectedVertices = g.getConnectedVertices( testVertex );
         assertNotNull( connectedVertices );
 
         final List<BaseLabeledVertex> v = new ArrayList<BaseLabeledVertex>();
-        for ( BaseLabeledVertex baseLabeledVertex : connectedVertices )
+        for ( final BaseLabeledVertex baseLabeledVertex : connectedVertices )
         {
             v.add( baseLabeledVertex );
         }
@@ -171,7 +171,7 @@ public class BaseMutableGraphTestCase
 
             notExistsVertex = new BaseLabeledVertex( valueOf( 1000 ) );
         }
-        catch ( GraphException e )
+        catch ( final GraphException e )
         {
             fail( e.getMessage() );
         }
@@ -186,13 +186,13 @@ public class BaseMutableGraphTestCase
     public final void testGetEdge()
     {
         // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         buildCompleteGraph( 10, g );
 
         final BaseLabeledVertex source = new BaseLabeledVertex( valueOf( 1 ) );
         final BaseLabeledVertex target = new BaseLabeledVertex( valueOf( 2 ) );
-        BaseLabeledEdge edge = g.getEdge( source, target );
+        final BaseLabeledEdge edge = g.getEdge( source, target );
         assertNotNull( edge );
     }
 
@@ -204,18 +204,18 @@ public class BaseMutableGraphTestCase
     public final void testGetNotExistsEdge()
     {
         // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         // building Graph
         for ( int i = 0; i < 4; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
         }
 
         final BaseLabeledVertex source = new BaseLabeledVertex( valueOf( 1 ) );
         final BaseLabeledVertex target = new BaseLabeledVertex( valueOf( 2 ) );
-        BaseLabeledEdge edge = g.getEdge( source, target );
+        final BaseLabeledEdge edge = g.getEdge( source, target );
         assertNull( edge );
     }
 
@@ -238,7 +238,7 @@ public class BaseMutableGraphTestCase
             source = new BaseLabeledVertex( valueOf( 100 ) );
             target = new BaseLabeledVertex( valueOf( 2 ) );
         }
-        catch ( GraphException e )
+        catch ( final GraphException e )
         {
             fail( e.getMessage() );
         }
@@ -266,7 +266,7 @@ public class BaseMutableGraphTestCase
             source = new BaseLabeledVertex( valueOf( 1 ) );
             target = new BaseLabeledVertex( valueOf( 200 ) );
         }
-        catch ( GraphException e )
+        catch ( final GraphException e )
         {
             fail( e.getMessage() );
         }
@@ -289,10 +289,10 @@ public class BaseMutableGraphTestCase
 
         buildCompleteGraph( 10, g );
 
-        BaseLabeledEdge e = g.getEdge( source, target );
+        final BaseLabeledEdge e = g.getEdge( source, target );
         g.removeEdge( e );
 
-        BaseLabeledEdge edge = g.getEdge( source, target );
+        final BaseLabeledEdge edge = g.getEdge( source, target );
         assertNull( edge );
     }
 
@@ -311,10 +311,10 @@ public class BaseMutableGraphTestCase
 
         buildCompleteGraph( 10, g );
 
-        BaseLabeledEdge e = g.getEdge( source, target );
+        final BaseLabeledEdge e = g.getEdge( source, target );
         g.removeEdge( e );
 
-        BaseLabeledEdge edge = g.getEdge( source, target );
+        final BaseLabeledEdge edge = g.getEdge( source, target );
 
         assertNull( edge );
     }
@@ -335,7 +335,7 @@ public class BaseMutableGraphTestCase
 
             e = new BaseLabeledEdge( "NOT EXIST" );
         }
-        catch ( GraphException ex )
+        catch ( final GraphException ex )
         {
             fail( ex.getMessage() );
         }
@@ -360,7 +360,7 @@ public class BaseMutableGraphTestCase
 
             e = new BaseLabeledEdge( "NOT EXIST" );
         }
-        catch ( GraphException ex )
+        catch ( final GraphException ex )
         {
             fail( ex.getMessage() );
         }
@@ -379,13 +379,15 @@ public class BaseMutableGraphTestCase
         final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
 
-        TestRunner tr1, tr2, tr3;
+        final TestRunner tr1;
+        final TestRunner tr2;
+        final TestRunner tr3;
         tr1 = new GraphInsert( g, 0, 10 );
         tr2 = new GraphInsert( g, 10, 20 );
         tr3 = new GraphInsert( g, 20, 30 );
 
-        TestRunner[] trs = { tr1, tr2, tr3 };
-        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
+        final TestRunner[] trs = { tr1, tr2, tr3 };
+        final MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
 
         mttr.runRunnables();
 
@@ -405,13 +407,15 @@ public class BaseMutableGraphTestCase
         final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
 
-        TestRunner tr1, tr2, tr3;
+        final TestRunner tr1;
+        final TestRunner tr2;
+        final TestRunner tr3;
         tr1 = new GraphInsert( g, 0, 10 );
         tr2 = new GraphInsert( g, 10, 20 );
         tr3 = new GraphInsert( g, 20, 30 );
 
-        TestRunner[] trs = { tr1, tr2, tr3 };
-        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
+        final TestRunner[] trs = { tr1, tr2, tr3 };
+        final MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
         mttr.runRunnables();
 
         assertEquals( 30, g.getOrder() );
@@ -425,13 +429,13 @@ public class BaseMutableGraphTestCase
         extends TestRunner
     {
 
-        private MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g;
+        private final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g;
 
-        private int start;
+        private final int start;
 
-        private int end;
+        private final int end;
 
-        private GraphInsert( MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g, int start, int end )
+        private GraphInsert(final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g, final int start, final int end )
         {
             this.g = g;
             this.start = start;
@@ -445,23 +449,23 @@ public class BaseMutableGraphTestCase
             // building a complete Graph
             for ( int i = start; i < end; i++ )
             {
-                BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
                 g.addVertex( v );
             }
             synchronized ( g )
             {
-                for ( BaseLabeledVertex v1 : g.getVertices() )
+                for ( final BaseLabeledVertex v1 : g.getVertices() )
                 {
-                    for ( BaseLabeledVertex v2 : g.getVertices() )
+                    for ( final BaseLabeledVertex v2 : g.getVertices() )
                     {
                         if ( !v1.equals( v2 ) )
                         {
                             try
                             {
-                                BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                                final BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
                                 g.addEdge( v1, e, v2 );
                             }
-                            catch ( GraphException e )
+                            catch ( final GraphException e )
                             {
                                 // ignore
                             }

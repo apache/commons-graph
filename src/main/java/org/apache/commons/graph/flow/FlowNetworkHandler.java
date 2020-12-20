@@ -65,7 +65,7 @@ class FlowNetworkHandler<V, E, W>
 
     private boolean foundAugmentingPath;
 
-    FlowNetworkHandler( DirectedGraph<V, E> flowNetwork, V source, V target, OrderedMonoid<W> weightOperations, Mapper<E, W> weightedEdges )
+    FlowNetworkHandler(final DirectedGraph<V, E> flowNetwork, final V source, final V target, final OrderedMonoid<W> weightOperations, final Mapper<E, W> weightedEdges )
     {
         this.flowNetwork = flowNetwork;
         this.source = source;
@@ -75,7 +75,7 @@ class FlowNetworkHandler<V, E, W>
 
         maxFlow = weightOperations.identity();
 
-        for ( E edge : flowNetwork.getEdges() )
+        for ( final E edge : flowNetwork.getEdges() )
         {
             residualEdgeCapacities.put( edge, weightedEdges.map( edge ) );
         }
@@ -100,13 +100,13 @@ class FlowNetworkHandler<V, E, W>
     void updateResidualNetworkWithCurrentAugmentingPath()
     {
         // build actual augmenting path
-        WeightedPath<V, E, W> augmentingPath = predecessors.buildPath( source, target );
+        final WeightedPath<V, E, W> augmentingPath = predecessors.buildPath( source, target );
 
         // find flow increment
         W flowIncrement = null;
-        for ( E edge : augmentingPath.getEdges() )
+        for ( final E edge : augmentingPath.getEdges() )
         {
-            W edgeCapacity = residualEdgeCapacities.get( edge );
+            final W edgeCapacity = residualEdgeCapacities.get( edge );
             if ( flowIncrement == null
                      || weightOperations.compare( edgeCapacity, flowIncrement ) < 0 )
             {
@@ -116,16 +116,16 @@ class FlowNetworkHandler<V, E, W>
 
         // update max flow and capacities accordingly
         maxFlow = weightOperations.append( maxFlow, flowIncrement );
-        for ( E edge : augmentingPath.getEdges() )
+        for ( final E edge : augmentingPath.getEdges() )
         {
             // decrease capacity for direct edge
-            W directCapacity = residualEdgeCapacities.get( edge );
+            final W directCapacity = residualEdgeCapacities.get( edge );
             residualEdgeCapacities.put( edge, weightOperations.append( directCapacity, weightOperations.inverse( flowIncrement ) ) );
 
             // increase capacity for inverse edge
-            VertexPair<V> vertexPair = flowNetwork.getVertices( edge );
-            E inverseEdge = flowNetwork.getEdge( vertexPair.getTail(), vertexPair.getHead() );
-            W inverseCapacity = residualEdgeCapacities.get( inverseEdge );
+            final VertexPair<V> vertexPair = flowNetwork.getVertices( edge );
+            final E inverseEdge = flowNetwork.getEdge( vertexPair.getTail(), vertexPair.getHead() );
+            final W inverseCapacity = residualEdgeCapacities.get( inverseEdge );
             residualEdgeCapacities.put( inverseEdge, weightOperations.append( inverseCapacity, flowIncrement ) );
         }
     }
@@ -134,7 +134,7 @@ class FlowNetworkHandler<V, E, W>
      * {@inheritDoc}
      */
     @Override
-    public void discoverGraph( DirectedGraph<V, E> graph )
+    public void discoverGraph(final DirectedGraph<V, E> graph )
     {
         // reset ausiliary structures for a new graph visit
         predecessors = new PredecessorsList<V, E, W>( graph, weightOperations, weightedEdges );
@@ -145,9 +145,9 @@ class FlowNetworkHandler<V, E, W>
      * {@inheritDoc}
      */
     @Override
-    public VisitState discoverEdge( V head, E edge, V tail )
+    public VisitState discoverEdge(final V head, final E edge, final V tail )
     {
-        W residualEdgeCapacity = residualEdgeCapacities.get( edge );
+        final W residualEdgeCapacity = residualEdgeCapacities.get( edge );
         // avoid expanding the edge when it has no residual capacity
         if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
         {
@@ -160,7 +160,7 @@ class FlowNetworkHandler<V, E, W>
     /**
      * {@inheritDoc}
      */
-    public VisitState discoverVertex( V vertex )
+    public VisitState discoverVertex(final V vertex )
     {
         return finishVertex( vertex );
     }
@@ -168,7 +168,7 @@ class FlowNetworkHandler<V, E, W>
     /**
      * {@inheritDoc}
      */
-    public VisitState finishVertex( V vertex )
+    public VisitState finishVertex(final V vertex )
     {
         if ( vertex.equals( target ) )
         {

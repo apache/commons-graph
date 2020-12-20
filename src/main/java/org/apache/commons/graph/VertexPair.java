@@ -48,7 +48,7 @@ public final class VertexPair<V>
      * @param head the head Vertex
      * @param tail the tail Vertex
      */
-    public VertexPair( V head, V tail )
+    public VertexPair(final V head, final V tail )
     {
         this.head = checkNotNull( head, "Impossible to construct a Vertex with a null head" );
         this.tail = checkNotNull( tail, "Impossible to construct a Vertex with a null tail" );
@@ -84,7 +84,7 @@ public final class VertexPair<V>
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -96,7 +96,7 @@ public final class VertexPair<V>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" ) // equals() invoked against only same VertexPair type
+        @SuppressWarnings( "unchecked" ) final // equals() invoked against only same VertexPair type
         VertexPair<V> other = (VertexPair<V>) obj;
         return eq( head, other.getHead() )
             && eq( tail, other.getTail() );

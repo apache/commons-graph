@@ -67,7 +67,7 @@ public class InMemoryPath<V, E>
      * @param start the start vertex.
      * @param target the target vertex.
      */
-    public InMemoryPath( V start, V target )
+    public InMemoryPath(final V start, final V target )
     {
         this.source = checkNotNull( start, "Path source cannot be null" );
         this.target = checkNotNull( target, "Path target cannot be null" );
@@ -112,7 +112,7 @@ public class InMemoryPath<V, E>
      * @param edge the edge
      * @param tail the tail vertex
      */
-    public void addConnectionInHead( V head, E edge, V tail )
+    public void addConnectionInHead(final V head, final E edge, final V tail )
     {
         if ( target.equals( tail ) )
         {
@@ -132,7 +132,7 @@ public class InMemoryPath<V, E>
      * @param edge the edge
      * @param tail the tail vertex
      */
-    public void addConnectionInTail( V head, E edge, V tail )
+    public void addConnectionInTail(final V head, final E edge, final V tail )
     {
         vertices.addLast( head );
         edges.addLast( edge );
@@ -145,11 +145,11 @@ public class InMemoryPath<V, E>
         addConnection( head, edge, tail );
     }
 
-    private void addConnection( V head, E edge, V tail )
+    private void addConnection(final V head, final E edge, final V tail )
     {
         successors.put( head, tail );
 
-        VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
+        final VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
         indexedEdges.put( vertexPair, edge );
         indexedVertices.put( edge, vertexPair );
     }
@@ -202,7 +202,7 @@ public class InMemoryPath<V, E>
         checkArgument( successors.containsKey( v ),
                        "Impossible to get the degree of input vertex; %s not contained in this path", v );
 
-        @SuppressWarnings( "unchecked" ) // type driven by input type
+        @SuppressWarnings( "unchecked" ) final // type driven by input type
         List<V> connected = asList( successors.get( v ) );
         return connected;
     }
@@ -210,7 +210,7 @@ public class InMemoryPath<V, E>
     /**
      * {@inheritDoc}
      */
-    public E getEdge( V source, V target )
+    public E getEdge(final V source, final V target )
     {
         return indexedEdges.get( new VertexPair<V>( source, target ) );
     }
@@ -218,7 +218,7 @@ public class InMemoryPath<V, E>
     /**
      * {@inheritDoc}
      */
-    public VertexPair<V> getVertices( E e )
+    public VertexPair<V> getVertices(final E e )
     {
         return indexedVertices.get( e );
     }
@@ -226,7 +226,7 @@ public class InMemoryPath<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsVertex( V v )
+    public boolean containsVertex(final V v )
     {
         return vertices.contains( v );
     }
@@ -234,7 +234,7 @@ public class InMemoryPath<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsEdge( E e )
+    public boolean containsEdge(final E e )
     {
         return edges.contains( e );
     }
@@ -253,7 +253,7 @@ public class InMemoryPath<V, E>
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -265,7 +265,7 @@ public class InMemoryPath<V, E>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" ) // test against any Path typed instance
+        @SuppressWarnings( "unchecked" ) final // test against any Path typed instance
         InMemoryPath<Object, Object> other = (InMemoryPath<Object, Object>) obj;
         return eq( source, other.getSource() )
             && eq( target, other.getTarget() )

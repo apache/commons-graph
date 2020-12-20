@@ -30,17 +30,17 @@ public final class NegativeWeightedCycleException
 
     private static final long serialVersionUID = 3196711750285223435L;
 
-    public NegativeWeightedCycleException( String messagePattern, Object...arguments )
+    public NegativeWeightedCycleException(final String messagePattern, final Object...arguments )
     {
         super( messagePattern, arguments );
     }
 
-    public NegativeWeightedCycleException( Throwable cause )
+    public NegativeWeightedCycleException(final Throwable cause )
     {
         super( cause );
     }
 
-    public NegativeWeightedCycleException( String msg, Throwable cause )
+    public NegativeWeightedCycleException(final String msg, final Throwable cause )
     {
         super( msg, cause );
     }

@@ -30,7 +30,7 @@ abstract public class TestRunner
 
     abstract public void runTest();
 
-    public void setTestRunner( MultiThreadedTestRunner runner )
+    public void setTestRunner(final MultiThreadedTestRunner runner )
     {
         this.runner = runner;
     }
@@ -41,7 +41,7 @@ abstract public class TestRunner
         {
             runTest();
         }
-        catch ( Throwable e )
+        catch ( final Throwable e )
         {
             runner.addException( e );
         }

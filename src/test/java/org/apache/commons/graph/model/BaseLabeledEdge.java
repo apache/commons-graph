@@ -33,7 +33,7 @@ public class BaseLabeledEdge
     private static final long serialVersionUID = -4985890761880816592L;
     private final String label;
 
-    public BaseLabeledEdge( String label )
+    public BaseLabeledEdge(final String label )
     {
         this.label = checkNotNull( label, "Argument 'label' must not be null" );
     }
@@ -59,7 +59,7 @@ public class BaseLabeledEdge
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -71,7 +71,7 @@ public class BaseLabeledEdge
             return false;
         }
 
-        BaseLabeledEdge other = (BaseLabeledEdge) obj;
+        final BaseLabeledEdge other = (BaseLabeledEdge) obj;
 
         return eq( label, other.label );
     }

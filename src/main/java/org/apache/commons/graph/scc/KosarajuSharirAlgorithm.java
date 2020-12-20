@@ -38,7 +38,6 @@ import org.apache.commons.graph.model.RevertedGraph;
  *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
- * @param <G> the directed graph type
  */
 final class KosarajuSharirAlgorithm<V, E>
     implements SccAlgorithm<V>
@@ -133,7 +132,7 @@ final class KosarajuSharirAlgorithm<V, E>
         }
         else
         {
-            for ( V vertex : graph.getVertices() )
+            for ( final V vertex : graph.getVertices() )
             {
                 vertices.add( vertex );
             }
@@ -209,7 +208,7 @@ final class KosarajuSharirAlgorithm<V, E>
 
             // add all not yet visited vertices that can be reached from this
             // vertex to the stack
-            for ( V w : g.getOutbound( v ) )
+            for ( final V w : g.getOutbound( v ) )
             {
                 if ( ! ( forward ^ ! visited.contains( w ) ) )
                 {

@@ -53,7 +53,7 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 
     private Writer writer;
 
-    public AbstractExporter( Graph<V, E> graph, String name )
+    public AbstractExporter(final Graph<V, E> graph, final String name )
     {
         this.graph = graph;
         this.writer = null;
@@ -62,26 +62,26 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
         this.name = name != null ? name : G;
     }
 
-    public final void to( File outputFile )
+    public final void to(final File outputFile )
         throws GraphExportException
     {
         try
         {
             to( new FileOutputStream( checkNotNull( outputFile, "Impossibe to export the graph in a null file" ) ) );
         }
-        catch ( FileNotFoundException e )
+        catch ( final FileNotFoundException e )
         {
             throw new RuntimeException( e );
         }
     }
 
-    public final void to( OutputStream outputStream )
+    public final void to(final OutputStream outputStream )
         throws GraphExportException
     {
         to( new OutputStreamWriter( checkNotNull( outputStream, "Impossibe to export the graph in a null stream" ) ) );
     }
 
-    public final void to( Writer writer )
+    public final void to(final Writer writer )
         throws GraphExportException
     {
         this.writer = checkNotNull( writer, "Impossibe to export the graph in a null stream" );
@@ -99,11 +99,11 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 
             // END
 
-            for ( V vertex : graph.getVertices() )
+            for ( final V vertex : graph.getVertices() )
             {
-                Map<String, Object> properties = new HashMap<String, Object>( vertexProperties.size() );
+                final Map<String, Object> properties = new HashMap<String, Object>( vertexProperties.size() );
 
-                for ( Entry<String, Mapper<V, ?>> vertexProperty : vertexProperties.entrySet() )
+                for ( final Entry<String, Mapper<V, ?>> vertexProperty : vertexProperties.entrySet() )
                 {
                     properties.put( vertexProperty.getKey(),
                                     vertexProperty.getValue().map( vertex ) );
@@ -112,13 +112,13 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
                 vertex( vertex, properties );
             }
 
-            for ( E edge : graph.getEdges() )
+            for ( final E edge : graph.getEdges() )
             {
-                VertexPair<V> vertices = graph.getVertices( edge );
+                final VertexPair<V> vertices = graph.getVertices( edge );
 
-                Map<String, Object> properties = new HashMap<String, Object>( edgeProperties.size() );
+                final Map<String, Object> properties = new HashMap<String, Object>( edgeProperties.size() );
 
-                for ( Entry<String, Mapper<E, ?>> edgeProperty : edgeProperties.entrySet() )
+                for ( final Entry<String, Mapper<E, ?>> edgeProperty : edgeProperties.entrySet() )
                 {
                     properties.put( edgeProperty.getKey(),
                                     edgeProperty.getValue().map( edge ) );
@@ -131,7 +131,7 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
 
             endSerialization();
         }
-        catch ( Exception e )
+        catch ( final Exception e )
         {
             throw new GraphExportException( e, "an error occurred while exporting graph %s (named %s) to writer %s",
                                             graph,
@@ -144,7 +144,7 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
             {
                 writer.close();
             }
-            catch ( IOException e )
+            catch ( final IOException e )
             {
                 // swallow it
             }
@@ -161,12 +161,12 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
         return writer;
     }
     
-    protected void addVertexProperty( String propertyName, Mapper<V, ?> vertexProperty )
+    protected void addVertexProperty(final String propertyName, final Mapper<V, ?> vertexProperty )
     {
         this.vertexProperties.put( propertyName, vertexProperty );
     }
     
-    protected void addEdgeProperty( String propertyName, Mapper<E, ?> edgeProperty )
+    protected void addEdgeProperty(final String propertyName, final Mapper<E, ?> edgeProperty )
     {
         this.edgeProperties.put( propertyName, edgeProperty );
     }

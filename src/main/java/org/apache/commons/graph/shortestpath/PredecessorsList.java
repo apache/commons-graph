@@ -47,7 +47,7 @@ public final class PredecessorsList<V, WE, W>
 
     private final Map<V, V> predecessors = new HashMap<V, V>();
 
-    public PredecessorsList( Graph<V, WE> graph, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    public PredecessorsList(final Graph<V, WE> graph, final Monoid<W> weightOperations, final Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightOperations = weightOperations;
@@ -60,7 +60,7 @@ public final class PredecessorsList<V, WE, W>
      * @param tail the predecessor vertex
      * @param head the edge that succeeds to the input vertex
      */
-    public void addPredecessor( V tail, V head )
+    public void addPredecessor(final V tail, final V head )
     {
         predecessors.put( tail, head );
     }
@@ -72,19 +72,19 @@ public final class PredecessorsList<V, WE, W>
      * @param target the path target vertex
      * @return the weighted path related to source to target
      */
-    public WeightedPath<V, WE, W> buildPath( V source, V target )
+    public WeightedPath<V, WE, W> buildPath(final V source, final V target )
     {
-        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
+        final InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
 
         V vertex = target;
         while ( !source.equals( vertex ) )
         {
-            V predecessor = predecessors.get( vertex );
+            final V predecessor = predecessors.get( vertex );
             if ( predecessor == null )
             {
                 throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
             }
-            WE edge = graph.getEdge( predecessor, vertex );
+            final WE edge = graph.getEdge( predecessor, vertex );
 
             path.addConnectionInHead( predecessor, edge, vertex );
 
@@ -103,18 +103,18 @@ public final class PredecessorsList<V, WE, W>
      * @param backwardsList the predecessor list in backwards search space along reversed edges
      * @return the weighted path related to source to target
      */
-    public WeightedPath<V, WE, W> buildPath( V source, V touch, V target, PredecessorsList<V, WE, W> backwardsList ) {
-        InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
+    public WeightedPath<V, WE, W> buildPath(final V source, final V touch, final V target, final PredecessorsList<V, WE, W> backwardsList ) {
+        final InMemoryWeightedPath<V, WE, W> path = new InMemoryWeightedPath<V, WE, W>( source, target, weightOperations, weightedEdges );
 
         V vertex = touch;
         while ( !source.equals( vertex ) )
         {
-            V predecessor = predecessors.get( vertex );
+            final V predecessor = predecessors.get( vertex );
             if ( predecessor == null )
             {
                 throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
             }
-            WE edge = graph.getEdge( predecessor, vertex );
+            final WE edge = graph.getEdge( predecessor, vertex );
 
             path.addConnectionInHead(predecessor, edge, vertex);
 
@@ -126,12 +126,12 @@ public final class PredecessorsList<V, WE, W>
         while ( !target.equals( vertex ) )
         {
             // 'predecessor' is actually a successor.
-            V predecessor = backwardsList.predecessors.get( vertex );
+            final V predecessor = backwardsList.predecessors.get( vertex );
             if ( predecessor == null )
             {
                 throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist", source, target );
             }
-            WE edge = graph.getEdge( vertex, predecessor );
+            final WE edge = graph.getEdge( vertex, predecessor );
 
             path.addConnectionInTail( vertex, edge, predecessor );
 

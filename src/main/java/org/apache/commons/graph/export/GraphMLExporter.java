@@ -88,7 +88,7 @@ final class GraphMLExporter<V, E>
 
     private TransformerHandler transformerHandler;
 
-    GraphMLExporter( Graph<V, E> graph, String name )
+    GraphMLExporter(final Graph<V, E> graph, final String name )
     {
         super( graph, name );
     }
@@ -112,12 +112,12 @@ final class GraphMLExporter<V, E>
     }
 
     @Override
-    protected void startGraph( String name )
+    protected void startGraph(final String name )
         throws Exception
     {
         transformerHandler.startElement( GRAPHML_XMLNS, GRAPHML, GRAPHML, new AttributesImpl() );
 
-        AttributesImpl atts = new AttributesImpl();
+        final AttributesImpl atts = new AttributesImpl();
         atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, name );
         atts.addAttribute( GRAPHML_XMLNS, EDGEDEFAULT, EDGEDEFAULT, CDATA_TYPE, DIRECTED );
         transformerHandler.startElement( GRAPHML_XMLNS, GRAPH, GRAPH, atts );
@@ -132,30 +132,30 @@ final class GraphMLExporter<V, E>
     }
 
     @Override
-    protected void comment( String text )
+    protected void comment(final String text )
         throws Exception
     {
         transformerHandler.comment( text.toCharArray(), 0, text.length() );
     }
 
     @Override
-    protected void enlistVerticesProperty( String name, Class<?> type )
+    protected void enlistVerticesProperty(final String name, final Class<?> type )
         throws Exception
     {
         enlistProperty( name, type, NODE );
     }
 
     @Override
-    protected void enlistEdgesProperty( String name, Class<?> type )
+    protected void enlistEdgesProperty(final String name, final Class<?> type )
         throws Exception
     {
         enlistProperty( name, type, EDGE );
     }
 
-    private void enlistProperty( String name, Class<?> type, String element )
+    private void enlistProperty(final String name, final Class<?> type, final String element )
         throws Exception
     {
-        AttributesImpl atts = new AttributesImpl();
+        final AttributesImpl atts = new AttributesImpl();
         atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, name );
         atts.addAttribute( GRAPHML_XMLNS, FOR, FOR, CDATA_TYPE, element );
         atts.addAttribute( GRAPHML_XMLNS, ATTR_NAME, ATTR_NAME, CDATA_TYPE, name );
@@ -165,10 +165,10 @@ final class GraphMLExporter<V, E>
     }
 
     @Override
-    protected void vertex( V vertex, Map<String, Object> properties )
+    protected void vertex(final V vertex, final Map<String, Object> properties )
         throws Exception
     {
-        AttributesImpl atts = new AttributesImpl();
+        final AttributesImpl atts = new AttributesImpl();
         atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, String.valueOf( vertex.hashCode() ) );
         transformerHandler.startElement( GRAPHML_XMLNS, NODE, NODE, atts );
 
@@ -178,10 +178,10 @@ final class GraphMLExporter<V, E>
     }
 
     @Override
-    protected void edge( E edge, V head, V tail, Map<String, Object> properties )
+    protected void edge(final E edge, final V head, final V tail, final Map<String, Object> properties )
         throws Exception
     {
-        AttributesImpl atts = new AttributesImpl();
+        final AttributesImpl atts = new AttributesImpl();
         atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, String.valueOf( edge.hashCode() ) );
         atts.addAttribute( GRAPHML_XMLNS, SOURCE, SOURCE, CDATA_TYPE, String.valueOf( getGraph().getVertices( edge ).getHead().hashCode() ) );
         atts.addAttribute( GRAPHML_XMLNS, TARGET, TARGET, CDATA_TYPE, String.valueOf( getGraph().getVertices( edge ).getTail().hashCode() ) );
@@ -192,7 +192,7 @@ final class GraphMLExporter<V, E>
         transformerHandler.endElement( GRAPHML_XMLNS, NODE, NODE );
     }
 
-    private static <T> String getStringType( Class<T> type )
+    private static <T> String getStringType(final Class<T> type )
     {
         if ( Integer.class == type )
         {
@@ -217,25 +217,25 @@ final class GraphMLExporter<V, E>
         return STRING;
     }
 
-    public <N extends Number> GraphMLExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
+    public <N extends Number> GraphMLExporter<V, E> withEdgeWeights(final Mapper<E, N> edgeWeights )
     {
         super.addEdgeProperty( WEIGHT, edgeWeights );
         return this;
     }
 
-    public <N extends Number> GraphMLExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
+    public <N extends Number> GraphMLExporter<V, E> withVertexWeights(final Mapper<V, N> vertexWeights )
     {
         super.addVertexProperty( WEIGHT, vertexWeights );
         return this;
     }
 
-    public GraphMLExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
+    public GraphMLExporter<V, E> withEdgeLabels(final Mapper<E, String> edgeLabels )
     {
         super.addEdgeProperty( LABEL, edgeLabels );
         return this;
     }
 
-    public GraphMLExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
+    public GraphMLExporter<V, E> withVertexLabels(final Mapper<V, String> vertexLabels )
     {
         super.addVertexProperty( LABEL, vertexLabels );
         return this;

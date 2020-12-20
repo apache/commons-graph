@@ -51,7 +51,7 @@ public final class Assertions
      *     errorMessageTemplate} or {@code errorMessageArgs} is null (don't let
      *     this happen)
      */
-    public static void checkArgument( boolean expression, String errorMessageTemplate, Object... errorMessageArgs )
+    public static void checkArgument(final boolean expression, final String errorMessageTemplate, final Object... errorMessageArgs )
     {
         if ( !expression )
         {
@@ -76,7 +76,7 @@ public final class Assertions
      *     errorMessageTemplate} or {@code errorMessageArgs} is null (don't let
      *     this happen)
      */
-    public static void checkState( boolean expression, String errorMessageTemplate, Object... errorMessageArgs )
+    public static void checkState(final boolean expression, final String errorMessageTemplate, final Object... errorMessageArgs )
     {
         if ( !expression )
         {
@@ -102,7 +102,7 @@ public final class Assertions
      * @return the non-null reference that was validated
      * @throws NullPointerException if {@code reference} is null
      */
-    public static <T> T checkNotNull( T reference, String errorMessageTemplate, Object... errorMessageArgs )
+    public static <T> T checkNotNull(final T reference, final String errorMessageTemplate, final Object... errorMessageArgs )
     {
         if ( reference == null )
         {

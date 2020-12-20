@@ -43,7 +43,7 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
 
     private final Set<C> colors;
 
-    public DefaultColoringAlgorithmsSelector( UndirectedGraph<V, E> g, Set<C> colors )
+    public DefaultColoringAlgorithmsSelector(final UndirectedGraph<V, E> g, final Set<C> colors )
     {
         this.g = g;
         this.colors = colors;
@@ -59,31 +59,31 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
         // decreasing sorting all vertices by degree.
         final UncoloredOrderedVertices<V> uncoloredOrderedVertices = new UncoloredOrderedVertices<V>();
 
-        for ( V v : g.getVertices() )
+        for ( final V v : g.getVertices() )
         {
             uncoloredOrderedVertices.addVertexDegree( v, g.getDegree( v ) );
         }
 
         // search coloring
         Iterator<V> it = uncoloredOrderedVertices.iterator();
-        Iterator<C> colorsIt = colors.iterator();
+        final Iterator<C> colorsIt = colors.iterator();
         while ( it.hasNext() )
         {
             if ( !colorsIt.hasNext() )
             {
                 throw new NotEnoughColorsException( colors );
             }
-            C color = colorsIt.next();
+            final C color = colorsIt.next();
 
             // this list contains all vertex colors with the current color.
-            List<V> currentColorVertices = new ArrayList<V>();
-            Iterator<V> uncoloredVtxIterator = uncoloredOrderedVertices.iterator();
+            final List<V> currentColorVertices = new ArrayList<V>();
+            final Iterator<V> uncoloredVtxIterator = uncoloredOrderedVertices.iterator();
             while ( uncoloredVtxIterator.hasNext() )
             {
-                V uncoloredVtx = uncoloredVtxIterator.next();
+                final V uncoloredVtx = uncoloredVtxIterator.next();
 
                 boolean foundAnAdjacentVertex = false;
-                for ( V currentColoredVtx : currentColorVertices )
+                for ( final V currentColoredVtx : currentColorVertices )
                 {
                     if ( g.getEdge( currentColoredVtx, uncoloredVtx ) != null )
                     {
@@ -128,7 +128,7 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
 
         final List<V> verticesList = new ArrayList<V>();
 
-        for ( V v : g.getVertices() )
+        for ( final V v : g.getVertices() )
         {
             if ( !partialColoredVertex.containsColoredVertex( v ) )
             {
@@ -147,11 +147,12 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
     /**
      * This is the recursive step.
      *
-     * @param result The set that will be returned
-     * @param element the element
+     * @param currentVertexIndex
+     * @param verticesList
+     * @param coloredVertices
      * @return true if there is a valid coloring for the graph, false otherwise.
      */
-    private boolean backtraking( int currentVertexIndex, List<V> verticesList, ColoredVertices<V, C> coloredVertices )
+    private boolean backtraking(final int currentVertexIndex, final List<V> verticesList, final ColoredVertices<V, C> coloredVertices )
     {
         if ( currentVertexIndex != -1
                         && isThereColorConflict( verticesList.get( currentVertexIndex ), coloredVertices ) )
@@ -164,12 +165,12 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
             return true;
         }
 
-        int next = currentVertexIndex + 1;
-        V nextVertex = verticesList.get( next );
-        for ( C color : colors )
+        final int next = currentVertexIndex + 1;
+        final V nextVertex = verticesList.get( next );
+        for ( final C color : colors )
         {
             coloredVertices.addColor( nextVertex, color );
-            boolean isDone = backtraking( next, verticesList, coloredVertices );
+            final boolean isDone = backtraking( next, verticesList, coloredVertices );
             if ( isDone )
             {
                 return true;
@@ -185,21 +186,21 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
      * @param currentVertex
      * @return
      */
-    private boolean isThereColorConflict( V currentVertex, ColoredVertices<V, C> coloredVertices )
+    private boolean isThereColorConflict(final V currentVertex, final ColoredVertices<V, C> coloredVertices )
     {
         if ( currentVertex == null )
         {
             return false;
         }
-        C nextVertecColor = coloredVertices.getColor( currentVertex );
+        final C nextVertecColor = coloredVertices.getColor( currentVertex );
         if ( nextVertecColor == null )
         {
             return false;
         }
 
-        for ( V abj : g.getConnectedVertices( currentVertex ) )
+        for ( final V abj : g.getConnectedVertices( currentVertex ) )
         {
-            C adjColor = coloredVertices.getColor( abj );
+            final C adjColor = coloredVertices.getColor( abj );
             if ( adjColor != null && nextVertecColor.equals( adjColor ) )
             {
                 return true;

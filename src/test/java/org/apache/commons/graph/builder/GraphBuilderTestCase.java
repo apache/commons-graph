@@ -33,18 +33,18 @@ public final class GraphBuilderTestCase
     @Test
     public void verifyProducedGraphesAreEquals()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph with traditional APIs...
 
-        BaseLabeledVertex start = new BaseLabeledVertex( "start" );
-        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
-        BaseLabeledVertex d = new BaseLabeledVertex( "d" );
-        BaseLabeledVertex e = new BaseLabeledVertex( "e" );
-        BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
+        final BaseLabeledVertex start = new BaseLabeledVertex( "start" );
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        final BaseLabeledVertex c = new BaseLabeledVertex( "c" );
+        final BaseLabeledVertex d = new BaseLabeledVertex( "d" );
+        final BaseLabeledVertex e = new BaseLabeledVertex( "e" );
+        final BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
 
         expected.addVertex( start );
         expected.addVertex( a );
@@ -66,19 +66,19 @@ public final class GraphBuilderTestCase
 
         // ... and using the EDSL :)
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
 
             public void connect()
             {
-                BaseLabeledVertex start = addVertex( new BaseLabeledVertex( "start" ) );
-                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
-                BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "e" ) );
-                BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
+                final BaseLabeledVertex start = addVertex( new BaseLabeledVertex( "start" ) );
+                final BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
+                final BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "e" ) );
+                final BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
 
                 addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ) ).from( start ).to( a );
                 addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> d", 2D ) ).from( start ).to( d );

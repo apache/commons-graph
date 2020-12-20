@@ -29,7 +29,7 @@ final class DefaultGrapher<V, E>
 
     private final MutableGraph<V, E> graph;
 
-    public DefaultGrapher( MutableGraph<V, E> graph )
+    public DefaultGrapher(final MutableGraph<V, E> graph )
     {
         this.graph = graph;
     }

@@ -55,7 +55,7 @@ public final class InMemoryWeightedPath<V, WE, W>
      * @param weightOperations 
      * @param weightedEdges
      */
-    public InMemoryWeightedPath( V start, V target, Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    public InMemoryWeightedPath(final V start, final V target, final Monoid<W> weightOperations, final Mapper<WE, W> weightedEdges )
     {
         super( start, target );
         this.weightOperations = weightOperations;
@@ -68,7 +68,7 @@ public final class InMemoryWeightedPath<V, WE, W>
      * {@inheritDoc}
      */
     @Override
-    public void addConnectionInHead( V head, WE edge, V tail )
+    public void addConnectionInHead(final V head, final WE edge, final V tail )
     {
         super.addConnectionInHead( head, edge, tail );
         increaseWeight( edge );
@@ -78,7 +78,7 @@ public final class InMemoryWeightedPath<V, WE, W>
      * {@inheritDoc}
      */
     @Override
-    public void addConnectionInTail( V head, WE edge, V tail )
+    public void addConnectionInTail(final V head, final WE edge, final V tail )
     {
         super.addConnectionInTail( head, edge, tail );
         increaseWeight( edge );
@@ -89,7 +89,7 @@ public final class InMemoryWeightedPath<V, WE, W>
      *
      * @param edge the edge whose weight is used to increase the path weight
      */
-    private void increaseWeight( WE edge )
+    private void increaseWeight(final WE edge )
     {
         weight = weightOperations.append( weightedEdges.map( edge ), weight );
     }
@@ -118,7 +118,7 @@ public final class InMemoryWeightedPath<V, WE, W>
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -135,7 +135,7 @@ public final class InMemoryWeightedPath<V, WE, W>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
+        @SuppressWarnings( "unchecked" ) final // test against any WeightedPath typed instance
         InMemoryWeightedPath<Object, Object, W> other = (InMemoryWeightedPath<Object, Object, W>) obj;
         return eq( weight, other.getWeight() );
     }

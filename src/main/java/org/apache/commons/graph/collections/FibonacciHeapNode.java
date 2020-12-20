@@ -68,7 +68,7 @@ final class FibonacciHeapNode<E>
      *
      * @param element the node value has to be stored.
      */
-    public FibonacciHeapNode( E element )
+    public FibonacciHeapNode(final E element )
     {
         // 1  degree[x] &larr; 0
         degree = 0;
@@ -102,7 +102,7 @@ final class FibonacciHeapNode<E>
      *
      * @param parent the reference to the parent node
      */
-    public void setParent( FibonacciHeapNode<E> parent )
+    public void setParent(final FibonacciHeapNode<E> parent )
     {
         this.parent = parent;
     }
@@ -122,7 +122,7 @@ final class FibonacciHeapNode<E>
      *
      * @param left the left node reference.
      */
-    public void setLeft( FibonacciHeapNode<E> left )
+    public void setLeft(final FibonacciHeapNode<E> left )
     {
         this.left = left;
     }
@@ -140,9 +140,9 @@ final class FibonacciHeapNode<E>
     /**
      * Sets the right node reference.
      *
-     * @param left the right node reference.
+     * @param right the right node reference.
      */
-    public void setRight( FibonacciHeapNode<E> right )
+    public void setRight(final FibonacciHeapNode<E> right )
     {
         this.right = right;
     }
@@ -162,7 +162,7 @@ final class FibonacciHeapNode<E>
      *
      * @param child the reference to the first child node.
      */
-    public void setChild( FibonacciHeapNode<E> child )
+    public void setChild(final FibonacciHeapNode<E> child )
     {
         this.child = child;
     }
@@ -212,7 +212,7 @@ final class FibonacciHeapNode<E>
      *
      * @param marked the current node mark status.
      */
-    public void setMarked( boolean marked )
+    public void setMarked(final boolean marked )
     {
         this.marked = marked;
     }

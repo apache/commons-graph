@@ -45,14 +45,14 @@ public final class CheriyanMehlhornGabowTestCase
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
         findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
     }
 
     @Test
     public void testEmptyGraph()
     {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
@@ -61,7 +61,7 @@ public final class CheriyanMehlhornGabowTestCase
     @Test
     public void testSparse()
     {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
@@ -81,7 +81,7 @@ public final class CheriyanMehlhornGabowTestCase
         final int expected = 6;
 
         // actual strong components
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        final Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
 
         assertEquals( actual.size(), expected );
     }
@@ -98,7 +98,7 @@ public final class CheriyanMehlhornGabowTestCase
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
         final BaseLabeledVertex h = new BaseLabeledVertex( "H" );
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
@@ -128,18 +128,18 @@ public final class CheriyanMehlhornGabowTestCase
 
         } );
 
-        Set<Set<BaseLabeledVertex>> expected = new HashSet<Set<BaseLabeledVertex>>();
-        Set<BaseLabeledVertex> scc1 = new HashSet<BaseLabeledVertex>();
+        final Set<Set<BaseLabeledVertex>> expected = new HashSet<Set<BaseLabeledVertex>>();
+        final Set<BaseLabeledVertex> scc1 = new HashSet<BaseLabeledVertex>();
         Collections.addAll( scc1, a, b, d );
         expected.add( scc1 );
-        Set<BaseLabeledVertex> scc2 = new HashSet<BaseLabeledVertex>();
+        final Set<BaseLabeledVertex> scc2 = new HashSet<BaseLabeledVertex>();
         Collections.addAll( scc2, e, f );
         expected.add( scc2 );
-        Set<BaseLabeledVertex> scc3 = new HashSet<BaseLabeledVertex>();
+        final Set<BaseLabeledVertex> scc3 = new HashSet<BaseLabeledVertex>();
         Collections.addAll( scc3, g, h, c );
         expected.add( scc3 );
 
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        final Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
 
         assertFalse( actual.isEmpty() );
         assertEquals( expected, actual );

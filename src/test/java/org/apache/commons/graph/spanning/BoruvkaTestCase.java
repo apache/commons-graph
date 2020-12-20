@@ -48,7 +48,7 @@ public final class BoruvkaTestCase
     @Test( expected = NullPointerException.class )
     public void testNullVertex()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
         minimumSpanningTree( input )
             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
@@ -67,7 +67,7 @@ public final class BoruvkaTestCase
             a = new BaseLabeledVertex( "A" );
             input.addVertex( a );
         }
-        catch ( NullPointerException e )
+        catch ( final NullPointerException e )
         {
             //try..catch need to avoid a possible test success even if a NPE is thorw during graph population
             fail( e.getMessage() );
@@ -82,7 +82,7 @@ public final class BoruvkaTestCase
     @Test( expected = IllegalStateException.class )
     public void testNotExistVertex()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         minimumSpanningTree( input )
@@ -93,7 +93,7 @@ public final class BoruvkaTestCase
     @Test( expected = IllegalStateException.class )
     public void testEmptyGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         minimumSpanningTree( input )
@@ -108,16 +108,16 @@ public final class BoruvkaTestCase
     @Test
     public void verifyWikipediaMinimumSpanningTree()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "B" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "C" );
-        BaseLabeledVertex d = new BaseLabeledVertex( "D" );
-        BaseLabeledVertex e = new BaseLabeledVertex( "E" );
-        BaseLabeledVertex f = new BaseLabeledVertex( "F" );
-        BaseLabeledVertex g = new BaseLabeledVertex( "G" );
+        final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "B" );
+        final BaseLabeledVertex c = new BaseLabeledVertex( "C" );
+        final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
+        final BaseLabeledVertex e = new BaseLabeledVertex( "E" );
+        final BaseLabeledVertex f = new BaseLabeledVertex( "F" );
+        final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
         input.addVertex( a );
         input.addVertex( b );
@@ -143,10 +143,10 @@ public final class BoruvkaTestCase
 
         // expected
 
-        MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+        final MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
-        for ( BaseLabeledVertex vertex : input.getVertices() )
+        for ( final BaseLabeledVertex vertex : input.getVertices() )
         {
             expected.addVertex( vertex );
         }
@@ -160,7 +160,7 @@ public final class BoruvkaTestCase
 
         // Actual
 
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+        final SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( input )
                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                 .fromArbitrarySource()
@@ -177,7 +177,7 @@ public final class BoruvkaTestCase
     @Test( expected = IllegalStateException.class )
     public void verifySparseGraphMinimumSpanningTree()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         input.addVertex( new BaseLabeledVertex( "A" ) );

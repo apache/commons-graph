@@ -34,8 +34,6 @@ import org.apache.commons.graph.VertexPair;
  * @param <V>  the Graph vertices type
  * @param <W>  the weight type
  * @param <WE> the Graph weighted edges type
- * @param <G>  the input Graph type
- * @param <WC> the weight operations
  */
 class SuperVertex<V, W, WE>
     implements Iterable<V>
@@ -70,7 +68,7 @@ class SuperVertex<V, W, WE>
         // add all edges for this vertex to the sorted set
         for ( final V w : graph.getConnectedVertices( source ) )
         {
-            WE edge = graph.getEdge( source, w );
+            final WE edge = graph.getEdge( source, w );
             orderedEdges.add( edge );
         }
     }
@@ -118,7 +116,7 @@ class SuperVertex<V, W, WE>
         while ( !found && !orderedEdges.isEmpty() )
         {
             edge = orderedEdges.pollFirst();
-            VertexPair<V> pair = graph.getVertices( edge );
+            final VertexPair<V> pair = graph.getVertices( edge );
             if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
             {
                 found = true;

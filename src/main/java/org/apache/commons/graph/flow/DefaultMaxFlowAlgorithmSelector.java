@@ -48,7 +48,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
 
     private final V target;
 
-    public DefaultMaxFlowAlgorithmSelector( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
+    public DefaultMaxFlowAlgorithmSelector(final DirectedGraph<V, WE> graph, final Mapper<WE, W> weightedEdges, final V source, final V target )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -59,7 +59,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson(final WO weightOperations )
     {
         final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
@@ -87,7 +87,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp(final WO weightOperations )
     {
         final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
 
@@ -121,16 +121,16 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
             public void connect()
             {
                 // vertices
-                for ( V vertex : graph.getVertices() )
+                for ( final V vertex : graph.getVertices() )
                 {
                     addVertex( vertex );
                 }
                 // edges
-                for ( WE edge : graph.getEdges() )
+                for ( final WE edge : graph.getEdges() )
                 {
-                    VertexPair<V> edgeVertices = graph.getVertices( edge );
-                    V head = edgeVertices.getHead();
-                    V tail = edgeVertices.getTail();
+                    final VertexPair<V> edgeVertices = graph.getVertices( edge );
+                    final V head = edgeVertices.getHead();
+                    final V tail = edgeVertices.getTail();
 
                     addEdge( new EdgeWrapper<WE>( edge ) ).from( head ).to( tail );
 
@@ -154,7 +154,7 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
             this( null );
         }
 
-        public EdgeWrapper( WE wrapped )
+        public EdgeWrapper(final WE wrapped )
         {
             this.wrapped = wrapped;
         }
@@ -175,13 +175,13 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
 
         private final Mapper<WE, W> weightedEdges;
 
-        public MapperWrapper( WO weightOperations, Mapper<WE, W> weightedEdges )
+        public MapperWrapper(final WO weightOperations, final Mapper<WE, W> weightedEdges )
         {
             this.weightOperations = weightOperations;
             this.weightedEdges = weightedEdges;
         }
 
-        public W map( EdgeWrapper<WE> input )
+        public W map(final EdgeWrapper<WE> input )
         {
             if ( input.getWrapped() == null )
             {

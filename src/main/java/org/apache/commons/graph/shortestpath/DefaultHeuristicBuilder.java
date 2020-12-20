@@ -46,7 +46,7 @@ final class DefaultHeuristicBuilder<V, WE, W>
 
     private final OrderedMonoid<W> weightOperations;
 
-    public DefaultHeuristicBuilder( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target, OrderedMonoid<W> weightOperations )
+    public DefaultHeuristicBuilder(final Graph<V, WE> graph, final Mapper<WE, W> weightedEdges, final V source, final V target, final OrderedMonoid<W> weightOperations )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -84,7 +84,7 @@ final class DefaultHeuristicBuilder<V, WE, W>
         // extract the node in openset having the lowest f_score[] value
         while ( !openSet.isEmpty() )
         {
-            V current = openSet.remove();
+            final V current = openSet.remove();
 
             // destination reached, stop and build the path
             if ( goal.equals( current ) )
@@ -94,15 +94,15 @@ final class DefaultHeuristicBuilder<V, WE, W>
 
             closedSet.add( current );
 
-            Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
+            final Iterable<V> connected = ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, WE>) graph ).getOutbound( current )
                                                                        : graph.getConnectedVertices( current );
-            for ( V v : connected )
+            for ( final V v : connected )
             {
                 if ( !closedSet.contains( v ) )
                 {
-                    WE edge = graph.getEdge( current, v );
+                    final WE edge = graph.getEdge( current, v );
                     // note that the weight of current can never be undefined
-                    W tentativeGScore = weightOperations.append( gScores.getWeight( current ), weightedEdges.map( edge ) );
+                    final W tentativeGScore = weightOperations.append( gScores.getWeight( current ), weightedEdges.map( edge ) );
 
                     // if the first condition fails, v has already been visited (its weight is defined)
                     if ( openSet.add( v ) || weightOperations.compare( tentativeGScore, gScores.getWeight( v ) ) < 0 )
