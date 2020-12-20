@@ -41,10 +41,10 @@ public final class Objects
      * @param objs the objects to compute hash code.
      * @return the computed hashCode.
      */
-    public static int hash( int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object...objs )
+    public static int hash(final int initialNonZeroOddNumber, final int multiplierNonZeroOddNumber, final Object...objs )
     {
         int result = initialNonZeroOddNumber;
-        for ( Object obj : objs )
+        for ( final Object obj : objs )
         {
             result = multiplierNonZeroOddNumber * result + ( obj != null ? obj.hashCode() : 0 );
         }
@@ -58,7 +58,7 @@ public final class Objects
      * @param o2 the second argument to compare
      * @return true, if the input arguments are equal, false otherwise.
      */
-    public static <O> boolean eq( O o1, O o2 )
+    public static <O> boolean eq(final O o1, final O o2 )
     {
         return o1 != null ? o1.equals( o2 ) : o2 == null;
     }

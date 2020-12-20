@@ -196,7 +196,7 @@ public final class CommonsGraph
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link DirectedMutableGraph} instance
      */
-    public static <V, E> DirectedMutableGraph<V, E> newDirectedMutableGraph( GraphConnection<V, E> graphConnection )
+    public static <V, E> DirectedMutableGraph<V, E> newDirectedMutableGraph(final GraphConnection<V, E> graphConnection )
     {
         return populate( new DirectedMutableGraph<V, E>() ).withConnections( graphConnection );
     }
@@ -210,7 +210,7 @@ public final class CommonsGraph
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link UndirectedMutableGraph} instance
      */
-    public static <V, E> UndirectedMutableGraph<V, E> newUndirectedMutableGraph( GraphConnection<V, E> graphConnection )
+    public static <V, E> UndirectedMutableGraph<V, E> newUndirectedMutableGraph(final GraphConnection<V, E> graphConnection )
     {
         return populate( new UndirectedMutableGraph<V, E>() ).withConnections( graphConnection );
     }
@@ -224,7 +224,7 @@ public final class CommonsGraph
      * @param graph the graph has to be populated
      * @return the builder to configure vertices connection
      */
-    public static <V, E, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate( G graph )
+    public static <V, E, G extends MutableGraph<V, E>> LinkedConnectionBuilder<V, E, G> populate(final G graph )
     {
         return new DefaultLinkedConnectionBuilder<V, E, G>( checkNotNull( graph, "Impossible to configure null graph!" ) );
     }
@@ -253,7 +253,7 @@ public final class CommonsGraph
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
-    public static <V, E> Graph<V, E> synchronize( Graph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize(final Graph<V, E> graph )
     {
         return new SynchronizedGraph<V, E>( graph );
     }
@@ -282,7 +282,7 @@ public final class CommonsGraph
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
-    public static <V, E> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize(final DirectedGraph<V, E> graph )
     {
         return new SynchronizedDirectedGraph<V, E>( graph );
     }
@@ -311,7 +311,7 @@ public final class CommonsGraph
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
-    public static <V, E> Graph<V, E> synchronize( UndirectedGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize(final UndirectedGraph<V, E> graph )
     {
         return new SynchronizedUndirectedGraph<V, E>( graph );
     }
@@ -340,7 +340,7 @@ public final class CommonsGraph
      * @param graph the input {@link Graph}
      * @return the synchronized graph
      */
-    public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize(final MutableGraph<V, E> graph )
     {
         return new SynchronizedMutableGraph<V, E>( graph );
     }

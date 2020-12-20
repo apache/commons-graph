@@ -65,7 +65,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
         weightedEdges = new Mapper<BaseLabeledWeightedEdge<Double>, Double>()
         {
 
-            public Double map( BaseLabeledWeightedEdge<Double> input )
+            public Double map(final BaseLabeledWeightedEdge<Double> input )
             {
                 return input.getWeight();
             }
@@ -74,14 +74,14 @@ public final class MinimumSpanningTreeBenchmarkTestCase
 
         graph = newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
-            Random r = new Random();
+            final Random r = new Random();
 
             public void connect()
             {
-                List<BaseLabeledVertex> vertices = new ArrayList<BaseLabeledVertex>();
+                final List<BaseLabeledVertex> vertices = new ArrayList<BaseLabeledVertex>();
                 for ( int i = 0; i < NODES; i++ )
                 {
-                    BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                    final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
                     addVertex( v );
                     vertices.add( v );
                 }
@@ -94,7 +94,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
 
                 addEdge( vertices.get( NODES - 1 ) , vertices.get( 0 ) );
                 // we have already created #NODES edges
-                int maxEdges = Math.max(0, EDGES - NODES);
+                final int maxEdges = Math.max(0, EDGES - NODES);
                 for ( int i = 0; i < maxEdges; i++)
                 {
                     while ( ! addEdge( vertices.get( r.nextInt(NODES) ), vertices.get( r.nextInt(NODES) ) ) ) {
@@ -103,13 +103,13 @@ public final class MinimumSpanningTreeBenchmarkTestCase
                 }
             }
 
-            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
+            private boolean addEdge(final BaseLabeledVertex src, final BaseLabeledVertex dst )
             {
                 try {
                   addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
                                                                 (double) r.nextInt(10) ) ).from( src ).to( dst );
                   return true;
-              } catch (GraphException e) {
+              } catch (final GraphException e) {
                   // ignore duplicate edge exceptions
                   return false;
               }
@@ -120,7 +120,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     @Test
     public void performBoruvka()
     {
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+        final SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( graph )
                 .whereEdgesHaveWeights( weightedEdges )
                 .fromArbitrarySource()
@@ -132,7 +132,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     @Test
     public void performKruskal()
     {
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+        final SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( graph )
                 .whereEdgesHaveWeights( weightedEdges )
                 .fromArbitrarySource()
@@ -144,7 +144,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     @Test
     public void performPrim()
     {
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+        final SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( graph )
                 .whereEdgesHaveWeights( weightedEdges )
                 .fromArbitrarySource()

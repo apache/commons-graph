@@ -39,7 +39,7 @@ final class ShortestDistances<V, W>
 
     private final OrderedMonoid<W> weightOperations;
 
-    public ShortestDistances( OrderedMonoid<W> weightOperations )
+    public ShortestDistances(final OrderedMonoid<W> weightOperations )
     {
         this.weightOperations = weightOperations;
     }
@@ -47,13 +47,13 @@ final class ShortestDistances<V, W>
     /**
      * Returns the distance related to input vertex, or null if it wasn't previously visited.
      *
-     * <b>NOTE</b>: the method {@link alreadyVisited} should be used first to check if
+     * <b>NOTE</b>: the method {@link #alreadyVisited} should be used first to check if
      * the input vertex was already visited and a distance value is available for it.
      *
      * @param vertex the vertex whose distance has to be retrieved
      * @return the distance related to input vertex, or null if it wasn't previously visited.
      */
-    public W getWeight( V vertex )
+    public W getWeight(final V vertex )
     {
         return distances.get( vertex );
     }
@@ -64,7 +64,7 @@ final class ShortestDistances<V, W>
      * @param vertex the input {@code Vertex}
      * @return true if the input {@code Vertex} was already visited, false otherwise.
      */
-    public boolean alreadyVisited( V vertex )
+    public boolean alreadyVisited(final V vertex )
     {
         return distances.containsKey( vertex );
     }
@@ -75,7 +75,7 @@ final class ShortestDistances<V, W>
      * @param vertex the vertex for which the distance has to be updated
      * @param distance the new input vertex distance
      */
-    public void setWeight( V vertex, W distance )
+    public void setWeight(final V vertex, final W distance )
     {
         distances.put( vertex, distance );
     }
@@ -83,7 +83,7 @@ final class ShortestDistances<V, W>
     /**
      * {@inheritDoc}
      */
-    public int compare( V left, V right )
+    public int compare(final V left, final V right )
     {
         if ( !alreadyVisited( left ) && !alreadyVisited( right ) )
         {

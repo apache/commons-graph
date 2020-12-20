@@ -44,12 +44,12 @@ abstract class AbstractColoringTest
     /**
      * Return a random association with index and a color string in RGB.
      */
-    protected Map<Integer, String> createColorMap( int numColor )
+    protected Map<Integer, String> createColorMap(final int numColor )
     {
-        Map<Integer, String> colorCodes = new HashMap<Integer, String>();
+        final Map<Integer, String> colorCodes = new HashMap<Integer, String>();
         for ( int i = 0; i < 100; i++ )
         {
-            Random rnd = new Random( i );
+            final Random rnd = new Random( i );
             colorCodes.put( i, String.format( "\"#%2x%2x%2x\"", rnd.nextInt( 255 ), rnd.nextInt( 255 ), rnd.nextInt( 255 ) ) );
         }
         return colorCodes;
@@ -61,9 +61,9 @@ abstract class AbstractColoringTest
      * @param colorNumber number of colors
      * @return the list.
      */
-    protected Set<Integer> createColorsList( int colorNumber )
+    protected Set<Integer> createColorsList(final int colorNumber )
     {
-        Set<Integer> colors = new HashSet<Integer>();
+        final Set<Integer> colors = new HashSet<Integer>();
         for ( int j = 0; j < colorNumber; j++ )
         {
             colors.add( j );
@@ -77,14 +77,14 @@ abstract class AbstractColoringTest
      * @param g
      * @param coloredVertices
      */
-    protected <V, E, C> void checkColoring( UndirectedMutableGraph<V, E> g,
-                                                                        ColoredVertices<V, C> coloredVertices )
+    protected <V, E, C> void checkColoring(final UndirectedMutableGraph<V, E> g,
+                                           final ColoredVertices<V, C> coloredVertices )
     {
-        for ( E e : g.getEdges() )
+        for ( final E e : g.getEdges() )
         {
-            VertexPair<V> vp = g.getVertices( e );
-            C h = coloredVertices.getColor( vp.getHead() );
-            C t = coloredVertices.getColor( vp.getTail() );
+            final VertexPair<V> vp = g.getVertices( e );
+            final C h = coloredVertices.getColor( vp.getHead() );
+            final C t = coloredVertices.getColor( vp.getTail() );
 
             assertNotNull( h );
             assertNotNull( t );

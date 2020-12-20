@@ -52,7 +52,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
 
     private final Mapper<WE, W> weightedEdges;
 
-    public DefaultSpanningTreeSourceSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges )
+    public DefaultSpanningTreeSourceSelector(final Graph<V, WE> graph, final Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -80,7 +80,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm(final WO weightOperations )
     {
 
         checkNotNull( weightOperations, "The Reverse-Delete algorithm cannot be calulated with null weight operations" );
@@ -88,19 +88,19 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
         final Queue<WE> sortedEdge = new PriorityQueue<WE>( 11, reverseOrder( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) ) );
         final List<WE> visitedEdge = new ArrayList<WE>();
 
-        Iterable<WE> edges = graph.getEdges();
-        for ( WE we : edges )
+        final Iterable<WE> edges = graph.getEdges();
+        for ( final WE we : edges )
         {
             sortedEdge.offer( we );
         }
 
-        Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE>( graph, sortedEdge, visitedEdge );
+        final Graph<V, WE> tmpGraph = new ReverseDeleteGraph<V, WE>( graph, sortedEdge, visitedEdge );
 
         while ( !sortedEdge.isEmpty() )
         {
-            WE we = sortedEdge.poll();
+            final WE we = sortedEdge.poll();
 
-            VertexPair<V> vertices = graph.getVertices( we );
+            final VertexPair<V> vertices = graph.getVertices( we );
 
             try
             {
@@ -110,7 +110,7 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
                     .to( vertices.getTail() )
                     .applyingDijkstra( weightOperations );
             }
-            catch ( PathNotFoundException ex )
+            catch ( final PathNotFoundException ex )
             {
                 // only if a path doesn't exist
                 visitedEdge.add( we );
@@ -118,14 +118,14 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
         }
 
         final MutableSpanningTree<V, WE, W> res = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
-        for ( V v : graph.getVertices() )
+        for ( final V v : graph.getVertices() )
         {
             res.addVertex( v );
         }
 
-        for ( WE we : edges )
+        for ( final WE we : edges )
         {
-            VertexPair<V> pair = tmpGraph.getVertices( we );
+            final VertexPair<V> pair = tmpGraph.getVertices( we );
             if ( pair != null )
             {
                 res.addEdge( pair.getHead(), we, pair.getTail() );

@@ -43,7 +43,7 @@ final class ReverseDeleteGraph<V, WE>
 
     private final Collection<WE> visitedEdge;
 
-    public ReverseDeleteGraph( Graph<V, WE> graph, Collection<WE> sortedEdge, Collection<WE> visitedEdge )
+    public ReverseDeleteGraph(final Graph<V, WE> graph, final Collection<WE> sortedEdge, final Collection<WE> visitedEdge )
     {
         this.graph = graph;
         this.sortedEdge = sortedEdge;
@@ -62,7 +62,7 @@ final class ReverseDeleteGraph<V, WE>
 
     public Iterable<WE> getEdges()
     {
-        List<WE> e = new ArrayList<WE>();
+        final List<WE> e = new ArrayList<WE>();
         e.addAll( sortedEdge );
         e.addAll( visitedEdge );
         return e;
@@ -73,16 +73,16 @@ final class ReverseDeleteGraph<V, WE>
         return sortedEdge.size() + visitedEdge.size();
     }
 
-    public int getDegree( V v )
+    public int getDegree(final V v )
     {
         throw new GraphException( "Unused Method" );
     }
 
-    public Iterable<V> getConnectedVertices( V v )
+    public Iterable<V> getConnectedVertices(final V v )
     {
 
-        List<V> tmp = new ArrayList<V>();
-        for ( V originalVertex : graph.getConnectedVertices( v ) )
+        final List<V> tmp = new ArrayList<V>();
+        for ( final V originalVertex : graph.getConnectedVertices( v ) )
         {
             if ( getEdge( v, originalVertex ) != null )
             {
@@ -93,9 +93,9 @@ final class ReverseDeleteGraph<V, WE>
         return tmp;
     }
 
-    public WE getEdge( V source, V target )
+    public WE getEdge(final V source, final V target )
     {
-        WE edge = graph.getEdge( source, target );
+        final WE edge = graph.getEdge( source, target );
         if ( sortedEdge.contains( edge ) )
         {
             return edge;
@@ -108,9 +108,9 @@ final class ReverseDeleteGraph<V, WE>
         return null;
     }
 
-    public VertexPair<V> getVertices( WE e )
+    public VertexPair<V> getVertices(final WE e )
     {
-        for ( WE edge : sortedEdge )
+        for ( final WE edge : sortedEdge )
         {
             if ( edge.equals( e ) )
             {
@@ -131,12 +131,12 @@ final class ReverseDeleteGraph<V, WE>
         return null;
     }
 
-    public boolean containsVertex( V v )
+    public boolean containsVertex(final V v )
     {
         return graph.containsVertex( v );
     }
 
-    public boolean containsEdge( WE e )
+    public boolean containsEdge(final WE e )
     {
         return graph.containsEdge( e );
     }

@@ -51,7 +51,7 @@ public final class MutableSpanningTree<V, WE, W>
      * @param weightOperations 
      * @param weightedEdges
      */
-    public MutableSpanningTree( Monoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    public MutableSpanningTree(final Monoid<W> weightOperations, final Mapper<WE, W> weightedEdges )
     {
         this.weightOperations = weightOperations;
         this.weightedEdges = weightedEdges;
@@ -71,7 +71,7 @@ public final class MutableSpanningTree<V, WE, W>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddEdge( V head, WE e, V tail )
+    protected void decorateAddEdge(final V head, final WE e, final V tail )
     {
         super.decorateAddEdge( head, e, tail );
         weight = weightOperations.append( weight, weightedEdges.map( e ) );
@@ -81,7 +81,7 @@ public final class MutableSpanningTree<V, WE, W>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateRemoveEdge( WE e )
+    protected void decorateRemoveEdge(final WE e )
     {
         weight = weightOperations.append( weight, weightOperations.inverse( weightedEdges.map( e ) ) );
     }

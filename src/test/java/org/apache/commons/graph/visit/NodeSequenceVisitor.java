@@ -38,7 +38,7 @@ public final class NodeSequenceVisitor
      * {@inheritDoc}
      */
     @Override
-    public VisitState discoverVertex( BaseLabeledVertex vertex )
+    public VisitState discoverVertex(final BaseLabeledVertex vertex )
     {
         vertices.add( vertex );
         return VisitState.CONTINUE;

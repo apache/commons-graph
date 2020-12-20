@@ -29,7 +29,7 @@ public final class BaseWeightedEdge<W>
 
     private static final long serialVersionUID = -2024378704087762740L;
 
-    public W map( BaseLabeledWeightedEdge<W> edge )
+    public W map(final BaseLabeledWeightedEdge<W> edge )
     {
         return edge.getWeight();
     }

@@ -28,7 +28,7 @@ public final class EdgeLabelMapper
 
     private static final long serialVersionUID = 20120728L;
 
-    public String map( BaseLabeledWeightedEdge<Double> input )
+    public String map(final BaseLabeledWeightedEdge<Double> input )
     {
         return input.getLabel();
     }

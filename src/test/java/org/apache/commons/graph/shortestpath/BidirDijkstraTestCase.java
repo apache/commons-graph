@@ -68,14 +68,14 @@ public final class BidirDijkstraTestCase
 
         graph = newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
-            Random r = new Random();
+            final Random r = new Random();
 
             public void connect()
             {
                 vertices = new ArrayList<BaseLabeledVertex>();
                 for ( int i = 0; i < NODES; i++ )
                 {
-                    BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                    final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
                     addVertex( v );
                     vertices.add( v );
                 }
@@ -89,7 +89,7 @@ public final class BidirDijkstraTestCase
                 addEdge( vertices.get( NODES - 1 ) , vertices.get( 0 ) );
 
                 // we have already created #NODES edges
-                int maxEdges = Math.max(0, EDGES - NODES);
+                final int maxEdges = Math.max(0, EDGES - NODES);
                 for ( int i = 0; i < maxEdges; i++)
                 {
                     while ( ! addEdge( vertices.get( r.nextInt(NODES) ), vertices.get( r.nextInt(NODES) ) ) ) {
@@ -98,13 +98,13 @@ public final class BidirDijkstraTestCase
                 }
             }
 
-            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
+            private boolean addEdge(final BaseLabeledVertex src, final BaseLabeledVertex dst )
             {
                 try {
                   addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
                                                                 10.0 * r.nextDouble() + 1.0 ) ).from( src ).to( dst );
                   return true;
-              } catch (GraphException e) {
+              } catch (final GraphException e) {
                   // ignore duplicate edge exceptions
                   return false;
               }
@@ -126,7 +126,7 @@ public final class BidirDijkstraTestCase
     @Test( expected = NullPointerException.class )
     public void testNullVertices()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // the actual weighted path
@@ -140,7 +140,7 @@ public final class BidirDijkstraTestCase
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -159,7 +159,7 @@ public final class BidirDijkstraTestCase
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -182,17 +182,17 @@ public final class BidirDijkstraTestCase
     @Test
     public void findShortestPathAndVerify()
     {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph
 
-        BaseLabeledVertex one = new BaseLabeledVertex( "1" );
-        BaseLabeledVertex two = new BaseLabeledVertex( "2" );
-        BaseLabeledVertex three = new BaseLabeledVertex( "3" );
-        BaseLabeledVertex four = new BaseLabeledVertex( "4" );
-        BaseLabeledVertex five = new BaseLabeledVertex( "5" );
-        BaseLabeledVertex six = new BaseLabeledVertex( "6" );
+        final BaseLabeledVertex one = new BaseLabeledVertex( "1" );
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+        final BaseLabeledVertex three = new BaseLabeledVertex( "3" );
+        final BaseLabeledVertex four = new BaseLabeledVertex( "4" );
+        final BaseLabeledVertex five = new BaseLabeledVertex( "5" );
+        final BaseLabeledVertex six = new BaseLabeledVertex( "6" );
 
         graph.addVertex( one );
         graph.addVertex( two );
@@ -216,7 +216,7 @@ public final class BidirDijkstraTestCase
 
         // expected path
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+        final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, five, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
@@ -225,7 +225,7 @@ public final class BidirDijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+        final Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
                         findShortestPath( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                             .from( one )
@@ -239,13 +239,13 @@ public final class BidirDijkstraTestCase
 
     @Test
     public void verifyTwoNodePath() {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph
 
-        BaseLabeledVertex one = new BaseLabeledVertex( "1" );
-        BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+        final BaseLabeledVertex one = new BaseLabeledVertex( "1" );
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
 
         graph.addVertex( one );
         graph.addVertex( two );
@@ -253,13 +253,13 @@ public final class BidirDijkstraTestCase
         graph.addEdge( one, new BaseLabeledWeightedEdge<Double>( "1 -> 2", 14D ), two );
 
         // expected path
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+        final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, two, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 2", 14D ), two );
 
         // actual path
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+        final Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
                         findShortestPath( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                             .from( one )
@@ -272,14 +272,14 @@ public final class BidirDijkstraTestCase
 
     @Test
     public void verifyThreeNodePath() {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph
 
-        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        final BaseLabeledVertex c = new BaseLabeledVertex( "c" );
 
         graph.addVertex( a );
         graph.addVertex( b );
@@ -289,14 +289,14 @@ public final class BidirDijkstraTestCase
         graph.addEdge( b, new BaseLabeledWeightedEdge<Double>( "b -> c", 10D ), c );
 
         // expected path
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+        final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( a, c, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         expected.addConnectionInTail( a, new BaseLabeledWeightedEdge<Double>( "a -> b", 14D ), b );
         expected.addConnectionInTail( b, new BaseLabeledWeightedEdge<Double>( "b -> c", 10D ), c );
 
         // actual path
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+        final Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
                         findShortestPath( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                             .from( a )
@@ -311,11 +311,11 @@ public final class BidirDijkstraTestCase
     public void compareToUnidirectional() {
         // It is hard to get unidirectional Dijkstra's algorithm wrong;
         // therefore compare a sequence of outputs.
-        Random r = new Random();
+        final Random r = new Random();
 
         for ( int ii = 0; ii < TIMES; ii++ )
         {
-            BaseLabeledVertex s = vertices.get( r.nextInt( vertices.size() ) );
+            final BaseLabeledVertex s = vertices.get( r.nextInt( vertices.size() ) );
             BaseLabeledVertex t;
 
             do
@@ -324,14 +324,14 @@ public final class BidirDijkstraTestCase
             }
             while ( s.equals( t ) );
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> pathUni =
+            final WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> pathUni =
                     findShortestPath( graph )
                         .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                         .from( s )
                         .to( t )
                         .applyingDijkstra( weightOperations );
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> pathBi =
+            final WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> pathBi =
                     findShortestPath( graph )
                         .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                         .from( s )

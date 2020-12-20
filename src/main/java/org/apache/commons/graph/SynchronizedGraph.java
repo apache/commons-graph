@@ -38,7 +38,7 @@ class SynchronizedGraph<V, E>
      * Creates a new thread-safe instence of {@link SynchronizedGraph}.
      * @param g The {@link Graph} that has to be synchronized
      */
-    public SynchronizedGraph( Graph<V, E> g )
+    public SynchronizedGraph(final Graph<V, E> g )
     {
         this.g = g;
         this.lock = this;
@@ -91,7 +91,7 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getDegree( V v )
+    public int getDegree(final V v )
     {
         synchronized ( lock )
         {
@@ -102,7 +102,7 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getConnectedVertices( V v )
+    public Iterable<V> getConnectedVertices(final V v )
     {
         synchronized ( lock )
         {
@@ -113,7 +113,7 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public E getEdge( V source, V target )
+    public E getEdge(final V source, final V target )
     {
         synchronized ( lock )
         {
@@ -124,7 +124,7 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public VertexPair<V> getVertices( E e )
+    public VertexPair<V> getVertices(final E e )
     {
         synchronized ( lock )
         {
@@ -135,7 +135,7 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsVertex( V v )
+    public boolean containsVertex(final V v )
     {
         synchronized ( lock )
         {
@@ -146,7 +146,7 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsEdge( E e )
+    public boolean containsEdge(final E e )
     {
         synchronized ( lock )
         {
@@ -165,7 +165,7 @@ class SynchronizedGraph<V, E>
     }
 
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -177,7 +177,7 @@ class SynchronizedGraph<V, E>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" )
+        @SuppressWarnings( "unchecked" ) final
         // test against any Graph typed instance
         SynchronizedGraph<Object, Object> other = (SynchronizedGraph<Object, Object>) obj;
         return eq( g, other.g );

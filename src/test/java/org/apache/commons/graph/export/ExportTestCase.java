@@ -28,7 +28,6 @@ import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ExportTestCase {
@@ -44,10 +43,10 @@ public class ExportTestCase {
 
             public void connect()
             {
-                BaseLabeledVertex start = addVertex( new BaseLabeledVertex( "start" ) );
-                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
+                final BaseLabeledVertex start = addVertex( new BaseLabeledVertex( "start" ) );
+                final BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                final BaseLabeledVertex goal = addVertex( new BaseLabeledVertex( "goal" ) );
 
                 addEdge( new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ) ).from(start).to( a );
                 addEdge( new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ) ).from(a).to( b );

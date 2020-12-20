@@ -44,7 +44,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
 
     private final V target;
 
-    public DefaultShortestPathAlgorithmSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
+    public DefaultShortestPathAlgorithmSelector(final Graph<V, WE> graph, final Mapper<WE, W> weightedEdges, final V source, final V target )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -81,7 +81,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
         {
-            V vertex = unsettledNodes.remove();
+            final V vertex = unsettledNodes.remove();
 
             // destination reached, stop and build the path
             if ( target.equals( vertex ) )
@@ -91,15 +91,15 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
 
             settledNodes.add( vertex );
 
-            for ( V v : graph.getConnectedVertices( vertex ) )
+            for ( final V v : graph.getConnectedVertices( vertex ) )
             {
                 // skip node already settled
                 if ( !settledNodes.contains( v ) )
                 {
-                    WE edge = graph.getEdge( vertex, v );
+                    final WE edge = graph.getEdge( vertex, v );
                     if ( shortestDistances.alreadyVisited( vertex ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.map( edge ) );
+                        final W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.map( edge ) );
 
                         if ( !shortestDistances.alreadyVisited( v )
                                 || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
@@ -167,14 +167,14 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
 
             closedForward.add( vertex );
 
-            for ( V v : graph.getConnectedVertices( vertex ) )
+            for ( final V v : graph.getConnectedVertices( vertex ) )
             {
                 if ( !closedForward.contains( v ) )
                 {
-                    WE edge = graph.getEdge( vertex, v );
+                    final WE edge = graph.getEdge( vertex, v );
                     if ( shortestDistancesForward.alreadyVisited( vertex ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistancesForward.getWeight( vertex ), weightedEdges.map( edge ) );
+                        final W shortDist = weightOperations.append( shortestDistancesForward.getWeight( vertex ), weightedEdges.map( edge ) );
 
                         if ( !shortestDistancesForward.alreadyVisited( v )
                                 || weightOperations.compare( shortDist, shortestDistancesForward.getWeight( v ) ) < 0 )
@@ -185,7 +185,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
 
                             if ( closedBackwards.contains( v ) )
                             {
-                                W tmpBest = weightOperations.append( shortDist, shortestDistancesBackwards.getWeight( v ) );
+                                final W tmpBest = weightOperations.append( shortDist, shortestDistancesBackwards.getWeight( v ) );
 
                                 if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
                                 {
@@ -202,16 +202,16 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
 
             closedBackwards.add( vertex );
 
-            Iterable<V> parentsIterable = ( graph instanceof DirectedGraph ? ((DirectedGraph<V, WE>) graph).getInbound( vertex ) : graph.getConnectedVertices( vertex ) );
+            final Iterable<V> parentsIterable = ( graph instanceof DirectedGraph ? ((DirectedGraph<V, WE>) graph).getInbound( vertex ) : graph.getConnectedVertices( vertex ) );
 
-            for ( V v : parentsIterable )
+            for ( final V v : parentsIterable )
             {
                 if ( !closedBackwards.contains( v ) )
                 {
-                    WE edge = graph.getEdge( v, vertex );
+                    final WE edge = graph.getEdge( v, vertex );
                     if ( shortestDistancesBackwards.alreadyVisited( vertex ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistancesBackwards.getWeight( vertex ), weightedEdges.map( edge ) );
+                        final W shortDist = weightOperations.append( shortestDistancesBackwards.getWeight( vertex ), weightedEdges.map( edge ) );
 
                         if ( !shortestDistancesBackwards.alreadyVisited( v )
                                 || weightOperations.compare( shortDist, shortestDistancesBackwards.getWeight( v ) ) < 0 )
@@ -222,7 +222,7 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
 
                             if ( closedForward.contains( v ) )
                             {
-                                W tmpBest = weightOperations.append( shortDist, shortestDistancesForward.getWeight( v ) );
+                                final W tmpBest = weightOperations.append( shortDist, shortestDistancesForward.getWeight( v ) );
 
                                 if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
                                 {

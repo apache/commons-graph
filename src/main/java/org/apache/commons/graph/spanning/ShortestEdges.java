@@ -36,7 +36,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * Each vertex' entry contains the index of its predecessor in a path through the graph.
  *
  * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <WE> the Graph edges type
  * @param <W> the weight type
  */
 final class ShortestEdges<V, WE, W>
@@ -53,7 +53,7 @@ final class ShortestEdges<V, WE, W>
 
     private final V source;
 
-    public ShortestEdges( Graph<V, WE> graph, V source, OrderedMonoid<W> weightOperations, Mapper<WE, W> weightedEdges )
+    public ShortestEdges(final Graph<V, WE> graph, final V source, final OrderedMonoid<W> weightOperations, final Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.source = source;
@@ -67,7 +67,7 @@ final class ShortestEdges<V, WE, W>
      * @param tail the predecessor vertex
      * @param head the edge that succeeds to the input vertex
      */
-    public void addPredecessor( V tail, WE head )
+    public void addPredecessor(final V tail, final WE head )
     {
         predecessors.put( tail, head );
     }
@@ -79,14 +79,14 @@ final class ShortestEdges<V, WE, W>
      */
     public SpanningTree<V, WE, W> createSpanningTree()
     {
-        MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
+        final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
-        for ( WE edge : this.predecessors.values() )
+        for ( final WE edge : this.predecessors.values() )
         {
-            VertexPair<V> vertices = graph.getVertices( edge );
+            final VertexPair<V> vertices = graph.getVertices( edge );
 
-            V head = vertices.getHead();
-            V tail = vertices.getTail();
+            final V head = vertices.getHead();
+            final V tail = vertices.getTail();
 
             addEdgeIgnoringExceptions( head, spanningTree );
             addEdgeIgnoringExceptions( tail, spanningTree );
@@ -97,13 +97,13 @@ final class ShortestEdges<V, WE, W>
         return spanningTree;
     }
 
-    private static <V, WE, W> void addEdgeIgnoringExceptions( V vertex, MutableSpanningTree<V, WE, W> spanningTree )
+    private static <V, WE, W> void addEdgeIgnoringExceptions(final V vertex, final MutableSpanningTree<V, WE, W> spanningTree )
     {
         try
         {
             spanningTree.addVertex( vertex );
         }
-        catch ( GraphException e )
+        catch ( final GraphException e )
         {
             // just swallow it
         }
@@ -122,20 +122,20 @@ final class ShortestEdges<V, WE, W>
     /**
      * Returns the distance related to input vertex, or null if it does not exist.
      *
-     * <b>NOTE</b>: the method {@link hasWeight} should be used first to check if
+     * <b>NOTE</b>: the method {@link #hasWeight} should be used first to check if
      * the input vertex has an assiged weight.
      *
      * @param vertex the vertex for which the distance has to be retrieved
      * @return the distance related to input vertex, or null if it does not exist
      */
-    public W getWeight( V vertex )
+    public W getWeight(final V vertex )
     {
         if ( source.equals( vertex ) )
         {
             return weightOperations.identity();
         }
 
-        WE edge = predecessors.get( vertex );
+        final WE edge = predecessors.get( vertex );
 
         if ( edge == null )
         {
@@ -151,7 +151,7 @@ final class ShortestEdges<V, WE, W>
      * @param vertex the input {@code Vertex}
      * @return true if there is a weight for the input {@code Vertex}, false otherwise
      */
-    public boolean hasWeight( V vertex )
+    public boolean hasWeight(final V vertex )
     {
         return predecessors.containsKey( vertex );
     }
@@ -159,7 +159,7 @@ final class ShortestEdges<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public int compare( V left, V right )
+    public int compare(final V left, final V right )
     {
         if ( !hasWeight( left ) && !hasWeight( right ) )
         {

@@ -39,7 +39,7 @@ final class DefaultPathSourceSelector<V, WE, W>
 
     private final Mapper<WE, W> weightedEdges;
 
-    public DefaultPathSourceSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges )
+    public DefaultPathSourceSelector(final Graph<V, WE> graph, final Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -52,13 +52,13 @@ final class DefaultPathSourceSelector<V, WE, W>
     {
         weightOperations = checkNotNull( weightOperations, "Floyd-Warshall algorithm can not be applied using null weight operations" );
 
-        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
-        Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
+        final AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
+        final Map<VertexPair<V>, V> next = new HashMap<VertexPair<V>, V>();
 
         // init
-        for ( WE we : graph.getEdges() )
+        for ( final WE we : graph.getEdges() )
         {
-            VertexPair<V> vertexPair = graph.getVertices( we );
+            final VertexPair<V> vertexPair = graph.getVertices( we );
             shortestPaths.addShortestDistance( vertexPair.getHead(), vertexPair.getTail(), weightedEdges.map( we ) );
 
             if ( graph instanceof UndirectedGraph )
@@ -68,15 +68,15 @@ final class DefaultPathSourceSelector<V, WE, W>
         }
 
         // run the Floyd-Warshall algorithm.
-        for ( V k : graph.getVertices() )
+        for ( final V k : graph.getVertices() )
         {
-            for ( V i : graph.getVertices() )
+            for ( final V i : graph.getVertices() )
             {
-                for ( V j : graph.getVertices() )
+                for ( final V j : graph.getVertices() )
                 {
                     if ( shortestPaths.hasShortestDistance( i, k ) && shortestPaths.hasShortestDistance( k, j ) )
                     {
-                        W newDistance = weightOperations.append( shortestPaths.getShortestDistance( i, k ), shortestPaths.getShortestDistance( k, j ) );
+                        final W newDistance = weightOperations.append( shortestPaths.getShortestDistance( i, k ), shortestPaths.getShortestDistance( k, j ) );
                         if ( !shortestPaths.hasShortestDistance( i, j )
                                 || weightOperations.compare( newDistance, shortestPaths.getShortestDistance( i, j ) ) < 0 )
                         {
@@ -92,18 +92,18 @@ final class DefaultPathSourceSelector<V, WE, W>
         }
 
         // fills all WeightedPaths
-        for ( V source : graph.getVertices() )
+        for ( final V source : graph.getVertices() )
         {
-            for ( V target : graph.getVertices() )
+            for ( final V target : graph.getVertices() )
             {
                 if ( !source.equals( target ) )
                 {
-                    PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
+                    final PredecessorsList<V, WE, W> predecessorsList = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
 
                     pathReconstruction( predecessorsList, source, target, next );
                     if ( !predecessorsList.isEmpty() )
                     {
-                        WeightedPath<V, WE, W> weightedPath = predecessorsList.buildPath( source, target );
+                        final WeightedPath<V, WE, W> weightedPath = predecessorsList.buildPath( source, target );
                         if ( weightedPath.getOrder() > 0 )
                         {
                             shortestPaths.addShortestPath( source, target, weightedPath );
@@ -116,15 +116,15 @@ final class DefaultPathSourceSelector<V, WE, W>
         return shortestPaths;
     }
 
-    private void pathReconstruction( PredecessorsList<V, WE, W> path,
-                                     V source, V target,
-                                     Map<VertexPair<V>, V> next )
+    private void pathReconstruction(final PredecessorsList<V, WE, W> path,
+                                    final V source, final V target,
+                                    final Map<VertexPair<V>, V> next )
     {
-        V k = next.get( new VertexPair<V>( source, target ) );
+        final V k = next.get( new VertexPair<V>( source, target ) );
         if ( k == null )
         {
             // there is a direct path between a and b
-            WE edge = graph.getEdge( source, target );
+            final WE edge = graph.getEdge( source, target );
             if ( edge != null )
             {
                 path.addPredecessor( target, source );

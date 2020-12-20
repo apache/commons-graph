@@ -35,7 +35,7 @@ final class SynchronizedDirectedGraph<V, E>
      * Creates a new thread-safe instence of {@link SynchronizedDirectedGraph}.
      * @param g The {@link Graph} that has to be synchronized
      */
-    public SynchronizedDirectedGraph( DirectedGraph<V, E> g )
+    public SynchronizedDirectedGraph(final DirectedGraph<V, E> g )
     {
         super( g );
         directedGraph = g;
@@ -44,7 +44,7 @@ final class SynchronizedDirectedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getInDegree( V v )
+    public int getInDegree(final V v )
     {
         synchronized ( lock )
         {
@@ -55,7 +55,7 @@ final class SynchronizedDirectedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getInbound( V v )
+    public Iterable<V> getInbound(final V v )
     {
         synchronized ( lock )
         {
@@ -66,7 +66,7 @@ final class SynchronizedDirectedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getOutDegree( V v )
+    public int getOutDegree(final V v )
     {
         synchronized ( lock )
         {
@@ -77,7 +77,7 @@ final class SynchronizedDirectedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getOutbound( V v )
+    public Iterable<V> getOutbound(final V v )
     {
         synchronized ( lock )
         {

@@ -42,7 +42,7 @@ public class LongWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Long append( Long s1, Long s2 )
+    public Long append(final Long s1, final Long s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -54,7 +54,7 @@ public class LongWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Long inverse( Long element )
+    public Long inverse(final Long element )
     {
         return -element;
     }
@@ -62,7 +62,7 @@ public class LongWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public int compare( Long s1, Long s2 )
+    public int compare(final Long s1, final Long s2 )
     {
         return s1.compareTo( s2 );
     }

@@ -31,7 +31,7 @@ final class DefaultHeadVertexConnector<V, E>
 
     private final E edge;
 
-    public DefaultHeadVertexConnector( MutableGraph<V, E> graph, E edge )
+    public DefaultHeadVertexConnector(final MutableGraph<V, E> graph, final E edge )
     {
         this.graph = graph;
         this.edge = edge;

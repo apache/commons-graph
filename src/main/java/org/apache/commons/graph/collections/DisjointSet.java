@@ -41,9 +41,9 @@ public final class DisjointSet<E>
      * @param e the element has to be find in this {@code DisjointSet} instance
      * @return the value found 
      */
-    public E find( E e )
+    public E find(final E e )
     {
-        DisjointSetNode<E> node = find( getNode( e ) );
+        final DisjointSetNode<E> node = find( getNode( e ) );
 
         if ( node == node.getParent() )
         {
@@ -61,7 +61,7 @@ public final class DisjointSet<E>
      * @param node the input DisjointSet node for the @code{ find} operation
      * @return the root node of the path
      */
-    private DisjointSetNode<E> find( DisjointSetNode<E> node )
+    private DisjointSetNode<E> find(final DisjointSetNode<E> node )
     {
         if ( node == node.getParent() )
         {
@@ -76,17 +76,17 @@ public final class DisjointSet<E>
      * @param e1 the first element which related subset has to be merged
      * @param e2 the second element which related subset has to be merged
      */
-    public void union( E e1, E e2 )
+    public void union(final E e1, final E e2 )
     {
-        DisjointSetNode<E> e1Root = find( getNode( e1 ) );
-        DisjointSetNode<E> e2Root = find( getNode( e2 ) );
+        final DisjointSetNode<E> e1Root = find( getNode( e1 ) );
+        final DisjointSetNode<E> e2Root = find( getNode( e2 ) );
 
         if ( e1Root == e2Root )
         {
             return;
         }
 
-        int comparison = e1Root.compareTo( e2Root );
+        final int comparison = e1Root.compareTo( e2Root );
         if ( comparison < 0 )
         {
             e1Root.setParent( e2Root );
@@ -109,7 +109,7 @@ public final class DisjointSet<E>
      * @param e the element which related subset has to be returned
      * @return the input element {@code DisjointSetNode}
      */
-    private DisjointSetNode<E> getNode( E e )
+    private DisjointSetNode<E> getNode(final E e )
     {
         DisjointSetNode<E> node = disjointSets.get( e );
 

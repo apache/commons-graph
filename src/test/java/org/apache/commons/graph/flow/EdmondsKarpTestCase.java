@@ -60,7 +60,7 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex a = null;
         final BaseLabeledVertex g = null;
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         // actual max flow
@@ -77,7 +77,7 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
@@ -85,8 +85,8 @@ public class EdmondsKarpTestCase
                 public void connect()
                 {
                     addVertex( a );
-                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                    final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                    final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
                     addVertex( new BaseLabeledVertex( "D" ) );
                     addVertex( new BaseLabeledVertex( "E" ) );
                     addVertex( new BaseLabeledVertex( "F" ) );
@@ -101,7 +101,7 @@ public class EdmondsKarpTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph )
+        final Integer actual = findMaxFlow( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
                             .from( a )
                             .to( g )
@@ -115,7 +115,7 @@ public class EdmondsKarpTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
@@ -123,11 +123,11 @@ public class EdmondsKarpTestCase
                 public void connect()
                 {
                     addVertex( a );
-                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-                    BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
-                    BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
+                    final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                    final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                    final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
+                    final BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
+                    final BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
                     addVertex( g );
 
                     addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 3 ) ).from( a ).to( b );
@@ -149,7 +149,7 @@ public class EdmondsKarpTestCase
         final Integer expected = 5;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph )
+        final Integer actual = findMaxFlow( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
                             .from( a )
                             .to( g )

@@ -56,18 +56,18 @@ final class DotExporter<V, E>
 
     private String connector;
 
-    DotExporter( Graph<V, E> graph, String name )
+    DotExporter(final Graph<V, E> graph, final String name )
     {
         super( graph, name );
         this.vertexIdentifiers = generateVertexIdentifiers( graph );
     }
 
-    private Map<V, Integer> generateVertexIdentifiers( Graph<V, E> graph )
+    private Map<V, Integer> generateVertexIdentifiers(final Graph<V, E> graph )
     {
-        Map<V, Integer> vertexIdentifiers = new HashMap<V, Integer>();
+        final Map<V, Integer> vertexIdentifiers = new HashMap<V, Integer>();
         int count = 1;
 
-        for ( V vertex : graph.getVertices() )
+        for ( final V vertex : graph.getVertices() )
         {
             vertexIdentifiers.put( vertex, count++ );
         }
@@ -90,10 +90,10 @@ final class DotExporter<V, E>
     }
 
     @Override
-    protected void startGraph( String name )
+    protected void startGraph(final String name )
         throws Exception
     {
-        String graphDeclaration;
+        final String graphDeclaration;
 
         if ( getGraph() instanceof DirectedGraph )
         {
@@ -117,21 +117,21 @@ final class DotExporter<V, E>
     }
 
     @Override
-    protected void comment( String text )
+    protected void comment(final String text )
         throws Exception
     {
         printWriter.write( text );
     }
 
     @Override
-    protected void enlistVerticesProperty( String name, Class<?> type )
+    protected void enlistVerticesProperty(final String name, final Class<?> type )
         throws Exception
     {
         // not needed in DOT
     }
 
     @Override
-    protected void enlistEdgesProperty( String name, Class<?> type )
+    protected void enlistEdgesProperty(final String name, final Class<?> type )
         throws Exception
     {
         // not needed in DOT
@@ -139,7 +139,7 @@ final class DotExporter<V, E>
     }
 
     @Override
-    protected void vertex( V vertex, Map<String, Object> properties )
+    protected void vertex(final V vertex, final Map<String, Object> properties )
         throws Exception
     {
         printWriter.format( "  %s", vertexIdentifiers.get( vertex ) );
@@ -148,7 +148,7 @@ final class DotExporter<V, E>
     }
 
     @Override
-    protected void edge( E edge, V head, V tail, Map<String, Object> properties )
+    protected void edge(final E edge, final V head, final V tail, final Map<String, Object> properties )
         throws Exception
     {
         printWriter.format( "  %s %s %s",
@@ -159,16 +159,16 @@ final class DotExporter<V, E>
         printVertexOrEdgeProperties( properties );
     }
 
-    private void printVertexOrEdgeProperties( Map<String, Object> properties )
+    private void printVertexOrEdgeProperties(final Map<String, Object> properties )
     {
         if ( !properties.isEmpty() )
         {
             int countAddedProperties = 0;
             printWriter.write( " [" );
 
-            for ( Entry<String, Object> property : properties.entrySet() )
+            for ( final Entry<String, Object> property : properties.entrySet() )
             {
-                String formattedString = countAddedProperties == properties.size() - 1 ? "%s=\"%s\"" : "%s=\"%s\" ";
+                final String formattedString = countAddedProperties == properties.size() - 1 ? "%s=\"%s\"" : "%s=\"%s\" ";
                 printWriter.format( formattedString, property.getKey(), property.getValue() );
                 countAddedProperties++;
             }
@@ -177,19 +177,19 @@ final class DotExporter<V, E>
         }
     }
 
-    public <N extends Number> DotExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
+    public <N extends Number> DotExporter<V, E> withEdgeWeights(final Mapper<E, N> edgeWeights )
     {
         super.addEdgeProperty( WEIGHT, edgeWeights );
         return this;
     }
 
-    public DotExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
+    public DotExporter<V, E> withEdgeLabels(final Mapper<E, String> edgeLabels )
     {
         super.addEdgeProperty( LABEL, edgeLabels );
         return this;
     }
 
-    public DotExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
+    public DotExporter<V, E> withVertexLabels(final Mapper<V, String> vertexLabels )
     {
         super.addVertexProperty( LABEL, vertexLabels );
         return this;

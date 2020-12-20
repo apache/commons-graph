@@ -43,18 +43,18 @@ public class GraphUtils
      * @param nVertices number of vertices
      * @param g graph
      */
-    public static void buildCompleteGraph( int nVertices, BaseMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
+    public static void buildCompleteGraph(final int nVertices, final BaseMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
     {
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
         }
 
-        for ( BaseLabeledVertex v1 : g.getVertices() )
+        for ( final BaseLabeledVertex v1 : g.getVertices() )
         {
-            for ( BaseLabeledVertex v2 : g.getVertices() )
+            for ( final BaseLabeledVertex v2 : g.getVertices() )
             {
                 if ( !v1.equals( v2 ) )
                 {
@@ -62,7 +62,7 @@ public class GraphUtils
                     {
                         g.addEdge( v1, new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ), v2 );
                     }
-                    catch ( GraphException e )
+                    catch ( final GraphException e )
                     {
                         // ignore
                     }
@@ -77,20 +77,20 @@ public class GraphUtils
      * @param nVertices number of vertices
      * @param g graph
      */
-    public static void buildBipartedGraph( int nVertices, UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
+    public static void buildBipartedGraph(final int nVertices, final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
     {
         // building Graph
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
         }
 
-        List<BaseLabeledVertex> fistPartition = new ArrayList<BaseLabeledVertex>();
-        List<BaseLabeledVertex> secondPartition = new ArrayList<BaseLabeledVertex>();
+        final List<BaseLabeledVertex> fistPartition = new ArrayList<BaseLabeledVertex>();
+        final List<BaseLabeledVertex> secondPartition = new ArrayList<BaseLabeledVertex>();
 
         int count = 0;
-        for ( BaseLabeledVertex v1 : g.getVertices() )
+        for ( final BaseLabeledVertex v1 : g.getVertices() )
         {
             if ( count++ == nVertices / 2 )
             {
@@ -100,7 +100,7 @@ public class GraphUtils
         }
 
         count = 0;
-        for ( BaseLabeledVertex v2 : g.getVertices() )
+        for ( final BaseLabeledVertex v2 : g.getVertices() )
         {
             if ( count++ < nVertices / 2 )
             {
@@ -109,9 +109,9 @@ public class GraphUtils
             secondPartition.add( v2 );
         }
 
-        for ( BaseLabeledVertex v1 : fistPartition )
+        for ( final BaseLabeledVertex v1 : fistPartition )
         {
-            for ( BaseLabeledVertex v2 : secondPartition )
+            for ( final BaseLabeledVertex v2 : secondPartition )
             {
                 if ( !v1.equals( v2 ) )
                 {
@@ -119,7 +119,7 @@ public class GraphUtils
                     {
                         g.addEdge( v1, new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ), v2 );
                     }
-                    catch ( GraphException e )
+                    catch ( final GraphException e )
                     {
                         // ignore
                     }
@@ -128,13 +128,13 @@ public class GraphUtils
         }
     }
 
-    public static void buildCrownGraph( int nVertices, UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
+    public static void buildCrownGraph(final int nVertices, final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
     {
-        List<BaseLabeledVertex> tmp = new ArrayList<BaseLabeledVertex>();
+        final List<BaseLabeledVertex> tmp = new ArrayList<BaseLabeledVertex>();
 
         for ( int i = 0; i < nVertices; i++ )
         {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
             g.addVertex( v );
             tmp.add( v );
         }
@@ -146,12 +146,12 @@ public class GraphUtils
             {
                 next = 0;
             }
-            BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", i, next ) );
+            final BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", i, next ) );
             try
             {
                 g.addEdge( tmp.get( i ), e, tmp.get( next ) );
             }
-            catch ( GraphException ge )
+            catch ( final GraphException ge )
             {
                 // ignore
             }
@@ -163,9 +163,9 @@ public class GraphUtils
      *
      * @return
      */
-    public static BaseLabeledVertex[][] buildSudokuGraph( UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> sudoku )
+    public static BaseLabeledVertex[][] buildSudokuGraph(final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> sudoku )
     {
-        BaseLabeledVertex[][] grid = new BaseLabeledVertex[9][9];
+        final BaseLabeledVertex[][] grid = new BaseLabeledVertex[9][9];
         // build sudoku grid.
         for ( int row = 0; row < 9; row++ )
         {
@@ -176,15 +176,15 @@ public class GraphUtils
             }
         }
 
-        int[] rowsOffsets = new int[] { 0, 3, 6 };
-        int[] colsOffsets = new int[] { 0, 3, 6 };
+        final int[] rowsOffsets = new int[] { 0, 3, 6 };
+        final int[] colsOffsets = new int[] { 0, 3, 6 };
 
         // build constraint.
         for ( int rof = 0; rof < 3; rof++ )
         {
             for ( int cof = 0; cof < 3; cof++ )
             {
-                List<BaseLabeledVertex> boxes = new ArrayList<BaseLabeledVertex>();
+                final List<BaseLabeledVertex> boxes = new ArrayList<BaseLabeledVertex>();
                 for ( int row = rowsOffsets[rof]; row < 3 + rowsOffsets[rof]; row++ )
                 {
                     for ( int col = colsOffsets[cof]; col < 3 + colsOffsets[cof]; col++ )
@@ -193,19 +193,19 @@ public class GraphUtils
                     }
                 }
 
-                for ( BaseLabeledVertex v1 : boxes )
+                for ( final BaseLabeledVertex v1 : boxes )
                 {
-                    for ( BaseLabeledVertex v2 : boxes )
+                    for ( final BaseLabeledVertex v2 : boxes )
                     {
 
-                        BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
+                        final BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
                         if ( !v1.equals( v2 ) )
                         {
                             try
                             {
                                 sudoku.addEdge( v1, e, v2 );
                             }
-                            catch ( GraphException ge )
+                            catch ( final GraphException ge )
                             {
                                 // ignore
                             }
@@ -222,17 +222,17 @@ public class GraphUtils
             {
                 for ( int h = 0; h < 9; h++ )
                 {
-                    BaseLabeledVertex v1 = grid[j][i];
-                    BaseLabeledVertex v2 = grid[j][h];
+                    final BaseLabeledVertex v1 = grid[j][i];
+                    final BaseLabeledVertex v2 = grid[j][h];
 
                     if ( !v1.equals( v2 ) )
                     {
-                        BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
+                        final BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
                         try
                         {
                             sudoku.addEdge( v1, e, v2 );
                         }
-                        catch ( GraphException ge )
+                        catch ( final GraphException ge )
                         {
                             // ignore
                         }
@@ -249,17 +249,17 @@ public class GraphUtils
             {
                 for ( int h = 0; h < 9; h++ )
                 {
-                    BaseLabeledVertex v1 = grid[i][j];
-                    BaseLabeledVertex v2 = grid[h][j];
+                    final BaseLabeledVertex v1 = grid[i][j];
+                    final BaseLabeledVertex v2 = grid[h][j];
 
                     if ( !v1.equals( v2 ) )
                     {
-                        BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
+                        final BaseLabeledEdge e = new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) );
                         try
                         {
                             sudoku.addEdge( v1, e, v2 );
                         }
-                        catch ( GraphException ge )
+                        catch ( final GraphException ge )
                         {
                             // ignore
                         }

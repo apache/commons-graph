@@ -53,7 +53,7 @@ public final class AStarTestCase
     @Test( expected = NullPointerException.class )
     public void testNullVertices()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         findShortestPath( graph )
@@ -67,7 +67,7 @@ public final class AStarTestCase
     @Test( expected = NullPointerException.class )
     public void testNullHeuristic()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         findShortestPath( graph )
@@ -81,7 +81,7 @@ public final class AStarTestCase
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -97,14 +97,14 @@ public final class AStarTestCase
             heuristic = new Heuristic<BaseLabeledVertex, Double>()
             {
 
-                public Double applyHeuristic( BaseLabeledVertex current, BaseLabeledVertex goal )
+                public Double applyHeuristic(final BaseLabeledVertex current, final BaseLabeledVertex goal )
                 {
                     return heuristics.get( current );
                 }
 
             };
         }
-        catch ( NullPointerException e )
+        catch ( final NullPointerException e )
         {
             fail( e.getMessage() );
         }
@@ -120,7 +120,7 @@ public final class AStarTestCase
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -130,10 +130,10 @@ public final class AStarTestCase
 
         final Map<BaseLabeledVertex, Double> heuristics = new HashMap<BaseLabeledVertex, Double>();
 
-        Heuristic<BaseLabeledVertex, Double> heuristic = new Heuristic<BaseLabeledVertex, Double>()
+        final Heuristic<BaseLabeledVertex, Double> heuristic = new Heuristic<BaseLabeledVertex, Double>()
         {
 
-            public Double applyHeuristic( BaseLabeledVertex current, BaseLabeledVertex goal )
+            public Double applyHeuristic(final BaseLabeledVertex current, final BaseLabeledVertex goal )
             {
                 return heuristics.get( current );
             }
@@ -155,18 +155,18 @@ public final class AStarTestCase
     @Test
     public void findShortestPathAndVerify()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph
 
-        BaseLabeledVertex start = new BaseLabeledVertex( "start" );
-        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
-        BaseLabeledVertex d = new BaseLabeledVertex( "d" );
-        BaseLabeledVertex e = new BaseLabeledVertex( "e" );
-        BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
+        final BaseLabeledVertex start = new BaseLabeledVertex( "start" );
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        final BaseLabeledVertex c = new BaseLabeledVertex( "c" );
+        final BaseLabeledVertex d = new BaseLabeledVertex( "d" );
+        final BaseLabeledVertex e = new BaseLabeledVertex( "e" );
+        final BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
 
         graph.addVertex( start );
         graph.addVertex( a );
@@ -196,10 +196,10 @@ public final class AStarTestCase
         heuristics.put( e, 2D );
         heuristics.put( goal, 6D );
 
-        Heuristic<BaseLabeledVertex, Double> heuristic = new Heuristic<BaseLabeledVertex, Double>()
+        final Heuristic<BaseLabeledVertex, Double> heuristic = new Heuristic<BaseLabeledVertex, Double>()
         {
 
-            public Double applyHeuristic( BaseLabeledVertex current, BaseLabeledVertex goal )
+            public Double applyHeuristic(final BaseLabeledVertex current, final BaseLabeledVertex goal )
             {
                 return heuristics.get( current );
             }
@@ -208,7 +208,7 @@ public final class AStarTestCase
 
         // expected path
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+        final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( start, goal, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         expected.addConnectionInTail( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
@@ -218,7 +218,7 @@ public final class AStarTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+        final Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
             findShortestPath( graph )
                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                 .from( start )

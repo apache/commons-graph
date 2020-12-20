@@ -92,7 +92,7 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final Iterable<V> getConnectedVertices( V v )
+    public final Iterable<V> getConnectedVertices(final V v )
     {
         checkGraphCondition( containsVertex( v ), "Vertex %s does not exist in the Graph", v );
         final Set<V> adj = adjacencyList.get( v );
@@ -102,7 +102,7 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final E getEdge( V source, V target )
+    public final E getEdge(final V source, final V target )
     {
         checkGraphCondition( containsVertex( source ), "Vertex %s does not exist in the Graph", source );
         checkGraphCondition( containsVertex( target ), "Vertex %s does not exist in the Graph", target );
@@ -113,7 +113,7 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final VertexPair<V> getVertices( E e )
+    public final VertexPair<V> getVertices(final E e )
     {
         return indexedVertices.get( e );
     }
@@ -121,7 +121,7 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsVertex( V v )
+    public boolean containsVertex(final V v )
     {
         return adjacencyList.containsKey( v );
     }
@@ -129,7 +129,7 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsEdge( E e )
+    public boolean containsEdge(final E e )
     {
         return indexedVertices.containsKey( e );
     }
@@ -158,7 +158,7 @@ public abstract class BaseGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -170,7 +170,7 @@ public abstract class BaseGraph<V, E>
             return false;
         }
 
-        @SuppressWarnings( "unchecked" )
+        @SuppressWarnings( "unchecked" ) final
         // test against any Graph typed instance
         BaseGraph<Object, Object> other = (BaseGraph<Object, Object>) obj;
         return eq( adjacencyList, other.getAdjacencyList() );
@@ -230,7 +230,7 @@ public abstract class BaseGraph<V, E>
      *     {@link String#valueOf(Object)}.
      * @throws GraphException if {@code expression} is false
      */
-    protected static void checkGraphCondition( boolean expression, String errorMessageTemplate, Object...errorMessageArgs )
+    protected static void checkGraphCondition(final boolean expression, final String errorMessageTemplate, final Object...errorMessageArgs )
     {
         if ( !expression )
         {

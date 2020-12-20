@@ -30,7 +30,7 @@ public final class DefaultWeightedEdgesSelector<V, WE>
 
     private final Graph<V, WE> graph;
 
-    public DefaultWeightedEdgesSelector( Graph<V, WE> graph )
+    public DefaultWeightedEdgesSelector(final Graph<V, WE> graph )
     {
         this.graph = graph;
     }

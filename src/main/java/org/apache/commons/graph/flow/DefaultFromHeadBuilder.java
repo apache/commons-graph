@@ -40,7 +40,7 @@ final class DefaultFromHeadBuilder<V, WE, W>
 
     private final Mapper<WE, W> weightedEdges;
 
-    public DefaultFromHeadBuilder( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges )
+    public DefaultFromHeadBuilder(final DirectedGraph<V, WE> graph, final Mapper<WE, W> weightedEdges )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;

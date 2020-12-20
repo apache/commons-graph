@@ -28,7 +28,7 @@ final class SimplePlayersRank
 
     private final Map<String, Double> ranks = new TreeMap<String, Double>();
 
-    public Double getRanking( String player )
+    public Double getRanking(final String player )
     {
         if ( !ranks.containsKey( player ) )
         {
@@ -37,7 +37,7 @@ final class SimplePlayersRank
         return ranks.get( player );
     }
 
-    public void updateRanking( String player, Double ranking )
+    public void updateRanking(final String player, final Double ranking )
     {
         ranks.put( player, ranking );
     }

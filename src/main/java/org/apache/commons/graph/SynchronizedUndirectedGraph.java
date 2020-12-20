@@ -33,7 +33,7 @@ final class SynchronizedUndirectedGraph<V, E>
      * Creates a new thread-safe instence of {@link SynchronizedUndirectedGraph}.
      * @param g The {@link Graph} that has to be synchronized
      */
-    public SynchronizedUndirectedGraph( Graph<V, E> g )
+    public SynchronizedUndirectedGraph(final Graph<V, E> g )
     {
         super( g );
     }

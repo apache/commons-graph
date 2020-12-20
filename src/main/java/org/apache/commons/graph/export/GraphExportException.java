@@ -39,7 +39,7 @@ public final class GraphExportException
      * @param messageArguments Arguments referenced by the format specifiers in the format string
      * @see java.lang.String#format(String, Object...)
      */
-    public GraphExportException( Throwable cause, String messagePattern, Object...messageArguments )
+    public GraphExportException(final Throwable cause, final String messagePattern, final Object...messageArguments )
     {
         super( format( messagePattern, messageArguments ), cause );
     }

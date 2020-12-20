@@ -49,7 +49,7 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final int getDegree( V v )
+    public final int getDegree(final V v )
     {
         return getInDegree( v ) + getOutDegree( v );
     }
@@ -57,7 +57,7 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final int getInDegree( V v )
+    public final int getInDegree(final V v )
     {
         return inbound.get( v ).size();
     }
@@ -65,7 +65,7 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final Iterable<V> getInbound( V v )
+    public final Iterable<V> getInbound(final V v )
     {
         return inbound.get( v );
     }
@@ -73,7 +73,7 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final int getOutDegree( V v )
+    public final int getOutDegree(final V v )
     {
         return outbound.get( v ).size();
     }
@@ -81,7 +81,7 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final Iterable<V> getOutbound( V v )
+    public final Iterable<V> getOutbound(final V v )
     {
         return outbound.get( v );
     }
@@ -90,7 +90,7 @@ public class DirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddVertex( V v )
+    protected void decorateAddVertex(final V v )
     {
         inbound.put( v, new LinkedHashSet<V>() );
         outbound.put( v, new LinkedHashSet<V>() );
@@ -100,7 +100,7 @@ public class DirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateRemoveVertex( V v )
+    protected void decorateRemoveVertex(final V v )
     {
         inbound.remove( v );
         outbound.remove( v );
@@ -110,7 +110,7 @@ public class DirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddEdge( V head, E e, V tail )
+    protected void decorateAddEdge(final V head, final E e, final V tail )
     {
         inbound.get( tail ).add( head );
         outbound.get( head ).add( tail );
@@ -120,7 +120,7 @@ public class DirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateRemoveEdge( E e )
+    protected void decorateRemoveEdge(final E e )
     {
         final VertexPair<V> vertices = getVertices( e );
         inbound.get( vertices.getTail() ).remove( vertices.getHead() );

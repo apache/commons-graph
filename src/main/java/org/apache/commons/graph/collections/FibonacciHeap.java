@@ -101,7 +101,7 @@ public final class FibonacciHeap<E>
      * @param comparator the comparator that will be used to order this queue.
      *                   If null, the natural ordering of the elements will be used.
      */
-    public FibonacciHeap( /* @Nullable */Comparator<? super E> comparator )
+    public FibonacciHeap( /* @Nullable */final Comparator<? super E> comparator )
     {
         this.comparator = comparator;
     }
@@ -114,7 +114,7 @@ public final class FibonacciHeap<E>
      * @see #consolidate()
      * @see #cut(FibonacciHeapNode, FibonacciHeapNode)
      */
-    private void moveToRoot( FibonacciHeapNode<E> node )
+    private void moveToRoot(final FibonacciHeapNode<E> node )
     {
         // 8'  if min[H] = NIL
         if ( isEmpty() )
@@ -157,12 +157,12 @@ public final class FibonacciHeap<E>
      * 9     then min[H] &larr; x
      * 10  n[H] &larr; n[H] + 1</pre>
      */
-    public boolean add( E e )
+    public boolean add(final E e )
     {
         checkNotNull( e, "Null elements not allowed in this FibonacciHeap implementation." );
 
         // 1-6 performed in the node initialization
-        FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
+        final FibonacciHeapNode<E> node = new FibonacciHeapNode<E>( e );
 
         // 7-9 performed in the #moveToRoot( FibonacciHeapNode<E> ) method
         moveToRoot( node );
@@ -178,9 +178,9 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean addAll( Collection<? extends E> c )
+    public boolean addAll(final Collection<? extends E> c )
     {
-        for ( E element : c )
+        for ( final E element : c )
         {
             add( element );
         }
@@ -203,7 +203,7 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean contains( Object o )
+    public boolean contains(final Object o )
     {
         if ( o == null )
         {
@@ -216,14 +216,14 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsAll( Collection<?> c )
+    public boolean containsAll(final Collection<?> c )
     {
         if ( c == null )
         {
             return false;
         }
 
-        for ( Object o : c )
+        for ( final Object o : c )
         {
             if ( !contains( o ) )
             {
@@ -253,7 +253,7 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean remove( Object o )
+    public boolean remove(final Object o )
     {
         throw new UnsupportedOperationException();
     }
@@ -261,7 +261,7 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean removeAll( Collection<?> c )
+    public boolean removeAll(final Collection<?> c )
     {
         throw new UnsupportedOperationException();
     }
@@ -269,7 +269,7 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean retainAll( Collection<?> c )
+    public boolean retainAll(final Collection<?> c )
     {
         throw new UnsupportedOperationException();
     }
@@ -293,7 +293,7 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public <T> T[] toArray( T[] a )
+    public <T> T[] toArray(final T[] a )
     {
         throw new UnsupportedOperationException();
     }
@@ -313,7 +313,7 @@ public final class FibonacciHeap<E>
     /**
      * {@inheritDoc}
      */
-    public boolean offer( E e )
+    public boolean offer(final E e )
     {
         return add( e );
     }
@@ -357,7 +357,7 @@ public final class FibonacciHeap<E>
         }
 
         // 1  z <- min[H]
-        FibonacciHeapNode<E> z = minimumNode;
+        final FibonacciHeapNode<E> z = minimumNode;
         int numOfKids = z.getDegree();
 
         FibonacciHeapNode<E> x = z.getChild();
@@ -399,7 +399,7 @@ public final class FibonacciHeap<E>
         // 11  n[H] <- n[H] - 1
         size--;
 
-        E minimum = z.getElement();
+        final E minimum = z.getElement();
         elementsIndex.remove( minimum );
         // 12  return z
         return minimum;
@@ -454,10 +454,10 @@ public final class FibonacciHeap<E>
         // D( n[H] ) <= log_phi( n[H] )
         // -> log_phi( n[H] ) = log( n[H] ) / log( phi )
         // -> D( n[H] ) = log( n[H] ) / log( phi )
-        int arraySize = ( (int) floor( log( size ) / LOG_PHI ) );
+        final int arraySize = ( (int) floor( log( size ) / LOG_PHI ) );
 
         // 1  for i <- 0 to D(n[H])
-        List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>( arraySize );
+        final List<FibonacciHeapNode<E>> nodeSequence = new ArrayList<FibonacciHeapNode<E>>( arraySize );
         for ( int i = 0; i < arraySize; i++ )
         {
             // 2      do A[i] <- NIL
@@ -486,7 +486,7 @@ public final class FibonacciHeap<E>
         {
             // 5  d <- degree[x]
             int degree = x.getDegree();
-            FibonacciHeapNode<E> next = x.getRight();
+            final FibonacciHeapNode<E> next = x.getRight();
 
             // 6  while A[d] != NIL
             while ( nodeSequence.get( degree ) != null )
@@ -498,7 +498,7 @@ public final class FibonacciHeap<E>
                 if ( compare( x, y ) > 0 )
                 {
                     // 9  exchange x <-> y
-                    FibonacciHeapNode<E> pointer = y;
+                    final FibonacciHeapNode<E> pointer = y;
                     y = x;
                     x = pointer;
                 }
@@ -524,7 +524,7 @@ public final class FibonacciHeap<E>
         minimumNode = null;
 
         // 15  for i <- 0 to D(n[H])
-        for ( FibonacciHeapNode<E> pointer : nodeSequence )
+        for ( final FibonacciHeapNode<E> pointer : nodeSequence )
         {
             if ( pointer == null )
             {
@@ -556,7 +556,7 @@ public final class FibonacciHeap<E>
      * @param y the node has to be removed from the root list
      * @param x the node has to to become fater of {@code y}
      */
-    private void link( FibonacciHeapNode<E> y, FibonacciHeapNode<E> x )
+    private void link(final FibonacciHeapNode<E> y, final FibonacciHeapNode<E> x )
     {
         // 1 remove y from the root list of H
         y.getLeft().setRight( y.getRight() );
@@ -598,7 +598,7 @@ public final class FibonacciHeap<E>
      * @param x the node has to be removed from {@code y} children
      * @param y the node has to be updated
      */
-    private void cut( FibonacciHeapNode<E> x, FibonacciHeapNode<E> y )
+    private void cut(final FibonacciHeapNode<E> x, final FibonacciHeapNode<E> y )
     {
         // add x to the root list of H
         moveToRoot( x );
@@ -626,10 +626,10 @@ public final class FibonacciHeap<E>
      *
      * @param y the target node to apply CASCADING-CUT
      */
-    private void cascadingCut( FibonacciHeapNode<E> y )
+    private void cascadingCut(final FibonacciHeapNode<E> y )
     {
         // z <- p[y]
-        FibonacciHeapNode<E> z = y.getParent();
+        final FibonacciHeapNode<E> z = y.getParent();
 
         // if z != NIL
         if ( z != null )
@@ -671,13 +671,13 @@ public final class FibonacciHeap<E>
      * @return a negative integer, zero, or a positive integer as the first argument is
      *         less than, equal to, or greater than the second
      */
-    private int compare( FibonacciHeapNode<E> o1, FibonacciHeapNode<E> o2 )
+    private int compare(final FibonacciHeapNode<E> o1, final FibonacciHeapNode<E> o2 )
     {
         if ( comparator != null )
         {
             return comparator.compare( o1.getElement(), o2.getElement() );
         }
-        @SuppressWarnings( "unchecked" ) // it will throw a ClassCastException at runtime
+        @SuppressWarnings( "unchecked" ) final // it will throw a ClassCastException at runtime
         Comparable<? super E> o1Comparable = (Comparable<? super E>) o1.getElement();
         return o1Comparable.compareTo( o2.getElement() );
     }
@@ -695,10 +695,10 @@ public final class FibonacciHeap<E>
         }
 
         // create a new stack and put root on it
-        Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
+        final Stack<FibonacciHeapNode<E>> stack = new Stack<FibonacciHeapNode<E>>();
         stack.push( minimumNode );
 
-        StringBuilder buf = new StringBuilder( "FibonacciHeap=[" );
+        final StringBuilder buf = new StringBuilder( "FibonacciHeap=[" );
 
         // do a simple breadth-first traversal on the tree
         while ( !stack.empty() )
@@ -712,7 +712,7 @@ public final class FibonacciHeap<E>
                 stack.push( curr.getChild() );
             }
 
-            FibonacciHeapNode<E> start = curr;
+            final FibonacciHeapNode<E> start = curr;
             curr = curr.getRight();
 
             while ( curr != start )

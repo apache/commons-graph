@@ -41,7 +41,7 @@ public class DoubleWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Double append( Double s1, Double s2 )
+    public Double append(final Double s1, final Double s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -53,7 +53,7 @@ public class DoubleWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Double inverse( Double element )
+    public Double inverse(final Double element )
     {
         return -element;
     }
@@ -61,7 +61,7 @@ public class DoubleWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public int compare( Double s1, Double s2 )
+    public int compare(final Double s1, final Double s2 )
     {
         return s1.compareTo( s2 );
     }
