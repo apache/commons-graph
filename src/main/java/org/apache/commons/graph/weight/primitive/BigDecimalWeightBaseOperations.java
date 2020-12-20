@@ -46,7 +46,7 @@ public class BigDecimalWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigDecimal append( BigDecimal s1, BigDecimal s2 )
+    public BigDecimal append(final BigDecimal s1, final BigDecimal s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -58,7 +58,7 @@ public class BigDecimalWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigDecimal inverse( BigDecimal element )
+    public BigDecimal inverse(final BigDecimal element )
     {
         return element.negate();
     }
@@ -66,7 +66,7 @@ public class BigDecimalWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public int compare( BigDecimal o1, BigDecimal o2 )
+    public int compare(final BigDecimal o1, final BigDecimal o2 )
     {
         return o1.compareTo( o2 );
     }

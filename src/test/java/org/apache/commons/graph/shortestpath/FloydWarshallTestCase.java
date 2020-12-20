@@ -56,7 +56,7 @@ public class FloydWarshallTestCase
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -65,7 +65,7 @@ public class FloydWarshallTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
+        final AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
             findShortestPath( graph )
                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                 .applyingFloydWarshall( new DoubleWeightBaseOperations() );
@@ -85,19 +85,19 @@ public class FloydWarshallTestCase
         findShortestPathAndVerify( new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() );
     }
 
-    private void findShortestPathAndVerify( Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> weighted )
+    private void findShortestPathAndVerify(final Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> weighted )
     {
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> mutable =
+        final MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> mutable =
             (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) weighted;
 
         // building Graph
 
-        BaseLabeledVertex one = new BaseLabeledVertex( "1" );
-        BaseLabeledVertex two = new BaseLabeledVertex( "2" );
-        BaseLabeledVertex three = new BaseLabeledVertex( "3" );
-        BaseLabeledVertex four = new BaseLabeledVertex( "4" );
-        BaseLabeledVertex five = new BaseLabeledVertex( "5" );
-        BaseLabeledVertex six = new BaseLabeledVertex( "6" );
+        final BaseLabeledVertex one = new BaseLabeledVertex( "1" );
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+        final BaseLabeledVertex three = new BaseLabeledVertex( "3" );
+        final BaseLabeledVertex four = new BaseLabeledVertex( "4" );
+        final BaseLabeledVertex five = new BaseLabeledVertex( "5" );
+        final BaseLabeledVertex six = new BaseLabeledVertex( "6" );
 
         mutable.addVertex( one );
         mutable.addVertex( two );
@@ -119,7 +119,7 @@ public class FloydWarshallTestCase
         mutable.addEdge( four, new BaseLabeledWeightedEdge<Double>( "4 -> 5", 6D ), five );
         mutable.addEdge( six, new BaseLabeledWeightedEdge<Double>( "6 -> 5", 9D ), five );
 
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
+        final AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> p =
             findShortestPath( weighted )
                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                 .applyingFloydWarshall( new DoubleWeightBaseOperations() );
@@ -139,10 +139,10 @@ public class FloydWarshallTestCase
 
             // Verify shortest paths
 
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> wp = p.findShortestPath( one, six );
+            final WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> wp = p.findShortestPath( one, six );
 
             // Expected
-            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
                 new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, six, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
             expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
             expected.addConnectionInTail( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );
@@ -166,11 +166,11 @@ public class FloydWarshallTestCase
                 wp = p.findShortestPath( five, one );
                 fail( "Path from {5} to {1} doesn't exist" );
             }
-            catch (PathNotFoundException e) {
+            catch (final PathNotFoundException e) {
                 // wallow it
             }
 
-            InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+            final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
                 new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, six, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
             expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
             expected.addConnectionInTail( three, new BaseLabeledWeightedEdge<Double>( "3 -> 6", 2D ), six );

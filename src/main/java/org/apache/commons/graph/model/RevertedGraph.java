@@ -90,7 +90,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getDegree( V v )
+    public int getDegree(final V v )
     {
         return directedGraph.getDegree( v );
     }
@@ -98,7 +98,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getConnectedVertices( V v )
+    public Iterable<V> getConnectedVertices(final V v )
     {
         return directedGraph.getConnectedVertices( v );
     }
@@ -106,7 +106,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public E getEdge( V source, V target )
+    public E getEdge(final V source, final V target )
     {
         return directedGraph.getEdge( target, source );
     }
@@ -114,16 +114,16 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public VertexPair<V> getVertices( E e )
+    public VertexPair<V> getVertices(final E e )
     {
-        VertexPair<V> directedVertexPair = directedGraph.getVertices( e );
+        final VertexPair<V> directedVertexPair = directedGraph.getVertices( e );
         return new VertexPair<V>( directedVertexPair.getTail(), directedVertexPair.getHead() );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int getInDegree( V v )
+    public int getInDegree(final V v )
     {
         return directedGraph.getOutDegree( v );
     }
@@ -131,7 +131,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getInbound( V v )
+    public Iterable<V> getInbound(final V v )
     {
         return directedGraph.getOutbound( v );
     }
@@ -139,7 +139,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getOutDegree( V v )
+    public int getOutDegree(final V v )
     {
         return directedGraph.getOutDegree( v );
     }
@@ -147,7 +147,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getOutbound( V v )
+    public Iterable<V> getOutbound(final V v )
     {
         return directedGraph.getInbound( v );
     }
@@ -155,7 +155,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsVertex( V v )
+    public boolean containsVertex(final V v )
     {
         return directedGraph.containsVertex( v );
     }
@@ -163,7 +163,7 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsEdge( E e )
+    public boolean containsEdge(final E e )
     {
         return directedGraph.containsEdge( e );
     }

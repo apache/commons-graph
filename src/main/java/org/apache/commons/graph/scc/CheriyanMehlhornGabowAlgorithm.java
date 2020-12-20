@@ -33,7 +33,6 @@ import org.apache.commons.graph.DirectedGraph;
  * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
- * @param <G> the directed graph type
  */
 final class CheriyanMehlhornGabowAlgorithm<V, E>
     implements SccAlgorithm<V>
@@ -55,7 +54,7 @@ final class CheriyanMehlhornGabowAlgorithm<V, E>
 
     private int sscCounter = 0;
 
-    public CheriyanMehlhornGabowAlgorithm( DirectedGraph<V, E> graph )
+    public CheriyanMehlhornGabowAlgorithm(final DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }
@@ -64,7 +63,7 @@ final class CheriyanMehlhornGabowAlgorithm<V, E>
      */
     public Set<Set<V>> perform()
     {
-        for ( V vertex : graph.getVertices() )
+        for ( final V vertex : graph.getVertices() )
         {
             if ( !marked.contains( vertex ) )
             {
@@ -78,9 +77,9 @@ final class CheriyanMehlhornGabowAlgorithm<V, E>
             indexedSccComponents.add( new HashSet<V>() );
         }
 
-        for ( V w : graph.getVertices() )
+        for ( final V w : graph.getVertices() )
         {
-            Set<V> component = indexedSccComponents.get( sscId.get( w ) );
+            final Set<V> component = indexedSccComponents.get( sscId.get( w ) );
             component.add( w );
         }
 
@@ -89,13 +88,13 @@ final class CheriyanMehlhornGabowAlgorithm<V, E>
         return scc;
     }
 
-    private void dfs( V vertex )
+    private void dfs(final V vertex )
     {
         marked.add( vertex );
         preorder.put( vertex, preorderCounter++ );
         s.push( vertex );
         p.push( vertex );
-        for ( V w : graph.getConnectedVertices( vertex ) )
+        for ( final V w : graph.getConnectedVertices( vertex ) )
         {
             if ( !marked.contains( w ) )
             {

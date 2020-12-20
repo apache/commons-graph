@@ -46,7 +46,7 @@ public class BigIntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigInteger append( BigInteger s1, BigInteger s2 )
+    public BigInteger append(final BigInteger s1, final BigInteger s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -58,7 +58,7 @@ public class BigIntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigInteger inverse( BigInteger element )
+    public BigInteger inverse(final BigInteger element )
     {
         return element.negate();
     }
@@ -66,7 +66,7 @@ public class BigIntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public int compare( BigInteger o1, BigInteger o2 )
+    public int compare(final BigInteger o1, final BigInteger o2 )
     {
         return o1.compareTo( o2 );
     }

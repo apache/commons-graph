@@ -35,7 +35,7 @@ public class BaseLabeledWeightedEdge<W>
 
     private final W weight;
 
-    public BaseLabeledWeightedEdge( String label, W weight )
+    public BaseLabeledWeightedEdge(final String label, final W weight )
     {
         super( label );
         this.weight = checkNotNull( weight, "Argument 'weight' must not be null" );
@@ -62,7 +62,7 @@ public class BaseLabeledWeightedEdge<W>
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -78,8 +78,7 @@ public class BaseLabeledWeightedEdge<W>
         {
             return false;
         }
-        @SuppressWarnings( "unchecked" )
-        BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
+        @SuppressWarnings( "unchecked" ) final BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
         return eq( weight, other.getWeight() );
     }
 

@@ -85,7 +85,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
         weightedEdges = new Mapper<BaseLabeledWeightedEdge<Double>, Double>()
         {
 
-            public Double map( BaseLabeledWeightedEdge<Double> input )
+            public Double map(final BaseLabeledWeightedEdge<Double> input )
             {
                 return input.getWeight();
             }
@@ -94,14 +94,14 @@ public final class UniVsBiDijkstraBenchmarkTestCase
 
         graph = newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
-            Random r = new Random();
+            final Random r = new Random();
 
             public void connect()
             {
                 vertices = new ArrayList<BaseLabeledVertex>();
                 for ( int i = 0; i < NODES; i++ )
                 {
-                    BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                    final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
                     addVertex( v );
                     vertices.add( v );
                 }
@@ -115,7 +115,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
                 addEdge( vertices.get( NODES - 1 ) , vertices.get( 0 ) );
 
                 // we have already created #NODES edges
-                int maxEdges = Math.max(0, EDGES - NODES);
+                final int maxEdges = Math.max(0, EDGES - NODES);
                 for ( int i = 0; i < maxEdges; i++)
                 {
                     while ( ! addEdge( vertices.get( r.nextInt(NODES) ), vertices.get( r.nextInt(NODES) ) ) ) {
@@ -124,13 +124,13 @@ public final class UniVsBiDijkstraBenchmarkTestCase
                 }
             }
 
-            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
+            private boolean addEdge(final BaseLabeledVertex src, final BaseLabeledVertex dst )
             {
                 try {
                   addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
                                                                 10.0 * r.nextDouble() + 1.0 ) ).from( src ).to( dst );
                   return true;
-              } catch (GraphException e) {
+              } catch (final GraphException e) {
                   // ignore duplicate edge exceptions
                   return false;
               }
@@ -143,15 +143,15 @@ public final class UniVsBiDijkstraBenchmarkTestCase
         sourceListBi = new LinkedList<BaseLabeledVertex>();
         targetListBi = new LinkedList<BaseLabeledVertex>();
 
-        Random r = new Random();
+        final Random r = new Random();
 
         for ( int i = 0; i < 15; i++ )
         {
-            BaseLabeledVertex s = vertices.get( r.nextInt( vertices.size() ) );
+            final BaseLabeledVertex s = vertices.get( r.nextInt( vertices.size() ) );
             sourceListUni.add( s );
             sourceListBi.add( s );
 
-            BaseLabeledVertex t = vertices.get( r.nextInt( vertices.size() ) );
+            final BaseLabeledVertex t = vertices.get( r.nextInt( vertices.size() ) );
             targetListUni.add( t );
             targetListBi.add( t );
         }
@@ -159,11 +159,11 @@ public final class UniVsBiDijkstraBenchmarkTestCase
 
     @Test
     public void performUnidirectionalDijkstra() {
-        BaseLabeledVertex source = sourceListUni.removeFirst();
-        BaseLabeledVertex target = targetListUni.removeFirst();
+        final BaseLabeledVertex source = sourceListUni.removeFirst();
+        final BaseLabeledVertex target = targetListUni.removeFirst();
 
         try {
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> path =
+            final WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> path =
                     findShortestPath( graph )
                                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                                 .from( source )
@@ -173,7 +173,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
             assertTrue( path.getSize() > 0 );
             assertTrue( path.getWeight() > 0D );
         }
-        catch ( Exception e )
+        catch ( final Exception e )
         {
             e.printStackTrace();
         }
@@ -181,11 +181,11 @@ public final class UniVsBiDijkstraBenchmarkTestCase
 
     @Test
     public void performBidirectionalDijkstra() {
-        BaseLabeledVertex source = sourceListBi.removeFirst();
-        BaseLabeledVertex target = targetListBi.removeFirst();
+        final BaseLabeledVertex source = sourceListBi.removeFirst();
+        final BaseLabeledVertex target = targetListBi.removeFirst();
 
         try {
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> path =
+            final WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> path =
                     findShortestPath( graph )
                                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                                 .from( source )
@@ -195,7 +195,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
             assertTrue( path.getSize() > 0 );
             assertTrue( path.getWeight() > 0D );
         }
-        catch ( Exception e )
+        catch ( final Exception e )
         {
             e.printStackTrace();
         }

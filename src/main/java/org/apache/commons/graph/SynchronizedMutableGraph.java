@@ -35,7 +35,7 @@ final class SynchronizedMutableGraph<V, E>
      * Creates a new thread-safe instence of {@link SynchronizedMutableGraph}.
      * @param g The {@link Graph} that has to be synchronized
      */
-    public SynchronizedMutableGraph( MutableGraph<V, E> g )
+    public SynchronizedMutableGraph(final MutableGraph<V, E> g )
     {
         super( g );
         this.mutableGraph = g;
@@ -44,7 +44,7 @@ final class SynchronizedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public void addVertex( V v )
+    public void addVertex(final V v )
     {
         synchronized ( lock )
         {
@@ -55,7 +55,7 @@ final class SynchronizedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public void removeVertex( V v )
+    public void removeVertex(final V v )
     {
         synchronized ( lock )
         {
@@ -66,7 +66,7 @@ final class SynchronizedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public void addEdge( V head, E e, V tail )
+    public void addEdge(final V head, final E e, final V tail )
     {
         synchronized ( lock )
         {
@@ -77,7 +77,7 @@ final class SynchronizedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public void removeEdge( E e )
+    public void removeEdge(final E e )
     {
         synchronized ( lock )
         {

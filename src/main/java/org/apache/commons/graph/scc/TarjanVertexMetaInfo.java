@@ -38,7 +38,7 @@ final class TarjanVertexMetaInfo
         return UNDEFINED == index;
     }
 
-    public void setIndex( int index )
+    public void setIndex(final int index )
     {
         this.index = index;
     }
@@ -48,7 +48,7 @@ final class TarjanVertexMetaInfo
         return lowLink;
     }
 
-    public void setLowLink( int lowLink )
+    public void setLowLink(final int lowLink )
     {
         this.lowLink = lowLink;
     }

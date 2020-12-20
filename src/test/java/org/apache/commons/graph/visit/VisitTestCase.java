@@ -39,7 +39,7 @@ public final class VisitTestCase
     @Test( expected = IllegalStateException.class )
     public void testNotExistVertex()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
             newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
             {
 
@@ -62,21 +62,21 @@ public final class VisitTestCase
     {
         // input graph
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
             @Override
             public void connect()
             {
-                BaseLabeledVertex r = addVertex( new BaseLabeledVertex( "r" ) );
-                BaseLabeledVertex s = addVertex( new BaseLabeledVertex( "s" ) );
-                BaseLabeledVertex t = addVertex( new BaseLabeledVertex( "t" ) );
-                BaseLabeledVertex u = addVertex( new BaseLabeledVertex( "u" ) );
-                BaseLabeledVertex v = addVertex( new BaseLabeledVertex( "v" ) );
-                BaseLabeledVertex w = addVertex( new BaseLabeledVertex( "w" ) );
-                BaseLabeledVertex x = addVertex( new BaseLabeledVertex( "x" ) );
-                BaseLabeledVertex y = addVertex( new BaseLabeledVertex( "y" ) );
+                final BaseLabeledVertex r = addVertex( new BaseLabeledVertex( "r" ) );
+                final BaseLabeledVertex s = addVertex( new BaseLabeledVertex( "s" ) );
+                final BaseLabeledVertex t = addVertex( new BaseLabeledVertex( "t" ) );
+                final BaseLabeledVertex u = addVertex( new BaseLabeledVertex( "u" ) );
+                final BaseLabeledVertex v = addVertex( new BaseLabeledVertex( "v" ) );
+                final BaseLabeledVertex w = addVertex( new BaseLabeledVertex( "w" ) );
+                final BaseLabeledVertex x = addVertex( new BaseLabeledVertex( "x" ) );
+                final BaseLabeledVertex y = addVertex( new BaseLabeledVertex( "y" ) );
 
                 addEdge( new BaseLabeledEdge( "s <-> r" ) ).from( s ).to( r );
                 addEdge( new BaseLabeledEdge( "s <-> w" ) ).from( s ).to( w );
@@ -97,21 +97,21 @@ public final class VisitTestCase
 
         // expected graph
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> expected =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> expected =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
             @Override
             public void connect()
             {
-                BaseLabeledVertex r = addVertex( new BaseLabeledVertex( "r" ) );
-                BaseLabeledVertex s = addVertex( new BaseLabeledVertex( "s" ) );
-                BaseLabeledVertex t = addVertex( new BaseLabeledVertex( "t" ) );
-                BaseLabeledVertex u = addVertex( new BaseLabeledVertex( "u" ) );
-                BaseLabeledVertex v = addVertex( new BaseLabeledVertex( "v" ) );
-                BaseLabeledVertex w = addVertex( new BaseLabeledVertex( "w" ) );
-                BaseLabeledVertex x = addVertex( new BaseLabeledVertex( "x" ) );
-                BaseLabeledVertex y = addVertex( new BaseLabeledVertex( "y" ) );
+                final BaseLabeledVertex r = addVertex( new BaseLabeledVertex( "r" ) );
+                final BaseLabeledVertex s = addVertex( new BaseLabeledVertex( "s" ) );
+                final BaseLabeledVertex t = addVertex( new BaseLabeledVertex( "t" ) );
+                final BaseLabeledVertex u = addVertex( new BaseLabeledVertex( "u" ) );
+                final BaseLabeledVertex v = addVertex( new BaseLabeledVertex( "v" ) );
+                final BaseLabeledVertex w = addVertex( new BaseLabeledVertex( "w" ) );
+                final BaseLabeledVertex x = addVertex( new BaseLabeledVertex( "x" ) );
+                final BaseLabeledVertex y = addVertex( new BaseLabeledVertex( "y" ) );
 
                 addEdge( new BaseLabeledEdge( "s <-> r" ) ).from( s ).to( r );
                 addEdge( new BaseLabeledEdge( "s <-> w" ) ).from( s ).to( w );
@@ -130,7 +130,7 @@ public final class VisitTestCase
 
         // actual graph
 
-        Graph<BaseLabeledVertex, BaseLabeledEdge> actual = visit( input ).from( new BaseLabeledVertex( "s" ) ).applyingBreadthFirstSearch();
+        final Graph<BaseLabeledVertex, BaseLabeledEdge> actual = visit( input ).from( new BaseLabeledVertex( "s" ) ).applyingBreadthFirstSearch();
 
         // assertion
 
@@ -149,22 +149,22 @@ public final class VisitTestCase
 
         // input graph
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
             @Override
             public void connect()
             {
-                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "A" ) );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-                BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
-                BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
-                BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
-                BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
-                BaseLabeledVertex s = addVertex( new BaseLabeledVertex( "S" ) );
+                final BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "A" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
+                final BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
+                final BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
+                final BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
+                final BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
+                final BaseLabeledVertex s = addVertex( new BaseLabeledVertex( "S" ) );
 
                 addEdge( new BaseLabeledEdge( "S <-> A" ) ).from( s ).to( a );
                 addEdge( new BaseLabeledEdge( "S <-> B" ) ).from( s ).to( b );

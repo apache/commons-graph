@@ -28,7 +28,7 @@ public final class EdgeWeightMapper
 
     private static final long serialVersionUID = 20120728L;
 
-    public Double map( BaseLabeledWeightedEdge<Double> input )
+    public Double map(final BaseLabeledWeightedEdge<Double> input )
     {
         return input.getWeight();
     }

@@ -45,7 +45,7 @@ public class GraphException
      * @param arguments Arguments referenced by the format specifiers in the format string
      * @see java.lang.String#format(String, Object...)
      */
-    public GraphException( String messagePattern, Object...arguments )
+    public GraphException(final String messagePattern, final Object...arguments )
     {
         super( format( messagePattern, arguments ) );
     }
@@ -55,7 +55,7 @@ public class GraphException
      *
      * @param cause the cause
      */
-    public GraphException( Throwable cause )
+    public GraphException(final Throwable cause )
     {
         super( cause );
     }
@@ -66,7 +66,7 @@ public class GraphException
      * @param msg the detail message.
      * @param cause the cause
      */
-    public GraphException( String msg, Throwable cause )
+    public GraphException(final String msg, final Throwable cause )
     {
         super( msg, cause );
     }

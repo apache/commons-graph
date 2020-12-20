@@ -37,29 +37,29 @@ public final class EloTestCase
     @Test
     public void performElo()
     {
-        DirectedGraph<String, GameResult> tournament =
+        final DirectedGraph<String, GameResult> tournament =
         newDirectedMutableGraph( new AbstractGraphConnection<String, GameResult>()
         {
 
             @Override
             public void connect()
             {
-                String zenio = addVertex( "Zenio" );
-                String marineking = addVertex( "Marineking" );
-                String hongun = addVertex( "Hongun" );
-                String nestea = addVertex( "Nestea" );
-                String tester = addVertex( "Tester" );
-                String nada = addVertex( "Nada" );
-                String rainbow = addVertex( "Rainbow" );
-                String thewind = addVertex( "Thewind" );
-                String inka = addVertex( "Inka" );
-                String maka = addVertex( "Maka" );
-                String ensnare = addVertex( "Ensnare" );
-                String kyrix = addVertex( "Kyrix" );
-                String killer = addVertex( "Killer" );
-                String slayersboxer = addVertex( "Slayersboxer" );
-                String fruitdealer = addVertex( "Fruitdealer" );
-                String genius = addVertex( "Genius" );
+                final String zenio = addVertex( "Zenio" );
+                final String marineking = addVertex( "Marineking" );
+                final String hongun = addVertex( "Hongun" );
+                final String nestea = addVertex( "Nestea" );
+                final String tester = addVertex( "Tester" );
+                final String nada = addVertex( "Nada" );
+                final String rainbow = addVertex( "Rainbow" );
+                final String thewind = addVertex( "Thewind" );
+                final String inka = addVertex( "Inka" );
+                final String maka = addVertex( "Maka" );
+                final String ensnare = addVertex( "Ensnare" );
+                final String kyrix = addVertex( "Kyrix" );
+                final String killer = addVertex( "Killer" );
+                final String slayersboxer = addVertex( "Slayersboxer" );
+                final String fruitdealer = addVertex( "Fruitdealer" );
+                final String genius = addVertex( "Genius" );
 
                 // no draws
                 addEdge( WIN ).from( zenio ).to( marineking );
@@ -81,7 +81,7 @@ public final class EloTestCase
 
         } );
 
-        PlayersRank<String> playersRank = new SimplePlayersRank();
+        final PlayersRank<String> playersRank = new SimplePlayersRank();
 
         eloRate( tournament ).wherePlayersAreRankedIn( playersRank ).withKFactor( 80 );
 

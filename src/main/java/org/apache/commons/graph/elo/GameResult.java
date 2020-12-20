@@ -33,6 +33,6 @@ public enum GameResult
     /**
      * DRAW
      */
-    DRAW;
+    DRAW
 
 }

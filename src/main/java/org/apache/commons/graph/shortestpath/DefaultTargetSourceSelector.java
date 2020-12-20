@@ -37,7 +37,7 @@ final class DefaultTargetSourceSelector<V, WE, W>
 
     private final V source;
 
-    public DefaultTargetSourceSelector( Graph<V, WE> graph, Mapper<WE, W> weightedEdges, V source )
+    public DefaultTargetSourceSelector(final Graph<V, WE> graph, final Mapper<WE, W> weightedEdges, final V source )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -58,15 +58,15 @@ final class DefaultTargetSourceSelector<V, WE, W>
 
         for ( int i = 0; i < graph.getOrder(); i++ )
         {
-            for ( WE edge : graph.getEdges() )
+            for ( final WE edge : graph.getEdges() )
             {
-                VertexPair<V> vertexPair = graph.getVertices( edge );
-                V u = vertexPair.getHead();
-                V v = vertexPair.getTail();
+                final VertexPair<V> vertexPair = graph.getVertices( edge );
+                final V u = vertexPair.getHead();
+                final V v = vertexPair.getTail();
 
                 if ( shortestDistances.alreadyVisited( u ) )
                 {
-                    W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.map( edge ) );
+                    final W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.map( edge ) );
 
                     if ( !shortestDistances.alreadyVisited( v )
                             || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
@@ -81,15 +81,15 @@ final class DefaultTargetSourceSelector<V, WE, W>
             }
         }
 
-        for ( WE edge : graph.getEdges() )
+        for ( final WE edge : graph.getEdges() )
         {
-            VertexPair<V> vertexPair = graph.getVertices( edge );
-            V u = vertexPair.getHead();
-            V v = vertexPair.getTail();
+            final VertexPair<V> vertexPair = graph.getVertices( edge );
+            final V u = vertexPair.getHead();
+            final V v = vertexPair.getTail();
 
             if ( shortestDistances.alreadyVisited( u ) )
             {
-                W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.map( edge ) );
+                final W shortDist = weightOperations.append( shortestDistances.getWeight( u ), weightedEdges.map( edge ) );
 
                 if ( !shortestDistances.alreadyVisited( v )
                         || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
@@ -101,18 +101,18 @@ final class DefaultTargetSourceSelector<V, WE, W>
             }
         }
 
-        AllVertexPairsShortestPath<V, WE, W> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
+        final AllVertexPairsShortestPath<V, WE, W> allVertexPairsShortestPath = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
 
-        for ( V target : graph.getVertices() )
+        for ( final V target : graph.getVertices() )
         {
             if ( !source.equals( target ) )
             {
                 try
                 {
-                    WeightedPath<V, WE, W> weightedPath = predecessors.buildPath( source, target );
+                    final WeightedPath<V, WE, W> weightedPath = predecessors.buildPath( source, target );
                     allVertexPairsShortestPath.addShortestPath( source, target, weightedPath );
                 }
-                catch ( PathNotFoundException e )
+                catch ( final PathNotFoundException e )
                 {
                     continue;
                 }

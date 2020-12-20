@@ -42,7 +42,7 @@ public class FloatWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Float append( Float s1, Float s2 )
+    public Float append(final Float s1, final Float s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -54,7 +54,7 @@ public class FloatWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Float inverse( Float element )
+    public Float inverse(final Float element )
     {
         return -element;
     }
@@ -62,7 +62,7 @@ public class FloatWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public int compare( Float s1, Float s2 )
+    public int compare(final Float s1, final Float s2 )
     {
         return s1.compareTo( s2 );
     }

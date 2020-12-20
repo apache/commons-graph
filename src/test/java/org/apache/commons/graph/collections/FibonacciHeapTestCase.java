@@ -129,16 +129,16 @@ public final class FibonacciHeapTestCase
 
         for ( int i = 0; i < 1000; i++ )
         {
-            Integer number = new Integer( r.nextInt( 10000 ) );
+            final Integer number = new Integer( r.nextInt( 10000 ) );
             expected.add( number );
 
             queue.add( number );
         }
         sort( expected );
 
-        for ( Integer integer : expected )
+        for ( final Integer integer : expected )
         {
-            Integer i = queue.poll();
+            final Integer i = queue.poll();
             assertThat( i, is( integer ) );
         }
         
@@ -148,7 +148,7 @@ public final class FibonacciHeapTestCase
     @Test
     public void addAllAndContinsItem()
     {
-        Collection<Integer> c = new ArrayList<Integer>();
+        final Collection<Integer> c = new ArrayList<Integer>();
         
         c.add( 50 );
         c.add( 100 );
@@ -172,7 +172,7 @@ public final class FibonacciHeapTestCase
         final Random r = new Random( System.currentTimeMillis() );
         for ( int i = 0; i < 1000; i++ )
         {
-            Integer number = new Integer( r.nextInt( 10000 ) );
+            final Integer number = new Integer( r.nextInt( 10000 ) );
             queue.add( number );
         }
 

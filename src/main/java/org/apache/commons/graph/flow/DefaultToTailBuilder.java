@@ -41,7 +41,7 @@ final class DefaultToTailBuilder<V, WE, W>
 
     private final V head;
 
-    public DefaultToTailBuilder( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V head )
+    public DefaultToTailBuilder(final DirectedGraph<V, WE> graph, final Mapper<WE, W> weightedEdges, final V head )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;

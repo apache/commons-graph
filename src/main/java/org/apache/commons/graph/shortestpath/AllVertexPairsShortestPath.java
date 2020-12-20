@@ -47,7 +47,7 @@ public final class AllVertexPairsShortestPath<V, WE, W>
     /**
      * Constructor visible only inside the package
      */
-    AllVertexPairsShortestPath( OrderedMonoid<W> weightOperations )
+    AllVertexPairsShortestPath(final OrderedMonoid<W> weightOperations )
     {
         this.weightOperations = weightOperations;
     }
@@ -78,7 +78,7 @@ public final class AllVertexPairsShortestPath<V, WE, W>
         source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
         target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
 
-        WeightedPath<V, WE, W> path = paths.get( new VertexPair<V>( source, target ) );
+        final WeightedPath<V, WE, W> path = paths.get( new VertexPair<V>( source, target ) );
 
         if ( path == null )
         {

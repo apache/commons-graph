@@ -36,7 +36,7 @@ final class ConnectedComponentHandler<V, E>
 
     private final List<V> untouchedVertices;
 
-    public ConnectedComponentHandler( List<V> untouchedVertices )
+    public ConnectedComponentHandler(final List<V> untouchedVertices )
     {
         this.untouchedVertices = untouchedVertices;
     }
@@ -45,7 +45,7 @@ final class ConnectedComponentHandler<V, E>
      * {@inheritDoc}
      */
     @Override
-    public VisitState finishVertex( V vertex )
+    public VisitState finishVertex(final V vertex )
     {
         untouchedVertices.remove( vertex );
         touchedVertices.add( vertex );

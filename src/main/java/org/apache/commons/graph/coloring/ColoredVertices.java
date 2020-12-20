@@ -53,10 +53,10 @@ public final class ColoredVertices<V, C>
      * @param v the vertex for which storing the color.
      * @param color the input vertex color.
      */
-    void addColor( V v, C color )
+    void addColor(final V v, final C color )
     {
         coloredVertices.put( v, color );
-        int idx = usedColor.indexOf( color );
+        final int idx = usedColor.indexOf( color );
         if ( idx == -1 )
         {
             usedColor.add( color );
@@ -72,9 +72,9 @@ public final class ColoredVertices<V, C>
      *
      * @param v the vertex for which storing the color.
      */
-    void removeColor( V v )
+    void removeColor(final V v )
     {
-        C color = coloredVertices.remove( v );
+        final C color = coloredVertices.remove( v );
         usedColor.remove( color );
     }
 
@@ -107,7 +107,7 @@ public final class ColoredVertices<V, C>
      * @param vertex the vertex 
      * @return true if the colored vertex is contained into the map, false otherwise
      */
-    public boolean containsColoredVertex( V vertex )
+    public boolean containsColoredVertex(final V vertex )
     {
         return coloredVertices.containsKey( vertex );
     }

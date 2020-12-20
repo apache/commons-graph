@@ -29,29 +29,28 @@ import java.util.List;
 public class MultiThreadedTestRunner
 {
     final private List<Thread> th;
-    long maxWait = 60L * 60L * 1000;
+    final long maxWait = 60L * 60L * 1000;
     final private List<Throwable> exeptions;
     
     
-    public MultiThreadedTestRunner( TestRunner[] runnables )
+    public MultiThreadedTestRunner(final TestRunner[] runnables )
     {
         th = new ArrayList<Thread>();
         exeptions = new ArrayList<Throwable>();
-        for ( int i = 0; i < runnables.length; i++ )
-        {
-            runnables[i].setTestRunner( this );
-            th.add( new Thread( runnables[i] ) );
+        for (final TestRunner runnable : runnables) {
+            runnable.setTestRunner(this);
+            th.add(new Thread(runnable));
         }
     }
 
     public void runRunnables() throws Throwable
     {
-        for ( Thread t : th )
+        for ( final Thread t : th )
         {
             t.start();
         }
         
-        for ( Thread t : th )
+        for ( final Thread t : th )
         {
             t.join( maxWait );
         }
@@ -65,7 +64,7 @@ public class MultiThreadedTestRunner
     /**
      * @param e
      */
-    public void addException( Throwable e )
+    public void addException(final Throwable e )
     {
         exeptions.add( e );
     }

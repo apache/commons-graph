@@ -33,7 +33,7 @@ public class BaseLabeledVertex
     private static final long serialVersionUID = -5167021719818162490L;
     private final String label;
 
-    public BaseLabeledVertex( String label )
+    public BaseLabeledVertex(final String label )
     {
         this.label = checkNotNull( label, "Argument 'label' must not be null" );
     }
@@ -59,7 +59,7 @@ public class BaseLabeledVertex
      * {@inheritDoc}
      */
     @Override
-    public boolean equals( Object obj )
+    public boolean equals(final Object obj )
     {
         if ( this == obj )
         {
@@ -71,7 +71,7 @@ public class BaseLabeledVertex
             return false;
         }
 
-        BaseLabeledVertex other = (BaseLabeledVertex) obj;
+        final BaseLabeledVertex other = (BaseLabeledVertex) obj;
         return eq( label, other.getLabel() );
     }
 

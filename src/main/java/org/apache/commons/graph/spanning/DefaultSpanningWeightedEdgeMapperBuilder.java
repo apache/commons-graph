@@ -30,7 +30,7 @@ public final class DefaultSpanningWeightedEdgeMapperBuilder<V, WE>
 
     private final Graph<V, WE> graph;
 
-    public DefaultSpanningWeightedEdgeMapperBuilder( Graph<V, WE> graph )
+    public DefaultSpanningWeightedEdgeMapperBuilder(final Graph<V, WE> graph )
     {
         this.graph = graph;
     }

@@ -37,7 +37,7 @@ public final class DefaultVisitSourceSelector<V, E, G extends Graph<V, E>>
 
     private final G graph;
 
-    public DefaultVisitSourceSelector( G graph )
+    public DefaultVisitSourceSelector(final G graph )
     {
         this.graph = graph;
     }

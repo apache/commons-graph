@@ -68,7 +68,7 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
         newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
         {
 
@@ -88,7 +88,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph )
+        final Integer actual = findMaxFlow( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
                             .from( a )
                             .to( d )
@@ -103,7 +103,7 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
         newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
         {
 
@@ -111,7 +111,7 @@ public final class FordFulkersonTestCase
             public void connect()
             {
                 addVertex( a );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
                 addVertex( new BaseLabeledVertex( "C" ) );
                 addVertex( d );
                 addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 1000 ) ).from( a ).to( b );
@@ -124,7 +124,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 0;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph )
+        final Integer actual = findMaxFlow( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
                             .from( a )
                             .to( d )
@@ -136,7 +136,7 @@ public final class FordFulkersonTestCase
     @Test(expected=NullPointerException.class)
     public void testNullVertices()
     {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
         // actual max flow
@@ -153,7 +153,7 @@ public final class FordFulkersonTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );
 
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
             {
 
@@ -161,8 +161,8 @@ public final class FordFulkersonTestCase
                 public void connect()
                 {
                     addVertex( a );
-                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                    final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                    final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
                     addVertex( d );
 
                     addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 1000 ) ).from( a ).to( b );
@@ -178,7 +178,7 @@ public final class FordFulkersonTestCase
         final Integer expected = 2000;
 
         // actual max flow
-        Integer actual = findMaxFlow( graph )
+        final Integer actual = findMaxFlow( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
                             .from( a )
                             .to( d )

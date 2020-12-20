@@ -36,7 +36,7 @@ public abstract class AbstractGraphConnection<V, E>
     /**
      * {@inheritDoc}
      */
-    public final void connect( GraphConnector<V, E> connector )
+    public final void connect(final GraphConnector<V, E> connector )
     {
         checkState( this.connector == null, "Re-entry not allowed!" );
         this.connector = connector;
@@ -58,7 +58,7 @@ public abstract class AbstractGraphConnection<V, E>
      * @param node the vertex to add
      * @return the vertex added
      */
-    protected final <N extends V> N addVertex( N node )
+    protected final <N extends V> N addVertex(final N node )
     {
         return connector.addVertex( node );
     }
@@ -70,7 +70,7 @@ public abstract class AbstractGraphConnection<V, E>
      * @param arc the edge to add.
      * @return the {@link HeadVertexConnector}
      */
-    protected final <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
+    protected final <A extends E> HeadVertexConnector<V, E> addEdge(final A arc )
     {
         return connector.addEdge( arc );
     }

@@ -62,22 +62,22 @@ public final class SCCAlgorithmBenchmarkTestCase
         {
             public void connect()
             {
-                List<BaseLabeledVertex> vertices = new ArrayList<BaseLabeledVertex>();
+                final List<BaseLabeledVertex> vertices = new ArrayList<BaseLabeledVertex>();
                 for ( int i = 0; i < NODES; i++ )
                 {
-                    BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                    final BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
                     addVertex( v );
                     vertices.add( v );
                 }
 
-                Random r = new Random();
+                final Random r = new Random();
                 for ( int i = 0; i < EDGES; i++ ) {
-                    int v1 = r.nextInt(NODES);
-                    int v2 = r.nextInt(NODES);
+                    final int v1 = r.nextInt(NODES);
+                    final int v2 = r.nextInt(NODES);
 
                     try {
                         addEdge( new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ) ).from( vertices.get( v1 ) ).to( vertices.get( v2 ) );
-                    } catch (GraphException e) {
+                    } catch (final GraphException e) {
                         // ignore duplicate edge exceptions
                     }
                 }
@@ -88,21 +88,21 @@ public final class SCCAlgorithmBenchmarkTestCase
     @Test
     public void performKosaraju()
     {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
+        final Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
         assertTrue( actual.size() > 0 );
     }
 
     @Test
     public void performCheriyanMehlhornGabow()
     {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        final Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
         assertTrue( actual.size() > 0 );
     }
 
     @Test
     public void performTarjan()
     {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingTarjan();
+        final Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingTarjan();
         assertTrue( actual.size() > 0 );
     }
 

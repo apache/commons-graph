@@ -42,7 +42,7 @@ public class IntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Integer append( Integer s1, Integer s2 )
+    public Integer append(final Integer s1, final Integer s2 )
     {
         if ( s1 == null || s2 == null )
         {
@@ -54,7 +54,7 @@ public class IntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Integer inverse( Integer element )
+    public Integer inverse(final Integer element )
     {
         return -element;
     }
@@ -62,7 +62,7 @@ public class IntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public int compare( Integer o1, Integer o2 )
+    public int compare(final Integer o1, final Integer o2 )
     {
         return o1.compareTo( o2 );
     }

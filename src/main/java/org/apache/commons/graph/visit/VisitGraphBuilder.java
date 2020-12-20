@@ -41,7 +41,7 @@ final class VisitGraphBuilder<V, E, G extends Graph<V, E>>
      * {@inheritDoc}
      */
     @Override
-    public void discoverGraph( G graph )
+    public void discoverGraph(final G graph )
     {
         if ( graph instanceof DirectedGraph )
         {
@@ -52,7 +52,7 @@ final class VisitGraphBuilder<V, E, G extends Graph<V, E>>
             visitGraph = new UndirectedMutableGraph<V, E>();
         }
 
-        for ( V vertex : graph.getVertices() )
+        for ( final V vertex : graph.getVertices() )
         {
             visitGraph.addVertex( vertex );
         }
@@ -62,7 +62,7 @@ final class VisitGraphBuilder<V, E, G extends Graph<V, E>>
      * {@inheritDoc}
      */
     @Override
-    public VisitState discoverEdge( V head, E edge, V tail )
+    public VisitState discoverEdge(final V head, final E edge, final V tail )
     {
         visitGraph.addEdge( head, edge, tail );
         return VisitState.CONTINUE;

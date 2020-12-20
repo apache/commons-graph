@@ -38,7 +38,7 @@ final class UncoloredOrderedVertices<V>
 
     private final Map<Integer, Set<V>> orderedVertices = new TreeMap<Integer, Set<V>>( this );
 
-    public void addVertexDegree( V v, Integer degree )
+    public void addVertexDegree(final V v, final Integer degree )
     {
         Set<V> vertices = orderedVertices.get( degree );
 
@@ -54,7 +54,7 @@ final class UncoloredOrderedVertices<V>
     /**
      * {@inheritDoc}
      */
-    public int compare( Integer o1, Integer o2 )
+    public int compare(final Integer o1, final Integer o2 )
     {
         return o2.compareTo( o1 );
     }
@@ -64,7 +64,7 @@ final class UncoloredOrderedVertices<V>
         return new Iterator<V>()
         {
 
-            private Iterator<Integer> keys = orderedVertices.keySet().iterator();
+            private final Iterator<Integer> keys = orderedVertices.keySet().iterator();
 
             private Iterator<V> pending = null;
 
@@ -96,7 +96,7 @@ final class UncoloredOrderedVertices<V>
                 {
                     throw new NoSuchElementException();
                 }
-                V returned = next;
+                final V returned = next;
                 next = null;
                 return returned;
             }

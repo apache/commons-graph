@@ -37,6 +37,6 @@ public enum VisitState
     /**
      * SKIP state
      */
-    SKIP;
+    SKIP
 
 }

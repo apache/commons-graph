@@ -48,7 +48,7 @@ final class DisjointSetNode<E>
      *
      * @param element the node value has to be stored.
      */
-    public DisjointSetNode( E element )
+    public DisjointSetNode(final E element )
     {
         this.element = element;
     }
@@ -78,7 +78,7 @@ final class DisjointSetNode<E>
      *
      * @param parent the reference to a new parent node.
      */
-    public void setParent( DisjointSetNode<E> parent )
+    public void setParent(final DisjointSetNode<E> parent )
     {
         this.parent = parent;
     }
@@ -106,7 +106,7 @@ final class DisjointSetNode<E>
      *
      * @param rank the new rank to this node.
      */
-    public void setRank( int rank )
+    public void setRank(final int rank )
     {
         this.rank = rank;
     }
@@ -114,7 +114,7 @@ final class DisjointSetNode<E>
     /**
      * {@inheritDoc}
      */
-    public int compareTo( DisjointSetNode<E> o )
+    public int compareTo(final DisjointSetNode<E> o )
     {
         return rank.compareTo( o.getRank() );
     }

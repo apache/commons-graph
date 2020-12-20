@@ -50,10 +50,10 @@ public final class FindConnectedComponetTestCase
     @Test
     public void verifyEmptyGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
-        Collection<List<BaseLabeledVertex>> c =
+        final Collection<List<BaseLabeledVertex>> c =
             findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
         assertNotNull( c );
         assertEquals( 0, c.size() );
@@ -62,7 +62,7 @@ public final class FindConnectedComponetTestCase
     @Test
     public void verifyNullVerticesGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
             newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
             {
 
@@ -73,7 +73,7 @@ public final class FindConnectedComponetTestCase
                 }
 
             } );
-        Collection<List<BaseLabeledVertex>> c =
+        final Collection<List<BaseLabeledVertex>> c =
             findConnectedComponent( graph ).includingVertices().applyingMinimumSpanningTreeAlgorithm();
         assertNotNull( c );
         assertEquals( 0, c.size() );
@@ -84,7 +84,7 @@ public final class FindConnectedComponetTestCase
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
@@ -102,7 +102,7 @@ public final class FindConnectedComponetTestCase
 
         } );
 
-        Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        final Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
 
         assertNotNull( c );
         assertFalse( c.isEmpty() );
@@ -114,20 +114,20 @@ public final class FindConnectedComponetTestCase
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
             public void connect()
             {
                 addVertex( a );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-                BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
-                BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
-                BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
-                BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
+                final BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
+                final BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
+                final BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
+                final BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
 
                 addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
                 addEdge( new BaseLabeledEdge( "A -> B" ) ).from( a ).to( b );
@@ -140,7 +140,7 @@ public final class FindConnectedComponetTestCase
 
         } );
 
-        Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        final Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
 
         assertNotNull( c );
         assertFalse( c.isEmpty() );
@@ -152,15 +152,15 @@ public final class FindConnectedComponetTestCase
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
             public void connect()
             {
                 addVertex( a );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
 
                 addEdge( new BaseLabeledEdge( "A -> B" ) ).from( a ).to( b );
                 addEdge( new BaseLabeledEdge( "B -> C" ) ).from( b ).to( c );
@@ -169,7 +169,7 @@ public final class FindConnectedComponetTestCase
 
         } );
 
-        Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        final Collection<List<BaseLabeledVertex>> c = findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
 
         assertNotNull( c );
         assertFalse( c.isEmpty() );
@@ -181,20 +181,20 @@ public final class FindConnectedComponetTestCase
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
             public void connect()
             {
                 addVertex( a );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-                BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
-                BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
-                BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
-                BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
+                final BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
+                final BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
+                final BaseLabeledVertex g = addVertex( new BaseLabeledVertex( "G" ) );
+                final BaseLabeledVertex h = addVertex( new BaseLabeledVertex( "H" ) );
 
                 addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
                 addEdge( new BaseLabeledEdge( "A -> B" ) ).from( a ).to( b );
@@ -207,7 +207,7 @@ public final class FindConnectedComponetTestCase
 
         } );
 
-        Collection<List<BaseLabeledVertex>> coll = findConnectedComponent( graph ).includingVertices( a ).applyingMinimumSpanningTreeAlgorithm();
+        final Collection<List<BaseLabeledVertex>> coll = findConnectedComponent( graph ).includingVertices( a ).applyingMinimumSpanningTreeAlgorithm();
 
         assertNotNull( coll );
         assertFalse( coll.isEmpty() );
@@ -220,7 +220,7 @@ public final class FindConnectedComponetTestCase
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex e = new BaseLabeledVertex( "E" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
         newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
         {
 
@@ -239,7 +239,7 @@ public final class FindConnectedComponetTestCase
 
         } );
 
-        Collection<List<BaseLabeledVertex>> coll = findConnectedComponent( graph ).includingVertices( a, e ).applyingMinimumSpanningTreeAlgorithm();
+        final Collection<List<BaseLabeledVertex>> coll = findConnectedComponent( graph ).includingVertices( a, e ).applyingMinimumSpanningTreeAlgorithm();
 
         assertNotNull( coll );
         assertFalse( coll.isEmpty() );

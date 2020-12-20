@@ -80,7 +80,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     /**
      * {@inheritDoc}
      */
-    public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
+    public <O> O applyingBreadthFirstSearch(final GraphVisitHandler<V, E, G, O> handler )
     {
         return applyingSearch( handler, true );
     }
@@ -88,7 +88,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     /**
      * {@inheritDoc}
      */
-    public <O> O applyingDepthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
+    public <O> O applyingDepthFirstSearch(final GraphVisitHandler<V, E, G, O> handler )
     {
         return applyingSearch( handler, false );
     }
@@ -105,7 +105,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
      * @param enqueue defines the collection behavior used to traverse the graph: true is a Queue, false is a Stack
      * @return the result of {@link GraphVisitHandler#onCompleted()}
      */
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    private <O> O applyingSearch(GraphVisitHandler<V, E, G, O> handler, final boolean enqueue )
     {
         handler = checkNotNull( handler, "Graph visitor handler can not be null." );
 
@@ -140,7 +140,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
                 }
                 else
                 {
-                    VisitState stateAfterEdgeDiscovery = handler.discoverEdge( prevHead, e, v );
+                    final VisitState stateAfterEdgeDiscovery = handler.discoverEdge( prevHead, e, v );
                     if ( CONTINUE != stateAfterEdgeDiscovery )
                     {
                         skipVertex = true;
@@ -164,7 +164,7 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
             if ( !skipVertex )
             {
                 visitedVertices.add( v );
-                VisitState stateAfterVertexDiscovery = handler.discoverVertex( v );
+                final VisitState stateAfterVertexDiscovery = handler.discoverVertex( v );
                 vertexWasDiscovered = true;
                 if ( CONTINUE != stateAfterVertexDiscovery )
                 {
@@ -178,13 +178,13 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
 
             if ( !skipVertex )
             {
-                Iterator<V> connected =
+                final Iterator<V> connected =
                     ( graph instanceof DirectedGraph ) ? ( (DirectedGraph<V, E>) graph ).getOutbound( v ).iterator()
                                     : graph.getConnectedVertices( v ).iterator();
 
                 while ( connected.hasNext() )
                 {
-                    V w = connected.next();
+                    final V w = connected.next();
                     if ( !visitedVertices.contains( w ) )
                     {
                         vertexList.addLast( new VertexPair<V>( w, v ) );

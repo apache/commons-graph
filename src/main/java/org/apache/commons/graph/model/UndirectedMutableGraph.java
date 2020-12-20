@@ -39,7 +39,7 @@ public class UndirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final int getDegree( V v )
+    public final int getDegree(final V v )
     {
         return getAdjacencyList().get( v ).size();
     }
@@ -48,7 +48,7 @@ public class UndirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddVertex( V v )
+    protected void decorateAddVertex(final V v )
     {
         // do nothing
     }
@@ -57,7 +57,7 @@ public class UndirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateRemoveVertex( V v )
+    protected void decorateRemoveVertex(final V v )
     {
         // do nothing
     }
@@ -66,7 +66,7 @@ public class UndirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateAddEdge( V head, E e, V tail )
+    protected void decorateAddEdge(final V head, final E e, final V tail )
     {
         internalAddEdge( tail, e, head );
     }
@@ -75,7 +75,7 @@ public class UndirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
-    protected void decorateRemoveEdge( E e )
+    protected void decorateRemoveEdge(final E e )
     {
         internalRemoveEdge( getVertices( e ).getTail(), e, getVertices( e ).getHead() );
     }

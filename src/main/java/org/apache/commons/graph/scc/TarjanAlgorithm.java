@@ -35,7 +35,6 @@ import org.apache.commons.graph.DirectedGraph;
  *
  * @param <V> the Graph vertices type.
  * @param <E> the Graph edges type.
- * @param <G> the directed graph type
  */
 final class TarjanAlgorithm<V, E>
     implements SccAlgorithm<V>
@@ -45,7 +44,7 @@ final class TarjanAlgorithm<V, E>
 
     /**
      */
-    public TarjanAlgorithm( DirectedGraph<V, E> graph )
+    public TarjanAlgorithm(final DirectedGraph<V, E> graph )
     {
         this.graph = graph;
     }
@@ -61,11 +60,11 @@ final class TarjanAlgorithm<V, E>
         final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
         final Stack<V> s = new Stack<V>();
         final Set<Set<V>> stronglyConnectedComponents = new LinkedHashSet<Set<V>>();
-        Integer index = 0;
+        final Integer index = 0;
 
-        for ( V vertex : graph.getVertices() )
+        for ( final V vertex : graph.getVertices() )
         {
-            TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
+            final TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
             final Set<V> stronglyConnectedComponent = new LinkedHashSet<V>();
 
             if ( vertexMetaInfo.hasUndefinedIndex() )
@@ -78,7 +77,7 @@ final class TarjanAlgorithm<V, E>
         return stronglyConnectedComponents;
     }
 
-    private static <V> TarjanVertexMetaInfo getMetaInfo( V vertex, Map<V, TarjanVertexMetaInfo> verticesMetaInfo )
+    private static <V> TarjanVertexMetaInfo getMetaInfo(final V vertex, final Map<V, TarjanVertexMetaInfo> verticesMetaInfo )
     {
         TarjanVertexMetaInfo vertexMetaInfo = verticesMetaInfo.get( vertex );
         if ( vertexMetaInfo == null )
@@ -89,22 +88,22 @@ final class TarjanAlgorithm<V, E>
         return vertexMetaInfo;
     }
 
-    private static <V, E> void strongConnect( DirectedGraph<V, E> graph,
-                                                                          V vertex,
-                                                                          Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
-                                                                          Stack<V> s,
-                                                                          Set<V> stronglyConnectedComponent,
-                                                                          Integer index )
+    private static <V, E> void strongConnect(final DirectedGraph<V, E> graph,
+                                             final V vertex,
+                                             final Map<V, TarjanVertexMetaInfo> verticesMetaInfo,
+                                             final Stack<V> s,
+                                             final Set<V> stronglyConnectedComponent,
+                                             Integer index )
     {
-        TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
+        final TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
         vertexMetaInfo.setIndex( index );
         vertexMetaInfo.setLowLink( index );
         index++;
         s.push( vertex );
 
-        for ( V adjacent : graph.getOutbound( vertex ) )
+        for ( final V adjacent : graph.getOutbound( vertex ) )
         {
-            TarjanVertexMetaInfo adjacentMetaInfo = getMetaInfo( adjacent, verticesMetaInfo );
+            final TarjanVertexMetaInfo adjacentMetaInfo = getMetaInfo( adjacent, verticesMetaInfo );
             if ( adjacentMetaInfo.hasUndefinedIndex() )
             {
                 strongConnect( graph, adjacent, verticesMetaInfo, s, stronglyConnectedComponent, index );

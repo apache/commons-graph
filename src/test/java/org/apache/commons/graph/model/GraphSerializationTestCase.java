@@ -53,7 +53,7 @@ public class GraphSerializationTestCase
     @After
     public void cleanUp()
     {
-        File f = new File( FILE_NAME );
+        final File f = new File( FILE_NAME );
         if ( f.exists() )
         {
             f.delete();
@@ -64,7 +64,7 @@ public class GraphSerializationTestCase
     public void serializeUndirectedGraph()
         throws Exception
     {
-        MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newUndirectedMutableGraph( buildGraphConnections() );
+        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newUndirectedMutableGraph( buildGraphConnections() );
 
         checkSerialization( g );
     }
@@ -73,7 +73,7 @@ public class GraphSerializationTestCase
     public void serializeDirectedGraph()
         throws Exception
     {
-        MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newDirectedMutableGraph( buildGraphConnections() );
+        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newDirectedMutableGraph( buildGraphConnections() );
 
         checkSerialization( g );
     }
@@ -82,7 +82,7 @@ public class GraphSerializationTestCase
     public void serializeUndirectedWeightdGraph()
         throws Exception
     {
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+        final MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
             newUndirectedMutableGraph( buildWeightedGraphConnections() );
 
         checkSerialization( g );
@@ -92,7 +92,7 @@ public class GraphSerializationTestCase
     public void serializeDirectedWeightdGraph()
         throws Exception
     {
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+        final MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
             newDirectedMutableGraph( buildWeightedGraphConnections() );
 
         checkSerialization( g );
@@ -116,7 +116,7 @@ public class GraphSerializationTestCase
     public void serializeSyncronyzedDirectedWeightdGraph()
         throws Exception
     {
-        Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+        final Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
             synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) newDirectedMutableGraph( buildWeightedGraphConnections() ) );
 
         checkSerialization( g );
@@ -126,13 +126,13 @@ public class GraphSerializationTestCase
     public void serializePath()
         throws Exception
     {
-        BaseLabeledVertex start = new BaseLabeledVertex( "start" );
-        BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
-        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
+        final BaseLabeledVertex start = new BaseLabeledVertex( "start" );
+        final BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
+        final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        final BaseLabeledVertex c = new BaseLabeledVertex( "c" );
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> g =
+        final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> g =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>(
                                                                                                   start,
                                                                                                   goal,
@@ -153,17 +153,17 @@ public class GraphSerializationTestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    private static void checkSerialization( Graph<BaseLabeledVertex, ? extends Serializable> g )
+    private static void checkSerialization(final Graph<BaseLabeledVertex, ? extends Serializable> g )
         throws FileNotFoundException, IOException, ClassNotFoundException
     {
-        FileOutputStream fout = new FileOutputStream( FILE_NAME );
-        ObjectOutputStream oos = new ObjectOutputStream( fout );
+        final FileOutputStream fout = new FileOutputStream( FILE_NAME );
+        final ObjectOutputStream oos = new ObjectOutputStream( fout );
         oos.writeObject( g );
         oos.close();
 
-        FileInputStream fin = new FileInputStream( FILE_NAME );
-        ObjectInputStream ois = new ObjectInputStream( fin );
-        Object cloned = ois.readObject();
+        final FileInputStream fin = new FileInputStream( FILE_NAME );
+        final ObjectInputStream ois = new ObjectInputStream( fin );
+        final Object cloned = ois.readObject();
         ois.close();
 
         assertEquals( g, cloned );
@@ -177,10 +177,10 @@ public class GraphSerializationTestCase
             @Override
             public void connect()
             {
-                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
+                final BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
 
                 addEdge( new BaseLabeledEdge( "a -> c" ) ).from( a ).to( c );
                 addEdge( new BaseLabeledEdge( "c -> d" ) ).from( c ).to( d );
@@ -198,10 +198,10 @@ public class GraphSerializationTestCase
             @Override
             public void connect()
             {
-                BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
-                BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
-                BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
-                BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
+                final BaseLabeledVertex a = addVertex( new BaseLabeledVertex( "a" ) );
+                final BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "b" ) );
+                final BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "c" ) );
+                final BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "d" ) );
 
                 addEdge( new BaseLabeledWeightedEdge<Double>( "a -> c", 1D ) ).from( a ).to( c );
                 addEdge( new BaseLabeledWeightedEdge<Double>( "c -> d", 1D ) ).from( c ).to( d );

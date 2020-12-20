@@ -56,7 +56,7 @@ public class GraphColoringBackTrackingTestCase
     @Test( expected = NullPointerException.class )
     public void testNullColorGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
     }
@@ -64,10 +64,10 @@ public class GraphColoringBackTrackingTestCase
     @Test
     public void testEmptyGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             coloring( g ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 0, coloredVertices.getRequiredColors() );
@@ -79,16 +79,16 @@ public class GraphColoringBackTrackingTestCase
     {
         final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
             {
 
                 @Override
                 public void connect()
                 {
-                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
+                    final BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
                     addVertex( two );
-                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
+                    final BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
 
                     addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
                     addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
@@ -104,16 +104,16 @@ public class GraphColoringBackTrackingTestCase
     {
         final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
 
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
             {
 
                 @Override
                 public void connect()
                 {
-                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
+                    final BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
                     addVertex( two );
-                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
+                    final BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
 
                     addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
                     addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
@@ -122,10 +122,10 @@ public class GraphColoringBackTrackingTestCase
 
             } );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertex = new ColoredVertices<BaseLabeledVertex, Integer>();
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertex = new ColoredVertices<BaseLabeledVertex, Integer>();
         coloredVertex.addColor( two, 2 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             coloring( g ).withColors( createColorsList( 3 ) ).applyingBackTrackingAlgorithm( coloredVertex );
         assertNotNull( coloredVertices );
         assertEquals( 3, coloredVertices.getRequiredColors() );
@@ -136,12 +136,12 @@ public class GraphColoringBackTrackingTestCase
     @Test
     public void testCromaticNumberComplete()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
         buildCompleteGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             coloring( g1 ).withColors( createColorsList( 100 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 100, coloredVertices.getRequiredColors() );
@@ -151,12 +151,12 @@ public class GraphColoringBackTrackingTestCase
     @Test
     public void testCromaticNumberBiparted()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
         buildBipartedGraph( 100, g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             coloring( g1 ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 2, coloredVertices.getRequiredColors() );
@@ -166,14 +166,14 @@ public class GraphColoringBackTrackingTestCase
     @Test
     public void testCromaticNumberSparseGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
         for ( int i = 0; i < 100; i++ )
         {
             g1.addVertex( new BaseLabeledVertex( String.valueOf( i ) ) );
         }
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             coloring( g1 ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 1, coloredVertices.getRequiredColors() );
@@ -186,12 +186,12 @@ public class GraphColoringBackTrackingTestCase
     @Test
     public void testCrawnGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
 
         buildCrownGraph( 6, g );
 
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+        final ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
             coloring( g ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( coloredVertices );
         assertEquals( 2, coloredVertices.getRequiredColors() );
@@ -202,19 +202,19 @@ public class GraphColoringBackTrackingTestCase
     public void testSudoku()
         throws Exception
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
+        final BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> sudoku =
+        final ColoredVertices<BaseLabeledVertex, Integer> sudoku =
             coloring( g1 ).withColors( createColorsList( 9 ) ).applyingBackTrackingAlgorithm();
         assertNotNull( sudoku );
         checkColoring( g1, sudoku );
         assertEquals( 9, sudoku.getRequiredColors() );
 
         // Printout the result
-        StringBuilder sb = new StringBuilder();
-        NumberFormat nf = new DecimalFormat( "00" );
+        final StringBuilder sb = new StringBuilder();
+        final NumberFormat nf = new DecimalFormat( "00" );
         sb.append( "\n" );
         for ( int i = 0; i < 9; i++ )
         {
@@ -231,16 +231,16 @@ public class GraphColoringBackTrackingTestCase
     public void testSudokuWithConstraints()
         throws Exception
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
+        final BaseLabeledVertex[][] grid = buildSudokuGraph( g1 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> predefinedColor = new ColoredVertices<BaseLabeledVertex, Integer>();
+        final ColoredVertices<BaseLabeledVertex, Integer> predefinedColor = new ColoredVertices<BaseLabeledVertex, Integer>();
         predefinedColor.addColor( grid[0][0], 1 );
         predefinedColor.addColor( grid[5][5], 8 );
         predefinedColor.addColor( grid[1][2], 5 );
 
-        ColoredVertices<BaseLabeledVertex, Integer> sudoku =
+        final ColoredVertices<BaseLabeledVertex, Integer> sudoku =
             coloring( g1 ).withColors( createColorsList( 9 ) ).applyingBackTrackingAlgorithm( predefinedColor );
         assertNotNull( sudoku );
         checkColoring( g1, sudoku );
@@ -251,8 +251,8 @@ public class GraphColoringBackTrackingTestCase
         assertEquals( new Integer( 5 ), sudoku.getColor( grid[1][2] ) );
 
         // Printout the result
-        StringBuilder sb = new StringBuilder();
-        NumberFormat nf = new DecimalFormat( "00" );
+        final StringBuilder sb = new StringBuilder();
+        final NumberFormat nf = new DecimalFormat( "00" );
         sb.append( "\n" );
         for ( int i = 0; i < 9; i++ )
         {

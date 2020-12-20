@@ -36,7 +36,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * {@inheritDoc}
      */
-    public void discoverGraph( G graph )
+    public void discoverGraph(final G graph )
     {
         // do nothing
     }
@@ -44,16 +44,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * {@inheritDoc}
      */
-    public VisitState discoverVertex( V vertex )
-    {
-        // do nothing
-        return CONTINUE;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public VisitState discoverEdge( V head, E edge, V tail )
+    public VisitState discoverVertex(final V vertex )
     {
         // do nothing
         return CONTINUE;
@@ -62,7 +53,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * {@inheritDoc}
      */
-    public VisitState finishEdge( V head, E edge, V tail )
+    public VisitState discoverEdge(final V head, final E edge, final V tail )
     {
         // do nothing
         return CONTINUE;
@@ -71,7 +62,7 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * {@inheritDoc}
      */
-    public VisitState finishVertex( V vertex )
+    public VisitState finishEdge(final V head, final E edge, final V tail )
     {
         // do nothing
         return CONTINUE;
@@ -80,7 +71,16 @@ public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * {@inheritDoc}
      */
-    public void finishGraph( G graph )
+    public VisitState finishVertex(final V vertex )
+    {
+        // do nothing
+        return CONTINUE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void finishGraph(final G graph )
     {
         // do nothing
     }

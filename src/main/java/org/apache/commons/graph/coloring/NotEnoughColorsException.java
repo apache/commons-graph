@@ -40,7 +40,7 @@ public class NotEnoughColorsException
      * Creates new instance of {@link NotEnoughColorsException}. 
      * @param colors the set of color.
      */
-    public NotEnoughColorsException( Set<?> colors )
+    public NotEnoughColorsException(final Set<?> colors )
     {
         super( format( "Input color set %s has not enough colors to color the given graph", colors ) );
     }

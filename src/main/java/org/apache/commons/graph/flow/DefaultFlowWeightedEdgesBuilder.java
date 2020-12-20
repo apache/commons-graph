@@ -40,7 +40,7 @@ public final class DefaultFlowWeightedEdgesBuilder<V, WE>
      * Creates  a new instance of flow weighted edges builder for the given graph
      * @param graph the graph
      */
-    public DefaultFlowWeightedEdgesBuilder( DirectedGraph<V, WE> graph )
+    public DefaultFlowWeightedEdgesBuilder(final DirectedGraph<V, WE> graph )
     {
         this.graph = graph;
     }

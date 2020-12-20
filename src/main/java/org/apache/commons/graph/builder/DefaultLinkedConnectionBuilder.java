@@ -41,7 +41,7 @@ public final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V
      *
      * @param graph the graph
      */
-    public DefaultLinkedConnectionBuilder( G graph )
+    public DefaultLinkedConnectionBuilder(final G graph )
     {
         this.graph = graph;
     }
@@ -53,7 +53,7 @@ public final class DefaultLinkedConnectionBuilder<V, E, G extends MutableGraph<V
     {
         graphConnection = checkNotNull( graphConnection, "Input graph cannot be configured with null connections" );
 
-        GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
+        final GraphConnector<V, E> grapher = new DefaultGrapher<V, E>( graph );
         graphConnection.connect( grapher );
 
         return graph;

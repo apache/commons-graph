@@ -50,7 +50,7 @@ public final class DijkstraTestCase
     @Test( expected = NullPointerException.class )
     public void testNullVertices()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // the actual weighted path
@@ -64,7 +64,7 @@ public final class DijkstraTestCase
     @Test( expected = NullPointerException.class )
     public void testNullMonoid()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -83,7 +83,7 @@ public final class DijkstraTestCase
     @Test( expected = PathNotFoundException.class )
     public void testNotConnectGraph()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         final BaseLabeledVertex a = new BaseLabeledVertex( "a" );
@@ -106,17 +106,17 @@ public final class DijkstraTestCase
     @Test
     public void findShortestPathAndVerify()
     {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // building Graph
 
-        BaseLabeledVertex one = new BaseLabeledVertex( "1" );
-        BaseLabeledVertex two = new BaseLabeledVertex( "2" );
-        BaseLabeledVertex three = new BaseLabeledVertex( "3" );
-        BaseLabeledVertex four = new BaseLabeledVertex( "4" );
-        BaseLabeledVertex five = new BaseLabeledVertex( "5" );
-        BaseLabeledVertex six = new BaseLabeledVertex( "6" );
+        final BaseLabeledVertex one = new BaseLabeledVertex( "1" );
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+        final BaseLabeledVertex three = new BaseLabeledVertex( "3" );
+        final BaseLabeledVertex four = new BaseLabeledVertex( "4" );
+        final BaseLabeledVertex five = new BaseLabeledVertex( "5" );
+        final BaseLabeledVertex six = new BaseLabeledVertex( "6" );
 
         graph.addVertex( one );
         graph.addVertex( two );
@@ -140,7 +140,7 @@ public final class DijkstraTestCase
 
         // expected path
 
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
+        final InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected =
             new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>( one, five, new DoubleWeightBaseOperations(), new BaseWeightedEdge<Double>() );
 
         expected.addConnectionInTail( one, new BaseLabeledWeightedEdge<Double>( "1 -> 3", 9D ), three );
@@ -149,7 +149,7 @@ public final class DijkstraTestCase
 
         // actual path
 
-        Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
+        final Path<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual =
                         findShortestPath( graph )
                             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                             .from( one )

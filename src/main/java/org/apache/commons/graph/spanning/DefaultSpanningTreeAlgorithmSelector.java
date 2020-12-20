@@ -64,7 +64,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
      * @param graph the {@link Graph} to be used.
      * @param source the start vertex.
      */
-    public DefaultSpanningTreeAlgorithmSelector( final Graph<V, WE> graph, Mapper<WE, W> weightedEdges, final V source )
+    public DefaultSpanningTreeAlgorithmSelector(final Graph<V, WE> graph, final Mapper<WE, W> weightedEdges, final V source )
     {
         this.graph = graph;
         this.weightedEdges = weightedEdges;
@@ -72,7 +72,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
     }
 
     /** {@inheritDoc} */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm(final WO weightOperations )
     {
         /*
          * <pre>
@@ -97,7 +97,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
 
         final Map<V, SuperVertex<V, W, WE>> mapping = new HashMap<V, SuperVertex<V, W, WE>>( graph.getOrder() );
 
-        for ( V v : graph.getVertices() )
+        for ( final V v : graph.getVertices() )
         {
             // create a super vertex for each vertex
             final SuperVertex<V, W, WE> sv = new SuperVertex<V, W, WE>( v, graph, new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
@@ -114,7 +114,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
         while ( components.size() > 1 )
         {
             final List<WE> edges = new LinkedList<WE>();
-            for ( SuperVertex<V, W, WE> sv : components )
+            for ( final SuperVertex<V, W, WE> sv : components )
             {
                 // get the minimum edge for each component to any other component
                 final WE edge = sv.getMinimumWeightEdge();
@@ -167,7 +167,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm(final WO weightOperations )
     {
         checkNotNull( weightOperations, "The Kruskal algorithm cannot be calculated with null weight operations" );
         final Set<V> settledNodes = new HashSet<V>();
@@ -175,7 +175,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
         final Queue<WE> orderedEdges =
                         new FibonacciHeap<WE>( new WeightedEdgesComparator<W, WE>( weightOperations, weightedEdges ) );
 
-        for ( WE edge : graph.getEdges() )
+        for ( final WE edge : graph.getEdges() )
         {
             orderedEdges.add( edge );
         }
@@ -185,18 +185,18 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
         final MutableSpanningTree<V, WE, W> spanningTree = new MutableSpanningTree<V, WE, W>( weightOperations, weightedEdges );
 
         // fill the spanning tree with vertices.
-        for ( V v : graph.getVertices() )
+        for ( final V v : graph.getVertices() )
         {
             spanningTree.addVertex( v );
         }
 
         while ( !orderedEdges.isEmpty() && settledNodes.size() < graph.getOrder() )
         {
-            WE edge = orderedEdges.remove();
+            final WE edge = orderedEdges.remove();
 
-            VertexPair<V> vertices = graph.getVertices( edge );
-            V head = vertices.getHead();
-            V tail = vertices.getTail();
+            final VertexPair<V> vertices = graph.getVertices( edge );
+            final V head = vertices.getHead();
+            final V tail = vertices.getTail();
             settledNodes.add( head );
             settledNodes.add( tail );
 
@@ -213,7 +213,7 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm( WO weightOperations )
+    public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingPrimAlgorithm(final WO weightOperations )
     {
         checkNotNull( weightOperations, "The Prim algorithm cannot be calculated with null weight operations" );
 
@@ -227,14 +227,14 @@ final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
         // extract the node with the shortest distance
         while ( !unsettledNodes.isEmpty() )
         {
-            V vertex = unsettledNodes.remove();
+            final V vertex = unsettledNodes.remove();
 
-            for ( V v : graph.getConnectedVertices( vertex ) )
+            for ( final V v : graph.getConnectedVertices( vertex ) )
             {
-                WE edge = graph.getEdge( vertex, v );
+                final WE edge = graph.getEdge( vertex, v );
                 // if the edge has not been already visited and its weight is
                 // less then the current Vertex weight
-                boolean weightLessThanCurrent =
+                final boolean weightLessThanCurrent =
                     !shortestEdges.hasWeight( v )
                         || weightOperations.compare( weightedEdges.map( edge ), shortestEdges.getWeight( v ) ) < 0;
                 if ( settledEdges.add( edge ) && weightLessThanCurrent )

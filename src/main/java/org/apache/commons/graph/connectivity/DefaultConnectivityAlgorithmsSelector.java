@@ -49,7 +49,7 @@ final class DefaultConnectivityAlgorithmsSelector<V, E>
      * @param graph the graph
      * @param includedVertices included vertices
      */
-    public DefaultConnectivityAlgorithmsSelector( Graph<V, E> graph, Iterable<V> includedVertices )
+    public DefaultConnectivityAlgorithmsSelector(final Graph<V, E> graph, final Iterable<V> includedVertices )
     {
         this.graph = graph;
         this.includedVertices = includedVertices;
@@ -62,7 +62,7 @@ final class DefaultConnectivityAlgorithmsSelector<V, E>
     {
         final List<V> untouchedVertices = new ArrayList<V>();
 
-        for ( V v : includedVertices )
+        for ( final V v : includedVertices )
         {
             checkState( graph.containsVertex( v ), "Vertex %s does not exist in the Graph", v );
             untouchedVertices.add( v );
@@ -72,7 +72,7 @@ final class DefaultConnectivityAlgorithmsSelector<V, E>
 
         while ( untouchedVertices.size() > 0 )
         {
-            V source = untouchedVertices.remove( 0 );
+            final V source = untouchedVertices.remove( 0 );
 
             connectedVertices.add( visit( graph ).from( source ).applyingDepthFirstSearch( new ConnectedComponentHandler<V, E>( untouchedVertices ) ) );
         }

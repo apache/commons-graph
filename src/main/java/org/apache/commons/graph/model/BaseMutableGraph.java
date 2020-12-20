@@ -42,7 +42,7 @@ public abstract class BaseMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final void addVertex( V v )
+    public final void addVertex(final V v )
     {
         checkGraphCondition( v != null, "Impossible to add a null Vertex to the Graph" );
         checkGraphCondition( !containsVertex( v ), "Vertex '%s' already present in the Graph", v );
@@ -61,12 +61,12 @@ public abstract class BaseMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final void removeVertex( V v )
+    public final void removeVertex(final V v )
     {
         checkGraphCondition( v != null, "Impossible to remove a null Vertex from the Graph" );
         checkGraphCondition( containsVertex( v ), "Vertex '%s' not present in the Graph", v );
 
-        for ( V tail : getAdjacencyList().get( v ) )
+        for ( final V tail : getAdjacencyList().get( v ) )
         {
             getIndexedEdges().remove( new VertexPair<V>( v, tail ) );
         }
@@ -84,7 +84,7 @@ public abstract class BaseMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public void addEdge( V head, E e, V tail )
+    public void addEdge(final V head, final E e, final V tail )
     {
         checkGraphCondition( head != null, "Null head Vertex not admitted" );
         checkGraphCondition( e != null, "Impossible to add a null Edge in the Graph" );
@@ -107,7 +107,7 @@ public abstract class BaseMutableGraph<V, E>
      * @param e the edge
      * @param tail the tail vertex
      */
-    protected void internalAddEdge( V head, E e, V tail )
+    protected void internalAddEdge(final V head, final E e, final V tail )
     {
         getAdjacencyList().get( head ).add( tail );
 
@@ -127,7 +127,7 @@ public abstract class BaseMutableGraph<V, E>
      * @param e the edge
      * @param tail the tail vertex
      */
-    protected void internalRemoveEdge( V head, E e, V tail )
+    protected void internalRemoveEdge(final V head, final E e, final V tail )
     {
         final VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
         getIndexedVertices().remove( e );
@@ -146,7 +146,7 @@ public abstract class BaseMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final void removeEdge( E e )
+    public final void removeEdge(final E e )
     {
         checkGraphCondition( e != null, "Impossible to remove a null Edge from the Graph" );
         checkGraphCondition( containsEdge( e ), "Edge '%s' not present in the Graph", e );

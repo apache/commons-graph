@@ -33,7 +33,7 @@ final class DefaultTailVertexConnector<V, E>
 
     private final V head;
 
-    public DefaultTailVertexConnector( MutableGraph<V, E> graph, E edge, V head )
+    public DefaultTailVertexConnector(final MutableGraph<V, E> graph, final E edge, final V head )
     {
         this.graph = graph;
         this.edge = edge;
