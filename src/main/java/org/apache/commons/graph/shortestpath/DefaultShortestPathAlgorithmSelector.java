@@ -163,71 +163,75 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
                 }
             }
 
-            V vertex = openForward.remove();
+            if (openForward.size() + closedForward.size() < openBackwards.size() + closedBackwards.size()) {
+                
+                V vertex = openForward.remove();
 
-            closedForward.add( vertex );
+                closedForward.add( vertex );
 
-            for ( V v : graph.getConnectedVertices( vertex ) )
-            {
-                if ( !closedForward.contains( v ) )
+                for ( V v : graph.getConnectedVertices( vertex ) )
                 {
-                    WE edge = graph.getEdge( vertex, v );
-                    if ( shortestDistancesForward.alreadyVisited( vertex ) )
+                    if ( !closedForward.contains( v ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistancesForward.getWeight( vertex ), weightedEdges.map( edge ) );
-
-                        if ( !shortestDistancesForward.alreadyVisited( v )
-                                || weightOperations.compare( shortDist, shortestDistancesForward.getWeight( v ) ) < 0 )
+                        WE edge = graph.getEdge( vertex, v );
+                        if ( shortestDistancesForward.alreadyVisited( vertex ) )
                         {
-                            shortestDistancesForward.setWeight( v, shortDist );
-                            openForward.add( v );
-                            predecessorsForward.addPredecessor( v, vertex );
+                            W shortDist = weightOperations.append( shortestDistancesForward.getWeight( vertex ), weightedEdges.map( edge ) );
 
-                            if ( closedBackwards.contains( v ) )
+                            if ( !shortestDistancesForward.alreadyVisited( v )
+                                    || weightOperations.compare( shortDist, shortestDistancesForward.getWeight( v ) ) < 0 )
                             {
-                                W tmpBest = weightOperations.append( shortDist, shortestDistancesBackwards.getWeight( v ) );
+                                shortestDistancesForward.setWeight( v, shortDist );
+                                openForward.add( v );
+                                predecessorsForward.addPredecessor( v, vertex );
 
-                                if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
+                                if ( closedBackwards.contains( v ) )
                                 {
-                                    best = tmpBest;
-                                    touch = v;
+                                    W tmpBest = weightOperations.append( shortDist, shortestDistancesBackwards.getWeight( v ) );
+
+                                    if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
+                                    {
+                                        best = tmpBest;
+                                        touch = v;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
+            } else {                
 
-            vertex = openBackwards.remove();
+                V vertex = openBackwards.remove();
 
-            closedBackwards.add( vertex );
+                closedBackwards.add( vertex );
 
-            Iterable<V> parentsIterable = ( graph instanceof DirectedGraph ? ((DirectedGraph<V, WE>) graph).getInbound( vertex ) : graph.getConnectedVertices( vertex ) );
+                Iterable<V> parentsIterable = ( graph instanceof DirectedGraph ? ((DirectedGraph<V, WE>) graph).getInbound( vertex ) : graph.getConnectedVertices( vertex ) );
 
-            for ( V v : parentsIterable )
-            {
-                if ( !closedBackwards.contains( v ) )
+                for ( V v : parentsIterable )
                 {
-                    WE edge = graph.getEdge( v, vertex );
-                    if ( shortestDistancesBackwards.alreadyVisited( vertex ) )
+                    if ( !closedBackwards.contains( v ) )
                     {
-                        W shortDist = weightOperations.append( shortestDistancesBackwards.getWeight( vertex ), weightedEdges.map( edge ) );
-
-                        if ( !shortestDistancesBackwards.alreadyVisited( v )
-                                || weightOperations.compare( shortDist, shortestDistancesBackwards.getWeight( v ) ) < 0 )
+                        WE edge = graph.getEdge( v, vertex );
+                        if ( shortestDistancesBackwards.alreadyVisited( vertex ) )
                         {
-                            shortestDistancesBackwards.setWeight( v, shortDist );
-                            openBackwards.add( v );
-                            predecessorsBackwards.addPredecessor( v, vertex );
+                            W shortDist = weightOperations.append( shortestDistancesBackwards.getWeight( vertex ), weightedEdges.map( edge ) );
 
-                            if ( closedForward.contains( v ) )
+                            if ( !shortestDistancesBackwards.alreadyVisited( v )
+                                    || weightOperations.compare( shortDist, shortestDistancesBackwards.getWeight( v ) ) < 0 )
                             {
-                                W tmpBest = weightOperations.append( shortDist, shortestDistancesForward.getWeight( v ) );
+                                shortestDistancesBackwards.setWeight( v, shortDist );
+                                openBackwards.add( v );
+                                predecessorsBackwards.addPredecessor( v, vertex );
 
-                                if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
+                                if ( closedForward.contains( v ) )
                                 {
-                                    best = tmpBest;
-                                    touch = v;
+                                    W tmpBest = weightOperations.append( shortDist, shortestDistancesForward.getWeight( v ) );
+
+                                    if ( best == null || weightOperations.compare( tmpBest, best ) < 0 )
+                                    {
+                                        best = tmpBest;
+                                        touch = v;
+                                    }
                                 }
                             }
                         }
