@@ -30,13 +30,13 @@ public class MultiThreadedTestRunner
 {
     final private List<Thread> th;
     long maxWait = 60L * 60L * 1000;
-    final private List<Throwable> exeptions;
+    final private List<Throwable> exceptions;
     
     
     public MultiThreadedTestRunner( TestRunner[] runnables )
     {
         th = new ArrayList<Thread>();
-        exeptions = new ArrayList<Throwable>();
+        exceptions = new ArrayList<Throwable>();
         for ( int i = 0; i < runnables.length; i++ )
         {
             runnables[i].setTestRunner( this );
@@ -56,9 +56,9 @@ public class MultiThreadedTestRunner
             t.join( maxWait );
         }
         
-        if ( this.exeptions.size() > 0 )
+        if ( this.exceptions.size() > 0 )
         {
-            throw this.exeptions.get( 0 );
+            throw this.exceptions.get( 0 );
         }
     }
 
@@ -67,6 +67,6 @@ public class MultiThreadedTestRunner
      */
     public void addException( Throwable e )
     {
-        exeptions.add( e );
+        exceptions.add( e );
     }
 }
