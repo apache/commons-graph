@@ -26,7 +26,7 @@ jobs:
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        java: [ 8, 11, 14 ]
+        java: [ 8, 11, 17 ]
         os: [ubuntu-latest]
         experimental: [false]
         # Don't need all versions
