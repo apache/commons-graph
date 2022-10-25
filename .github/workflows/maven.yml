@@ -60,4 +60,4 @@ jobs:
     - name: Build with Maven
       run: mvn -V --batch-mode  --no-transfer-progress install -D"maven.javadoc.skip=true" -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
     - name: Generate jacoco:report
-      run: mvn jacoco:report coveralls:report
+      run: mvn jacoco:report # coveralls:report
