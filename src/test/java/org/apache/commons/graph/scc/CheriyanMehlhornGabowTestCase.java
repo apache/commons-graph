@@ -37,7 +37,7 @@ import org.junit.Test;
 
 /**
  * Test for Tarjan's algorithm implementation,
- * see the <a href="http://scienceblogs.com/goodmath/2007/10/computing_strongly_connected_c.php">online</a> testcase.
+ * see the <a href="http://scienceblogs.com/goodmath/2007/10/computing_strongly_connected_c.php">online</a> test.
  */
 public final class CheriyanMehlhornGabowTestCase
 {
