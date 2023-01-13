@@ -228,7 +228,7 @@ public final class KruskalTestCase
     }
 
     /**
-     * Test the the minimum spanning tree on a path graph with 4 vertices
+     * Test the minimum spanning tree on a path graph with 4 vertices
      * and unit weights.
      */
     @Test
@@ -328,7 +328,7 @@ public final class KruskalTestCase
     }
 
     /**
-     * Test the the minimum spanning tree on a path graph with 4 vertices
+     * Test the minimum spanning tree on a path graph with 4 vertices
      * and non-uniform weights.
      */
     @Test
