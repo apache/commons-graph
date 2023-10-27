@@ -14,7 +14,7 @@
 # limitations under the License.
 
 github:
-  description: "Apache Commons Graph"
+  description: "Apache Commons Graph (Sandbox)"
   homepage: https://commons.apache.org/graph/
 
 notifications:
