@@ -180,7 +180,7 @@ public final class BidirDijkstraTestCase
      * <a href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm>Wikipedia</a>
      */
     @Test
-    public void findShortestPathAndVerify()
+    public void testFindShortestPathAndVerify()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
@@ -238,7 +238,7 @@ public final class BidirDijkstraTestCase
     }
 
     @Test
-    public void verifyTwoNodePath() {
+    public void testVerifyTwoNodePath() {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
@@ -271,7 +271,7 @@ public final class BidirDijkstraTestCase
     }
 
     @Test
-    public void verifyThreeNodePath() {
+    public void testVerifyThreeNodePath() {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
@@ -308,7 +308,7 @@ public final class BidirDijkstraTestCase
     }
 
     @Test
-    public void compareToUnidirectional() {
+    public void testCompareToUnidirectional() {
         // It is hard to get unidirectional Dijkstra's algorithm wrong;
         // therefore compare a sequence of outputs.
         Random r = new Random();

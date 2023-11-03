@@ -158,7 +158,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
     }
 
     @Test
-    public void performUnidirectionalDijkstra() {
+    public void testPerformUnidirectionalDijkstra() {
         BaseLabeledVertex source = sourceListUni.removeFirst();
         BaseLabeledVertex target = targetListUni.removeFirst();
 
@@ -180,7 +180,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
     }
 
     @Test
-    public void performBidirectionalDijkstra() {
+    public void testPerformBidirectionalDijkstra() {
         BaseLabeledVertex source = sourceListBi.removeFirst();
         BaseLabeledVertex target = targetListBi.removeFirst();
 

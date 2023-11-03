@@ -57,14 +57,14 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void emptyWhenCreated()
+    public void testEmptyWhenCreated()
     {
         assertThat( queue.isEmpty(), is( true ) );
         assertThat( queue.poll(), nullValue() );
     }
 
     @Test
-    public void noLongerEmptyAfterAdd()
+    public void testNoLongerEmptyAfterAdd()
     {
         queue.add( 50 );
 
@@ -72,7 +72,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void singletonQueueReturnsSoleItemOnPoll()
+    public void testSingletonQueueReturnsSoleItemOnPoll()
     {
         queue.add( 50 );
 
@@ -80,7 +80,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void isEmptyAfterSoleElementRemoved()
+    public void testIsEmptyAfterSoleElementRemoved()
     {
         queue.add( 50 );
         queue.poll();
@@ -89,7 +89,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void returnsOrderedItems()
+    public void testReturnsOrderedItems()
     {
         queue.add( 100 );
         queue.add( 50 );
@@ -100,7 +100,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void insertSingleItem()
+    public void testInsertSingleItem()
     {
         queue.add( 50 );
 
@@ -109,7 +109,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void insertSameValuesAndReturnsOrderedItems()
+    public void testInsertSameValuesAndReturnsOrderedItems()
     {
         queue.add( 50 );
         queue.add( 100 );
@@ -122,7 +122,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void returnsOrderedItemsFromRandomInsert()
+    public void testReturnsOrderedItemsFromRandomInsert()
     {
         final Random r = new Random( System.currentTimeMillis() );
         final List<Integer> expected = new ArrayList<Integer>();
@@ -146,7 +146,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void addAllAndContinsItem()
+    public void testAddAllAndContinsItem()
     {
         Collection<Integer> c = new ArrayList<Integer>();
         
@@ -167,7 +167,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void clearQueue()
+    public void testClearQueue()
     {
         final Random r = new Random( System.currentTimeMillis() );
         for ( int i = 0; i < 1000; i++ )
@@ -182,7 +182,7 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
-    public void offerPeekAndElement()
+    public void testOfferPeekAndElement()
     {
         queue.offer( 50 );
         queue.offer( 100 );

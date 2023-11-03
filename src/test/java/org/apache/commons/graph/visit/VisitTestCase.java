@@ -58,7 +58,7 @@ public final class VisitTestCase
      * <a href="http://www.personal.kent.edu/~rmuhamma/Algorithms/MyAlgorithms/GraphAlgor/breadthSearch.htm">here</a>
      */
     @Test
-    public void verifyBreadthFirstSearch()
+    public void testVerifyBreadthFirstSearch()
     {
         // input graph
 
@@ -142,7 +142,7 @@ public final class VisitTestCase
      * <a href="http://aiukswkelasgkelompok7.wordpress.com/metode-pencarian-dan-pelacakan/">here</a>
      */
     @Test
-    public void verifyDepthFirstSearch()
+    public void testVerifyDepthFirstSearch()
     {
         // expected node set
         final List<BaseLabeledVertex> expected = new ArrayList<BaseLabeledVertex>();

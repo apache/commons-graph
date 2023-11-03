@@ -61,7 +61,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializeUndirectedGraph()
+    public void testSerializeUndirectedGraph()
         throws Exception
     {
         MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newUndirectedMutableGraph( buildGraphConnections() );
@@ -70,7 +70,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializeDirectedGraph()
+    public void testSerializeDirectedGraph()
         throws Exception
     {
         MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newDirectedMutableGraph( buildGraphConnections() );
@@ -79,7 +79,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializeUndirectedWeightdGraph()
+    public void testSerializeUndirectedWeightdGraph()
         throws Exception
     {
         MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
@@ -89,7 +89,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializeDirectedWeightdGraph()
+    public void testSerializeDirectedWeightdGraph()
         throws Exception
     {
         MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
@@ -99,7 +99,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializeSpanningTree()
+    public void testSerializeSpanningTree()
         throws Exception
     {
         final MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> spanningTree =
@@ -113,7 +113,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializeSyncronyzedDirectedWeightdGraph()
+    public void testSerializeSyncronyzedDirectedWeightdGraph()
         throws Exception
     {
         Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
@@ -123,7 +123,7 @@ public class GraphSerializationTestCase
     }
 
     @Test
-    public void serializePath()
+    public void testSerializePath()
         throws Exception
     {
         BaseLabeledVertex start = new BaseLabeledVertex( "start" );

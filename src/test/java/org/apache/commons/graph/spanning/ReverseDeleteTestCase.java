@@ -76,7 +76,7 @@ public class ReverseDeleteTestCase
      * Test Graph and Reverse-Delete Algorithm
      */
     @Test
-    public void verifyMinimumSpanningTree()
+    public void testVerifyMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
@@ -117,7 +117,7 @@ public class ReverseDeleteTestCase
      * Test Graph and Reverse-Delete Algorithm
      */
     @Test
-    public void verifyNotConnectGraph()
+    public void testVerifyNotConnectGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
@@ -151,7 +151,7 @@ public class ReverseDeleteTestCase
      * Test Graph and Reverse-Delete Algorithm
      */
     @Test
-    public void verifyNotConnectGraph2()
+    public void testVerifyNotConnectGraph2()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
@@ -202,7 +202,7 @@ public class ReverseDeleteTestCase
      * Test Graph and Reverse-Delete Algorithm
      */
     @Test
-    public void verifyNotConnectGraph3()
+    public void testVerifyNotConnectGraph3()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

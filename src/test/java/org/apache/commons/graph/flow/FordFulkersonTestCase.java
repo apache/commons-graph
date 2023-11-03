@@ -148,7 +148,7 @@ public final class FordFulkersonTestCase
     }
 
     @Test
-    public void findMaxFlowAndVerify()
+    public void testFindMaxFlowAndVerify()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex d = new BaseLabeledVertex( "D" );

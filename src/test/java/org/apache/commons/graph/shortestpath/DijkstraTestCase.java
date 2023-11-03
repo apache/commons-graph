@@ -104,7 +104,7 @@ public final class DijkstraTestCase
      * <a href="http://en.wikipedia.org/wiki/Dijkstra's_algorithm>Wikipedia</a>
      */
     @Test
-    public void findShortestPathAndVerify()
+    public void testFindShortestPathAndVerify()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

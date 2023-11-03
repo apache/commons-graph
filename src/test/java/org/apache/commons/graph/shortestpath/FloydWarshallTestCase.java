@@ -74,13 +74,13 @@ public class FloydWarshallTestCase
     }
 
     @Test
-    public void undirectedShortestPath()
+    public void testUndirectedShortestPath()
     {
         findShortestPathAndVerify( new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() );
     }
 
     @Test
-    public void directedShortestPath()
+    public void testDirectedShortestPath()
     {
         findShortestPathAndVerify( new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() );
     }

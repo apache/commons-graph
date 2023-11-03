@@ -108,7 +108,7 @@ public final class KruskalTestCase
      * <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Wikipedia</a>
      */
     @Test
-    public void verifyWikipediaMinimumSpanningTree()
+    public void testVerifyWikipediaMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
             = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
@@ -184,7 +184,7 @@ public final class KruskalTestCase
      * <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Wikipedia</a>
      */
     @Test
-    public void verifyNotConnectedMinimumSpanningTree()
+    public void testVerifyNotConnectedMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
             = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

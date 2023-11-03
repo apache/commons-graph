@@ -31,7 +31,7 @@ public final class GraphBuilderTestCase
 {
 
     @Test
-    public void verifyProducedGraphesAreEquals()
+    public void testVerifyProducedGraphesAreEquals()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> expected =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

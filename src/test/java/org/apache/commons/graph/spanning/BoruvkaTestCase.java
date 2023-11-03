@@ -106,7 +106,7 @@ public final class BoruvkaTestCase
      * Test Graph and boruvka's solution can be seen on
      */
     @Test
-    public void verifyWikipediaMinimumSpanningTree()
+    public void testVerifyWikipediaMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

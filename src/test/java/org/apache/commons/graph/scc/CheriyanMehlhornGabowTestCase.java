@@ -87,7 +87,7 @@ public final class CheriyanMehlhornGabowTestCase
     }
 
     @Test
-    public void verifyHasStronglyConnectedComponents()
+    public void testVerifyHasStronglyConnectedComponents()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "B" );

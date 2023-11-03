@@ -65,7 +65,7 @@ public class ExportTestCase {
     }
 
     @Test
-    public void shouldPrintDotFormat()
+    public void testShouldPrintDotFormat()
         throws Exception
     {
         export( actual ).withName( "DotFormatGraph" )
@@ -77,7 +77,7 @@ public class ExportTestCase {
     }
 
     @Test
-    public void shouldPrintGraphML()
+    public void testShouldPrintGraphML()
         throws Exception
     {
         export( actual ).withName( "GraphMLGraph" )
@@ -89,7 +89,7 @@ public class ExportTestCase {
     }
 
     @Test
-    public void shouldPrintGraphMLFormat()
+    public void testShouldPrintGraphMLFormat()
         throws Exception
     {
         export( actual ).usingGraphMLFormat().to( System.out );

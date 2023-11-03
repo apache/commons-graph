@@ -110,7 +110,7 @@ public class EdmondsKarpTestCase
     }
 
     @Test
-    public void findMaxFlowAndVerify()
+    public void testFindMaxFlowAndVerify()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex g = new BaseLabeledVertex( "G" );

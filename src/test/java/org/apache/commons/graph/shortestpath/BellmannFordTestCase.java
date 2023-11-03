@@ -120,7 +120,7 @@ public final class BellmannFordTestCase
      * <a href="http://compprog.wordpress.com/2007/11/29/one-source-shortest-path-the-bellman-ford-algorithm/">Wikipedia</a>
      */
     @Test
-    public void findShortestPathAndVerify()
+    public void testFindShortestPathAndVerify()
     {
         // the input graph
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =

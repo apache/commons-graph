@@ -48,7 +48,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyEmptyGraph()
+    public void testVerifyEmptyGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
@@ -60,7 +60,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyNullVerticesGraph()
+    public void testVerifyNullVerticesGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
             newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
@@ -80,7 +80,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyConnectedComponents()
+    public void testVerifyConnectedComponents()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
@@ -110,7 +110,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyConnectedComponents2()
+    public void testVerifyConnectedComponents2()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
@@ -148,7 +148,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyConnectedComponents3()
+    public void testVerifyConnectedComponents3()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
@@ -177,7 +177,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyConnectedComponentsIncludingVertices()
+    public void testVerifyConnectedComponentsIncludingVertices()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
 
@@ -215,7 +215,7 @@ public final class FindConnectedComponetTestCase
     }
 
     @Test
-    public void verifyConnectedComponentsIncludingVertices2()
+    public void testVerifyConnectedComponentsIncludingVertices2()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex e = new BaseLabeledVertex( "E" );

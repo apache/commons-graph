@@ -153,7 +153,7 @@ public final class AStarTestCase
      * <a href="http://en.wikipedia.org/wiki/A*_search_algorithm">Wikipedia</a>
      */
     @Test
-    public void findShortestPathAndVerify()
+    public void testFindShortestPathAndVerify()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

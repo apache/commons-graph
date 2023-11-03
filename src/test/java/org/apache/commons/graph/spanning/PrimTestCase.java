@@ -107,7 +107,7 @@ public final class PrimTestCase
      * <a href="http://gauguin.info.uniroma2.it/~italiano/Teaching/Algoritmi/Lezioni/cap12.pdf">slides</a>
      */
     @Test
-    public void verifyMinimumSpanningTree2()
+    public void testVerifyMinimumSpanningTree2()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
             = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
@@ -170,7 +170,7 @@ public final class PrimTestCase
      * <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Wikipedia</a>
      */
     @Test
-    public void verifyWikipediaMinimumSpanningTree()
+    public void testVerifyWikipediaMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input
             = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();

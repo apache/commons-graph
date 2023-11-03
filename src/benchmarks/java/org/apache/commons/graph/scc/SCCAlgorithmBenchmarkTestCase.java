@@ -86,21 +86,21 @@ public final class SCCAlgorithmBenchmarkTestCase
     }
 
     @Test
-    public void performKosaraju()
+    public void testPerformKosaraju()
     {
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
         assertTrue( actual.size() > 0 );
     }
 
     @Test
-    public void performCheriyanMehlhornGabow()
+    public void testPerformCheriyanMehlhornGabow()
     {
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
         assertTrue( actual.size() > 0 );
     }
 
     @Test
-    public void performTarjan()
+    public void testPerformTarjan()
     {
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingTarjan();
         assertTrue( actual.size() > 0 );

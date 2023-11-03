@@ -118,7 +118,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     }
 
     @Test
-    public void performBoruvka()
+    public void testPerformBoruvka()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( graph )
@@ -130,7 +130,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     }
 
     @Test
-    public void performKruskal()
+    public void testPerformKruskal()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( graph )
@@ -142,7 +142,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     }
 
     @Test
-    public void performPrim()
+    public void testPerformPrim()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             minimumSpanningTree( graph )

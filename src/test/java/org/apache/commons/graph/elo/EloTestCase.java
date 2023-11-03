@@ -35,7 +35,7 @@ public final class EloTestCase
 {
 
     @Test
-    public void performElo()
+    public void testPerformElo()
     {
         DirectedGraph<String, GameResult> tournament =
         newDirectedMutableGraph( new AbstractGraphConnection<String, GameResult>()
