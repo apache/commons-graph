@@ -57,65 +57,6 @@ final class KosarajuSharirAlgorithm<V, E>
     }
 
     /**
-     * Applies the classical Kosaraju's algorithm to find the strongly connected components of
-     * a vertex <code>source</code>.
-     *
-     * @param source the source vertex to start the search from
-     * @return the input graph strongly connected component.
-     */
-    public Set<V> perform( final V source )
-    {
-        checkNotNull( source, "Kosaraju Sharir algorithm cannot be calculated without expressing the source vertex" );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-
-        final Set<V> visitedVertices = new HashSet<V>();
-        final List<V> expandedVertexList = getExpandedVertexList( source, visitedVertices );
-        final DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
-
-        // remove the last element from the expanded vertices list
-        final V v = expandedVertexList.remove( expandedVertexList.size() - 1 );
-        final Set<V> sccSet = new HashSet<V>();
-        searchRecursive( reverted, v, sccSet, visitedVertices, false );
-        return sccSet;
-    }
-
-    /**
-     * Applies the classical Kosaraju's algorithm to find the strongly connected components.
-     *
-     * @return the input graph strongly connected component.
-     */
-    public Set<Set<V>> perform()
-    {
-        final Set<V> visitedVertices = new HashSet<V>();
-        final List<V> expandedVertexList = getExpandedVertexList( null, visitedVertices );
-        final DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
-
-        final Set<Set<V>> sccs = new HashSet<Set<V>>();
-
-        // insert the expanded vertices in reverse order into a linked hash set
-        // this is needed to quickly remove already found SCCs from the stack
-        final LinkedHashSet<V> stack = new LinkedHashSet<V>();
-        for ( int i = expandedVertexList.size() - 1; i >= 0; i-- )
-        {
-            stack.add( expandedVertexList.get( i ) );
-        }
-
-        while ( stack.size() > 0 )
-        {
-            // remove the last element from the expanded vertices list
-            final V v = stack.iterator().next();
-            final Set<V> sccSet = new HashSet<V>();
-            searchRecursive( reverted, v, sccSet, visitedVertices, false );
-
-            // remove all strongly connected components from the expanded list
-            stack.removeAll( sccSet );
-            sccs.add( sccSet );
-        }
-
-        return sccs;
-    }
-
-    /**
      * Performs a depth-first search to create a recursive vertex list.
      *
      * @param source the starting vertex
@@ -156,6 +97,65 @@ final class KosarajuSharirAlgorithm<V, E>
         }
 
         return expandedVertexList;
+    }
+
+    /**
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components.
+     *
+     * @return the input graph strongly connected component.
+     */
+    public Set<Set<V>> perform()
+    {
+        final Set<V> visitedVertices = new HashSet<V>();
+        final List<V> expandedVertexList = getExpandedVertexList( null, visitedVertices );
+        final DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
+
+        final Set<Set<V>> sccs = new HashSet<Set<V>>();
+
+        // insert the expanded vertices in reverse order into a linked hash set
+        // this is needed to quickly remove already found SCCs from the stack
+        final LinkedHashSet<V> stack = new LinkedHashSet<V>();
+        for ( int i = expandedVertexList.size() - 1; i >= 0; i-- )
+        {
+            stack.add( expandedVertexList.get( i ) );
+        }
+
+        while ( stack.size() > 0 )
+        {
+            // remove the last element from the expanded vertices list
+            final V v = stack.iterator().next();
+            final Set<V> sccSet = new HashSet<V>();
+            searchRecursive( reverted, v, sccSet, visitedVertices, false );
+
+            // remove all strongly connected components from the expanded list
+            stack.removeAll( sccSet );
+            sccs.add( sccSet );
+        }
+
+        return sccs;
+    }
+
+    /**
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components of
+     * a vertex <code>source</code>.
+     *
+     * @param source the source vertex to start the search from
+     * @return the input graph strongly connected component.
+     */
+    public Set<V> perform( final V source )
+    {
+        checkNotNull( source, "Kosaraju Sharir algorithm cannot be calculated without expressing the source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+
+        final Set<V> visitedVertices = new HashSet<V>();
+        final List<V> expandedVertexList = getExpandedVertexList( source, visitedVertices );
+        final DirectedGraph<V, E> reverted = new RevertedGraph<V, E>( graph );
+
+        // remove the last element from the expanded vertices list
+        final V v = expandedVertexList.remove( expandedVertexList.size() - 1 );
+        final Set<V> sccSet = new HashSet<V>();
+        searchRecursive( reverted, v, sccSet, visitedVertices, false );
+        return sccSet;
     }
 
     /**

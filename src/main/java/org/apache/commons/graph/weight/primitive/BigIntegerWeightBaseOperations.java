@@ -38,14 +38,6 @@ public class BigIntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigInteger identity()
-    {
-        return ZERO;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public BigInteger append( BigInteger s1, BigInteger s2 )
     {
         if ( s1 == null || s2 == null )
@@ -58,17 +50,25 @@ public class BigIntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigInteger inverse( BigInteger element )
+    public int compare( BigInteger o1, BigInteger o2 )
     {
-        return element.negate();
+        return o1.compareTo( o2 );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compare( BigInteger o1, BigInteger o2 )
+    public BigInteger identity()
     {
-        return o1.compareTo( o2 );
+        return ZERO;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public BigInteger inverse( BigInteger element )
+    {
+        return element.negate();
     }
 
 }

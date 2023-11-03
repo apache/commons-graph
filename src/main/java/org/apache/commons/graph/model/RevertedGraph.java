@@ -58,41 +58,17 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getVertices()
+    public boolean containsEdge( E e )
     {
-        return directedGraph.getVertices();
+        return directedGraph.containsEdge( e );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int getOrder()
+    public boolean containsVertex( V v )
     {
-        return directedGraph.getOrder();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Iterable<E> getEdges()
-    {
-        return directedGraph.getEdges();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getSize()
-    {
-        return directedGraph.getSize();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getDegree( V v )
-    {
-        return directedGraph.getDegree( v );
+        return directedGraph.containsVertex( v );
     }
 
     /**
@@ -106,6 +82,14 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
+    public int getDegree( V v )
+    {
+        return directedGraph.getDegree( v );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public E getEdge( V source, V target )
     {
         return directedGraph.getEdge( target, source );
@@ -114,18 +98,9 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public VertexPair<V> getVertices( E e )
+    public Iterable<E> getEdges()
     {
-        VertexPair<V> directedVertexPair = directedGraph.getVertices( e );
-        return new VertexPair<V>( directedVertexPair.getTail(), directedVertexPair.getHead() );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getInDegree( V v )
-    {
-        return directedGraph.getOutDegree( v );
+        return directedGraph.getEdges();
     }
 
     /**
@@ -139,9 +114,17 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getOutDegree( V v )
+    public int getInDegree( V v )
     {
         return directedGraph.getOutDegree( v );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getOrder()
+    {
+        return directedGraph.getOrder();
     }
 
     /**
@@ -155,17 +138,34 @@ public final class RevertedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsVertex( V v )
+    public int getOutDegree( V v )
     {
-        return directedGraph.containsVertex( v );
+        return directedGraph.getOutDegree( v );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getSize()
+    {
+        return directedGraph.getSize();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<V> getVertices()
+    {
+        return directedGraph.getVertices();
     }
     
     /**
      * {@inheritDoc}
      */
-    public boolean containsEdge( E e )
+    public VertexPair<V> getVertices( E e )
     {
-        return directedGraph.containsEdge( e );
+        VertexPair<V> directedVertexPair = directedGraph.getVertices( e );
+        return new VertexPair<V>( directedVertexPair.getTail(), directedVertexPair.getHead() );
     }
 
 }

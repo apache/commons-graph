@@ -62,14 +62,6 @@ public final class MutableSpanningTree<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public W getWeight()
-    {
-        return weight;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void decorateAddEdge( V head, WE e, V tail )
     {
@@ -84,6 +76,14 @@ public final class MutableSpanningTree<V, WE, W>
     protected void decorateRemoveEdge( WE e )
     {
         weight = weightOperations.append( weight, weightOperations.inverse( weightedEdges.map( e ) ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public W getWeight()
+    {
+        return weight;
     }
 
 }

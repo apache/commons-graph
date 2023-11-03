@@ -36,23 +36,35 @@ import org.junit.Test;
 public final class BoruvkaTestCase
 {
 
+    @Test( expected = IllegalStateException.class )
+    public void testEmptyGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromArbitrarySource()
+            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+    }
+
+    @Test( expected = IllegalStateException.class )
+    public void testNotExistVertex()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
+    }
+
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
         minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
             .fromArbitrarySource()
-            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
-    }
-
-    @Test( expected = NullPointerException.class )
-    public void testNullVertex()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( null )
             .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 
@@ -79,26 +91,14 @@ public final class BoruvkaTestCase
             .applyingBoruvkaAlgorithm( null );
     }
 
-    @Test( expected = IllegalStateException.class )
-    public void testNotExistVertex()
+    @Test( expected = NullPointerException.class )
+    public void testNullVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
         minimumSpanningTree( input )
             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
-    }
-
-    @Test( expected = IllegalStateException.class )
-    public void testEmptyGraph()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
+            .fromSource( null )
             .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
     }
 

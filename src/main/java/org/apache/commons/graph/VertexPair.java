@@ -55,6 +55,28 @@ public final class VertexPair<V>
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
+
+        if ( obj == null || getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        @SuppressWarnings( "unchecked" ) // equals() invoked against only same VertexPair type
+        VertexPair<V> other = (VertexPair<V>) obj;
+        return eq( head, other.getHead() )
+            && eq( tail, other.getTail() );
+    }
+
+    /**
      * @return the source
      */
     public V getHead()
@@ -78,28 +100,6 @@ public final class VertexPair<V>
     {        
         final int prime = 31;
         return hash( 1, prime, head, tail );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals( Object obj )
-    {
-        if ( this == obj )
-        {
-            return true;
-        }
-
-        if ( obj == null || getClass() != obj.getClass() )
-        {
-            return false;
-        }
-
-        @SuppressWarnings( "unchecked" ) // equals() invoked against only same VertexPair type
-        VertexPair<V> other = (VertexPair<V>) obj;
-        return eq( head, other.getHead() )
-            && eq( tail, other.getTail() );
     }
 
     @Override

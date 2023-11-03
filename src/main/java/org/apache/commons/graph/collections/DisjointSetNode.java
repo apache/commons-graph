@@ -54,6 +54,14 @@ final class DisjointSetNode<E>
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public int compareTo( DisjointSetNode<E> o )
+    {
+        return rank.compareTo( o.getRank() );
+    }
+
+    /**
      * Returns the adapted element by this node.
      *
      * @return the adapted element by this node.
@@ -71,16 +79,6 @@ final class DisjointSetNode<E>
     public DisjointSetNode<E> getParent()
     {
         return parent;
-    }
-
-    /**
-     * Sets the reference to a new parent node.
-     *
-     * @param parent the reference to a new parent node.
-     */
-    public void setParent( DisjointSetNode<E> parent )
-    {
-        this.parent = parent;
     }
 
     /**
@@ -102,6 +100,16 @@ final class DisjointSetNode<E>
     }
 
     /**
+     * Sets the reference to a new parent node.
+     *
+     * @param parent the reference to a new parent node.
+     */
+    public void setParent( DisjointSetNode<E> parent )
+    {
+        this.parent = parent;
+    }
+
+    /**
      * Sets a new different rank.
      *
      * @param rank the new rank to this node.
@@ -109,14 +117,6 @@ final class DisjointSetNode<E>
     public void setRank( int rank )
     {
         this.rank = rank;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int compareTo( DisjointSetNode<E> o )
-    {
-        return rank.compareTo( o.getRank() );
     }
 
 }

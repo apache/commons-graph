@@ -40,110 +40,6 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
     implements MaxFlowAlgorithmSelector<V, WE, W>
 {
 
-    private final DirectedGraph<V, WE> graph;
-
-    private final Mapper<WE, W> weightedEdges;
-
-    private final V source;
-
-    private final V target;
-
-    public DefaultMaxFlowAlgorithmSelector( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
-    {
-        this.graph = graph;
-        this.weightedEdges = weightedEdges;
-        this.source = source;
-        this.target = target;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations )
-    {
-        final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
-
-        // create flow network
-        final DirectedGraph<V, EdgeWrapper<WE>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
-
-        // create flow network handler
-        final FlowNetworkHandler<V, EdgeWrapper<WE>, W> flowNetworkHandler =
-                        new FlowNetworkHandler<V, EdgeWrapper<WE>, W>( flowNetwork, source, target, checkedWeightOperations, new MapperWrapper<WE, W, WO>( checkedWeightOperations, weightedEdges ) );
-
-        // perform depth first search
-        visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
-
-        while ( flowNetworkHandler.hasAugmentingPath() )
-        {
-            // update flow network
-            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
-            // look for another augmenting path with depth first search
-            visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
-        }
-
-        return flowNetworkHandler.onCompleted();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations )
-    {
-        final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
-
-        // create flow network
-        final DirectedGraph<V, EdgeWrapper<WE>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
-
-        // create flow network handler
-        final FlowNetworkHandler<V, EdgeWrapper<WE>, W> flowNetworkHandler =
-                        new FlowNetworkHandler<V, EdgeWrapper<WE>, W>( flowNetwork, source, target, checkedWeightOperations, new MapperWrapper<WE, W, WO>( checkedWeightOperations, weightedEdges ) );
-
-        // perform breadth first search
-        visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
-
-        while ( flowNetworkHandler.hasAugmentingPath() )
-        {
-            // update flow network
-            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
-            // look for another augmenting path with breadth first search
-            visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
-        }
-
-        return flowNetworkHandler.onCompleted();
-    }
-
-    private <WO extends OrderedMonoid<W>> DirectedGraph<V, EdgeWrapper<WE>> newFlowNetwok( final DirectedGraph<V, WE> graph,
-                                                                                           final WO weightOperations )
-    {
-        return newDirectedMutableGraph( new AbstractGraphConnection<V, EdgeWrapper<WE>>()
-        {
-            @Override
-            public void connect()
-            {
-                // vertices
-                for ( V vertex : graph.getVertices() )
-                {
-                    addVertex( vertex );
-                }
-                // edges
-                for ( WE edge : graph.getEdges() )
-                {
-                    VertexPair<V> edgeVertices = graph.getVertices( edge );
-                    V head = edgeVertices.getHead();
-                    V tail = edgeVertices.getTail();
-
-                    addEdge( new EdgeWrapper<WE>( edge ) ).from( head ).to( tail );
-
-                    if ( graph.getEdge( tail, head ) == null )
-                    {
-                        // complete the flow network with a zero-capacity inverse edge
-                        addEdge( new EdgeWrapper<WE>() ).from( tail ).to( head );
-                    }
-                }
-            }
-        } );
-    }
-
     private static final class EdgeWrapper<WE>
     {
 
@@ -190,6 +86,110 @@ final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
             return weightedEdges.map( input.getWrapped() );
         }
 
+    }
+
+    private final DirectedGraph<V, WE> graph;
+
+    private final Mapper<WE, W> weightedEdges;
+
+    private final V source;
+
+    private final V target;
+
+    public DefaultMaxFlowAlgorithmSelector( DirectedGraph<V, WE> graph, Mapper<WE, W> weightedEdges, V source, V target )
+    {
+        this.graph = graph;
+        this.weightedEdges = weightedEdges;
+        this.source = source;
+        this.target = target;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <WO extends OrderedMonoid<W>> W applyingEdmondsKarp( WO weightOperations )
+    {
+        final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
+
+        // create flow network
+        final DirectedGraph<V, EdgeWrapper<WE>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
+
+        // create flow network handler
+        final FlowNetworkHandler<V, EdgeWrapper<WE>, W> flowNetworkHandler =
+                        new FlowNetworkHandler<V, EdgeWrapper<WE>, W>( flowNetwork, source, target, checkedWeightOperations, new MapperWrapper<WE, W, WO>( checkedWeightOperations, weightedEdges ) );
+
+        // perform breadth first search
+        visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
+
+        while ( flowNetworkHandler.hasAugmentingPath() )
+        {
+            // update flow network
+            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
+            // look for another augmenting path with breadth first search
+            visit( flowNetwork ).from( source ).applyingBreadthFirstSearch( flowNetworkHandler );
+        }
+
+        return flowNetworkHandler.onCompleted();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <WO extends OrderedMonoid<W>> W applyingFordFulkerson( WO weightOperations )
+    {
+        final WO checkedWeightOperations = checkNotNull( weightOperations, "Weight operations can not be null to find the max flow in the graph" );
+
+        // create flow network
+        final DirectedGraph<V, EdgeWrapper<WE>> flowNetwork = newFlowNetwok( graph, checkedWeightOperations );
+
+        // create flow network handler
+        final FlowNetworkHandler<V, EdgeWrapper<WE>, W> flowNetworkHandler =
+                        new FlowNetworkHandler<V, EdgeWrapper<WE>, W>( flowNetwork, source, target, checkedWeightOperations, new MapperWrapper<WE, W, WO>( checkedWeightOperations, weightedEdges ) );
+
+        // perform depth first search
+        visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
+
+        while ( flowNetworkHandler.hasAugmentingPath() )
+        {
+            // update flow network
+            flowNetworkHandler.updateResidualNetworkWithCurrentAugmentingPath();
+            // look for another augmenting path with depth first search
+            visit( flowNetwork ).from( source ).applyingDepthFirstSearch( flowNetworkHandler );
+        }
+
+        return flowNetworkHandler.onCompleted();
+    }
+
+    private <WO extends OrderedMonoid<W>> DirectedGraph<V, EdgeWrapper<WE>> newFlowNetwok( final DirectedGraph<V, WE> graph,
+                                                                                           final WO weightOperations )
+    {
+        return newDirectedMutableGraph( new AbstractGraphConnection<V, EdgeWrapper<WE>>()
+        {
+            @Override
+            public void connect()
+            {
+                // vertices
+                for ( V vertex : graph.getVertices() )
+                {
+                    addVertex( vertex );
+                }
+                // edges
+                for ( WE edge : graph.getEdges() )
+                {
+                    VertexPair<V> edgeVertices = graph.getVertices( edge );
+                    V head = edgeVertices.getHead();
+                    V tail = edgeVertices.getTail();
+
+                    addEdge( new EdgeWrapper<WE>( edge ) ).from( head ).to( tail );
+
+                    if ( graph.getEdge( tail, head ) == null )
+                    {
+                        // complete the flow network with a zero-capacity inverse edge
+                        addEdge( new EdgeWrapper<WE>() ).from( tail ).to( head );
+                    }
+                }
+            }
+        } );
     }
 
 }

@@ -41,23 +41,6 @@ public class BaseLabeledEdge
     /**
      * {@inheritDoc}
      */
-    public String getLabel()
-    {
-        return label;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode()
-    {
-        return hash( 1, 31, label );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals( Object obj )
     {
@@ -74,6 +57,23 @@ public class BaseLabeledEdge
         BaseLabeledEdge other = (BaseLabeledEdge) obj;
 
         return eq( label, other.label );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getLabel()
+    {
+        return label;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        return hash( 1, 31, label );
     }
 
     /**

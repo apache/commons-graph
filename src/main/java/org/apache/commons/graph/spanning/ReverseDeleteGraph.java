@@ -50,32 +50,14 @@ final class ReverseDeleteGraph<V, WE>
         this.visitedEdge = visitedEdge;
     }
 
-    public Iterable<V> getVertices()
+    public boolean containsEdge( WE e )
     {
-        return graph.getVertices();
+        return graph.containsEdge( e );
     }
 
-    public int getOrder()
+    public boolean containsVertex( V v )
     {
-        return graph.getOrder();
-    }
-
-    public Iterable<WE> getEdges()
-    {
-        List<WE> e = new ArrayList<WE>();
-        e.addAll( sortedEdge );
-        e.addAll( visitedEdge );
-        return e;
-    }
-
-    public int getSize()
-    {
-        return sortedEdge.size() + visitedEdge.size();
-    }
-
-    public int getDegree( V v )
-    {
-        throw new GraphException( "Unused Method" );
+        return graph.containsVertex( v );
     }
 
     public Iterable<V> getConnectedVertices( V v )
@@ -93,6 +75,11 @@ final class ReverseDeleteGraph<V, WE>
         return tmp;
     }
 
+    public int getDegree( V v )
+    {
+        throw new GraphException( "Unused Method" );
+    }
+
     public WE getEdge( V source, V target )
     {
         WE edge = graph.getEdge( source, target );
@@ -106,6 +93,29 @@ final class ReverseDeleteGraph<V, WE>
             return edge;
         }
         return null;
+    }
+
+    public Iterable<WE> getEdges()
+    {
+        List<WE> e = new ArrayList<WE>();
+        e.addAll( sortedEdge );
+        e.addAll( visitedEdge );
+        return e;
+    }
+
+    public int getOrder()
+    {
+        return graph.getOrder();
+    }
+
+    public int getSize()
+    {
+        return sortedEdge.size() + visitedEdge.size();
+    }
+
+    public Iterable<V> getVertices()
+    {
+        return graph.getVertices();
     }
 
     public VertexPair<V> getVertices( WE e )
@@ -129,16 +139,6 @@ final class ReverseDeleteGraph<V, WE>
             return graph.getVertices( e );
         }
         return null;
-    }
-
-    public boolean containsVertex( V v )
-    {
-        return graph.containsVertex( v );
-    }
-
-    public boolean containsEdge( WE e )
-    {
-        return graph.containsEdge( e );
     }
 
 }

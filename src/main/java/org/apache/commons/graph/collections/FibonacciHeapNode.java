@@ -88,63 +88,13 @@ final class FibonacciHeapNode<E>
     }
 
     /**
-     * Returns the reference to the parent node, if any.
+     * Decreases the degree of current node.
      *
-     * @return the reference to the parent node, if any.
+     * @see #getDegree()
      */
-    public FibonacciHeapNode<E> getParent()
+    public void decraeseDegree()
     {
-        return parent;
-    }
-
-    /**
-     * Sets the reference to the parent node.
-     *
-     * @param parent the reference to the parent node
-     */
-    public void setParent( FibonacciHeapNode<E> parent )
-    {
-        this.parent = parent;
-    }
-
-    /**
-     * Returns the left node reference.
-     *
-     * @return the left node reference.
-     */
-    public FibonacciHeapNode<E> getLeft()
-    {
-        return left;
-    }
-
-    /**
-     * Sets the left node reference.
-     *
-     * @param left the left node reference.
-     */
-    public void setLeft( FibonacciHeapNode<E> left )
-    {
-        this.left = left;
-    }
-
-    /**
-     * Returns the right node reference.
-     *
-     * @return the right node reference.
-     */
-    public FibonacciHeapNode<E> getRight()
-    {
-        return right;
-    }
-
-    /**
-     * Sets the right node reference.
-     *
-     * @param left the right node reference.
-     */
-    public void setRight( FibonacciHeapNode<E> right )
-    {
-        this.right = right;
+        degree--;
     }
 
     /**
@@ -158,16 +108,6 @@ final class FibonacciHeapNode<E>
     }
 
     /**
-     * Sets the reference to the first child node.
-     *
-     * @param child the reference to the first child node.
-     */
-    public void setChild( FibonacciHeapNode<E> child )
-    {
-        this.child = child;
-    }
-
-    /**
      * Returns the number of children in the child list of node {@code x} is stored in {@code degree[x]}.
      *
      * @return the number of children in the child list of node {@code x} is stored in {@code degree[x]}.
@@ -175,6 +115,46 @@ final class FibonacciHeapNode<E>
     public int getDegree()
     {
         return degree;
+    }
+
+    /**
+     * Returns the adapted element by this node.
+     *
+     * @return the adapted element by this node.
+     */
+    public E getElement()
+    {
+        return element;
+    }
+
+    /**
+     * Returns the left node reference.
+     *
+     * @return the left node reference.
+     */
+    public FibonacciHeapNode<E> getLeft()
+    {
+        return left;
+    }
+
+    /**
+     * Returns the reference to the parent node, if any.
+     *
+     * @return the reference to the parent node, if any.
+     */
+    public FibonacciHeapNode<E> getParent()
+    {
+        return parent;
+    }
+
+    /**
+     * Returns the right node reference.
+     *
+     * @return the right node reference.
+     */
+    public FibonacciHeapNode<E> getRight()
+    {
+        return right;
     }
 
     /**
@@ -188,16 +168,6 @@ final class FibonacciHeapNode<E>
     }
 
     /**
-     * Decreases the degree of current node.
-     *
-     * @see #getDegree()
-     */
-    public void decraeseDegree()
-    {
-        degree--;
-    }
-
-    /**
      * Returns the current node mark status.
      *
      * @return true, if the node is marked, false otherwise.
@@ -205,6 +175,26 @@ final class FibonacciHeapNode<E>
     public boolean isMarked()
     {
         return marked;
+    }
+
+    /**
+     * Sets the reference to the first child node.
+     *
+     * @param child the reference to the first child node.
+     */
+    public void setChild( FibonacciHeapNode<E> child )
+    {
+        this.child = child;
+    }
+
+    /**
+     * Sets the left node reference.
+     *
+     * @param left the left node reference.
+     */
+    public void setLeft( FibonacciHeapNode<E> left )
+    {
+        this.left = left;
     }
 
     /**
@@ -218,13 +208,23 @@ final class FibonacciHeapNode<E>
     }
 
     /**
-     * Returns the adapted element by this node.
+     * Sets the reference to the parent node.
      *
-     * @return the adapted element by this node.
+     * @param parent the reference to the parent node
      */
-    public E getElement()
+    public void setParent( FibonacciHeapNode<E> parent )
     {
-        return element;
+        this.parent = parent;
+    }
+
+    /**
+     * Sets the right node reference.
+     *
+     * @param left the right node reference.
+     */
+    public void setRight( FibonacciHeapNode<E> right )
+    {
+        this.right = right;
     }
 
     /**

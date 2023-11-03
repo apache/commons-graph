@@ -50,125 +50,6 @@ public class GraphSerializationTestCase
 
     private final static String FILE_NAME = "target/serialiazedGraph.dat";
 
-    @After
-    public void cleanUp()
-    {
-        File f = new File( FILE_NAME );
-        if ( f.exists() )
-        {
-            f.delete();
-        }
-    }
-
-    @Test
-    public void testSerializeUndirectedGraph()
-        throws Exception
-    {
-        MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newUndirectedMutableGraph( buildGraphConnections() );
-
-        checkSerialization( g );
-    }
-
-    @Test
-    public void testSerializeDirectedGraph()
-        throws Exception
-    {
-        MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newDirectedMutableGraph( buildGraphConnections() );
-
-        checkSerialization( g );
-    }
-
-    @Test
-    public void testSerializeUndirectedWeightdGraph()
-        throws Exception
-    {
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
-            newUndirectedMutableGraph( buildWeightedGraphConnections() );
-
-        checkSerialization( g );
-    }
-
-    @Test
-    public void testSerializeDirectedWeightdGraph()
-        throws Exception
-    {
-        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
-            newDirectedMutableGraph( buildWeightedGraphConnections() );
-
-        checkSerialization( g );
-    }
-
-    @Test
-    public void testSerializeSpanningTree()
-        throws Exception
-    {
-        final MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> spanningTree =
-            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>(
-                                                                                                 new DoubleWeightBaseOperations(),
-                                                                                                 new BaseWeightedEdge<Double>() );
-
-        populate( spanningTree ).withConnections( buildWeightedGraphConnections() );
-
-        checkSerialization( spanningTree );
-    }
-
-    @Test
-    public void testSerializeSyncronyzedDirectedWeightdGraph()
-        throws Exception
-    {
-        Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
-            synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) newDirectedMutableGraph( buildWeightedGraphConnections() ) );
-
-        checkSerialization( g );
-    }
-
-    @Test
-    public void testSerializePath()
-        throws Exception
-    {
-        BaseLabeledVertex start = new BaseLabeledVertex( "start" );
-        BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
-        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
-        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
-
-        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> g =
-            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>(
-                                                                                                  start,
-                                                                                                  goal,
-                                                                                                  new DoubleWeightBaseOperations(),
-                                                                                                  new BaseWeightedEdge<Double>() );
-
-        g.addConnectionInTail( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
-        g.addConnectionInTail( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );
-        g.addConnectionInTail( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ), c );
-        g.addConnectionInTail( c, new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ), goal );
-
-        checkSerialization( g );
-    }
-
-    /**
-     * @param g
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    private static void checkSerialization( Graph<BaseLabeledVertex, ? extends Serializable> g )
-        throws FileNotFoundException, IOException, ClassNotFoundException
-    {
-        FileOutputStream fout = new FileOutputStream( FILE_NAME );
-        ObjectOutputStream oos = new ObjectOutputStream( fout );
-        oos.writeObject( g );
-        oos.close();
-
-        FileInputStream fin = new FileInputStream( FILE_NAME );
-        ObjectInputStream ois = new ObjectInputStream( fin );
-        Object cloned = ois.readObject();
-        ois.close();
-
-        assertEquals( g, cloned );
-    }
-
     private static GraphConnection<BaseLabeledVertex, BaseLabeledEdge> buildGraphConnections()
     {
         return new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
@@ -209,6 +90,125 @@ public class GraphSerializationTestCase
             }
 
         };
+    }
+
+    /**
+     * @param g
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private static void checkSerialization( Graph<BaseLabeledVertex, ? extends Serializable> g )
+        throws FileNotFoundException, IOException, ClassNotFoundException
+    {
+        FileOutputStream fout = new FileOutputStream( FILE_NAME );
+        ObjectOutputStream oos = new ObjectOutputStream( fout );
+        oos.writeObject( g );
+        oos.close();
+
+        FileInputStream fin = new FileInputStream( FILE_NAME );
+        ObjectInputStream ois = new ObjectInputStream( fin );
+        Object cloned = ois.readObject();
+        ois.close();
+
+        assertEquals( g, cloned );
+    }
+
+    @After
+    public void cleanUp()
+    {
+        File f = new File( FILE_NAME );
+        if ( f.exists() )
+        {
+            f.delete();
+        }
+    }
+
+    @Test
+    public void testSerializeDirectedGraph()
+        throws Exception
+    {
+        MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newDirectedMutableGraph( buildGraphConnections() );
+
+        checkSerialization( g );
+    }
+
+    @Test
+    public void testSerializeDirectedWeightdGraph()
+        throws Exception
+    {
+        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+            newDirectedMutableGraph( buildWeightedGraphConnections() );
+
+        checkSerialization( g );
+    }
+
+    @Test
+    public void testSerializePath()
+        throws Exception
+    {
+        BaseLabeledVertex start = new BaseLabeledVertex( "start" );
+        BaseLabeledVertex goal = new BaseLabeledVertex( "goal" );
+        BaseLabeledVertex a = new BaseLabeledVertex( "a" );
+        BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+        BaseLabeledVertex c = new BaseLabeledVertex( "c" );
+
+        InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> g =
+            new InMemoryWeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>(
+                                                                                                  start,
+                                                                                                  goal,
+                                                                                                  new DoubleWeightBaseOperations(),
+                                                                                                  new BaseWeightedEdge<Double>() );
+
+        g.addConnectionInTail( start, new BaseLabeledWeightedEdge<Double>( "start <-> a", 1.5D ), a );
+        g.addConnectionInTail( a, new BaseLabeledWeightedEdge<Double>( "a <-> b", 2D ), b );
+        g.addConnectionInTail( b, new BaseLabeledWeightedEdge<Double>( "b <-> c", 3D ), c );
+        g.addConnectionInTail( c, new BaseLabeledWeightedEdge<Double>( "c <-> goal", 3D ), goal );
+
+        checkSerialization( g );
+    }
+
+    @Test
+    public void testSerializeSpanningTree()
+        throws Exception
+    {
+        final MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> spanningTree =
+            new MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double>(
+                                                                                                 new DoubleWeightBaseOperations(),
+                                                                                                 new BaseWeightedEdge<Double>() );
+
+        populate( spanningTree ).withConnections( buildWeightedGraphConnections() );
+
+        checkSerialization( spanningTree );
+    }
+
+    @Test
+    public void testSerializeSyncronyzedDirectedWeightdGraph()
+        throws Exception
+    {
+        Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+            synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) newDirectedMutableGraph( buildWeightedGraphConnections() ) );
+
+        checkSerialization( g );
+    }
+
+    @Test
+    public void testSerializeUndirectedGraph()
+        throws Exception
+    {
+        MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = newUndirectedMutableGraph( buildGraphConnections() );
+
+        checkSerialization( g );
+    }
+
+    @Test
+    public void testSerializeUndirectedWeightdGraph()
+        throws Exception
+    {
+        MutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> g =
+            newUndirectedMutableGraph( buildWeightedGraphConnections() );
+
+        checkSerialization( g );
     }
 
 }

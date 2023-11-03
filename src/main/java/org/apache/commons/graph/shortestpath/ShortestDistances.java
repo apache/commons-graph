@@ -45,20 +45,6 @@ final class ShortestDistances<V, W>
     }
 
     /**
-     * Returns the distance related to input vertex, or null if it wasn't previously visited.
-     *
-     * <b>NOTE</b>: the method {@link alreadyVisited} should be used first to check if
-     * the input vertex was already visited and a distance value is available for it.
-     *
-     * @param vertex the vertex whose distance has to be retrieved
-     * @return the distance related to input vertex, or null if it wasn't previously visited.
-     */
-    public W getWeight( V vertex )
-    {
-        return distances.get( vertex );
-    }
-
-    /**
      * Checks if the input {@code Vertex} was already visited.
      *
      * @param vertex the input {@code Vertex}
@@ -67,17 +53,6 @@ final class ShortestDistances<V, W>
     public boolean alreadyVisited( V vertex )
     {
         return distances.containsKey( vertex );
-    }
-
-    /**
-     * Update the input vertex distance.
-     *
-     * @param vertex the vertex for which the distance has to be updated
-     * @param distance the new input vertex distance
-     */
-    public void setWeight( V vertex, W distance )
-    {
-        distances.put( vertex, distance );
     }
 
     /**
@@ -98,6 +73,31 @@ final class ShortestDistances<V, W>
             return -1;
         }
         return weightOperations.compare( getWeight( left ), getWeight( right ) );
+    }
+
+    /**
+     * Returns the distance related to input vertex, or null if it wasn't previously visited.
+     *
+     * <b>NOTE</b>: the method {@link alreadyVisited} should be used first to check if
+     * the input vertex was already visited and a distance value is available for it.
+     *
+     * @param vertex the vertex whose distance has to be retrieved
+     * @return the distance related to input vertex, or null if it wasn't previously visited.
+     */
+    public W getWeight( V vertex )
+    {
+        return distances.get( vertex );
+    }
+
+    /**
+     * Update the input vertex distance.
+     *
+     * @param vertex the vertex for which the distance has to be updated
+     * @param distance the new input vertex distance
+     */
+    public void setWeight( V vertex, W distance )
+    {
+        distances.put( vertex, distance );
     }
 
 }

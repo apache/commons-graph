@@ -44,6 +44,14 @@ public class MultiThreadedTestRunner
         }
     }
 
+    /**
+     * @param e
+     */
+    public void addException( Throwable e )
+    {
+        exceptions.add( e );
+    }
+
     public void runRunnables() throws Throwable
     {
         for ( Thread t : th )
@@ -60,13 +68,5 @@ public class MultiThreadedTestRunner
         {
             throw this.exceptions.get( 0 );
         }
-    }
-
-    /**
-     * @param e
-     */
-    public void addException( Throwable e )
-    {
-        exceptions.add( e );
     }
 }

@@ -35,24 +35,52 @@ import org.junit.Test;
 
 public final class PrimTestCase
 {
-    @Test( expected = NullPointerException.class )
-    public void testNullGraph()
+    private static void internalPrimAssertion( UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input,
+                                               BaseLabeledVertex source,
+                                               MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected )
     {
-        minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
-            .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
+     // actual
+
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
+                        minimumSpanningTree( input )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                            .fromSource( source )
+                            .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
+
+        // assert!
+
+        assertEquals( expected, actual );
     }
 
-    @Test( expected = NullPointerException.class )
-    public void testNullVertex()
+    @Test( expected = IllegalStateException.class )
+    public void testEmptyGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         minimumSpanningTree( input )
             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( null )
+            .fromArbitrarySource()
+            .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
+    }
+
+    @Test( expected = IllegalStateException.class )
+    public void testNotExistVertex()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        minimumSpanningTree( input )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .fromArbitrarySource()
             .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
     }
 
@@ -79,26 +107,15 @@ public final class PrimTestCase
             .applyingBoruvkaAlgorithm( null );
     }
 
-    @Test( expected = IllegalStateException.class )
-    public void testNotExistVertex()
+    @Test( expected = NullPointerException.class )
+    public void testNullVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         minimumSpanningTree( input )
             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
-    }
-
-    @Test( expected = IllegalStateException.class )
-    public void testEmptyGraph()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
+            .fromSource( null )
             .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
     }
 
@@ -226,23 +243,6 @@ public final class PrimTestCase
         expected.addEdge( e, new BaseLabeledWeightedEdge<Double>( "e <-> g", 9D ), g );
 
         internalPrimAssertion( input, d, expected );
-    }
-
-    private static void internalPrimAssertion( UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input,
-                                               BaseLabeledVertex source,
-                                               MutableSpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> expected )
-    {
-     // actual
-
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
-                        minimumSpanningTree( input )
-                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-                            .fromSource( source )
-                            .applyingPrimAlgorithm( new DoubleWeightBaseOperations() );
-
-        // assert!
-
-        assertEquals( expected, actual );
     }
 
 }

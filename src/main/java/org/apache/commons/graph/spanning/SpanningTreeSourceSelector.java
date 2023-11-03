@@ -33,21 +33,6 @@ public interface SpanningTreeSourceSelector<V, W, WE>
 {
 
     /**
-     * Selects an arbitrary source from the input Graph to calculate the spanning tree.
-     *
-     * @return the linked spanning tree algorithm builder
-     */
-    SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource();
-
-    /**
-     * Allows specify a source vertex to calculate the spanning tree.
-     *
-     * @param source the source vertex to calculate the spanning tree.
-     * @return the linked spanning tree algorithm builder
-     */
-    <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source );
-
-    /**
      * Applies the <a href="http://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.
      *
      * <pre>
@@ -68,5 +53,20 @@ public interface SpanningTreeSourceSelector<V, W, WE>
      * @return the calculated spanning tree
      */
     <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations );
+
+    /**
+     * Selects an arbitrary source from the input Graph to calculate the spanning tree.
+     *
+     * @return the linked spanning tree algorithm builder
+     */
+    SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource();
+
+    /**
+     * Allows specify a source vertex to calculate the spanning tree.
+     *
+     * @param source the source vertex to calculate the spanning tree.
+     * @return the linked spanning tree algorithm builder
+     */
+    <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source );
 
 }

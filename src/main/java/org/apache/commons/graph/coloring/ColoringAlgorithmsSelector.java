@@ -31,13 +31,6 @@ public interface ColoringAlgorithmsSelector<V, E, C>
 {
 
     /**
-     * Colors the graph such that no two adjacent vertices share the same color.
-     *
-     * @return The color - vertex association.
-     */
-    ColoredVertices<V, C> applyingGreedyAlgorithm();
-
-    /**
      * Graph m-coloring algorithm. This algorithm uses a brute-force backtracking
      * procedure to find a graph color.
      *
@@ -53,5 +46,12 @@ public interface ColoringAlgorithmsSelector<V, E, C>
      * @return The color - vertex association.
      */
     ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex );
+
+    /**
+     * Colors the graph such that no two adjacent vertices share the same color.
+     *
+     * @return The color - vertex association.
+     */
+    ColoredVertices<V, C> applyingGreedyAlgorithm();
 
 }

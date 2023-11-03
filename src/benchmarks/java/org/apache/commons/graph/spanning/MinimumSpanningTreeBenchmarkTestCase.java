@@ -52,9 +52,6 @@ public final class MinimumSpanningTreeBenchmarkTestCase
     private static final int NODES = 1000;
     private static final int EDGES = 6000;
 
-    @Rule
-    public BenchmarkRule benchmarkRun = new BenchmarkRule();
-
     private static UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph;
 
     private static Mapper<BaseLabeledWeightedEdge<Double>, Double> weightedEdges;
@@ -75,6 +72,18 @@ public final class MinimumSpanningTreeBenchmarkTestCase
         graph = newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>()
         {
             Random r = new Random();
+
+            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
+            {
+                try {
+                  addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
+                                                                (double) r.nextInt(10) ) ).from( src ).to( dst );
+                  return true;
+              } catch (GraphException e) {
+                  // ignore duplicate edge exceptions
+                  return false;
+              }
+            }
 
             public void connect()
             {
@@ -102,20 +111,11 @@ public final class MinimumSpanningTreeBenchmarkTestCase
                     }
                 }
             }
-
-            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
-            {
-                try {
-                  addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
-                                                                (double) r.nextInt(10) ) ).from( src ).to( dst );
-                  return true;
-              } catch (GraphException e) {
-                  // ignore duplicate edge exceptions
-                  return false;
-              }
-            }
         } );
     }
+
+    @Rule
+    public BenchmarkRule benchmarkRun = new BenchmarkRule();
 
     @Test
     public void testPerformBoruvka()

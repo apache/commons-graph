@@ -37,84 +37,6 @@ import org.junit.Test;
 public final class BellmannFordTestCase
 {
 
-    @Test( expected = NullPointerException.class )
-    public void testNullGraph()
-    {
-        // the actual weighted path
-        findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( null )
-            .applyingBelmannFord( new DoubleWeightBaseOperations() );
-    }
-
-    @Test( expected = NullPointerException.class )
-    public void testNullVertices()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
-        findShortestPath( graph )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( null )
-            .applyingBelmannFord( new DoubleWeightBaseOperations() );
-    }
-
-    @Test( expected = NullPointerException.class )
-    public void testNullMonoid()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph = null;
-        BaseLabeledVertex a = null;
-        try
-        {
-            graph = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
-            a = new BaseLabeledVertex( "a" );
-            final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
-            graph.addVertex( a );
-            graph.addVertex( b );
-        }
-        catch ( NullPointerException e )
-        {
-            fail( e.getMessage() );
-        }
-
-        // the actual weighted path
-        findShortestPath( graph )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( a )
-            .applyingBelmannFord( null );
-    }
-
-    @Test( expected = PathNotFoundException.class )
-    public void testNotConnectGraph()
-    {
-        BaseLabeledVertex a = null;
-        BaseLabeledVertex b = null;
-        // the actual weighted path
-        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
-            null;
-        try
-        {
-            UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
-                new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
-            a = new BaseLabeledVertex( "a" );
-            b = new BaseLabeledVertex( "b" );
-            graph.addVertex( a );
-            graph.addVertex( b );
-
-            allVertexPairsShortestPath = findShortestPath( graph )
-                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-                            .from( a )
-                            .applyingBelmannFord( new DoubleWeightBaseOperations() );
-        }
-        catch ( PathNotFoundException e )
-        {
-            fail( e.getMessage() );
-        }
-        allVertexPairsShortestPath.findShortestPath( a, b );
-    }
-
     /**
      * Test Graph and Dijkstra's solution can be seen on
      * <a href="http://compprog.wordpress.com/2007/11/29/one-source-shortest-path-the-bellman-ford-algorithm/">Wikipedia</a>
@@ -169,6 +91,84 @@ public final class BellmannFordTestCase
         WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
             allVertexPairsShortestPath.findShortestPath( one, three );
         assertEquals( expected, actual );
+    }
+
+    @Test( expected = PathNotFoundException.class )
+    public void testNotConnectGraph()
+    {
+        BaseLabeledVertex a = null;
+        BaseLabeledVertex b = null;
+        // the actual weighted path
+        AllVertexPairsShortestPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> allVertexPairsShortestPath =
+            null;
+        try
+        {
+            UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+                new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+            a = new BaseLabeledVertex( "a" );
+            b = new BaseLabeledVertex( "b" );
+            graph.addVertex( a );
+            graph.addVertex( b );
+
+            allVertexPairsShortestPath = findShortestPath( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                            .from( a )
+                            .applyingBelmannFord( new DoubleWeightBaseOperations() );
+        }
+        catch ( PathNotFoundException e )
+        {
+            fail( e.getMessage() );
+        }
+        allVertexPairsShortestPath.findShortestPath( a, b );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        // the actual weighted path
+        findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( null )
+            .applyingBelmannFord( new DoubleWeightBaseOperations() );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullMonoid()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph = null;
+        BaseLabeledVertex a = null;
+        try
+        {
+            graph = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+            a = new BaseLabeledVertex( "a" );
+            final BaseLabeledVertex b = new BaseLabeledVertex( "b" );
+            graph.addVertex( a );
+            graph.addVertex( b );
+        }
+        catch ( NullPointerException e )
+        {
+            fail( e.getMessage() );
+        }
+
+        // the actual weighted path
+        findShortestPath( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( a )
+            .applyingBelmannFord( null );
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullVertices()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        findShortestPath( graph )
+            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+            .from( null )
+            .applyingBelmannFord( new DoubleWeightBaseOperations() );
     }
 
 }

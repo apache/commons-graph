@@ -75,6 +75,28 @@ class SuperVertex<V, W, WE>
         }
     }
 
+    /**
+     * Returns the edge with the minimum weight to other {@link SuperVertex}
+     * instances.
+     *
+     * @return the minimum weight edge or <code>null</code> if there is no edge
+     */
+    public WE getMinimumWeightEdge()
+    {
+        boolean found = false;
+        WE edge = null;
+        while ( !found && !orderedEdges.isEmpty() )
+        {
+            edge = orderedEdges.pollFirst();
+            VertexPair<V> pair = graph.getVertices( edge );
+            if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
+            {
+                found = true;
+            }
+        }
+        return edge;
+    }
+
     /** {@inheritDoc} */
     public Iterator<V> iterator()
     {
@@ -103,28 +125,6 @@ class SuperVertex<V, W, WE>
                 orderedEdges.add( edge );
             }
         }
-    }
-
-    /**
-     * Returns the edge with the minimum weight to other {@link SuperVertex}
-     * instances.
-     *
-     * @return the minimum weight edge or <code>null</code> if there is no edge
-     */
-    public WE getMinimumWeightEdge()
-    {
-        boolean found = false;
-        WE edge = null;
-        while ( !found && !orderedEdges.isEmpty() )
-        {
-            edge = orderedEdges.pollFirst();
-            VertexPair<V> pair = graph.getVertices( edge );
-            if ( !vertices.contains( pair.getHead() ) || !vertices.contains( pair.getTail() ) )
-            {
-                found = true;
-            }
-        }
-        return edge;
     }
 
 }

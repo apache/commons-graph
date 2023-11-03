@@ -28,13 +28,6 @@ abstract public class TestRunner
 {
     private MultiThreadedTestRunner runner;
 
-    abstract public void runTest();
-
-    public void setTestRunner( MultiThreadedTestRunner runner )
-    {
-        this.runner = runner;
-    }
-
     public void run()
     {
         try
@@ -45,5 +38,12 @@ abstract public class TestRunner
         {
             runner.addException( e );
         }
+    }
+
+    abstract public void runTest();
+
+    public void setTestRunner( MultiThreadedTestRunner runner )
+    {
+        this.runner = runner;
     }
 }

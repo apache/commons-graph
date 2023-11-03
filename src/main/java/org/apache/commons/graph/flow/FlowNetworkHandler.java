@@ -84,6 +84,55 @@ class FlowNetworkHandler<V, E, W>
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public VisitState discoverEdge( V head, E edge, V tail )
+    {
+        W residualEdgeCapacity = residualEdgeCapacities.get( edge );
+        // avoid expanding the edge when it has no residual capacity
+        if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
+        {
+            return SKIP;
+        }
+        predecessors.addPredecessor( tail, head );
+        return CONTINUE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void discoverGraph( DirectedGraph<V, E> graph )
+    {
+        // reset ausiliary structures for a new graph visit
+        predecessors = new PredecessorsList<V, E, W>( graph, weightOperations, weightedEdges );
+        foundAugmentingPath = false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public VisitState discoverVertex( V vertex )
+    {
+        return finishVertex( vertex );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public VisitState finishVertex( V vertex )
+    {
+        if ( vertex.equals( target ) )
+        {
+            // search ends when target vertex is reached
+            foundAugmentingPath = true;
+            return ABORT;
+        }
+        return CONTINUE;
+    }
+
+    /**
      * Checks whether there is an augmenting path in the flow network,
      * given the current residual capacities.
      * @return true if there is an augmenting path, false otherwise
@@ -91,6 +140,12 @@ class FlowNetworkHandler<V, E, W>
     boolean hasAugmentingPath()
     {
         return foundAugmentingPath;
+    }
+
+    @Override
+    public W onCompleted()
+    {
+        return maxFlow;
     }
 
     /**
@@ -128,61 +183,6 @@ class FlowNetworkHandler<V, E, W>
             W inverseCapacity = residualEdgeCapacities.get( inverseEdge );
             residualEdgeCapacities.put( inverseEdge, weightOperations.append( inverseCapacity, flowIncrement ) );
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void discoverGraph( DirectedGraph<V, E> graph )
-    {
-        // reset ausiliary structures for a new graph visit
-        predecessors = new PredecessorsList<V, E, W>( graph, weightOperations, weightedEdges );
-        foundAugmentingPath = false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public VisitState discoverEdge( V head, E edge, V tail )
-    {
-        W residualEdgeCapacity = residualEdgeCapacities.get( edge );
-        // avoid expanding the edge when it has no residual capacity
-        if ( weightOperations.compare( residualEdgeCapacity, weightOperations.identity() ) <= 0 )
-        {
-            return SKIP;
-        }
-        predecessors.addPredecessor( tail, head );
-        return CONTINUE;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public VisitState discoverVertex( V vertex )
-    {
-        return finishVertex( vertex );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public VisitState finishVertex( V vertex )
-    {
-        if ( vertex.equals( target ) )
-        {
-            // search ends when target vertex is reached
-            foundAugmentingPath = true;
-            return ABORT;
-        }
-        return CONTINUE;
-    }
-
-    @Override
-    public W onCompleted()
-    {
-        return maxFlow;
     }
 
 }

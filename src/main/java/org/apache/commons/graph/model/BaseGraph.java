@@ -49,6 +49,30 @@ public abstract class BaseGraph<V, E>
 
     private static final long serialVersionUID = -8066786787634472712L;
 
+    /**
+     * Ensures the truth of an expression involving one or more parameters to the
+     * calling method.
+     *
+     * @param expression a boolean expression
+     * @param errorMessageTemplate a template for the exception message should the
+     *     check fail. The message is formed by replacing each {@code %s}
+     *     placeholder in the template with an argument. These are matched by
+     *     position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc.
+     *     Unmatched arguments will be appended to the formatted message in square
+     *     braces. Unmatched placeholders will be left as-is.
+     * @param errorMessageArgs the arguments to be substituted into the message
+     *     template. Arguments are converted to strings using
+     *     {@link String#valueOf(Object)}.
+     * @throws GraphException if {@code expression} is false
+     */
+    protected static void checkGraphCondition( boolean expression, String errorMessageTemplate, Object...errorMessageArgs )
+    {
+        if ( !expression )
+        {
+            throw new GraphException( format( errorMessageTemplate, errorMessageArgs ) );
+        }
+    }
+
     private final Map<V, Set<V>> adjacencyList = new HashMap<V, Set<V>>();
 
     private final Set<E> allEdges = new HashSet<E>();
@@ -60,33 +84,58 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final Iterable<V> getVertices()
+    public boolean containsEdge( E e )
     {
-        return unmodifiableSet( adjacencyList.keySet() );
+        return indexedVertices.containsKey( e );
     }
 
     /**
      * {@inheritDoc}
      */
-    public final int getOrder()
+    public boolean containsVertex( V v )
     {
-        return adjacencyList.size();
+        return adjacencyList.containsKey( v );
     }
 
     /**
      * {@inheritDoc}
      */
-    public final Iterable<E> getEdges()
+    @Override
+    public boolean equals( Object obj )
     {
-        return unmodifiableCollection( allEdges );
+        if ( this == obj )
+        {
+            return true;
+        }
+
+        if ( obj == null || getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        @SuppressWarnings( "unchecked" )
+        // test against any Graph typed instance
+        BaseGraph<Object, Object> other = (BaseGraph<Object, Object>) obj;
+        return eq( adjacencyList, other.getAdjacencyList() );
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the adjacency list where stored vertex/edges.
+     *
+     * @return the adjacency list where stored vertex/edges.
      */
-    public int getSize()
+    protected final Map<V, Set<V>> getAdjacencyList()
     {
-        return allEdges.size();
+        return adjacencyList;
+    }
+
+    /**
+     * Return the edge {@link Set}
+     * @return the edge {@link Set}
+     */
+    protected Set<E> getAllEdges()
+    {
+        return allEdges;
     }
 
     /**
@@ -113,85 +162,9 @@ public abstract class BaseGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final VertexPair<V> getVertices( E e )
+    public final Iterable<E> getEdges()
     {
-        return indexedVertices.get( e );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean containsVertex( V v )
-    {
-        return adjacencyList.containsKey( v );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean containsEdge( E e )
-    {
-        return indexedVertices.containsKey( e );
-    }
-
-    /**
-     * Returns the adjacency list where stored vertex/edges.
-     *
-     * @return the adjacency list where stored vertex/edges.
-     */
-    protected final Map<V, Set<V>> getAdjacencyList()
-    {
-        return adjacencyList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        return hash( 1, prime, adjacencyList, allEdges, indexedEdges, indexedVertices );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals( Object obj )
-    {
-        if ( this == obj )
-        {
-            return true;
-        }
-
-        if ( obj == null || getClass() != obj.getClass() )
-        {
-            return false;
-        }
-
-        @SuppressWarnings( "unchecked" )
-        // test against any Graph typed instance
-        BaseGraph<Object, Object> other = (BaseGraph<Object, Object>) obj;
-        return eq( adjacencyList, other.getAdjacencyList() );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString()
-    {
-        return String.valueOf( adjacencyList );
-    }
-
-    /**
-     * Return the edge {@link Set}
-     * @return the edge {@link Set}
-     */
-    protected Set<E> getAllEdges()
-    {
-        return allEdges;
+        return unmodifiableCollection( allEdges );
     }
 
     /**
@@ -215,26 +188,53 @@ public abstract class BaseGraph<V, E>
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the
-     * calling method.
-     *
-     * @param expression a boolean expression
-     * @param errorMessageTemplate a template for the exception message should the
-     *     check fail. The message is formed by replacing each {@code %s}
-     *     placeholder in the template with an argument. These are matched by
-     *     position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc.
-     *     Unmatched arguments will be appended to the formatted message in square
-     *     braces. Unmatched placeholders will be left as-is.
-     * @param errorMessageArgs the arguments to be substituted into the message
-     *     template. Arguments are converted to strings using
-     *     {@link String#valueOf(Object)}.
-     * @throws GraphException if {@code expression} is false
+     * {@inheritDoc}
      */
-    protected static void checkGraphCondition( boolean expression, String errorMessageTemplate, Object...errorMessageArgs )
+    public final int getOrder()
     {
-        if ( !expression )
-        {
-            throw new GraphException( format( errorMessageTemplate, errorMessageArgs ) );
-        }
+        return adjacencyList.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getSize()
+    {
+        return allEdges.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final Iterable<V> getVertices()
+    {
+        return unmodifiableSet( adjacencyList.keySet() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final VertexPair<V> getVertices( E e )
+    {
+        return indexedVertices.get( e );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        return hash( 1, prime, adjacencyList, allEdges, indexedEdges, indexedVertices );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return String.valueOf( adjacencyList );
     }
 }

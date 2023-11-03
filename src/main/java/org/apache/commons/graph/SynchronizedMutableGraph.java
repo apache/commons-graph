@@ -44,28 +44,6 @@ final class SynchronizedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public void addVertex( V v )
-    {
-        synchronized ( lock )
-        {
-            mutableGraph.addVertex( v );
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void removeVertex( V v )
-    {
-        synchronized ( lock )
-        {
-            mutableGraph.removeVertex( v );
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public void addEdge( V head, E e, V tail )
     {
         synchronized ( lock )
@@ -77,11 +55,33 @@ final class SynchronizedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
+    public void addVertex( V v )
+    {
+        synchronized ( lock )
+        {
+            mutableGraph.addVertex( v );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public void removeEdge( E e )
     {
         synchronized ( lock )
         {
             mutableGraph.removeEdge( e );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void removeVertex( V v )
+    {
+        synchronized ( lock )
+        {
+            mutableGraph.removeVertex( v );
         }
     }
 

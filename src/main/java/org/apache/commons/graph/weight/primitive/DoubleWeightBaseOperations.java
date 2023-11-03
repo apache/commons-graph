@@ -33,14 +33,6 @@ public class DoubleWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Double identity()
-    {
-        return 0.0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public Double append( Double s1, Double s2 )
     {
         if ( s1 == null || s2 == null )
@@ -53,17 +45,25 @@ public class DoubleWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Double inverse( Double element )
+    public int compare( Double s1, Double s2 )
     {
-        return -element;
+        return s1.compareTo( s2 );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compare( Double s1, Double s2 )
+    public Double identity()
     {
-        return s1.compareTo( s2 );
+        return 0.0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Double inverse( Double element )
+    {
+        return -element;
     }
 
 }

@@ -62,6 +62,54 @@ final class DotExporter<V, E>
         this.vertexIdentifiers = generateVertexIdentifiers( graph );
     }
 
+    @Override
+    protected void comment( String text )
+        throws Exception
+    {
+        printWriter.write( text );
+    }
+
+    @Override
+    protected void edge( E edge, V head, V tail, Map<String, Object> properties )
+        throws Exception
+    {
+        printWriter.format( "  %s %s %s",
+                            vertexIdentifiers.get( head ),
+                            connector,
+                            vertexIdentifiers.get( tail ) );
+
+        printVertexOrEdgeProperties( properties );
+    }
+
+    @Override
+    protected void endGraph()
+        throws Exception
+    {
+        printWriter.write( '}' );
+    }
+
+    @Override
+    protected void endSerialization()
+        throws Exception
+    {
+        // do nothing?
+    }
+
+    @Override
+    protected void enlistEdgesProperty( String name, Class<?> type )
+        throws Exception
+    {
+        // not needed in DOT
+
+    }
+
+    @Override
+    protected void enlistVerticesProperty( String name, Class<?> type )
+        throws Exception
+    {
+        // not needed in DOT
+    }
+
     private Map<V, Integer> generateVertexIdentifiers( Graph<V, E> graph )
     {
         Map<V, Integer> vertexIdentifiers = new HashMap<V, Integer>();
@@ -75,18 +123,22 @@ final class DotExporter<V, E>
         return vertexIdentifiers;
     }
 
-    @Override
-    protected void startSerialization()
-        throws Exception
+    private void printVertexOrEdgeProperties( Map<String, Object> properties )
     {
-        printWriter = new PrintWriter( getWriter() );
-    }
+        if ( !properties.isEmpty() )
+        {
+            int countAddedProperties = 0;
+            printWriter.write( " [" );
 
-    @Override
-    protected void endSerialization()
-        throws Exception
-    {
-        // do nothing?
+            for ( Entry<String, Object> property : properties.entrySet() )
+            {
+                String formattedString = countAddedProperties == properties.size() - 1 ? "%s=\"%s\"" : "%s=\"%s\" ";
+                printWriter.format( formattedString, property.getKey(), property.getValue() );
+                countAddedProperties++;
+            }
+
+            printWriter.format( "];%n" );
+        }
     }
 
     @Override
@@ -110,32 +162,10 @@ final class DotExporter<V, E>
     }
 
     @Override
-    protected void endGraph()
+    protected void startSerialization()
         throws Exception
     {
-        printWriter.write( '}' );
-    }
-
-    @Override
-    protected void comment( String text )
-        throws Exception
-    {
-        printWriter.write( text );
-    }
-
-    @Override
-    protected void enlistVerticesProperty( String name, Class<?> type )
-        throws Exception
-    {
-        // not needed in DOT
-    }
-
-    @Override
-    protected void enlistEdgesProperty( String name, Class<?> type )
-        throws Exception
-    {
-        // not needed in DOT
-
+        printWriter = new PrintWriter( getWriter() );
     }
 
     @Override
@@ -147,45 +177,15 @@ final class DotExporter<V, E>
         printVertexOrEdgeProperties( properties );
     }
 
-    @Override
-    protected void edge( E edge, V head, V tail, Map<String, Object> properties )
-        throws Exception
+    public DotExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
     {
-        printWriter.format( "  %s %s %s",
-                            vertexIdentifiers.get( head ),
-                            connector,
-                            vertexIdentifiers.get( tail ) );
-
-        printVertexOrEdgeProperties( properties );
-    }
-
-    private void printVertexOrEdgeProperties( Map<String, Object> properties )
-    {
-        if ( !properties.isEmpty() )
-        {
-            int countAddedProperties = 0;
-            printWriter.write( " [" );
-
-            for ( Entry<String, Object> property : properties.entrySet() )
-            {
-                String formattedString = countAddedProperties == properties.size() - 1 ? "%s=\"%s\"" : "%s=\"%s\" ";
-                printWriter.format( formattedString, property.getKey(), property.getValue() );
-                countAddedProperties++;
-            }
-
-            printWriter.format( "];%n" );
-        }
+        super.addEdgeProperty( LABEL, edgeLabels );
+        return this;
     }
 
     public <N extends Number> DotExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
     {
         super.addEdgeProperty( WEIGHT, edgeWeights );
-        return this;
-    }
-
-    public DotExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
-    {
-        super.addEdgeProperty( LABEL, edgeLabels );
         return this;
     }
 

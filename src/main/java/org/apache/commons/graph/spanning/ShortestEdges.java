@@ -43,6 +43,18 @@ final class ShortestEdges<V, WE, W>
     implements Comparator<V>
 {
 
+    private static <V, WE, W> void addEdgeIgnoringExceptions( V vertex, MutableSpanningTree<V, WE, W> spanningTree )
+    {
+        try
+        {
+            spanningTree.addVertex( vertex );
+        }
+        catch ( GraphException e )
+        {
+            // just swallow it
+        }
+    }
+
     private final Map<V, WE> predecessors = new HashMap<V, WE>();
 
     private final OrderedMonoid<W> weightOperations;
@@ -73,6 +85,26 @@ final class ShortestEdges<V, WE, W>
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public int compare( V left, V right )
+    {
+        if ( !hasWeight( left ) && !hasWeight( right ) )
+        {
+            return 0;
+        }
+        else if ( !hasWeight( left ) )
+        {
+            return 1;
+        }
+        else if ( !hasWeight( right ) )
+        {
+            return -1;
+        }
+        return weightOperations.compare( getWeight( left ), getWeight( right ) );
+    }
+
+    /**
      * Creates a spanning tree using the current data.
      *
      * @return a spanning tree using current data
@@ -95,28 +127,6 @@ final class ShortestEdges<V, WE, W>
         }
 
         return spanningTree;
-    }
-
-    private static <V, WE, W> void addEdgeIgnoringExceptions( V vertex, MutableSpanningTree<V, WE, W> spanningTree )
-    {
-        try
-        {
-            spanningTree.addVertex( vertex );
-        }
-        catch ( GraphException e )
-        {
-            // just swallow it
-        }
-    }
-
-    /**
-     * Checks the predecessor list has no elements.
-     *
-     * @return true, if the predecessor list has no elements, false otherwise.
-     */
-    public boolean isEmpty()
-    {
-        return predecessors.isEmpty();
     }
 
     /**
@@ -157,23 +167,13 @@ final class ShortestEdges<V, WE, W>
     }
 
     /**
-     * {@inheritDoc}
+     * Checks the predecessor list has no elements.
+     *
+     * @return true, if the predecessor list has no elements, false otherwise.
      */
-    public int compare( V left, V right )
+    public boolean isEmpty()
     {
-        if ( !hasWeight( left ) && !hasWeight( right ) )
-        {
-            return 0;
-        }
-        else if ( !hasWeight( left ) )
-        {
-            return 1;
-        }
-        else if ( !hasWeight( right ) )
-        {
-            return -1;
-        }
-        return weightOperations.compare( getWeight( left ), getWeight( right ) );
+        return predecessors.isEmpty();
     }
 
     /**

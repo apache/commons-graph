@@ -53,21 +53,6 @@ public final class CommonsGraph
 {
 
     /**
-     * Export the graph in DOT or GraphML format.
-     *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param <G> the Graph type
-     * @param graph the input graph
-     * @return an instance of {@link NamedExportSelector}
-     */
-    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
-    {
-        graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultExportSelector<V, E>( graph );
-    }
-
-    /**
      * Create a color builder.
      *
      * @param <V> the Graph vertices type
@@ -83,6 +68,51 @@ public final class CommonsGraph
     }
 
     /**
+     * Ranks the players (vertices) that took part in a tournament (graph) depending on the game results (edges),
+     * applying the <a href="http://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
+     *
+     * @param <P> the players involved in the tournament
+     * @param <TG> the Tournament Graph type
+     * @param tournamentGraph the graph representing the tournament
+     * @return the builder for the functor which returns/update the players ranking
+     */
+    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
+    {
+        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
+        return new DefaultRankingSelector<P>( tournamentGraph );
+    }
+
+    /**
+     * Export the graph in DOT or GraphML format.
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param <G> the Graph type
+     * @param graph the input graph
+     * @return an instance of {@link NamedExportSelector}
+     */
+    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
+    {
+        graph = checkNotNull( graph, "Null graph can not be exported" );
+        return new DefaultExportSelector<V, E>( graph );
+    }
+
+    /**
+     * Calculates the input graph Connected Component.
+     *
+     * @param <V> the Graph vertices type.
+     * @param <E> the Graph edges type.
+     * @param <G> the directed graph type
+     * @param graph the Graph which connected component has to be verified.
+     * @return the Connectivity algorithm builder
+     */
+    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
+        return new DefaultConnectivityBuilder<V, E>( graph );
+    }
+
+    /**
      * Find the maximum flow on the input {@link Graph}.
      *
      * @param <V> the Graph vertices type
@@ -95,21 +125,6 @@ public final class CommonsGraph
     {
         graph = checkNotNull( graph, "Max flow can not be calculated on null graph" );
         return new DefaultFlowWeightedEdgesBuilder<V, WE>( graph );
-    }
-
-    /**
-     * Find the minimum spanning tree on the input {@link Graph}
-     *
-     * @param <V> the Graph vertices type
-     * @param <WE> the Graph edges type
-     * @param <G> the Graph type
-     * @param graph the input edge-weighted graph
-     * @return the caluculated minimun spanning tree
-     */
-    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
-    {
-        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
-        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
     }
 
     /**
@@ -143,48 +158,18 @@ public final class CommonsGraph
     }
 
     /**
-     * Calculates the input graph Connected Component.
-     *
-     * @param <V> the Graph vertices type.
-     * @param <E> the Graph edges type.
-     * @param <G> the directed graph type
-     * @param graph the Graph which connected component has to be verified.
-     * @return the Connectivity algorithm builder
-     */
-    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
-        return new DefaultConnectivityBuilder<V, E>( graph );
-    }
-
-    /**
-     * Allows select a series of algorithms to apply on input graph.
+     * Find the minimum spanning tree on the input {@link Graph}
      *
      * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <WE> the Graph edges type
      * @param <G> the Graph type
-     * @param graph the Graph instance to apply graph algorithms
-     * @return the graph algorithms selector
+     * @param graph the input edge-weighted graph
+     * @return the caluculated minimun spanning tree
      */
-    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
+    public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
     {
-        graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
-        return new DefaultVisitSourceSelector<V, E, G>( graph );
-    }
-
-    /**
-     * Ranks the players (vertices) that took part in a tournament (graph) depending on the game results (edges),
-     * applying the <a href="http://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
-     *
-     * @param <P> the players involved in the tournament
-     * @param <TG> the Tournament Graph type
-     * @param tournamentGraph the graph representing the tournament
-     * @return the builder for the functor which returns/update the players ranking
-     */
-    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
-    {
-        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
-        return new DefaultRankingSelector<P>( tournamentGraph );
+        graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
+        return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
     }
 
     /**
@@ -230,6 +215,35 @@ public final class CommonsGraph
     }
 
     /**
+     * Returns a synchronized (thread-safe) {@link DirectedGraph} backed by the specified Graph.
+     *
+     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
+     * <pre>
+     *     Graph syncGraph = synchronize( graph );
+     *         ...
+     *     synchronized(syncGraph) {
+     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block
+     *         {
+     *            foo( v )
+     *         }
+     *   }
+     * </pre>
+     *
+     * Failure to follow this advice may result in non-deterministic behavior.
+     *
+     * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
+     *
+     * @param <V> the Graph vertices type
+     * @param <E> the Graph edges type
+     * @param graph the input {@link Graph}
+     * @return the syncronyzed graph
+     */
+    public static <V, E> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
+    {
+        return new SynchronizedDirectedGraph<V, E>( graph );
+    }
+
+    /**
      * Returns a synchronized (thread-safe) {@link Graph} backed by the specified Graph.
      *
      * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
@@ -259,7 +273,7 @@ public final class CommonsGraph
     }
 
     /**
-     * Returns a synchronized (thread-safe) {@link DirectedGraph} backed by the specified Graph.
+     * Returns a synchronized (thread-safe) {@link MutableGraph} backed by the specified Graph.
      *
      * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
      * <pre>
@@ -280,11 +294,11 @@ public final class CommonsGraph
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
      * @param graph the input {@link Graph}
-     * @return the syncronyzed graph
+     * @return the synchronized graph
      */
-    public static <V, E> Graph<V, E> synchronize( DirectedGraph<V, E> graph )
+    public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
     {
-        return new SynchronizedDirectedGraph<V, E>( graph );
+        return new SynchronizedMutableGraph<V, E>( graph );
     }
 
     /**
@@ -317,32 +331,18 @@ public final class CommonsGraph
     }
 
     /**
-     * Returns a synchronized (thread-safe) {@link MutableGraph} backed by the specified Graph.
-     *
-     * It is imperative that the user manually synchronize on the returned graph when iterating over iterable collections:
-     * <pre>
-     *     Graph syncGraph = synchronize( graph );
-     *         ...
-     *     synchronized(syncGraph) {
-     *         for ( Vertex v : g.getVertices() ) // Must be in synchronized block
-     *         {
-     *            foo( v )
-     *         }
-     *   }
-     * </pre>
-     *
-     * Failure to follow this advice may result in non-deterministic behavior.
-     *
-     * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
+     * Allows select a series of algorithms to apply on input graph.
      *
      * @param <V> the Graph vertices type
      * @param <E> the Graph edges type
-     * @param graph the input {@link Graph}
-     * @return the synchronized graph
+     * @param <G> the Graph type
+     * @param graph the Graph instance to apply graph algorithms
+     * @return the graph algorithms selector
      */
-    public static <V, E> Graph<V, E> synchronize( MutableGraph<V, E> graph )
+    public static <V, E, G extends Graph<V, E>> VisitSourceSelector<V, E, G> visit( G graph )
     {
-        return new SynchronizedMutableGraph<V, E>( graph );
+        graph = checkNotNull( graph, "No algorithm can be applied on null graph!" );
+        return new DefaultVisitSourceSelector<V, E, G>( graph );
     }
 
     /**

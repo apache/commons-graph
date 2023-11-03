@@ -26,11 +26,15 @@ public final class Objects
 {
 
     /**
-     * Hidden constructor, this class must not be instantiated.
+     * Verifies input objects are equal.
+     *
+     * @param o1 the first argument to compare
+     * @param o2 the second argument to compare
+     * @return true, if the input arguments are equal, false otherwise.
      */
-    private Objects()
+    public static <O> boolean eq( O o1, O o2 )
     {
-        // do nothing
+        return o1 != null ? o1.equals( o2 ) : o2 == null;
     }
 
     /**
@@ -52,15 +56,11 @@ public final class Objects
     }
 
     /**
-     * Verifies input objects are equal.
-     *
-     * @param o1 the first argument to compare
-     * @param o2 the second argument to compare
-     * @return true, if the input arguments are equal, false otherwise.
+     * Hidden constructor, this class must not be instantiated.
      */
-    public static <O> boolean eq( O o1, O o2 )
+    private Objects()
     {
-        return o1 != null ? o1.equals( o2 ) : o2 == null;
+        // do nothing
     }
 
 }

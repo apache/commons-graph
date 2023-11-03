@@ -52,6 +52,39 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
     /**
      * {@inheritDoc}
      */
+    public ColoredVertices<V, C> applyingBackTrackingAlgorithm()
+    {
+        return applyingBackTrackingAlgorithm( new ColoredVertices<V, C>() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
+    {
+        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
+
+        final List<V> verticesList = new ArrayList<V>();
+
+        for ( V v : g.getVertices() )
+        {
+            if ( !partialColoredVertex.containsColoredVertex( v ) )
+            {
+                verticesList.add( v );
+            }
+        }
+
+        if ( backtraking( -1, verticesList, partialColoredVertex ) )
+        {
+            return partialColoredVertex;
+        }
+
+        throw new NotEnoughColorsException( colors );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public ColoredVertices<V, C> applyingGreedyAlgorithm()
     {
         final ColoredVertices<V, C> coloredVertices = new ColoredVertices<V, C>();
@@ -109,39 +142,6 @@ final class DefaultColoringAlgorithmsSelector<V, E, C>
         }
 
         return coloredVertices;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public ColoredVertices<V, C> applyingBackTrackingAlgorithm()
-    {
-        return applyingBackTrackingAlgorithm( new ColoredVertices<V, C>() );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
-    {
-        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
-
-        final List<V> verticesList = new ArrayList<V>();
-
-        for ( V v : g.getVertices() )
-        {
-            if ( !partialColoredVertex.containsColoredVertex( v ) )
-            {
-                verticesList.add( v );
-            }
-        }
-
-        if ( backtraking( -1, verticesList, partialColoredVertex ) )
-        {
-            return partialColoredVertex;
-        }
-
-        throw new NotEnoughColorsException( colors );
     }
 
     /**

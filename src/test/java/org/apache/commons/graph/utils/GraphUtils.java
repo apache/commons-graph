@@ -38,40 +38,6 @@ public class GraphUtils
 {
 
     /**
-     * Creates a complete graph with nVertices
-     *
-     * @param nVertices number of vertices
-     * @param g graph
-     */
-    public static void buildCompleteGraph( int nVertices, BaseMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
-    {
-        // building Graph
-        for ( int i = 0; i < nVertices; i++ )
-        {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
-            g.addVertex( v );
-        }
-
-        for ( BaseLabeledVertex v1 : g.getVertices() )
-        {
-            for ( BaseLabeledVertex v2 : g.getVertices() )
-            {
-                if ( !v1.equals( v2 ) )
-                {
-                    try
-                    {
-                        g.addEdge( v1, new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ), v2 );
-                    }
-                    catch ( GraphException e )
-                    {
-                        // ignore
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Create a Biparted graph
      *
      * @param nVertices number of vertices
@@ -112,6 +78,40 @@ public class GraphUtils
         for ( BaseLabeledVertex v1 : fistPartition )
         {
             for ( BaseLabeledVertex v2 : secondPartition )
+            {
+                if ( !v1.equals( v2 ) )
+                {
+                    try
+                    {
+                        g.addEdge( v1, new BaseLabeledEdge( format( "%s -> %s", v1, v2 ) ), v2 );
+                    }
+                    catch ( GraphException e )
+                    {
+                        // ignore
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates a complete graph with nVertices
+     *
+     * @param nVertices number of vertices
+     * @param g graph
+     */
+    public static void buildCompleteGraph( int nVertices, BaseMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g )
+    {
+        // building Graph
+        for ( int i = 0; i < nVertices; i++ )
+        {
+            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            g.addVertex( v );
+        }
+
+        for ( BaseLabeledVertex v1 : g.getVertices() )
+        {
+            for ( BaseLabeledVertex v2 : g.getVertices() )
             {
                 if ( !v1.equals( v2 ) )
                 {

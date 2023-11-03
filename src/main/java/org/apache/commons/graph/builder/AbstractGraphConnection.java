@@ -34,6 +34,35 @@ public abstract class AbstractGraphConnection<V, E>
     private GraphConnector<V, E> connector;
 
     /**
+     * Adds a new edge to graph connector.
+     *
+     * @param <A> the Graph edges type
+     * @param arc the edge to add.
+     * @return the {@link HeadVertexConnector}
+     */
+    protected final <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
+    {
+        return connector.addEdge( arc );
+    }
+
+    /**
+     * Adds a new vertex to graph connector.
+     *
+     * @param <N> the Graph vertex type
+     * @param node the vertex to add
+     * @return the vertex added
+     */
+    protected final <N extends V> N addVertex( N node )
+    {
+        return connector.addVertex( node );
+    }
+
+    /**
+     * Connects the graph.
+     */
+    public abstract void connect();
+
+    /**
      * {@inheritDoc}
      */
     public final void connect( GraphConnector<V, E> connector )
@@ -50,34 +79,5 @@ public abstract class AbstractGraphConnection<V, E>
             this.connector = null;
         }
     }
-
-    /**
-     * Adds a new vertex to graph connector.
-     *
-     * @param <N> the Graph vertex type
-     * @param node the vertex to add
-     * @return the vertex added
-     */
-    protected final <N extends V> N addVertex( N node )
-    {
-        return connector.addVertex( node );
-    }
-
-    /**
-     * Adds a new edge to graph connector.
-     *
-     * @param <A> the Graph edges type
-     * @param arc the edge to add.
-     * @return the {@link HeadVertexConnector}
-     */
-    protected final <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
-    {
-        return connector.addEdge( arc );
-    }
-
-    /**
-     * Connects the graph.
-     */
-    public abstract void connect();
 
 }

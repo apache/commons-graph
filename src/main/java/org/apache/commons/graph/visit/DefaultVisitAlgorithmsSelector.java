@@ -72,17 +72,17 @@ final class DefaultVisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
     /**
      * {@inheritDoc}
      */
-    public Graph<V, E> applyingDepthFirstSearch()
+    public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
     {
-        return applyingDepthFirstSearch( new VisitGraphBuilder<V, E, G>() );
+        return applyingSearch( handler, true );
     }
 
     /**
      * {@inheritDoc}
      */
-    public <O> O applyingBreadthFirstSearch( GraphVisitHandler<V, E, G, O> handler )
+    public Graph<V, E> applyingDepthFirstSearch()
     {
-        return applyingSearch( handler, true );
+        return applyingDepthFirstSearch( new VisitGraphBuilder<V, E, G>() );
     }
 
     /**

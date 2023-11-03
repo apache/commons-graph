@@ -42,6 +42,15 @@ import org.junit.Test;
 public final class KosarajuSharirTestCase
 {
 
+    @Test( expected = IllegalStateException.class )
+    public void testNotExistVertex()
+    {
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
+
+        findStronglyConnectedComponent( graph ).applyingKosarajuSharir( new BaseLabeledVertex( "NOT EXISTS" ) );
+    }
+
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
@@ -60,17 +69,8 @@ public final class KosarajuSharirTestCase
         findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
     }
 
-    @Test( expected = IllegalStateException.class )
-    public void testNotExistVertex()
-    {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
-            new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
-
-        findStronglyConnectedComponent( graph ).applyingKosarajuSharir( new BaseLabeledVertex( "NOT EXISTS" ) );
-    }
-
     @Test
-    public void testVerifyHasStronglyConnectedComponents()
+    public void testUnconnectedGraph()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "B" );
@@ -96,12 +96,12 @@ public final class KosarajuSharirTestCase
                 addVertex( g );
                 addVertex( h );
 
-                addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
+                //addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
                 addEdge( new BaseLabeledEdge( "A -> B" ) ).from( a ).to( b );
                 addEdge( new BaseLabeledEdge( "B -> D" ) ).from( b ).to( d );
                 addEdge( new BaseLabeledEdge( "C -> G" ) ).from( c ).to( g );
                 addEdge( new BaseLabeledEdge( "D -> A" ) ).from( d ).to( a );
-                addEdge( new BaseLabeledEdge( "D -> G" ) ).from( d ).to( g );
+                //addEdge( new BaseLabeledEdge( "D -> G" ) ).from( d ).to( g );
                 addEdge( new BaseLabeledEdge( "E -> C" ) ).from( e ).to( c );
                 addEdge( new BaseLabeledEdge( "E -> F" ) ).from( e ).to( f );
                 addEdge( new BaseLabeledEdge( "F -> E" ) ).from( f ).to( e );
@@ -144,7 +144,7 @@ public final class KosarajuSharirTestCase
     }
 
     @Test
-    public void testUnconnectedGraph()
+    public void testVerifyHasStronglyConnectedComponents()
     {
         final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
         final BaseLabeledVertex b = new BaseLabeledVertex( "B" );
@@ -170,12 +170,12 @@ public final class KosarajuSharirTestCase
                 addVertex( g );
                 addVertex( h );
 
-                //addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
+                addEdge( new BaseLabeledEdge( "A -> F" ) ).from( a ).to( f );
                 addEdge( new BaseLabeledEdge( "A -> B" ) ).from( a ).to( b );
                 addEdge( new BaseLabeledEdge( "B -> D" ) ).from( b ).to( d );
                 addEdge( new BaseLabeledEdge( "C -> G" ) ).from( c ).to( g );
                 addEdge( new BaseLabeledEdge( "D -> A" ) ).from( d ).to( a );
-                //addEdge( new BaseLabeledEdge( "D -> G" ) ).from( d ).to( g );
+                addEdge( new BaseLabeledEdge( "D -> G" ) ).from( d ).to( g );
                 addEdge( new BaseLabeledEdge( "E -> C" ) ).from( e ).to( c );
                 addEdge( new BaseLabeledEdge( "E -> F" ) ).from( e ).to( f );
                 addEdge( new BaseLabeledEdge( "F -> E" ) ).from( f ).to( e );

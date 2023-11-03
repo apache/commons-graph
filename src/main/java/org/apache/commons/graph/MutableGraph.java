@@ -30,26 +30,6 @@ public interface MutableGraph<V, E>
 {
 
     /**
-     * Adds a feature to the vertex attribute of the {@code MutableGraph} object.
-     *
-     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
-     * if an error occurs while performing that operation.
-     *
-     * @param v the vertex has to be added in this {@code MutableGraph} instance.
-     */
-    void addVertex( V v );
-
-    /**
-     * Removes the vertex from the {@code MutableGraph} object.
-     *
-     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
-     * if an error occurs while performing that operation.
-     *
-     * @param v the vertex has to be removed from this {@code MutableGraph} instance.
-     */
-    void removeVertex( V v );
-
-    /**
      * Adds a feature to the edge attribute of the {@code MutableGraph} object
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
@@ -62,6 +42,16 @@ public interface MutableGraph<V, E>
     void addEdge( V head, E e, V tail );
 
     /**
+     * Adds a feature to the vertex attribute of the {@code MutableGraph} object.
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @param v the vertex has to be added in this {@code MutableGraph} instance.
+     */
+    void addVertex( V v );
+
+    /**
      * Removed the edge from the {@code MutableGraph} object.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
@@ -70,5 +60,15 @@ public interface MutableGraph<V, E>
      * @param e the edge has to be removed from this {@code MutableGraph} instance.
      */
     void removeEdge( E e );
+
+    /**
+     * Removes the vertex from the {@code MutableGraph} object.
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @param v the vertex has to be removed from this {@code MutableGraph} instance.
+     */
+    void removeVertex( V v );
 
 }

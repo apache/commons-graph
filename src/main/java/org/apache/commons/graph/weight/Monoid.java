@@ -31,13 +31,6 @@ public interface Monoid<E>
 {
 
     /**
-     * Returns the identity value.
-     *
-     * @return the identity value
-     */
-    E identity();
-
-    /**
      * Returns the result of the associative binary operation defined by this
      * {@link Semigroup} between two elements of appropriate type.
      *
@@ -46,6 +39,13 @@ public interface Monoid<E>
      * @return the result of the associative binary operation
      */
     E append( E e1, E e2 );
+
+    /**
+     * Returns the identity value.
+     *
+     * @return the identity value
+     */
+    E identity();
 
     /**
      * Returns the inverse of the input element.

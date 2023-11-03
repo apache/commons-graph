@@ -34,44 +34,37 @@ public interface Graph<V, E>
 {
 
     /**
-     * Returns the total set of Vertices in the graph.
+     * Returns true if the edge is contained into the graph
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @return the total set of Vertices in the graph.
+     * @param e the edge to be checked
+     * @return Returns true if the edge is contained into the graph, false otherwise
      */
-    Iterable<V> getVertices();
+    boolean containsEdge( E e );
 
     /**
-     * Returns the <i>order</i> of a Graph (the number of Vertices);
+     * Returns true if the vertex is contained into the graph
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @return the <i>order</i> of a Graph (the number of Vertices);
+     * @param v the vertex to be checked
+     * @return Returns true if the vertex is contained into the graph, false otherwise
      */
-    int getOrder();
+    boolean containsVertex( V v );
 
     /**
-     * Returns the total set of Edges in the graph.
+     * Returns all vertices which touch this vertex.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
      * if an error occurs while performing that operation.
      *
-     * @return the total set of Edges in the graph.
+     * @param v the vertex which connected vertices have to be returned.
+     * @return all vertices which touch this vertex.
      */
-    Iterable<E> getEdges();
-
-    /**
-     * Returns the <i>size</i> of a Graph (the number of Edges)
-     *
-     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
-     * if an error occurs while performing that operation.
-     *
-     * @return the <i>size</i> of a Graph (the number of Edges)
-     */
-    int getSize();
+    Iterable<V> getConnectedVertices( V v );
 
     /**
      * The degree (or valency) of a vertex of a {@link Graph}
@@ -86,17 +79,6 @@ public interface Graph<V, E>
     int getDegree( V v );
 
     /**
-     * Returns all vertices which touch this vertex.
-     *
-     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
-     * if an error occurs while performing that operation.
-     *
-     * @param v the vertex which connected vertices have to be returned.
-     * @return all vertices which touch this vertex.
-     */
-    Iterable<V> getConnectedVertices( V v );
-
-    /**
      * Returns the edge with vertex source and target.
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
@@ -109,6 +91,46 @@ public interface Graph<V, E>
     E getEdge( V source, V target );
 
     /**
+     * Returns the total set of Edges in the graph.
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @return the total set of Edges in the graph.
+     */
+    Iterable<E> getEdges();
+
+    /**
+     * Returns the <i>order</i> of a Graph (the number of Vertices);
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @return the <i>order</i> of a Graph (the number of Vertices);
+     */
+    int getOrder();
+
+    /**
+     * Returns the <i>size</i> of a Graph (the number of Edges)
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @return the <i>size</i> of a Graph (the number of Edges)
+     */
+    int getSize();
+
+    /**
+     * Returns the total set of Vertices in the graph.
+     *
+     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
+     * if an error occurs while performing that operation.
+     *
+     * @return the total set of Vertices in the graph.
+     */
+    Iterable<V> getVertices();
+
+    /**
      * Return the set of vertex on the input edge (2 for normal edges, > 2 for HyperEdges)
      *
      * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
@@ -118,27 +140,5 @@ public interface Graph<V, E>
      * @return the set of vertex on this Edge.
      */
     VertexPair<V> getVertices( E e );
-
-    /**
-     * Returns true if the vertex is contained into the graph
-     *
-     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
-     * if an error occurs while performing that operation.
-     *
-     * @param v the vertex to be checked
-     * @return Returns true if the vertex is contained into the graph, false otherwise
-     */
-    boolean containsVertex( V v );
-
-    /**
-     * Returns true if the edge is contained into the graph
-     *
-     * <b>NOTE</b>: implementors have to take in consideration throwing a {@link GraphException}
-     * if an error occurs while performing that operation.
-     *
-     * @param e the edge to be checked
-     * @return Returns true if the edge is contained into the graph, false otherwise
-     */
-    boolean containsEdge( E e );
 
 }

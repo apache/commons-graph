@@ -31,13 +31,11 @@ public interface SccAlgorithmSelector<V, E>
 {
 
     /**
-     * Applies the classical Kosaraju's algorithm to find the strongly connected components of
-     * a vertex <code>source</code>.
+     * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
      *
-     * @param source the source vertex to start the search from
      * @return the input graph strongly connected component.
      */
-    Set<V> applyingKosarajuSharir( V source );
+    Set<Set<V>> applyingCheriyanMehlhornGabow();
 
     /**
      * Applies the classical Kosaraju's algorithm to find the strongly connected components.
@@ -50,11 +48,13 @@ public interface SccAlgorithmSelector<V, E>
     Set<Set<V>> applyingKosarajuSharir();
 
     /**
-     * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
+     * Applies the classical Kosaraju's algorithm to find the strongly connected components of
+     * a vertex <code>source</code>.
      *
+     * @param source the source vertex to start the search from
      * @return the input graph strongly connected component.
      */
-    Set<Set<V>> applyingCheriyanMehlhornGabow();
+    Set<V> applyingKosarajuSharir( V source );
 
     /**
      * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding

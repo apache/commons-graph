@@ -42,6 +42,27 @@ abstract class AbstractColoringTest
     }
 
     /**
+     * This method checks if all connected vertices have different colors.
+     *
+     * @param g
+     * @param coloredVertices
+     */
+    protected <V, E, C> void checkColoring( UndirectedMutableGraph<V, E> g,
+                                                                        ColoredVertices<V, C> coloredVertices )
+    {
+        for ( E e : g.getEdges() )
+        {
+            VertexPair<V> vp = g.getVertices( e );
+            C h = coloredVertices.getColor( vp.getHead() );
+            C t = coloredVertices.getColor( vp.getTail() );
+
+            assertNotNull( h );
+            assertNotNull( t );
+            assertTrue( !h.equals( t ) );
+        }
+    }
+
+    /**
      * Return a random association with index and a color string in RGB.
      */
     protected Map<Integer, String> createColorMap( int numColor )
@@ -69,27 +90,6 @@ abstract class AbstractColoringTest
             colors.add( j );
         }
         return colors;
-    }
-
-    /**
-     * This method checks if all connected vertices have different colors.
-     *
-     * @param g
-     * @param coloredVertices
-     */
-    protected <V, E, C> void checkColoring( UndirectedMutableGraph<V, E> g,
-                                                                        ColoredVertices<V, C> coloredVertices )
-    {
-        for ( E e : g.getEdges() )
-        {
-            VertexPair<V> vp = g.getVertices( e );
-            C h = coloredVertices.getColor( vp.getHead() );
-            C t = coloredVertices.getColor( vp.getTail() );
-
-            assertNotNull( h );
-            assertNotNull( t );
-            assertTrue( !h.equals( t ) );
-        }
     }
 
 }

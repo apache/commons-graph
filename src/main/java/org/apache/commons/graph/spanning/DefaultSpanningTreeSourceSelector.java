@@ -61,25 +61,6 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
     /**
      * {@inheritDoc}
      */
-    public SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource()
-    {
-        checkState( graph.getOrder() > 0, "Spanning tree cannot be calculated on an empty graph" );
-        return fromSource( graph.getVertices().iterator().next() );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
-    {
-        source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingReverseDeleteAlgorithm( WO weightOperations )
     {
 
@@ -133,6 +114,25 @@ final class DefaultSpanningTreeSourceSelector<V, W, WE>
         }
 
         return res;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public SpanningTreeAlgorithmSelector<V, W, WE> fromArbitrarySource()
+    {
+        checkState( graph.getOrder() > 0, "Spanning tree cannot be calculated on an empty graph" );
+        return fromSource( graph.getVertices().iterator().next() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <S extends V> SpanningTreeAlgorithmSelector<V, W, WE> fromSource( S source )
+    {
+        source = checkNotNull( source, "Spanning tree cannot be calculated without expressing the source vertex" );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        return new DefaultSpanningTreeAlgorithmSelector<V, W, WE>( graph, weightedEdges, source );
     }
 
 }

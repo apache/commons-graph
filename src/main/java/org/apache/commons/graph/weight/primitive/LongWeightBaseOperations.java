@@ -34,14 +34,6 @@ public class LongWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Long identity()
-    {
-        return 0L;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public Long append( Long s1, Long s2 )
     {
         if ( s1 == null || s2 == null )
@@ -54,17 +46,25 @@ public class LongWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Long inverse( Long element )
+    public int compare( Long s1, Long s2 )
     {
-        return -element;
+        return s1.compareTo( s2 );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compare( Long s1, Long s2 )
+    public Long identity()
     {
-        return s1.compareTo( s2 );
+        return 0L;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Long inverse( Long element )
+    {
+        return -element;
     }
 
 }

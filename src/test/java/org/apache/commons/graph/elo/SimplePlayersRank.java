@@ -37,15 +37,15 @@ final class SimplePlayersRank
         return ranks.get( player );
     }
 
-    public void updateRanking( String player, Double ranking )
-    {
-        ranks.put( player, ranking );
-    }
-
     @Override
     public String toString()
     {
         return ranks.toString();
+    }
+
+    public void updateRanking( String player, Double ranking )
+    {
+        ranks.put( player, ranking );
     }
 
 }

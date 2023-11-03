@@ -41,23 +41,6 @@ public class BaseLabeledVertex
     /**
      * {@inheritDoc}
      */
-    public final String getLabel()
-    {
-        return label;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode()
-    {
-        return hash( 1, 31, label );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals( Object obj )
     {
@@ -73,6 +56,23 @@ public class BaseLabeledVertex
 
         BaseLabeledVertex other = (BaseLabeledVertex) obj;
         return eq( label, other.getLabel() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final String getLabel()
+    {
+        return label;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        return hash( 1, 31, label );
     }
 
     /**

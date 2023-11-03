@@ -43,19 +43,19 @@ import org.junit.Test;
 public final class TarjanTestCase
 {
 
-    @Test( expected = NullPointerException.class )
-    public void testNullGraph()
-    {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
-        findStronglyConnectedComponent( graph ).applyingTarjan();
-    }
-
     @Test
     public void testEmptyGraph()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
+        findStronglyConnectedComponent( graph ).applyingTarjan();
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
         findStronglyConnectedComponent( graph ).applyingTarjan();
     }
 

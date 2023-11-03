@@ -42,48 +42,6 @@ public abstract class BaseMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final void addVertex( V v )
-    {
-        checkGraphCondition( v != null, "Impossible to add a null Vertex to the Graph" );
-        checkGraphCondition( !containsVertex( v ), "Vertex '%s' already present in the Graph", v );
-
-        getAdjacencyList().put( v, new LinkedHashSet<V>() );
-
-        decorateAddVertex( v );
-    }
-
-    /**
-     * Executes additional actions to vertex that will be added  
-     * @param v the vertex
-     */
-    protected abstract void decorateAddVertex( V v );
-
-    /**
-     * {@inheritDoc}
-     */
-    public final void removeVertex( V v )
-    {
-        checkGraphCondition( v != null, "Impossible to remove a null Vertex from the Graph" );
-        checkGraphCondition( containsVertex( v ), "Vertex '%s' not present in the Graph", v );
-
-        for ( V tail : getAdjacencyList().get( v ) )
-        {
-            getIndexedEdges().remove( new VertexPair<V>( v, tail ) );
-        }
-        getAdjacencyList().remove( v );
-
-        decorateRemoveVertex( v );
-    }
-
-    /**
-     * Executes additional actions to vertex that will be removed  
-     * @param v the vertex
-     */
-    protected abstract void decorateRemoveVertex( V v );
-
-    /**
-     * {@inheritDoc}
-     */
     public void addEdge( V head, E e, V tail )
     {
         checkGraphCondition( head != null, "Null head Vertex not admitted" );
@@ -99,6 +57,45 @@ public abstract class BaseMutableGraph<V, E>
 
         decorateAddEdge( head, e, tail );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final void addVertex( V v )
+    {
+        checkGraphCondition( v != null, "Impossible to add a null Vertex to the Graph" );
+        checkGraphCondition( !containsVertex( v ), "Vertex '%s' already present in the Graph", v );
+
+        getAdjacencyList().put( v, new LinkedHashSet<V>() );
+
+        decorateAddVertex( v );
+    }
+
+    /**
+     * Executes additional actions to edge that will be added  
+     * @param head the head vertex
+     * @param e the edge
+     * @param tail the tail vertex
+     */
+    protected abstract void decorateAddEdge( V head, E e, V tail );
+
+    /**
+     * Executes additional actions to vertex that will be added  
+     * @param v the vertex
+     */
+    protected abstract void decorateAddVertex( V v );
+
+    /**
+     * Executes additional actions to edge that will be removed  
+     * @param e the edge
+     */
+    protected abstract void decorateRemoveEdge( E e );
+
+    /**
+     * Executes additional actions to vertex that will be removed  
+     * @param v the vertex
+     */
+    protected abstract void decorateRemoveVertex( V v );
 
     /**
      * Performs the internal operations to add the edge
@@ -136,14 +133,6 @@ public abstract class BaseMutableGraph<V, E>
     }
 
     /**
-     * Executes additional actions to edge that will be added  
-     * @param head the head vertex
-     * @param e the edge
-     * @param tail the tail vertex
-     */
-    protected abstract void decorateAddEdge( V head, E e, V tail );
-
-    /**
      * {@inheritDoc}
      */
     public final void removeEdge( E e )
@@ -158,9 +147,20 @@ public abstract class BaseMutableGraph<V, E>
     }
 
     /**
-     * Executes additional actions to edge that will be removed  
-     * @param e the edge
+     * {@inheritDoc}
      */
-    protected abstract void decorateRemoveEdge( E e );
+    public final void removeVertex( V v )
+    {
+        checkGraphCondition( v != null, "Impossible to remove a null Vertex from the Graph" );
+        checkGraphCondition( containsVertex( v ), "Vertex '%s' not present in the Graph", v );
+
+        for ( V tail : getAdjacencyList().get( v ) )
+        {
+            getIndexedEdges().remove( new VertexPair<V>( v, tail ) );
+        }
+        getAdjacencyList().remove( v );
+
+        decorateRemoveVertex( v );
+    }
 
 }

@@ -47,18 +47,103 @@ public class GraphColoringBackTrackingTestCase
     extends AbstractColoringTest
 {
 
-    @Test( expected = NullPointerException.class )
-    public void testNullGraph()
-    {
-        coloring( (UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).withColors( null ).applyingBackTrackingAlgorithm();
-    }
-
-    @Test( expected = NullPointerException.class )
-    public void testNullColorGraph()
+    /**
+     * see <a href="http://en.wikipedia.org/wiki/Crown_graph">wiki</a> for more details
+     */
+    @Test
+    public void testCrawnGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
+
+        buildCrownGraph( 6, g );
+
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            coloring( g ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
+        assertNotNull( coloredVertices );
+        assertEquals( 2, coloredVertices.getRequiredColors() );
+        checkColoring( g, coloredVertices );
+    }
+
+    @Test
+    public void testCromaticNumber()
+    {
+        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
+
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
+                    addVertex( two );
+                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
+
+                    addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
+                    addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
+                    addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
+                }
+
+            } );
+
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertex = new ColoredVertices<BaseLabeledVertex, Integer>();
+        coloredVertex.addColor( two, 2 );
+
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            coloring( g ).withColors( createColorsList( 3 ) ).applyingBackTrackingAlgorithm( coloredVertex );
+        assertNotNull( coloredVertices );
+        assertEquals( 3, coloredVertices.getRequiredColors() );
+        assertEquals( new Integer( 2 ), coloredVertices.getColor( two ) );
+        checkColoring( g, coloredVertices );
+    }
+
+    @Test
+    public void testCromaticNumberBiparted()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+
+        buildBipartedGraph( 100, g1 );
+
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            coloring( g1 ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
+        assertNotNull( coloredVertices );
+        assertEquals( 2, coloredVertices.getRequiredColors() );
+        checkColoring( g1, coloredVertices );
+    }
+
+    @Test
+    public void testCromaticNumberComplete()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+
+        buildCompleteGraph( 100, g1 );
+
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            coloring( g1 ).withColors( createColorsList( 100 ) ).applyingBackTrackingAlgorithm();
+        assertNotNull( coloredVertices );
+        assertEquals( 100, coloredVertices.getRequiredColors() );
+        checkColoring( g1, coloredVertices );
+    }
+
+    @Test
+    public void testCromaticNumberSparseGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        for ( int i = 0; i < 100; i++ )
+        {
+            g1.addVertex( new BaseLabeledVertex( String.valueOf( i ) ) );
+        }
+
+        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
+            coloring( g1 ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
+        assertNotNull( coloredVertices );
+        assertEquals( 1, coloredVertices.getRequiredColors() );
+        checkColoring( g1, coloredVertices );
     }
 
     @Test
@@ -99,103 +184,18 @@ public class GraphColoringBackTrackingTestCase
         coloring( g ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
     }
 
-    @Test
-    public void testCromaticNumber()
-    {
-        final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
-
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
-            {
-
-                @Override
-                public void connect()
-                {
-                    BaseLabeledVertex one = addVertex( new BaseLabeledVertex( "1" ) );
-                    addVertex( two );
-                    BaseLabeledVertex three = addVertex( new BaseLabeledVertex( "3" ) );
-
-                    addEdge( new BaseLabeledEdge( "1 -> 2" ) ).from( one ).to( two );
-                    addEdge( new BaseLabeledEdge( "2 -> 3" ) ).from( two ).to( three );
-                    addEdge( new BaseLabeledEdge( "3 -> 1" ) ).from( three ).to( one );
-                }
-
-            } );
-
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertex = new ColoredVertices<BaseLabeledVertex, Integer>();
-        coloredVertex.addColor( two, 2 );
-
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            coloring( g ).withColors( createColorsList( 3 ) ).applyingBackTrackingAlgorithm( coloredVertex );
-        assertNotNull( coloredVertices );
-        assertEquals( 3, coloredVertices.getRequiredColors() );
-        assertEquals( new Integer( 2 ), coloredVertices.getColor( two ) );
-        checkColoring( g, coloredVertices );
-    }
-
-    @Test
-    public void testCromaticNumberComplete()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-
-        buildCompleteGraph( 100, g1 );
-
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            coloring( g1 ).withColors( createColorsList( 100 ) ).applyingBackTrackingAlgorithm();
-        assertNotNull( coloredVertices );
-        assertEquals( 100, coloredVertices.getRequiredColors() );
-        checkColoring( g1, coloredVertices );
-    }
-
-    @Test
-    public void testCromaticNumberBiparted()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-
-        buildBipartedGraph( 100, g1 );
-
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            coloring( g1 ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
-        assertNotNull( coloredVertices );
-        assertEquals( 2, coloredVertices.getRequiredColors() );
-        checkColoring( g1, coloredVertices );
-    }
-
-    @Test
-    public void testCromaticNumberSparseGraph()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g1 =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        for ( int i = 0; i < 100; i++ )
-        {
-            g1.addVertex( new BaseLabeledVertex( String.valueOf( i ) ) );
-        }
-
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            coloring( g1 ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
-        assertNotNull( coloredVertices );
-        assertEquals( 1, coloredVertices.getRequiredColors() );
-        checkColoring( g1, coloredVertices );
-    }
-
-    /**
-     * see <a href="http://en.wikipedia.org/wiki/Crown_graph">wiki</a> for more details
-     */
-    @Test
-    public void testCrawnGraph()
+    @Test( expected = NullPointerException.class )
+    public void testNullColorGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
+    }
 
-        buildCrownGraph( 6, g );
-
-        ColoredVertices<BaseLabeledVertex, Integer> coloredVertices =
-            coloring( g ).withColors( createColorsList( 2 ) ).applyingBackTrackingAlgorithm();
-        assertNotNull( coloredVertices );
-        assertEquals( 2, coloredVertices.getRequiredColors() );
-        checkColoring( g, coloredVertices );
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        coloring( (UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).withColors( null ).applyingBackTrackingAlgorithm();
     }
 
     @Test

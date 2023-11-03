@@ -35,14 +35,14 @@ public final class NegativeWeightedCycleException
         super( messagePattern, arguments );
     }
 
-    public NegativeWeightedCycleException( Throwable cause )
-    {
-        super( cause );
-    }
-
     public NegativeWeightedCycleException( String msg, Throwable cause )
     {
         super( msg, cause );
+    }
+
+    public NegativeWeightedCycleException( Throwable cause )
+    {
+        super( cause );
     }
 
 }

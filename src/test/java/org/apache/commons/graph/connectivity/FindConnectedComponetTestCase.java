@@ -41,44 +41,6 @@ import org.junit.Test;
 public final class FindConnectedComponetTestCase
 {
 
-    @Test(expected=NullPointerException.class)
-    public void verifyNullGraph()
-    {
-        findConnectedComponent( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
-    }
-
-    @Test
-    public void testVerifyEmptyGraph()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-
-        Collection<List<BaseLabeledVertex>> c =
-            findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
-        assertNotNull( c );
-        assertEquals( 0, c.size() );
-    }
-
-    @Test
-    public void testVerifyNullVerticesGraph()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
-            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
-            {
-
-                public void connect()
-                {
-                    addVertex( new BaseLabeledVertex( "B" ) );
-                    addVertex( new BaseLabeledVertex( "C" ) );
-                }
-
-            } );
-        Collection<List<BaseLabeledVertex>> c =
-            findConnectedComponent( graph ).includingVertices().applyingMinimumSpanningTreeAlgorithm();
-        assertNotNull( c );
-        assertEquals( 0, c.size() );
-    }
-
     @Test
     public void testVerifyConnectedComponents()
     {
@@ -244,6 +206,44 @@ public final class FindConnectedComponetTestCase
         assertNotNull( coll );
         assertFalse( coll.isEmpty() );
         assertEquals( 2, coll.size() );
+    }
+
+    @Test
+    public void testVerifyEmptyGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+
+        Collection<List<BaseLabeledVertex>> c =
+            findConnectedComponent( graph ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        assertNotNull( c );
+        assertEquals( 0, c.size() );
+    }
+
+    @Test
+    public void testVerifyNullVerticesGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph =
+            newUndirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
+            {
+
+                public void connect()
+                {
+                    addVertex( new BaseLabeledVertex( "B" ) );
+                    addVertex( new BaseLabeledVertex( "C" ) );
+                }
+
+            } );
+        Collection<List<BaseLabeledVertex>> c =
+            findConnectedComponent( graph ).includingVertices().applyingMinimumSpanningTreeAlgorithm();
+        assertNotNull( c );
+        assertEquals( 0, c.size() );
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void verifyNullGraph()
+    {
+        findConnectedComponent( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
     }
 
 }

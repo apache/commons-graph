@@ -60,35 +60,6 @@ final class CheriyanMehlhornGabowAlgorithm<V, E>
         this.graph = graph;
     }
 
-    /**
-     */
-    public Set<Set<V>> perform()
-    {
-        for ( V vertex : graph.getVertices() )
-        {
-            if ( !marked.contains( vertex ) )
-            {
-                dfs( vertex );
-            }
-        }
-
-        final List<Set<V>> indexedSccComponents = new ArrayList<Set<V>>();
-        for ( int i = 0; i < sscCounter; i++ )
-        {
-            indexedSccComponents.add( new HashSet<V>() );
-        }
-
-        for ( V w : graph.getVertices() )
-        {
-            Set<V> component = indexedSccComponents.get( sscId.get( w ) );
-            component.add( w );
-        }
-
-        final Set<Set<V>> scc = new HashSet<Set<V>>();
-        scc.addAll( indexedSccComponents );
-        return scc;
-    }
-
     private void dfs( V vertex )
     {
         marked.add( vertex );
@@ -122,5 +93,34 @@ final class CheriyanMehlhornGabowAlgorithm<V, E>
             while ( !vertex.equals( w ) );
             sscCounter++;
         }
+    }
+
+    /**
+     */
+    public Set<Set<V>> perform()
+    {
+        for ( V vertex : graph.getVertices() )
+        {
+            if ( !marked.contains( vertex ) )
+            {
+                dfs( vertex );
+            }
+        }
+
+        final List<Set<V>> indexedSccComponents = new ArrayList<Set<V>>();
+        for ( int i = 0; i < sscCounter; i++ )
+        {
+            indexedSccComponents.add( new HashSet<V>() );
+        }
+
+        for ( V w : graph.getVertices() )
+        {
+            Set<V> component = indexedSccComponents.get( sscId.get( w ) );
+            component.add( w );
+        }
+
+        final Set<Set<V>> scc = new HashSet<Set<V>>();
+        scc.addAll( indexedSccComponents );
+        return scc;
     }
 }

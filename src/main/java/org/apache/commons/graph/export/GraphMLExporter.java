@@ -86,112 +86,6 @@ final class GraphMLExporter<V, E>
 
     private static final String CDATA_TYPE = "CDATA";
 
-    private TransformerHandler transformerHandler;
-
-    GraphMLExporter( Graph<V, E> graph, String name )
-    {
-        super( graph, name );
-    }
-
-    @Override
-    protected void startSerialization()
-        throws Exception
-    {
-        transformerHandler = SAX_TRANSFORMER_FACTORY.newTransformerHandler();
-        transformerHandler.setResult( new StreamResult( getWriter() ) );
-        transformerHandler.startDocument();
-    }
-
-    @Override
-    protected void endSerialization()
-        throws Exception
-    {
-        transformerHandler.endDocument();
-        getWriter().flush();
-        getWriter().close();
-    }
-
-    @Override
-    protected void startGraph( String name )
-        throws Exception
-    {
-        transformerHandler.startElement( GRAPHML_XMLNS, GRAPHML, GRAPHML, new AttributesImpl() );
-
-        AttributesImpl atts = new AttributesImpl();
-        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, name );
-        atts.addAttribute( GRAPHML_XMLNS, EDGEDEFAULT, EDGEDEFAULT, CDATA_TYPE, DIRECTED );
-        transformerHandler.startElement( GRAPHML_XMLNS, GRAPH, GRAPH, atts );
-    }
-
-    @Override
-    protected void endGraph()
-        throws Exception
-    {
-        transformerHandler.endElement( GRAPHML_XMLNS, GRAPH, GRAPH ); // graph
-        transformerHandler.endElement( GRAPHML_XMLNS, GRAPHML, GRAPHML ); // graphml
-    }
-
-    @Override
-    protected void comment( String text )
-        throws Exception
-    {
-        transformerHandler.comment( text.toCharArray(), 0, text.length() );
-    }
-
-    @Override
-    protected void enlistVerticesProperty( String name, Class<?> type )
-        throws Exception
-    {
-        enlistProperty( name, type, NODE );
-    }
-
-    @Override
-    protected void enlistEdgesProperty( String name, Class<?> type )
-        throws Exception
-    {
-        enlistProperty( name, type, EDGE );
-    }
-
-    private void enlistProperty( String name, Class<?> type, String element )
-        throws Exception
-    {
-        AttributesImpl atts = new AttributesImpl();
-        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, name );
-        atts.addAttribute( GRAPHML_XMLNS, FOR, FOR, CDATA_TYPE, element );
-        atts.addAttribute( GRAPHML_XMLNS, ATTR_NAME, ATTR_NAME, CDATA_TYPE, name );
-        atts.addAttribute( GRAPHML_XMLNS, ATTR_TYPE, ATTR_TYPE, CDATA_TYPE, getStringType( type ) );
-        transformerHandler.startElement( GRAPHML_XMLNS, KEY, KEY, atts );
-        transformerHandler.endElement( GRAPHML_XMLNS, KEY, KEY );
-    }
-
-    @Override
-    protected void vertex( V vertex, Map<String, Object> properties )
-        throws Exception
-    {
-        AttributesImpl atts = new AttributesImpl();
-        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, String.valueOf( vertex.hashCode() ) );
-        transformerHandler.startElement( GRAPHML_XMLNS, NODE, NODE, atts );
-
-        // TODO print properties
-
-        transformerHandler.endElement( GRAPHML_XMLNS, NODE, NODE );
-    }
-
-    @Override
-    protected void edge( E edge, V head, V tail, Map<String, Object> properties )
-        throws Exception
-    {
-        AttributesImpl atts = new AttributesImpl();
-        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, String.valueOf( edge.hashCode() ) );
-        atts.addAttribute( GRAPHML_XMLNS, SOURCE, SOURCE, CDATA_TYPE, String.valueOf( getGraph().getVertices( edge ).getHead().hashCode() ) );
-        atts.addAttribute( GRAPHML_XMLNS, TARGET, TARGET, CDATA_TYPE, String.valueOf( getGraph().getVertices( edge ).getTail().hashCode() ) );
-        transformerHandler.startElement( GRAPHML_XMLNS, EDGE, EDGE, atts );
-
-        // TODO print properties
-
-        transformerHandler.endElement( GRAPHML_XMLNS, NODE, NODE );
-    }
-
     private static <T> String getStringType( Class<T> type )
     {
         if ( Integer.class == type )
@@ -217,16 +111,110 @@ final class GraphMLExporter<V, E>
         return STRING;
     }
 
-    public <N extends Number> GraphMLExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
+    private TransformerHandler transformerHandler;
+
+    GraphMLExporter( Graph<V, E> graph, String name )
     {
-        super.addEdgeProperty( WEIGHT, edgeWeights );
-        return this;
+        super( graph, name );
     }
 
-    public <N extends Number> GraphMLExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
+    @Override
+    protected void comment( String text )
+        throws Exception
     {
-        super.addVertexProperty( WEIGHT, vertexWeights );
-        return this;
+        transformerHandler.comment( text.toCharArray(), 0, text.length() );
+    }
+
+    @Override
+    protected void edge( E edge, V head, V tail, Map<String, Object> properties )
+        throws Exception
+    {
+        AttributesImpl atts = new AttributesImpl();
+        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, String.valueOf( edge.hashCode() ) );
+        atts.addAttribute( GRAPHML_XMLNS, SOURCE, SOURCE, CDATA_TYPE, String.valueOf( getGraph().getVertices( edge ).getHead().hashCode() ) );
+        atts.addAttribute( GRAPHML_XMLNS, TARGET, TARGET, CDATA_TYPE, String.valueOf( getGraph().getVertices( edge ).getTail().hashCode() ) );
+        transformerHandler.startElement( GRAPHML_XMLNS, EDGE, EDGE, atts );
+
+        // TODO print properties
+
+        transformerHandler.endElement( GRAPHML_XMLNS, NODE, NODE );
+    }
+
+    @Override
+    protected void endGraph()
+        throws Exception
+    {
+        transformerHandler.endElement( GRAPHML_XMLNS, GRAPH, GRAPH ); // graph
+        transformerHandler.endElement( GRAPHML_XMLNS, GRAPHML, GRAPHML ); // graphml
+    }
+
+    @Override
+    protected void endSerialization()
+        throws Exception
+    {
+        transformerHandler.endDocument();
+        getWriter().flush();
+        getWriter().close();
+    }
+
+    @Override
+    protected void enlistEdgesProperty( String name, Class<?> type )
+        throws Exception
+    {
+        enlistProperty( name, type, EDGE );
+    }
+
+    private void enlistProperty( String name, Class<?> type, String element )
+        throws Exception
+    {
+        AttributesImpl atts = new AttributesImpl();
+        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, name );
+        atts.addAttribute( GRAPHML_XMLNS, FOR, FOR, CDATA_TYPE, element );
+        atts.addAttribute( GRAPHML_XMLNS, ATTR_NAME, ATTR_NAME, CDATA_TYPE, name );
+        atts.addAttribute( GRAPHML_XMLNS, ATTR_TYPE, ATTR_TYPE, CDATA_TYPE, getStringType( type ) );
+        transformerHandler.startElement( GRAPHML_XMLNS, KEY, KEY, atts );
+        transformerHandler.endElement( GRAPHML_XMLNS, KEY, KEY );
+    }
+
+    @Override
+    protected void enlistVerticesProperty( String name, Class<?> type )
+        throws Exception
+    {
+        enlistProperty( name, type, NODE );
+    }
+
+    @Override
+    protected void startGraph( String name )
+        throws Exception
+    {
+        transformerHandler.startElement( GRAPHML_XMLNS, GRAPHML, GRAPHML, new AttributesImpl() );
+
+        AttributesImpl atts = new AttributesImpl();
+        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, name );
+        atts.addAttribute( GRAPHML_XMLNS, EDGEDEFAULT, EDGEDEFAULT, CDATA_TYPE, DIRECTED );
+        transformerHandler.startElement( GRAPHML_XMLNS, GRAPH, GRAPH, atts );
+    }
+
+    @Override
+    protected void startSerialization()
+        throws Exception
+    {
+        transformerHandler = SAX_TRANSFORMER_FACTORY.newTransformerHandler();
+        transformerHandler.setResult( new StreamResult( getWriter() ) );
+        transformerHandler.startDocument();
+    }
+
+    @Override
+    protected void vertex( V vertex, Map<String, Object> properties )
+        throws Exception
+    {
+        AttributesImpl atts = new AttributesImpl();
+        atts.addAttribute( GRAPHML_XMLNS, ID, ID, CDATA_TYPE, String.valueOf( vertex.hashCode() ) );
+        transformerHandler.startElement( GRAPHML_XMLNS, NODE, NODE, atts );
+
+        // TODO print properties
+
+        transformerHandler.endElement( GRAPHML_XMLNS, NODE, NODE );
     }
 
     public GraphMLExporter<V, E> withEdgeLabels( Mapper<E, String> edgeLabels )
@@ -235,9 +223,21 @@ final class GraphMLExporter<V, E>
         return this;
     }
 
+    public <N extends Number> GraphMLExporter<V, E> withEdgeWeights( Mapper<E, N> edgeWeights )
+    {
+        super.addEdgeProperty( WEIGHT, edgeWeights );
+        return this;
+    }
+
     public GraphMLExporter<V, E> withVertexLabels( Mapper<V, String> vertexLabels )
     {
         super.addVertexProperty( LABEL, vertexLabels );
+        return this;
+    }
+
+    public <N extends Number> GraphMLExporter<V, E> withVertexWeights( Mapper<V, N> vertexWeights )
+    {
+        super.addVertexProperty( WEIGHT, vertexWeights );
         return this;
     }
 

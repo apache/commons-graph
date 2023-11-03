@@ -41,43 +41,6 @@ final class TarjanAlgorithm<V, E>
     implements SccAlgorithm<V>
 {
 
-    private final DirectedGraph<V, E> graph;
-
-    /**
-     */
-    public TarjanAlgorithm( DirectedGraph<V, E> graph )
-    {
-        this.graph = graph;
-    }
-
-    /**
-     * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding strongly-connected
-     * components in a directed graph.
-     *
-     * @return the input graph strongly connected component.
-     */
-    public Set<Set<V>> perform()
-    {
-        final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
-        final Stack<V> s = new Stack<V>();
-        final Set<Set<V>> stronglyConnectedComponents = new LinkedHashSet<Set<V>>();
-        Integer index = 0;
-
-        for ( V vertex : graph.getVertices() )
-        {
-            TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
-            final Set<V> stronglyConnectedComponent = new LinkedHashSet<V>();
-
-            if ( vertexMetaInfo.hasUndefinedIndex() )
-            {
-                strongConnect( graph, vertex, verticesMetaInfo, s, stronglyConnectedComponent, index );
-                stronglyConnectedComponents.add( stronglyConnectedComponent );
-            }
-        }
-
-        return stronglyConnectedComponents;
-    }
-
     private static <V> TarjanVertexMetaInfo getMetaInfo( V vertex, Map<V, TarjanVertexMetaInfo> verticesMetaInfo )
     {
         TarjanVertexMetaInfo vertexMetaInfo = verticesMetaInfo.get( vertex );
@@ -126,5 +89,42 @@ final class TarjanAlgorithm<V, E>
             }
             while ( !vertex.equals( v ) );
         }
+    }
+
+    private final DirectedGraph<V, E> graph;
+
+    /**
+     */
+    public TarjanAlgorithm( DirectedGraph<V, E> graph )
+    {
+        this.graph = graph;
+    }
+
+    /**
+     * Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding strongly-connected
+     * components in a directed graph.
+     *
+     * @return the input graph strongly connected component.
+     */
+    public Set<Set<V>> perform()
+    {
+        final Map<V, TarjanVertexMetaInfo> verticesMetaInfo = new HashMap<V, TarjanVertexMetaInfo>();
+        final Stack<V> s = new Stack<V>();
+        final Set<Set<V>> stronglyConnectedComponents = new LinkedHashSet<Set<V>>();
+        Integer index = 0;
+
+        for ( V vertex : graph.getVertices() )
+        {
+            TarjanVertexMetaInfo vertexMetaInfo = getMetaInfo( vertex, verticesMetaInfo );
+            final Set<V> stronglyConnectedComponent = new LinkedHashSet<V>();
+
+            if ( vertexMetaInfo.hasUndefinedIndex() )
+            {
+                strongConnect( graph, vertex, verticesMetaInfo, s, stronglyConnectedComponent, index );
+                stronglyConnectedComponents.add( stronglyConnectedComponent );
+            }
+        }
+
+        return stronglyConnectedComponents;
     }
 }

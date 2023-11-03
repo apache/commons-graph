@@ -48,19 +48,19 @@ public class DefaultConnectivityBuilder<V, E>
     /**
      * {@inheritDoc}
      */
-    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
+    public ConnectivityAlgorithmsSelector<V, E> includingAllVertices()
     {
-        vertices = checkNotNull( vertices,
-                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
-        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
+        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, graph.getVertices() );
     }
 
     /**
      * {@inheritDoc}
      */
-    public ConnectivityAlgorithmsSelector<V, E> includingAllVertices()
+    public ConnectivityAlgorithmsSelector<V, E> includingVertices( V... vertices )
     {
-        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, graph.getVertices() );
+        vertices = checkNotNull( vertices,
+                                 "Graph connectivity cannote be applied on null vertices array, use no-args if you intend specify no vertices" );
+        return new DefaultConnectivityAlgorithmsSelector<V, E>( graph, asList( vertices ) );
     }
 
 }

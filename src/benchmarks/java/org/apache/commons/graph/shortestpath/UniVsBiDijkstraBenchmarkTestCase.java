@@ -58,9 +58,6 @@ public final class UniVsBiDijkstraBenchmarkTestCase
     private static final int NODES = 5000;
     private static final int EDGES = 100000;
 
-    @Rule
-    public BenchmarkRule benchmarkRun = new BenchmarkRule();
-
     private static DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph;
 
     private static Mapper<BaseLabeledWeightedEdge<Double>, Double> weightedEdges;
@@ -96,6 +93,18 @@ public final class UniVsBiDijkstraBenchmarkTestCase
         {
             Random r = new Random();
 
+            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
+            {
+                try {
+                  addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
+                                                                10.0 * r.nextDouble() + 1.0 ) ).from( src ).to( dst );
+                  return true;
+              } catch (GraphException e) {
+                  // ignore duplicate edge exceptions
+                  return false;
+              }
+            }
+
             public void connect()
             {
                 vertices = new ArrayList<BaseLabeledVertex>();
@@ -123,18 +132,6 @@ public final class UniVsBiDijkstraBenchmarkTestCase
                     }
                 }
             }
-
-            private boolean addEdge( BaseLabeledVertex src, BaseLabeledVertex dst )
-            {
-                try {
-                  addEdge( new BaseLabeledWeightedEdge<Double>( format( "%s -> %s", src, dst ),
-                                                                10.0 * r.nextDouble() + 1.0 ) ).from( src ).to( dst );
-                  return true;
-              } catch (GraphException e) {
-                  // ignore duplicate edge exceptions
-                  return false;
-              }
-            }
         } );
 
         sourceListUni = new LinkedList<BaseLabeledVertex>();
@@ -157,27 +154,8 @@ public final class UniVsBiDijkstraBenchmarkTestCase
         }
     }
 
-    @Test
-    public void testPerformUnidirectionalDijkstra() {
-        BaseLabeledVertex source = sourceListUni.removeFirst();
-        BaseLabeledVertex target = targetListUni.removeFirst();
-
-        try {
-            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> path =
-                    findShortestPath( graph )
-                                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-                                .from( source )
-                                .to( target )
-                                .applyingDijkstra( weightOperations );
-
-            assertTrue( path.getSize() > 0 );
-            assertTrue( path.getWeight() > 0D );
-        }
-        catch ( Exception e )
-        {
-            e.printStackTrace();
-        }
-    }
+    @Rule
+    public BenchmarkRule benchmarkRun = new BenchmarkRule();
 
     @Test
     public void testPerformBidirectionalDijkstra() {
@@ -191,6 +169,28 @@ public final class UniVsBiDijkstraBenchmarkTestCase
                                 .from( source )
                                 .to( target )
                                 .applyingBidirectionalDijkstra( weightOperations );
+
+            assertTrue( path.getSize() > 0 );
+            assertTrue( path.getWeight() > 0D );
+        }
+        catch ( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPerformUnidirectionalDijkstra() {
+        BaseLabeledVertex source = sourceListUni.removeFirst();
+        BaseLabeledVertex target = targetListUni.removeFirst();
+
+        try {
+            WeightedPath<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> path =
+                    findShortestPath( graph )
+                                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                                .from( source )
+                                .to( target )
+                                .applyingDijkstra( weightOperations );
 
             assertTrue( path.getSize() > 0 );
             assertTrue( path.getWeight() > 0D );

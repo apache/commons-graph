@@ -49,41 +49,11 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public final int getDegree( V v )
+    @Override
+    protected void decorateAddEdge( V head, E e, V tail )
     {
-        return getInDegree( v ) + getOutDegree( v );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final int getInDegree( V v )
-    {
-        return inbound.get( v ).size();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final Iterable<V> getInbound( V v )
-    {
-        return inbound.get( v );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final int getOutDegree( V v )
-    {
-        return outbound.get( v ).size();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public final Iterable<V> getOutbound( V v )
-    {
-        return outbound.get( v );
+        inbound.get( tail ).add( head );
+        outbound.get( head ).add( tail );
     }
 
     /**
@@ -100,6 +70,17 @@ public class DirectedMutableGraph<V, E>
      * {@inheritDoc}
      */
     @Override
+    protected void decorateRemoveEdge( E e )
+    {
+        final VertexPair<V> vertices = getVertices( e );
+        inbound.get( vertices.getTail() ).remove( vertices.getHead() );
+        outbound.get( vertices.getHead() ).remove( vertices.getTail() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     protected void decorateRemoveVertex( V v )
     {
         inbound.remove( v );
@@ -109,22 +90,41 @@ public class DirectedMutableGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    @Override
-    protected void decorateAddEdge( V head, E e, V tail )
+    public final int getDegree( V v )
     {
-        inbound.get( tail ).add( head );
-        outbound.get( head ).add( tail );
+        return getInDegree( v ) + getOutDegree( v );
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    protected void decorateRemoveEdge( E e )
+    public final Iterable<V> getInbound( V v )
     {
-        final VertexPair<V> vertices = getVertices( e );
-        inbound.get( vertices.getTail() ).remove( vertices.getHead() );
-        outbound.get( vertices.getHead() ).remove( vertices.getTail() );
+        return inbound.get( v );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final int getInDegree( V v )
+    {
+        return inbound.get( v ).size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final Iterable<V> getOutbound( V v )
+    {
+        return outbound.get( v );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final int getOutDegree( V v )
+    {
+        return outbound.get( v ).size();
     }
 
 }

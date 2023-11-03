@@ -62,6 +62,50 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
         this.name = name != null ? name : G;
     }
 
+    protected void addEdgeProperty( String propertyName, Mapper<E, ?> edgeProperty )
+    {
+        this.edgeProperties.put( propertyName, edgeProperty );
+    }
+
+    protected void addVertexProperty( String propertyName, Mapper<V, ?> vertexProperty )
+    {
+        this.vertexProperties.put( propertyName, vertexProperty );
+    }
+
+    protected abstract void comment( String text )
+        throws Exception;
+
+    protected abstract void edge( E edge, V head, V tail, Map<String, Object> properties )
+        throws Exception;
+
+    protected abstract void endGraph()
+        throws Exception;
+    
+    protected abstract void endSerialization()
+        throws Exception;
+    
+    protected abstract void enlistEdgesProperty( String name, Class<?> type )
+        throws Exception;
+
+    protected abstract void enlistVerticesProperty( String name, Class<?> type )
+        throws Exception;
+
+    protected final Graph<V, E> getGraph()
+    {
+        return graph;
+    }
+
+    protected final Writer getWriter()
+    {
+        return writer;
+    }
+
+    protected abstract void startGraph( String name )
+        throws Exception;
+
+    protected abstract void startSerialization()
+        throws Exception;
+
     public final void to( File outputFile )
         throws GraphExportException
     {
@@ -151,51 +195,7 @@ abstract class AbstractExporter<V, E, T extends AbstractExporter<V, E, T>>
         }
     }
 
-    protected final Graph<V, E> getGraph()
-    {
-        return graph;
-    }
-
-    protected final Writer getWriter()
-    {
-        return writer;
-    }
-    
-    protected void addVertexProperty( String propertyName, Mapper<V, ?> vertexProperty )
-    {
-        this.vertexProperties.put( propertyName, vertexProperty );
-    }
-    
-    protected void addEdgeProperty( String propertyName, Mapper<E, ?> edgeProperty )
-    {
-        this.edgeProperties.put( propertyName, edgeProperty );
-    }
-
-    protected abstract void startSerialization()
-        throws Exception;
-
-    protected abstract void endSerialization()
-        throws Exception;
-
-    protected abstract void startGraph( String name )
-        throws Exception;
-
-    protected abstract void endGraph()
-        throws Exception;
-
-    protected abstract void comment( String text )
-        throws Exception;
-
-    protected abstract void enlistVerticesProperty( String name, Class<?> type )
-        throws Exception;
-
-    protected abstract void enlistEdgesProperty( String name, Class<?> type )
-        throws Exception;
-
     protected abstract void vertex( V vertex, Map<String, Object> properties )
-        throws Exception;
-
-    protected abstract void edge( E edge, V head, V tail, Map<String, Object> properties )
         throws Exception;
 
 }

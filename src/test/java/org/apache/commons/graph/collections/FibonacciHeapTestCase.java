@@ -44,6 +44,12 @@ public final class FibonacciHeapTestCase
 
     private Queue<Integer> queue;
 
+    @Test( expected = NoSuchElementException.class )
+    public void elementThrowsException()
+    {
+        queue.element();
+    }
+
     @Before
     public void setUp()
     {
@@ -54,95 +60,6 @@ public final class FibonacciHeapTestCase
     public void tearDown()
     {
         queue = null;
-    }
-
-    @Test
-    public void testEmptyWhenCreated()
-    {
-        assertThat( queue.isEmpty(), is( true ) );
-        assertThat( queue.poll(), nullValue() );
-    }
-
-    @Test
-    public void testNoLongerEmptyAfterAdd()
-    {
-        queue.add( 50 );
-
-        assertThat( queue.isEmpty(), is( false ) );
-    }
-
-    @Test
-    public void testSingletonQueueReturnsSoleItemOnPoll()
-    {
-        queue.add( 50 );
-
-        assertThat( queue.poll(), is( 50 ) );
-    }
-
-    @Test
-    public void testIsEmptyAfterSoleElementRemoved()
-    {
-        queue.add( 50 );
-        queue.poll();
-
-        assertThat( queue.isEmpty(), is( true ) );
-    }
-
-    @Test
-    public void testReturnsOrderedItems()
-    {
-        queue.add( 100 );
-        queue.add( 50 );
-
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.poll(), is( 100 ) );
-        assertThat( queue.isEmpty(), is( true ) );
-    }
-
-    @Test
-    public void testInsertSingleItem()
-    {
-        queue.add( 50 );
-
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.isEmpty(), is( true ) );
-    }
-
-    @Test
-    public void testInsertSameValuesAndReturnsOrderedItems()
-    {
-        queue.add( 50 );
-        queue.add( 100 );
-        queue.add( 50 );
-
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.poll(), is( 100 ) );
-        assertThat( queue.isEmpty(), is( true ) );
-    }
-
-    @Test
-    public void testReturnsOrderedItemsFromRandomInsert()
-    {
-        final Random r = new Random( System.currentTimeMillis() );
-        final List<Integer> expected = new ArrayList<Integer>();
-
-        for ( int i = 0; i < 1000; i++ )
-        {
-            Integer number = new Integer( r.nextInt( 10000 ) );
-            expected.add( number );
-
-            queue.add( number );
-        }
-        sort( expected );
-
-        for ( Integer integer : expected )
-        {
-            Integer i = queue.poll();
-            assertThat( i, is( integer ) );
-        }
-        
-        assertThat( queue.isEmpty(), is( true ) );
     }
 
     @Test
@@ -182,6 +99,52 @@ public final class FibonacciHeapTestCase
     }
 
     @Test
+    public void testEmptyWhenCreated()
+    {
+        assertThat( queue.isEmpty(), is( true ) );
+        assertThat( queue.poll(), nullValue() );
+    }
+
+    @Test
+    public void testInsertSameValuesAndReturnsOrderedItems()
+    {
+        queue.add( 50 );
+        queue.add( 100 );
+        queue.add( 50 );
+
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.poll(), is( 100 ) );
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+
+    @Test
+    public void testInsertSingleItem()
+    {
+        queue.add( 50 );
+
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+
+    @Test
+    public void testIsEmptyAfterSoleElementRemoved()
+    {
+        queue.add( 50 );
+        queue.poll();
+
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+
+    @Test
+    public void testNoLongerEmptyAfterAdd()
+    {
+        queue.add( 50 );
+
+        assertThat( queue.isEmpty(), is( false ) );
+    }
+
+    @Test
     public void testOfferPeekAndElement()
     {
         queue.offer( 50 );
@@ -194,10 +157,47 @@ public final class FibonacciHeapTestCase
         assertThat( queue.element(), is( 20 ) );
         assertThat( queue.size(), is( 4 ) );
     }
-    
-    @Test( expected = NoSuchElementException.class )
-    public void elementThrowsException()
+
+    @Test
+    public void testReturnsOrderedItems()
     {
-        queue.element();
+        queue.add( 100 );
+        queue.add( 50 );
+
+        assertThat( queue.poll(), is( 50 ) );
+        assertThat( queue.poll(), is( 100 ) );
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+
+    @Test
+    public void testReturnsOrderedItemsFromRandomInsert()
+    {
+        final Random r = new Random( System.currentTimeMillis() );
+        final List<Integer> expected = new ArrayList<Integer>();
+
+        for ( int i = 0; i < 1000; i++ )
+        {
+            Integer number = new Integer( r.nextInt( 10000 ) );
+            expected.add( number );
+
+            queue.add( number );
+        }
+        sort( expected );
+
+        for ( Integer integer : expected )
+        {
+            Integer i = queue.poll();
+            assertThat( i, is( integer ) );
+        }
+        
+        assertThat( queue.isEmpty(), is( true ) );
+    }
+    
+    @Test
+    public void testSingletonQueueReturnsSoleItemOnPoll()
+    {
+        queue.add( 50 );
+
+        assertThat( queue.poll(), is( 50 ) );
     }
 }

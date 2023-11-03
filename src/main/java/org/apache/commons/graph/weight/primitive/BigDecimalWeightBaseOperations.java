@@ -38,14 +38,6 @@ public class BigDecimalWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigDecimal identity()
-    {
-        return ZERO;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public BigDecimal append( BigDecimal s1, BigDecimal s2 )
     {
         if ( s1 == null || s2 == null )
@@ -58,17 +50,25 @@ public class BigDecimalWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public BigDecimal inverse( BigDecimal element )
+    public int compare( BigDecimal o1, BigDecimal o2 )
     {
-        return element.negate();
+        return o1.compareTo( o2 );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compare( BigDecimal o1, BigDecimal o2 )
+    public BigDecimal identity()
     {
-        return o1.compareTo( o2 );
+        return ZERO;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public BigDecimal inverse( BigDecimal element )
+    {
+        return element.negate();
     }
 
 }

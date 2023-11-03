@@ -43,6 +43,59 @@ import org.junit.Test;
 public class BaseMutableGraphTestCase
 {
 
+    // Utility class.
+    private class GraphInsert
+        extends TestRunner
+    {
+
+        private MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g;
+
+        private int start;
+
+        private int end;
+
+        private GraphInsert( MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g, int start, int end )
+        {
+            this.g = g;
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public void runTest()
+        {
+
+            // building a complete Graph
+            for ( int i = start; i < end; i++ )
+            {
+                BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+                g.addVertex( v );
+            }
+            synchronized ( g )
+            {
+                for ( BaseLabeledVertex v1 : g.getVertices() )
+                {
+                    for ( BaseLabeledVertex v2 : g.getVertices() )
+                    {
+                        if ( !v1.equals( v2 ) )
+                        {
+                            try
+                            {
+                                BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
+                                g.addEdge( v1, e, v2 );
+                            }
+                            catch ( GraphException e )
+                            {
+                                // ignore
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
     /**
      * Test method for
      * {@link org.apache.commons.graph.model.BaseMutableGraph#addVertex(org.apache.commons.graph.Vertex)}.
@@ -99,6 +152,78 @@ public class BaseMutableGraphTestCase
 
     /**
      * Test method for
+     * {@link org.apache.commons.graph.model.BaseMutableGraph#removeEdge(org.apache.commons.graph.Edge)}
+     */
+    @Test
+    public final void testDirectedGraphRemoveEdge()
+    {
+        // Test a complete undirect graph.
+        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+
+        final BaseLabeledVertex source = new BaseLabeledVertex( valueOf( 1 ) );
+        final BaseLabeledVertex target = new BaseLabeledVertex( valueOf( 2 ) );
+
+        buildCompleteGraph( 10, g );
+
+        BaseLabeledEdge e = g.getEdge( source, target );
+        g.removeEdge( e );
+
+        BaseLabeledEdge edge = g.getEdge( source, target );
+        assertNull( edge );
+    }
+
+    /**
+     * Test method for {@link org.apache.commons.graph.model.BaseMutableGraph#removeEdge(org.apache.commons.graph.Edge)}
+     */
+    @Test( expected = GraphException.class )
+    public final void testDirectedGraphRemoveEdgeNotExists()
+    {
+        // Test a complete undirect graph.
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = null;
+        BaseLabeledEdge e = null;
+        try
+        {
+            g = new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+            buildCompleteGraph( 10, g );
+
+            e = new BaseLabeledEdge( "NOT EXIST" );
+        }
+        catch ( GraphException ex )
+        {
+            fail( ex.getMessage() );
+        }
+
+        g.removeEdge( e );
+
+    }
+
+    /**
+     * Test Graph model in a multi-thread enviroment.
+     */
+    @Test
+    public final void testDirectedMultiTh()
+        throws Throwable
+    {
+        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
+
+        TestRunner tr1, tr2, tr3;
+        tr1 = new GraphInsert( g, 0, 10 );
+        tr2 = new GraphInsert( g, 10, 20 );
+        tr3 = new GraphInsert( g, 20, 30 );
+
+        TestRunner[] trs = { tr1, tr2, tr3 };
+        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
+        mttr.runRunnables();
+
+        assertEquals( 30, g.getOrder() );
+
+        // test the # of edges = n (n-1)
+        assertEquals( ( 30 * ( 30 - 1 ) ), g.getSize() );
+    }
+
+    /**
+     * Test method for
      * {@link org.apache.commons.graph.model.BaseGraph#getConnectedVertices(org.apache.commons.graph.Vertex)}
      */
     @Test
@@ -121,6 +246,30 @@ public class BaseMutableGraphTestCase
 
         assertEquals( 9, v.size() );
         assertFalse( v.contains( testVertex ) );
+    }
+
+    /**
+     * Test method for
+     * {@link org.apache.commons.graph.model.BaseGraph#getConnectedVertices(org.apache.commons.graph.Vertex)}
+     */
+    @Test( expected = GraphException.class )
+    public final void testGetConnectedVerticesNPE()
+    {
+        // Test a complete undirect graph.
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = null;
+        BaseLabeledVertex notExistsVertex = null;
+        try
+        {
+            g = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+            buildCompleteGraph( 10, g );
+
+            notExistsVertex = new BaseLabeledVertex( valueOf( 1000 ) );
+        }
+        catch ( GraphException e )
+        {
+            fail( e.getMessage() );
+        }
+        g.getConnectedVertices( notExistsVertex );
     }
 
     /**
@@ -156,30 +305,6 @@ public class BaseMutableGraphTestCase
 
     /**
      * Test method for
-     * {@link org.apache.commons.graph.model.BaseGraph#getConnectedVertices(org.apache.commons.graph.Vertex)}
-     */
-    @Test( expected = GraphException.class )
-    public final void testGetConnectedVerticesNPE()
-    {
-        // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = null;
-        BaseLabeledVertex notExistsVertex = null;
-        try
-        {
-            g = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-            buildCompleteGraph( 10, g );
-
-            notExistsVertex = new BaseLabeledVertex( valueOf( 1000 ) );
-        }
-        catch ( GraphException e )
-        {
-            fail( e.getMessage() );
-        }
-        g.getConnectedVertices( notExistsVertex );
-    }
-
-    /**
-     * Test method for
      * {@link org.apache.commons.graph.model.BaseGraph#getEdge(org.apache.commons.graph.Vertex, org.apache.commons.graph.Vertex)}
      */
     @Test
@@ -194,29 +319,6 @@ public class BaseMutableGraphTestCase
         final BaseLabeledVertex target = new BaseLabeledVertex( valueOf( 2 ) );
         BaseLabeledEdge edge = g.getEdge( source, target );
         assertNotNull( edge );
-    }
-
-    /**
-     * Test method for
-     * {@link org.apache.commons.graph.model.BaseGraph#getEdge(org.apache.commons.graph.Vertex, org.apache.commons.graph.Vertex)}
-     */
-    @Test
-    public final void testGetNotExistsEdge()
-    {
-        // Test a complete undirect graph.
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        // building Graph
-        for ( int i = 0; i < 4; i++ )
-        {
-            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
-            g.addVertex( v );
-        }
-
-        final BaseLabeledVertex source = new BaseLabeledVertex( valueOf( 1 ) );
-        final BaseLabeledVertex target = new BaseLabeledVertex( valueOf( 2 ) );
-        BaseLabeledEdge edge = g.getEdge( source, target );
-        assertNull( edge );
     }
 
     /**
@@ -276,24 +378,51 @@ public class BaseMutableGraphTestCase
 
     /**
      * Test method for
-     * {@link org.apache.commons.graph.model.BaseMutableGraph#removeEdge(org.apache.commons.graph.Edge)}
+     * {@link org.apache.commons.graph.model.BaseGraph#getEdge(org.apache.commons.graph.Vertex, org.apache.commons.graph.Vertex)}
      */
     @Test
-    public final void testDirectedGraphRemoveEdge()
+    public final void testGetNotExistsEdge()
     {
         // Test a complete undirect graph.
-        final DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        // building Graph
+        for ( int i = 0; i < 4; i++ )
+        {
+            BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
+            g.addVertex( v );
+        }
 
         final BaseLabeledVertex source = new BaseLabeledVertex( valueOf( 1 ) );
         final BaseLabeledVertex target = new BaseLabeledVertex( valueOf( 2 ) );
-
-        buildCompleteGraph( 10, g );
-
-        BaseLabeledEdge e = g.getEdge( source, target );
-        g.removeEdge( e );
-
         BaseLabeledEdge edge = g.getEdge( source, target );
         assertNull( edge );
+    }
+
+    /**
+     * Test Graph model ina multi-thread enviroment.
+     */
+    @Test
+    public final void testMultiThreadUndirectGraph()
+        throws Throwable
+    {
+        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
+            (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
+
+        TestRunner tr1, tr2, tr3;
+        tr1 = new GraphInsert( g, 0, 10 );
+        tr2 = new GraphInsert( g, 10, 20 );
+        tr3 = new GraphInsert( g, 20, 30 );
+
+        TestRunner[] trs = { tr1, tr2, tr3 };
+        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
+
+        mttr.runRunnables();
+
+        assertEquals( 30, g.getOrder() );
+
+        // test the # of edges = n (n-1)/2
+        assertEquals( ( 30 * ( 30 - 1 ) / 2 ), g.getSize() );
     }
 
     /**
@@ -342,134 +471,5 @@ public class BaseMutableGraphTestCase
 
         g.removeEdge( e );
 
-    }
-
-    /**
-     * Test method for {@link org.apache.commons.graph.model.BaseMutableGraph#removeEdge(org.apache.commons.graph.Edge)}
-     */
-    @Test( expected = GraphException.class )
-    public final void testDirectedGraphRemoveEdgeNotExists()
-    {
-        // Test a complete undirect graph.
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g = null;
-        BaseLabeledEdge e = null;
-        try
-        {
-            g = new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-            buildCompleteGraph( 10, g );
-
-            e = new BaseLabeledEdge( "NOT EXIST" );
-        }
-        catch ( GraphException ex )
-        {
-            fail( ex.getMessage() );
-        }
-
-        g.removeEdge( e );
-
-    }
-
-    /**
-     * Test Graph model ina multi-thread enviroment.
-     */
-    @Test
-    public final void testMultiThreadUndirectGraph()
-        throws Throwable
-    {
-        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
-
-        TestRunner tr1, tr2, tr3;
-        tr1 = new GraphInsert( g, 0, 10 );
-        tr2 = new GraphInsert( g, 10, 20 );
-        tr3 = new GraphInsert( g, 20, 30 );
-
-        TestRunner[] trs = { tr1, tr2, tr3 };
-        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
-
-        mttr.runRunnables();
-
-        assertEquals( 30, g.getOrder() );
-
-        // test the # of edges = n (n-1)/2
-        assertEquals( ( 30 * ( 30 - 1 ) / 2 ), g.getSize() );
-    }
-
-    /**
-     * Test Graph model in a multi-thread enviroment.
-     */
-    @Test
-    public final void testDirectedMultiTh()
-        throws Throwable
-    {
-        final MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
-            (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) CommonsGraph.synchronize( (MutableGraph<BaseLabeledVertex, BaseLabeledEdge>) new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>() );
-
-        TestRunner tr1, tr2, tr3;
-        tr1 = new GraphInsert( g, 0, 10 );
-        tr2 = new GraphInsert( g, 10, 20 );
-        tr3 = new GraphInsert( g, 20, 30 );
-
-        TestRunner[] trs = { tr1, tr2, tr3 };
-        MultiThreadedTestRunner mttr = new MultiThreadedTestRunner( trs );
-        mttr.runRunnables();
-
-        assertEquals( 30, g.getOrder() );
-
-        // test the # of edges = n (n-1)
-        assertEquals( ( 30 * ( 30 - 1 ) ), g.getSize() );
-    }
-
-    // Utility class.
-    private class GraphInsert
-        extends TestRunner
-    {
-
-        private MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g;
-
-        private int start;
-
-        private int end;
-
-        private GraphInsert( MutableGraph<BaseLabeledVertex, BaseLabeledEdge> g, int start, int end )
-        {
-            this.g = g;
-            this.start = start;
-            this.end = end;
-        }
-
-        @Override
-        public void runTest()
-        {
-
-            // building a complete Graph
-            for ( int i = start; i < end; i++ )
-            {
-                BaseLabeledVertex v = new BaseLabeledVertex( valueOf( i ) );
-                g.addVertex( v );
-            }
-            synchronized ( g )
-            {
-                for ( BaseLabeledVertex v1 : g.getVertices() )
-                {
-                    for ( BaseLabeledVertex v2 : g.getVertices() )
-                    {
-                        if ( !v1.equals( v2 ) )
-                        {
-                            try
-                            {
-                                BaseLabeledEdge e = new BaseLabeledEdge( v1 + " -> " + v2 );
-                                g.addEdge( v1, e, v2 );
-                            }
-                            catch ( GraphException e )
-                            {
-                                // ignore
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
     }
 }

@@ -34,14 +34,6 @@ public class IntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Integer identity()
-    {
-        return 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public Integer append( Integer s1, Integer s2 )
     {
         if ( s1 == null || s2 == null )
@@ -54,17 +46,25 @@ public class IntegerWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Integer inverse( Integer element )
+    public int compare( Integer o1, Integer o2 )
     {
-        return -element;
+        return o1.compareTo( o2 );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compare( Integer o1, Integer o2 )
+    public Integer identity()
     {
-        return o1.compareTo( o2 );
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Integer inverse( Integer element )
+    {
+        return -element;
     }
 
 }

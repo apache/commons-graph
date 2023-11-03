@@ -34,17 +34,17 @@ final class DefaultGrapher<V, E>
         this.graph = graph;
     }
 
+    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
+    {
+        arc = checkNotNull( arc, "Null edge not admitted" );
+        return new DefaultHeadVertexConnector<V, E>( graph, arc );
+    }
+
     public <N extends V> N addVertex( N node )
     {
         node = checkNotNull( node, "Null vertex not admitted" );
         graph.addVertex( node );
         return node;
-    }
-
-    public <A extends E> HeadVertexConnector<V, E> addEdge( A arc )
-    {
-        arc = checkNotNull( arc, "Null edge not admitted" );
-        return new DefaultHeadVertexConnector<V, E>( graph, arc );
     }
 
 }

@@ -44,23 +44,6 @@ public class BaseLabeledWeightedEdge<W>
     /**
      * {@inheritDoc}
      */
-    public W getWeight()
-    {
-        return weight;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode()
-    {
-        return hash( super.hashCode(), 31, weight );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals( Object obj )
     {
@@ -81,6 +64,23 @@ public class BaseLabeledWeightedEdge<W>
         @SuppressWarnings( "unchecked" )
         BaseLabeledWeightedEdge<W> other = (BaseLabeledWeightedEdge<W>) obj;
         return eq( weight, other.getWeight() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public W getWeight()
+    {
+        return weight;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        return hash( super.hashCode(), 31, weight );
     }
 
     /**

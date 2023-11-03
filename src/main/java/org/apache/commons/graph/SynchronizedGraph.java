@@ -47,88 +47,11 @@ class SynchronizedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public Iterable<V> getVertices()
+    public boolean containsEdge( E e )
     {
         synchronized ( lock )
         {
-            return g.getVertices();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getOrder()
-    {
-        synchronized ( lock )
-        {
-            return g.getOrder();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Iterable<E> getEdges()
-    {
-        synchronized ( lock )
-        {
-            return g.getEdges();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getSize()
-    {
-        synchronized ( lock )
-        {
-            return g.getSize();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getDegree( V v )
-    {
-        synchronized ( lock )
-        {
-            return g.getDegree( v );
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Iterable<V> getConnectedVertices( V v )
-    {
-        synchronized ( lock )
-        {
-            return g.getConnectedVertices( v );
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public E getEdge( V source, V target )
-    {
-        synchronized ( lock )
-        {
-            return g.getEdge( source, target );
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public VertexPair<V> getVertices( E e )
-    {
-        synchronized ( lock )
-        {
-            return g.getVertices( e );
+            return g.containsEdge( e );
         }
     }
 
@@ -141,27 +64,6 @@ class SynchronizedGraph<V, E>
         {
             return g.containsVertex( v );
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean containsEdge( E e )
-    {
-        synchronized ( lock )
-        {
-            return g.containsEdge( e );
-        }
-    }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ( ( g == null ) ? 0 : g.hashCode() );
-        result = prime * result + ( ( lock == null ) ? 0 : lock.hashCode() );
-        return result;
     }
 
     @Override
@@ -181,6 +83,104 @@ class SynchronizedGraph<V, E>
         // test against any Graph typed instance
         SynchronizedGraph<Object, Object> other = (SynchronizedGraph<Object, Object>) obj;
         return eq( g, other.g );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<V> getConnectedVertices( V v )
+    {
+        synchronized ( lock )
+        {
+            return g.getConnectedVertices( v );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getDegree( V v )
+    {
+        synchronized ( lock )
+        {
+            return g.getDegree( v );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public E getEdge( V source, V target )
+    {
+        synchronized ( lock )
+        {
+            return g.getEdge( source, target );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<E> getEdges()
+    {
+        synchronized ( lock )
+        {
+            return g.getEdges();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getOrder()
+    {
+        synchronized ( lock )
+        {
+            return g.getOrder();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getSize()
+    {
+        synchronized ( lock )
+        {
+            return g.getSize();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<V> getVertices()
+    {
+        synchronized ( lock )
+        {
+            return g.getVertices();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public VertexPair<V> getVertices( E e )
+    {
+        synchronized ( lock )
+        {
+            return g.getVertices( e );
+        }
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ( ( g == null ) ? 0 : g.hashCode() );
+        result = prime * result + ( ( lock == null ) ? 0 : lock.hashCode() );
+        return result;
     }
 
     @Override

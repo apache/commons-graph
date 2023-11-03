@@ -42,19 +42,19 @@ import org.junit.Test;
 public final class CheriyanMehlhornGabowTestCase
 {
 
-    @Test( expected = NullPointerException.class )
-    public void testNullGraph()
-    {
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
-        findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
-    }
-
     @Test
     public void testEmptyGraph()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
+        findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+    }
+
+    @Test( expected = NullPointerException.class )
+    public void testNullGraph()
+    {
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
         findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
     }
 

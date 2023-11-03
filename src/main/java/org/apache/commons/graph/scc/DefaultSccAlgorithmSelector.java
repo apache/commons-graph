@@ -46,19 +46,14 @@ public final class DefaultSccAlgorithmSelector<V, E>
     }
 
     /**
-     * {@inheritDoc}
+     * Just calculates the SCC depending on the selected algorithm.
+     *
+     * @param algorithm
+     * @return
      */
-    public Set<V> applyingKosarajuSharir( final V source )
+    private Set<Set<V>> applying( SccAlgorithm<V> algorithm )
     {
-        return new KosarajuSharirAlgorithm<V, E>( graph ).perform( source );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<Set<V>> applyingKosarajuSharir()
-    {
-        return applying( new KosarajuSharirAlgorithm<V, E>( graph ) );
+        return algorithm.perform();
     }
 
     /**
@@ -72,20 +67,25 @@ public final class DefaultSccAlgorithmSelector<V, E>
     /**
      * {@inheritDoc}
      */
-    public Set<Set<V>> applyingTarjan()
+    public Set<Set<V>> applyingKosarajuSharir()
     {
-        return applying( new TarjanAlgorithm<V, E>( graph ) );
+        return applying( new KosarajuSharirAlgorithm<V, E>( graph ) );
     }
 
     /**
-     * Just calculates the SCC depending on the selected algorithm.
-     *
-     * @param algorithm
-     * @return
+     * {@inheritDoc}
      */
-    private Set<Set<V>> applying( SccAlgorithm<V> algorithm )
+    public Set<V> applyingKosarajuSharir( final V source )
     {
-        return algorithm.perform();
+        return new KosarajuSharirAlgorithm<V, E>( graph ).perform( source );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<Set<V>> applyingTarjan()
+    {
+        return applying( new TarjanAlgorithm<V, E>( graph ) );
     }
 
 }

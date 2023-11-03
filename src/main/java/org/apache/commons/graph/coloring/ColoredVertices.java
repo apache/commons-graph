@@ -68,14 +68,14 @@ public final class ColoredVertices<V, C>
     }
 
     /**
-     * Remove the input vertex color.
-     *
-     * @param v the vertex for which storing the color.
+     * Tests if the 'vertex' is colored.
+     * 
+     * @param vertex the vertex 
+     * @return true if the colored vertex is contained into the map, false otherwise
      */
-    void removeColor( V v )
+    public boolean containsColoredVertex( V vertex )
     {
-        C color = coloredVertices.remove( v );
-        usedColor.remove( color );
+        return coloredVertices.containsKey( vertex );
     }
 
     /**
@@ -102,14 +102,14 @@ public final class ColoredVertices<V, C>
     }
 
     /**
-     * Tests if the 'vertex' is colored.
-     * 
-     * @param vertex the vertex 
-     * @return true if the colored vertex is contained into the map, false otherwise
+     * Remove the input vertex color.
+     *
+     * @param v the vertex for which storing the color.
      */
-    public boolean containsColoredVertex( V vertex )
+    void removeColor( V v )
     {
-        return coloredVertices.containsKey( vertex );
+        C color = coloredVertices.remove( v );
+        usedColor.remove( color );
     }
 
 }

@@ -73,36 +73,13 @@ public class InMemoryPath<V, E>
         this.target = checkNotNull( target, "Path target cannot be null" );
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public V getSource()
+    private void addConnection( V head, E edge, V tail )
     {
-        return source;
-    }
+        successors.put( head, tail );
 
-    /**
-     * {@inheritDoc}
-     */
-    public V getTarget()
-    {
-        return target;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Iterable<V> getVertices()
-    {
-        return unmodifiableList( vertices );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getOrder()
-    {
-        return vertices.size();
+        VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
+        indexedEdges.put( vertexPair, edge );
+        indexedVertices.put( edge, vertexPair );
     }
 
     /**
@@ -145,46 +122,44 @@ public class InMemoryPath<V, E>
         addConnection( head, edge, tail );
     }
 
-    private void addConnection( V head, E edge, V tail )
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsEdge( E e )
     {
-        successors.put( head, tail );
-
-        VertexPair<V> vertexPair = new VertexPair<V>( head, tail );
-        indexedEdges.put( vertexPair, edge );
-        indexedVertices.put( edge, vertexPair );
+        return edges.contains( e );
     }
 
     /**
      * {@inheritDoc}
      */
-    public Iterable<E> getEdges()
+    public boolean containsVertex( V v )
     {
-        return unmodifiableList( edges );
+        return vertices.contains( v );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int getSize()
+    @Override
+    public boolean equals( Object obj )
     {
-        return edges.size();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int getDegree( V v )
-    {
-        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
-        checkArgument( successors.containsKey( v ),
-                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
-
-        if ( source.equals( v ) || target.equals( v ) )
+        if ( this == obj )
         {
-            return 1;
+            return true;
         }
 
-        return 2;
+        if ( obj == null || getClass() != obj.getClass() )
+        {
+            return false;
+        }
+
+        @SuppressWarnings( "unchecked" ) // test against any Path typed instance
+        InMemoryPath<Object, Object> other = (InMemoryPath<Object, Object>) obj;
+        return eq( source, other.getSource() )
+            && eq( target, other.getTarget() )
+            && eq( vertices, other.getVertices() )
+            && eq( edges, other.getEdges() );
     }
 
     /**
@@ -210,9 +185,74 @@ public class InMemoryPath<V, E>
     /**
      * {@inheritDoc}
      */
+    public int getDegree( V v )
+    {
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+        checkArgument( successors.containsKey( v ),
+                       "Impossible to get the degree of input vertex; %s not contained in this path", v );
+
+        if ( source.equals( v ) || target.equals( v ) )
+        {
+            return 1;
+        }
+
+        return 2;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public E getEdge( V source, V target )
     {
         return indexedEdges.get( new VertexPair<V>( source, target ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<E> getEdges()
+    {
+        return unmodifiableList( edges );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getOrder()
+    {
+        return vertices.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getSize()
+    {
+        return edges.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public V getSource()
+    {
+        return source;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public V getTarget()
+    {
+        return target;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterable<V> getVertices()
+    {
+        return unmodifiableList( vertices );
     }
 
     /**
@@ -226,51 +266,11 @@ public class InMemoryPath<V, E>
     /**
      * {@inheritDoc}
      */
-    public boolean containsVertex( V v )
-    {
-        return vertices.contains( v );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean containsEdge( E e )
-    {
-        return edges.contains( e );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode()
     {
         final int prime = 31;
         return hash( 1, prime, edges, source, target, vertices );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals( Object obj )
-    {
-        if ( this == obj )
-        {
-            return true;
-        }
-
-        if ( obj == null || getClass() != obj.getClass() )
-        {
-            return false;
-        }
-
-        @SuppressWarnings( "unchecked" ) // test against any Path typed instance
-        InMemoryPath<Object, Object> other = (InMemoryPath<Object, Object>) obj;
-        return eq( source, other.getSource() )
-            && eq( target, other.getTarget() )
-            && eq( vertices, other.getVertices() )
-            && eq( edges, other.getEdges() );
     }
 
     /**

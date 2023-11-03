@@ -116,6 +116,15 @@ final class DefaultPathSourceSelector<V, WE, W>
         return shortestPaths;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public <H extends V> TargetSourceSelector<V, WE, W> from( H source )
+    {
+        source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
+        return new DefaultTargetSourceSelector<V, WE, W>( graph, weightedEdges, source );
+    }
+
     private void pathReconstruction( PredecessorsList<V, WE, W> path,
                                      V source, V target,
                                      Map<VertexPair<V>, V> next )
@@ -135,15 +144,6 @@ final class DefaultPathSourceSelector<V, WE, W>
             pathReconstruction( path, source, k, next );
             pathReconstruction( path, k, target, next );
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public <H extends V> TargetSourceSelector<V, WE, W> from( H source )
-    {
-        source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
-        return new DefaultTargetSourceSelector<V, WE, W>( graph, weightedEdges, source );
     }
 
 }

@@ -36,6 +36,21 @@ public final class DisjointSet<E>
     private final Map<E, DisjointSetNode<E>> disjointSets = new HashMap<E, DisjointSetNode<E>>();
 
     /**
+     * Performs the @code{ find} operation by applying the <i>path compression</i>.
+     *
+     * @param node the input DisjointSet node for the @code{ find} operation
+     * @return the root node of the path
+     */
+    private DisjointSetNode<E> find( DisjointSetNode<E> node )
+    {
+        if ( node == node.getParent() )
+        {
+            return node;
+        }
+        return find( node.getParent() );
+    }
+
+    /**
      * Performs the {@code find} operation applying the <i>path compression</i>.
      *
      * @param e the element has to be find in this {@code DisjointSet} instance
@@ -56,18 +71,23 @@ public final class DisjointSet<E>
     }
 
     /**
-     * Performs the @code{ find} operation by applying the <i>path compression</i>.
+     * Retrieves the {@code DisjointSetNode} from the {@link #disjointSets},
+     * if already previously set, creates a new one and push it in {@link #disjointSets} otherwise.
      *
-     * @param node the input DisjointSet node for the @code{ find} operation
-     * @return the root node of the path
+     * @param e the element which related subset has to be returned
+     * @return the input element {@code DisjointSetNode}
      */
-    private DisjointSetNode<E> find( DisjointSetNode<E> node )
+    private DisjointSetNode<E> getNode( E e )
     {
-        if ( node == node.getParent() )
+        DisjointSetNode<E> node = disjointSets.get( e );
+
+        if ( node == null )
         {
-            return node;
+            node = new DisjointSetNode<E>( e );
+            disjointSets.put( e, node );
         }
-        return find( node.getParent() );
+
+        return node;
     }
 
     /**
@@ -100,26 +120,6 @@ public final class DisjointSet<E>
             e2Root.setParent( e1Root );
             e1Root.increaseRank();
         }
-    }
-
-    /**
-     * Retrieves the {@code DisjointSetNode} from the {@link #disjointSets},
-     * if already previously set, creates a new one and push it in {@link #disjointSets} otherwise.
-     *
-     * @param e the element which related subset has to be returned
-     * @return the input element {@code DisjointSetNode}
-     */
-    private DisjointSetNode<E> getNode( E e )
-    {
-        DisjointSetNode<E> node = disjointSets.get( e );
-
-        if ( node == null )
-        {
-            node = new DisjointSetNode<E>( e );
-            disjointSets.put( e, node );
-        }
-
-        return node;
     }
 
 }

@@ -44,17 +44,6 @@ final class SynchronizedDirectedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getInDegree( V v )
-    {
-        synchronized ( lock )
-        {
-            return directedGraph.getInDegree( v );
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public Iterable<V> getInbound( V v )
     {
         synchronized ( lock )
@@ -66,11 +55,11 @@ final class SynchronizedDirectedGraph<V, E>
     /**
      * {@inheritDoc}
      */
-    public int getOutDegree( V v )
+    public int getInDegree( V v )
     {
         synchronized ( lock )
         {
-            return directedGraph.getOutDegree( v );
+            return directedGraph.getInDegree( v );
         }
     }
 
@@ -82,6 +71,17 @@ final class SynchronizedDirectedGraph<V, E>
         synchronized ( lock )
         {
             return directedGraph.getOutbound( v );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getOutDegree( V v )
+    {
+        synchronized ( lock )
+        {
+            return directedGraph.getOutDegree( v );
         }
     }
 

@@ -38,6 +38,22 @@ import org.junit.Test;
 public class ReverseDeleteTestCase
 {
 
+    @Test
+    public void testEmptyGraph()
+    {
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+
+        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> tree =
+            minimumSpanningTree( input )
+                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
+                .applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
+
+        assertEquals( 0, tree.getOrder() );
+        assertEquals( 0, tree.getSize() );
+
+    }
+
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
@@ -54,22 +70,6 @@ public class ReverseDeleteTestCase
         minimumSpanningTree( input )
             .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
             .applyingReverseDeleteAlgorithm( null );
-    }
-
-    @Test
-    public void testEmptyGraph()
-    {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
-            new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-
-        SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> tree =
-            minimumSpanningTree( input )
-                .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-                .applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
-
-        assertEquals( 0, tree.getOrder() );
-        assertEquals( 0, tree.getSize() );
-
     }
 
     /**

@@ -55,6 +55,20 @@ public final class AllVertexPairsShortestPath<V, WE, W>
     /**
      * @param source
      * @param target
+     * @param distance
+     */
+    void addShortestDistance( V source, V target, W distance )
+    {
+        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
+        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
+        distance = checkNotNull( distance, "Impossible to add a shortest distance with a null distance" );
+
+        shortestDistances.put( new VertexPair<V>( source, target ), distance );
+    }
+
+    /**
+     * @param source
+     * @param target
      * @param weightedPath
      */
     void addShortestPath( V source, V target, WeightedPath<V, WE, W> weightedPath )
@@ -86,20 +100,6 @@ public final class AllVertexPairsShortestPath<V, WE, W>
         }
 
         return path;
-    }
-
-    /**
-     * @param source
-     * @param target
-     * @param distance
-     */
-    void addShortestDistance( V source, V target, W distance )
-    {
-        source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
-        target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
-        distance = checkNotNull( distance, "Impossible to add a shortest distance with a null distance" );
-
-        shortestDistances.put( new VertexPair<V>( source, target ), distance );
     }
 
     /**

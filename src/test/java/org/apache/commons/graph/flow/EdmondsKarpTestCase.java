@@ -39,6 +39,55 @@ import org.junit.Test;
 public class EdmondsKarpTestCase
 {
 
+    @Test
+    public void testFindMaxFlowAndVerify()
+    {
+        final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
+
+        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
+            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
+            {
+
+                @Override
+                public void connect()
+                {
+                    addVertex( a );
+                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
+                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
+                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
+                    BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
+                    BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
+                    addVertex( g );
+
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 3 ) ).from( a ).to( b );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> D", 3 ) ).from( a ).to( d );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> C", 4 ) ).from( b ).to( c );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> A", 3 ) ).from( c ).to( a );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> D", 1 ) ).from( c ).to( d );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> E", 2 ) ).from( c ).to( e );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "D -> E", 2 ) ).from( d ).to( e );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "D -> F", 6 ) ).from( d ).to( f );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "E -> B", 1 ) ).from( e ).to( b );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "E -> G", 1 ) ).from( e ).to( g );
+                    addEdge( new BaseLabeledWeightedEdge<Integer>( "F -> G", 9 ) ).from( f ).to( g );
+                }
+
+            } );
+
+        // expected max flow
+        final Integer expected = 5;
+
+        // actual max flow
+        Integer actual = findMaxFlow( graph )
+                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
+                            .from( a )
+                            .to( g )
+                            .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
+
+        assertEquals( expected, actual );
+    }
+
     @Test( expected = NullPointerException.class )
     public void testNullGraph()
     {
@@ -107,55 +156,6 @@ public class EdmondsKarpTestCase
                             .to( g )
                             .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
         assertEquals( actual, expected );
-    }
-
-    @Test
-    public void testFindMaxFlowAndVerify()
-    {
-        final BaseLabeledVertex a = new BaseLabeledVertex( "A" );
-        final BaseLabeledVertex g = new BaseLabeledVertex( "G" );
-
-        DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
-            newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>()
-            {
-
-                @Override
-                public void connect()
-                {
-                    addVertex( a );
-                    BaseLabeledVertex b = addVertex( new BaseLabeledVertex( "B" ) );
-                    BaseLabeledVertex c = addVertex( new BaseLabeledVertex( "C" ) );
-                    BaseLabeledVertex d = addVertex( new BaseLabeledVertex( "D" ) );
-                    BaseLabeledVertex e = addVertex( new BaseLabeledVertex( "E" ) );
-                    BaseLabeledVertex f = addVertex( new BaseLabeledVertex( "F" ) );
-                    addVertex( g );
-
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> B", 3 ) ).from( a ).to( b );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "A -> D", 3 ) ).from( a ).to( d );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "B -> C", 4 ) ).from( b ).to( c );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> A", 3 ) ).from( c ).to( a );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> D", 1 ) ).from( c ).to( d );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "C -> E", 2 ) ).from( c ).to( e );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "D -> E", 2 ) ).from( d ).to( e );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "D -> F", 6 ) ).from( d ).to( f );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "E -> B", 1 ) ).from( e ).to( b );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "E -> G", 1 ) ).from( e ).to( g );
-                    addEdge( new BaseLabeledWeightedEdge<Integer>( "F -> G", 9 ) ).from( f ).to( g );
-                }
-
-            } );
-
-        // expected max flow
-        final Integer expected = 5;
-
-        // actual max flow
-        Integer actual = findMaxFlow( graph )
-                            .whereEdgesHaveWeights( new BaseWeightedEdge<Integer>() )
-                            .from( a )
-                            .to( g )
-                            .applyingEdmondsKarp( new IntegerWeightBaseOperations() );
-
-        assertEquals( expected, actual );
     }
 
 }

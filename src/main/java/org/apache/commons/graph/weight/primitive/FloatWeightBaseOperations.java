@@ -34,14 +34,6 @@ public class FloatWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Float identity()
-    {
-        return 0.0F;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public Float append( Float s1, Float s2 )
     {
         if ( s1 == null || s2 == null )
@@ -54,17 +46,25 @@ public class FloatWeightBaseOperations
     /**
      * {@inheritDoc}
      */
-    public Float inverse( Float element )
+    public int compare( Float s1, Float s2 )
     {
-        return -element;
+        return s1.compareTo( s2 );
     }
 
     /**
      * {@inheritDoc}
      */
-    public int compare( Float s1, Float s2 )
+    public Float identity()
     {
-        return s1.compareTo( s2 );
+        return 0.0F;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Float inverse( Float element )
+    {
+        return -element;
     }
 
 }

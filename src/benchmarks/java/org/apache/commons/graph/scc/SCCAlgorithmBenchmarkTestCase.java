@@ -50,9 +50,6 @@ public final class SCCAlgorithmBenchmarkTestCase
     private static final int NODES = 5000;
     private static final int EDGES = 5000;
 
-    @Rule
-    public BenchmarkRule benchmarkRun = new BenchmarkRule();
-
     private static DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph;
 
     @BeforeClass
@@ -85,17 +82,20 @@ public final class SCCAlgorithmBenchmarkTestCase
         } );
     }
 
-    @Test
-    public void testPerformKosaraju()
-    {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
-        assertTrue( actual.size() > 0 );
-    }
+    @Rule
+    public BenchmarkRule benchmarkRun = new BenchmarkRule();
 
     @Test
     public void testPerformCheriyanMehlhornGabow()
     {
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        assertTrue( actual.size() > 0 );
+    }
+
+    @Test
+    public void testPerformKosaraju()
+    {
+        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
         assertTrue( actual.size() > 0 );
     }
 

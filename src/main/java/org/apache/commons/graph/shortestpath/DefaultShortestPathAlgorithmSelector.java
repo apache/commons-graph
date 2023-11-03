@@ -64,65 +64,6 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
     /**
      * {@inheritDoc}
      */
-    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
-
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
-        shortestDistances.setWeight( source, weightOperations.identity() );
-
-        final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
-        unsettledNodes.add( source );
-
-        final Set<V> settledNodes = new HashSet<V>();
-
-        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
-
-        // extract the node with the shortest distance
-        while ( !unsettledNodes.isEmpty() )
-        {
-            V vertex = unsettledNodes.remove();
-
-            // destination reached, stop and build the path
-            if ( target.equals( vertex ) )
-            {
-                return predecessors.buildPath( source, target );
-            }
-
-            settledNodes.add( vertex );
-
-            for ( V v : graph.getConnectedVertices( vertex ) )
-            {
-                // skip node already settled
-                if ( !settledNodes.contains( v ) )
-                {
-                    WE edge = graph.getEdge( vertex, v );
-                    if ( shortestDistances.alreadyVisited( vertex ) )
-                    {
-                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.map( edge ) );
-
-                        if ( !shortestDistances.alreadyVisited( v )
-                                || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
-                        {
-                            // assign new shortest distance and mark unsettled
-                            shortestDistances.setWeight( v, shortDist );
-                            unsettledNodes.add( v );
-
-                            // assign predecessor in shortest path
-                            predecessors.addPredecessor( v, vertex );
-                        }
-                    }
-
-                }
-            }
-        }
-
-        throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingBidirectionalDijkstra( WO weightOperations )
     {
         weightOperations = checkNotNull( weightOperations, "Bidirectional Dijkstra algorithm can not be applied using null weight operations" );
@@ -242,5 +183,64 @@ final class DefaultShortestPathAlgorithmSelector<V, WE, W>
         }
 
         return predecessorsForward.buildPath( source, touch, target, predecessorsBackwards );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+        shortestDistances.setWeight( source, weightOperations.identity() );
+
+        final Queue<V> unsettledNodes = new FibonacciHeap<V>( shortestDistances );
+        unsettledNodes.add( source );
+
+        final Set<V> settledNodes = new HashSet<V>();
+
+        final PredecessorsList<V, WE, W> predecessors = new PredecessorsList<V, WE, W>( graph, weightOperations, weightedEdges );
+
+        // extract the node with the shortest distance
+        while ( !unsettledNodes.isEmpty() )
+        {
+            V vertex = unsettledNodes.remove();
+
+            // destination reached, stop and build the path
+            if ( target.equals( vertex ) )
+            {
+                return predecessors.buildPath( source, target );
+            }
+
+            settledNodes.add( vertex );
+
+            for ( V v : graph.getConnectedVertices( vertex ) )
+            {
+                // skip node already settled
+                if ( !settledNodes.contains( v ) )
+                {
+                    WE edge = graph.getEdge( vertex, v );
+                    if ( shortestDistances.alreadyVisited( vertex ) )
+                    {
+                        W shortDist = weightOperations.append( shortestDistances.getWeight( vertex ), weightedEdges.map( edge ) );
+
+                        if ( !shortestDistances.alreadyVisited( v )
+                                || weightOperations.compare( shortDist, shortestDistances.getWeight( v ) ) < 0 )
+                        {
+                            // assign new shortest distance and mark unsettled
+                            shortestDistances.setWeight( v, shortDist );
+                            unsettledNodes.add( v );
+
+                            // assign predecessor in shortest path
+                            predecessors.addPredecessor( v, vertex );
+                        }
+                    }
+
+                }
+            }
+        }
+
+        throw new PathNotFoundException( "Path from '%s' to '%s' doesn't exist in Graph '%s'", source, target, graph );
     }
 }

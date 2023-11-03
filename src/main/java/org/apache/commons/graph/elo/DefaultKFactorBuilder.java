@@ -33,6 +33,11 @@ final class DefaultKFactorBuilder<P>
 
     private static final int DEFAULT_K_FACTOR = 32;
 
+    private static double calculateEFactor( double qA, double qB )
+    {
+        return qA / ( qA + qB );
+    }
+
     private final DirectedGraph<P, GameResult> tournamentGraph;
 
     private final PlayersRank<P> playerRanking;
@@ -44,22 +49,10 @@ final class DefaultKFactorBuilder<P>
         this.playerRanking = playerRanking;
     }
 
-    public void withDefaultKFactor()
+    private double calculateQFactor( P player )
     {
-        withKFactor( DEFAULT_K_FACTOR );
-    }
-
-    public void withKFactor( int kFactor )
-    {
-        // TODO find a way to improve performances, this impl is just a spike
-        for ( P player : tournamentGraph.getVertices() )
-        {
-            for ( P opponent : tournamentGraph.getOutbound( player ) )
-            {
-                GameResult gameResult = tournamentGraph.getEdge( player, opponent );
-                evaluateMatch( player, gameResult, opponent, kFactor );
-            }
-        }
+        double ranking = playerRanking.getRanking( player );
+        return pow( DEFAULT_POW_BASE, ranking / DEFAULT_DIVISOR );
     }
 
     private boolean evaluateMatch( P playerA, GameResult gameResult, P playerB, int kFactor )
@@ -94,21 +87,28 @@ final class DefaultKFactorBuilder<P>
         return true;
     }
 
-    private double calculateQFactor( P player )
-    {
-        double ranking = playerRanking.getRanking( player );
-        return pow( DEFAULT_POW_BASE, ranking / DEFAULT_DIVISOR );
-    }
-
-    private static double calculateEFactor( double qA, double qB )
-    {
-        return qA / ( qA + qB );
-    }
-
     private void updateRanking( P player, double kFactor, double sFactor, double eFactor )
     {
         double newRanking = playerRanking.getRanking( player ) + ( kFactor * ( sFactor - eFactor ) );
         playerRanking.updateRanking( player, newRanking );
+    }
+
+    public void withDefaultKFactor()
+    {
+        withKFactor( DEFAULT_K_FACTOR );
+    }
+
+    public void withKFactor( int kFactor )
+    {
+        // TODO find a way to improve performances, this impl is just a spike
+        for ( P player : tournamentGraph.getVertices() )
+        {
+            for ( P opponent : tournamentGraph.getOutbound( player ) )
+            {
+                GameResult gameResult = tournamentGraph.getEdge( player, opponent );
+                evaluateMatch( player, gameResult, opponent, kFactor );
+            }
+        }
     }
 
 }

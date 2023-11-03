@@ -85,36 +85,6 @@ public final class InMemoryWeightedPath<V, WE, W>
     }
 
     /**
-     * Increase the path weight with the weight of the input weighted edge.
-     *
-     * @param edge the edge whose weight is used to increase the path weight
-     */
-    private void increaseWeight( WE edge )
-    {
-        weight = weightOperations.append( weightedEdges.map( edge ), weight );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public W getWeight()
-    {
-        return weight;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ( ( weight == null ) ? 0 : weight.hashCode() );
-        return result;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -138,6 +108,36 @@ public final class InMemoryWeightedPath<V, WE, W>
         @SuppressWarnings( "unchecked" ) // test against any WeightedPath typed instance
         InMemoryWeightedPath<Object, Object, W> other = (InMemoryWeightedPath<Object, Object, W>) obj;
         return eq( weight, other.getWeight() );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public W getWeight()
+    {
+        return weight;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ( ( weight == null ) ? 0 : weight.hashCode() );
+        return result;
+    }
+
+    /**
+     * Increase the path weight with the weight of the input weighted edge.
+     *
+     * @param edge the edge whose weight is used to increase the path weight
+     */
+    private void increaseWeight( WE edge )
+    {
+        weight = weightOperations.append( weightedEdges.map( edge ), weight );
     }
 
     /**
