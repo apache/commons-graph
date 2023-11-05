@@ -44,7 +44,7 @@ public class BaseMutableGraphTestCase
 {
 
     // Utility class.
-    private class GraphInsert
+    private final class GraphInsert
         extends TestRunner
     {
 

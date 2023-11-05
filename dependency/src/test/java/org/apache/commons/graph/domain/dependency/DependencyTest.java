@@ -55,7 +55,7 @@ public class DependencyTest
     /**
      * Description of the Class
      */
-    private class Task
+    private final class Task
     {
         private String name;
 
