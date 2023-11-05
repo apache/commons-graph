@@ -37,7 +37,7 @@ import org.apache.commons.graph.VertexPair;
  * @param <G>  the input Graph type
  * @param <WC> the weight operations
  */
-class SuperVertex<V, W, WE>
+final class SuperVertex<V, W, WE>
     implements Iterable<V>
 {
 
