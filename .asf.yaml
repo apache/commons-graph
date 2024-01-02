@@ -15,7 +15,7 @@
 
 github:
   description: "Apache Commons Graph (Sandbox)"
-  homepage: https://commons.apache.org/graph/
+  homepage: https://commons.apache.org/sandbox/commons-graph/
 
 notifications:
     commits:      commits@commons.apache.org
