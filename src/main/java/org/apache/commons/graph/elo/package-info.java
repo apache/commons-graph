@@ -1,6 +1,6 @@
 /**
  * The {@code elo} package contains a Java implementation of the
- * <a href="http://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>
+ * <a href="https://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>
  */
 package org.apache.commons.graph.elo;
 

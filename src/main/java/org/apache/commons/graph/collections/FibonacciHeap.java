@@ -38,7 +38,7 @@ import java.util.Stack;
 
 /**
  * A Fibonacci Heap implementation based on
- * <a href="http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm">University of Science and Technology of
+ * <a href="https://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap21.htm">University of Science and Technology of
  * China</a> lesson.
  *
  * <p><b>Note 1</b>: this class is NOT thread safe!</p>

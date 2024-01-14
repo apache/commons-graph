@@ -69,7 +69,7 @@ public final class CommonsGraph
 
     /**
      * Ranks the players (vertices) that took part in a tournament (graph) depending on the game results (edges),
-     * applying the <a href="http://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
+     * applying the <a href="https://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
      *
      * @param <P> the players involved in the tournament
      * @param <TG> the Tournament Graph type

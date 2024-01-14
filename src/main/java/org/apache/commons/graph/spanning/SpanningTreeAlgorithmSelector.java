@@ -33,7 +33,7 @@ public interface SpanningTreeAlgorithmSelector<V, W, WE>
 {
 
     /**
-     * Applies the <a href="http://en.wikipedia.org/wiki/Bor%C5%AFvka's_algorithm">Boruvka</a>'s algorithm.
+     * Applies the <a href="https://en.wikipedia.org/wiki/Bor%C5%AFvka's_algorithm">Boruvka</a>'s algorithm.
      *
      * @param <WO> the type of weight operations
      * @param weightOperations the class responsible for operations on weights
@@ -42,7 +42,7 @@ public interface SpanningTreeAlgorithmSelector<V, W, WE>
     <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingBoruvkaAlgorithm( WO weightOperations );
 
     /**
-     * Applies the <a href="http://en.wikipedia.org/wiki/Kruskal%27s_algorithm">Kruskal</a>'s algorithm.
+     * Applies the <a href="https://en.wikipedia.org/wiki/Kruskal%27s_algorithm">Kruskal</a>'s algorithm.
      *
      * @param <WO> the type of weight operations
      * @param weightOperations the class responsible for operations on weights
@@ -51,7 +51,7 @@ public interface SpanningTreeAlgorithmSelector<V, W, WE>
     <WO extends OrderedMonoid<W>> SpanningTree<V, WE, W> applyingKruskalAlgorithm( WO weightOperations );
 
     /**
-     * Applies the <a href="http://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim</a>'s algorithm.
+     * Applies the <a href="https://en.wikipedia.org/wiki/Prim%27s_algorithm">Prim</a>'s algorithm.
      *
      * @param <WO> the type of weight operations
      * @param weightOperations the class responsible for operations on weights

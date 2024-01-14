@@ -33,7 +33,7 @@ public interface SpanningTreeSourceSelector<V, W, WE>
 {
 
     /**
-     * Applies the <a href="http://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.
+     * Applies the <a href="https://en.wikipedia.org/wiki/Reverse-Delete_algorithm">Reverse-Delete</a> algorithm.
      *
      * <pre>
      * function ReverseDelete(edges[] E)

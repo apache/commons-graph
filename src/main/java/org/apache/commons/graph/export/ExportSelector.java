@@ -29,7 +29,7 @@ public interface ExportSelector<V, E>
 {
 
     /**
-     * Export Graphs in <a href="http://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
+     * Export Graphs in <a href="https://en.wikipedia.org/wiki/DOT_language">DOT language</a>.
      *
      * @return {@link DotExporter} instance
      * @throws GraphExportException
@@ -38,7 +38,7 @@ public interface ExportSelector<V, E>
         throws GraphExportException;
 
     /**
-     * Export Graphs in <a href="http://graphml.graphdrawing.org/">GraphML file format</a>.
+     * Export Graphs in <a href="https://graphml.graphdrawing.org/">GraphML file format</a>.
      *
      * @return {@link GraphMLExporter} instance
      * @throws GraphExportException
