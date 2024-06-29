@@ -44,7 +44,6 @@ Apache Commons Graph (Sandbox)
 ===================
 
 [![Build Status](https://travis-ci.org/apache/commons-graph.svg)](https://travis-ci.org/apache/commons-graph)
-[![Coverage Status](https://coveralls.io/repos/apache/commons-graph/badge.svg)](https://coveralls.io/r/apache/commons-graph)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-graph/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-graph/)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-graph/1.0-beta1.svg)](https://javadoc.io/doc/org.apache.commons/commons-graph/1.0-beta1)
 
