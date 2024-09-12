@@ -43,7 +43,7 @@
       
 <source>WeightedGraph&lt;V, WE, Double&gt; graph;
 V source, destination;
-// populate graph and initialise source and destination ...
+// populate graph and initialize source and destination ...
 WeightedPath&lt;V, WE, Double&gt; shortestPath = 
     findShortestPath( graph ).from( source ).to( destination ).applyingDijkstra( new DoubleWeightBaseOperations() );
 </source>
