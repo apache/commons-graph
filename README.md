@@ -44,7 +44,7 @@ Apache Commons Graph (Sandbox)
 ===================
 
 [![Build Status](https://travis-ci.org/apache/commons-graph.svg)](https://travis-ci.org/apache/commons-graph)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-graph/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.apache.commons/commons-graph/)
+[![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-graph?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-graph)
 [![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-graph/1.0-beta1.svg)](https://javadoc.io/doc/org.apache.commons/commons-graph/1.0-beta1)
 
 The Apache Commons Graph package is a toolkit for managing graphs and graph based data structures.
