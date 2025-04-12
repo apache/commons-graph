@@ -21,9 +21,9 @@ updates:
       interval: "weekly"
       day: "friday"
     ignore:
-      # Version 2.3.x requires Java 11
-      dependency-name: "com.h2database:h2"
-      versions: [ "[2.3,)" ]
+        # Version 2.3.x requires Java 11
+      - dependency-name: "com.h2database:h2"
+        versions: [ "[2.3,)" ]
 
   - package-ecosystem: "github-actions"
     directory: "/"
