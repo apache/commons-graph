@@ -136,18 +136,8 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-graph</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
 
-    <checkstyle.plugin.version>3.1.0</checkstyle.plugin.version>
-    <checkstyle.version>8.27</checkstyle.version>
-
-    <spotbugs.plugin.version>4.0.0</spotbugs.plugin.version>
-
-    <commons.jacoco.version>0.8.4</commons.jacoco.version>
-
-    <commons.javadoc.version>3.1.1</commons.javadoc.version>
-
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
-    <commons.japicmp.version>0.14.1</commons.japicmp.version>
     <japicmp.skip>false</japicmp.skip>
 
   </properties>
@@ -272,7 +262,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
-        <version>2.3</version>
         <configuration>
           <issueLinkTemplate>%URL%/../%ISSUE%</issueLinkTemplate>
         </configuration>
@@ -288,7 +277,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9.1</version>
         <configuration>
           <configLocation>config/maven_checks.xml</configLocation>
           <headerLocation>config/maven-header.txt</headerLocation>
@@ -299,7 +287,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>2.3</version>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
@@ -308,7 +295,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
-        <version>3.2.1</version>
       </plugin>
     </plugins>
   </reporting>
@@ -362,7 +348,6 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
-            <version>3.6.0</version>
             <executions>
               <execution>
                 <id>add-test-source</id>
@@ -374,6 +359,28 @@
                   <sources>
                     <source>${basedir}/src/benchmarks/java</source>
                   </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!--
+            ~ Make sure Maven plugins have explicit versions.
+            ~ These versions can be either inherited (preferably) or explicit in this file.
+            -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>enforce-plugin-versions</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requirePluginVersions/>
+                  </rules>
                 </configuration>
               </execution>
             </executions>
