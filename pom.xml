@@ -126,6 +126,7 @@
 
     <commons.module.name>org.apache.commons.graph</commons.module.name>
 
+    <commons.release.version>1.0-beta1</commons.release.version>
     <commons.release.desc>(Java 8+)</commons.release.desc>
 
     <commons.jira.id>GRAPH</commons.jira.id>
