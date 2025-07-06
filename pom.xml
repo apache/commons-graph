@@ -114,7 +114,10 @@
       <url>${commons.deployment.protocol}://people.apache.org/www/commons.apache.org/sandbox/graph</url>
     </site>
   </distributionManagement>
-
+  <ciManagement>
+    <system>GitHub</system>
+    <url>https://github.com/apache/commons-graph/actions</url>
+  </ciManagement>
   <properties>
 
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
