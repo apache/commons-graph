@@ -25,8 +25,9 @@ import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildSudokuGraph;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Set;
 
@@ -36,7 +37,7 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -141,7 +142,7 @@ public class GraphColoringTestCase extends AbstractColoringTest
         assertEquals( 0, coloredVertices.getRequiredColors() );
     }
 
-    @Test( expected = NotEnoughColorsException.class )
+    @Test
     public void testNotEnoughtColorGreedyGraph()
     {
         final BaseLabeledVertex two = new BaseLabeledVertex( "2" );
@@ -163,22 +164,25 @@ public class GraphColoringTestCase extends AbstractColoringTest
                 }
 
             } );
-        coloring( g ).withColors( createColorsList( 1 ) ).applyingGreedyAlgorithm();
+        ColoringAlgorithmsSelector<BaseLabeledVertex, BaseLabeledEdge, Integer> selector = coloring(g).withColors(createColorsList(1));
+
+        assertThrows(NotEnoughColorsException.class, selector::applyingGreedyAlgorithm);
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullColorGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
+        ColorsBuilder<BaseLabeledVertex, BaseLabeledEdge> coloring = coloring(g);
 
-        coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
+        assertThrows(NullPointerException.class, () -> coloring.withColors(null));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        coloring( (UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).withColors( null ).applyingGreedyAlgorithm();
+        assertThrows(NullPointerException.class, () -> coloring((UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null));
     }
 
     @Test

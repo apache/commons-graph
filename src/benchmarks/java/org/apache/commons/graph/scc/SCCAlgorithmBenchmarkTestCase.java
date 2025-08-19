@@ -23,7 +23,7 @@ import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +35,9 @@ import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkRule;
 import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
@@ -52,7 +52,7 @@ public final class SCCAlgorithmBenchmarkTestCase
 
     private static DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp()
     {
         graph = newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()

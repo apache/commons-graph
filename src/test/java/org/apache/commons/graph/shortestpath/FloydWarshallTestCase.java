@@ -19,9 +19,10 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 
 import org.apache.commons.graph.Graph;
@@ -35,7 +36,7 @@ import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -144,7 +145,7 @@ public class FloydWarshallTestCase
         findShortestPathAndVerify( new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>() );
     }
 
-    @Test( expected = PathNotFoundException.class )
+    @Test
     public void testNotConnectGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
@@ -161,18 +162,13 @@ public class FloydWarshallTestCase
                 .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
                 .applyingFloydWarshall( new DoubleWeightBaseOperations() );
 
-        p.findShortestPath( a, b );
+        assertThrows(PathNotFoundException.class, () -> p.findShortestPath( a, b ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        // the actual weighted path
-        findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( null )
-            .to( null )
-            .applyingDijkstra( new DoubleWeightBaseOperations() );
+        assertThrows(NullPointerException.class, () -> findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ));
     }
 
     @Test

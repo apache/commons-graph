@@ -19,8 +19,8 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.Graph;
@@ -31,8 +31,8 @@ import org.apache.commons.graph.model.BaseWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public final class KruskalTestCase
 {
@@ -86,70 +86,59 @@ public final class KruskalTestCase
         assertEquals( expected, actual );
     }
 
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void testEmptyGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
-            .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+
+        assertThrows(IllegalStateException.class, selector::fromArbitrarySource);
     }
 
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void testNotExistVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+        BaseLabeledVertex notExist = new BaseLabeledVertex("NOT EXIST");
+
+        assertThrows(IllegalStateException.class, () -> selector.fromSource(notExist));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
-            .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+        assertThrows(NullPointerException.class, () -> minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullMonoid()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input = null;
-        BaseLabeledVertex a = null;
-        try
-        {
-            input = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-            a = new BaseLabeledVertex( "A" );
-            input.addVertex( a );
-        }
-        catch ( NullPointerException e )
-        {
-            //try..catch need to avoid a possible test success even if a NPE is thorw during graph population
-            fail( e.getMessage() );
-        }
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        input.addVertex( a );
+        SpanningTreeAlgorithmSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>())
+                .fromSource(a);
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( a )
-            .applyingKruskalAlgorithm( null );
+        assertThrows(NullPointerException.class, () -> selector.applyingKruskalAlgorithm( null ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( null )
-            .applyingKruskalAlgorithm( new DoubleWeightBaseOperations() );
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+
+        assertThrows(NullPointerException.class, () -> selector.fromSource( null ));
     }
 
 
@@ -208,7 +197,7 @@ public final class KruskalTestCase
      * and unit weights.
      */
     @Test
-    @Ignore //TODO - for time being ignoring it.
+    @Disabled("TODO - for time being ignoring it.") //TODO - for time being ignoring it.
     public void testP4UniformWeightsMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input

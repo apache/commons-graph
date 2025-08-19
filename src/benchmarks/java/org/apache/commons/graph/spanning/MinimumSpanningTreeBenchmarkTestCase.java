@@ -23,7 +23,7 @@ import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +37,9 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkRule;
 import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
@@ -56,7 +56,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
 
     private static Mapper<BaseLabeledWeightedEdge<Double>, Double> weightedEdges;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp()
     {
         weightedEdges = new Mapper<BaseLabeledWeightedEdge<Double>, Double>()

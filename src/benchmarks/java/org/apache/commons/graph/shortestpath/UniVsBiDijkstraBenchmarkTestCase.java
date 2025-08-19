@@ -23,7 +23,7 @@ import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,9 +41,9 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import com.carrotsearch.junitbenchmarks.BenchmarkRule;
@@ -74,7 +74,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
 
     private static OrderedMonoid<Double> weightOperations;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp()
     {
         weightOperations = new DoubleWeightBaseOperations();
