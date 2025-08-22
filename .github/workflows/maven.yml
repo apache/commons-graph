@@ -37,7 +37,7 @@ jobs:
         # Don't need all versions
         include:
           - java: 8
-            os: macos-latest
+            os: macos-13
             experimental: false
           - java: 8
             os: windows-latest
