@@ -1,4 +1,4 @@
-package org.apache.commons.graph.shortestpath;
+package org.apache.commons.graph.jmh;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.GraphException;
@@ -41,19 +42,21 @@ import org.apache.commons.graph.WeightedPath;
 import org.apache.commons.graph.weight.OrderedMonoid;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.Rule;
-import org.junit.jupiter.api.Test;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
 
-import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
-import com.carrotsearch.junitbenchmarks.BenchmarkRule;
-import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
-import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
-
-@AxisRange( min = 0, max = 2 )
-@BenchmarkMethodChart( filePrefix = "dijkstras" )
-@BenchmarkOptions( benchmarkRounds = 10, warmupRounds = 5 )
-public final class UniVsBiDijkstraBenchmarkTestCase
+@BenchmarkMode(Mode.Throughput)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@State(Scope.Benchmark)
+@Fork(value = 10, warmups = 5)
+public class UniVsBiDijkstraBenchmarkTestCase
 {
     private static final int NODES = 5000;
     private static final int EDGES = 100000;
@@ -74,7 +77,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
 
     private static OrderedMonoid<Double> weightOperations;
 
-    @BeforeAll
+    @Setup(Level.Trial)
     public static void setUp()
     {
         weightOperations = new DoubleWeightBaseOperations();
@@ -154,10 +157,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
         }
     }
 
-    @Rule
-    public BenchmarkRule benchmarkRun = new BenchmarkRule();
-
-    @Test
+    @Benchmark
     public void testPerformBidirectionalDijkstra() {
         BaseLabeledVertex source = sourceListBi.removeFirst();
         BaseLabeledVertex target = targetListBi.removeFirst();
@@ -179,7 +179,7 @@ public final class UniVsBiDijkstraBenchmarkTestCase
         }
     }
 
-    @Test
+    @Benchmark
     public void testPerformUnidirectionalDijkstra() {
         BaseLabeledVertex source = sourceListUni.removeFirst();
         BaseLabeledVertex target = targetListUni.removeFirst();
