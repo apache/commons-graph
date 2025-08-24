@@ -19,11 +19,11 @@ package org.apache.commons.graph.model;
  * under the License.
  */
 
-import static junit.framework.Assert.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 import static org.apache.commons.graph.CommonsGraph.populate;
 import static org.apache.commons.graph.CommonsGraph.synchronize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,8 +39,8 @@ import org.apache.commons.graph.MutableGraph;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.builder.GraphConnection;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Provides a simple test case to test the Graph serialization.
@@ -114,7 +114,7 @@ public class GraphSerializationTestCase
         assertEquals( g, cloned );
     }
 
-    @After
+    @AfterEach
     public void cleanUp()
     {
         File f = new File( FILE_NAME );

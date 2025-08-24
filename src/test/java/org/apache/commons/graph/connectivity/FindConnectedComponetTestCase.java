@@ -21,9 +21,10 @@ package org.apache.commons.graph.connectivity;
 
 import static org.apache.commons.graph.CommonsGraph.findConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +35,7 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -240,10 +241,10 @@ public final class FindConnectedComponetTestCase
         assertEquals( 0, c.size() );
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test
     public void verifyNullGraph()
     {
-        findConnectedComponent( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).includingAllVertices().applyingMinimumSpanningTreeAlgorithm();
+        assertThrows(NullPointerException.class, () -> findConnectedComponent((Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null));
     }
 
 }
