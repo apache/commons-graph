@@ -19,8 +19,9 @@ package org.apache.commons.graph.shortestpath;
  * under the License.
  */
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.findShortestPath;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Path;
@@ -31,7 +32,7 @@ import org.apache.commons.graph.model.DirectedMutableGraph;
 import org.apache.commons.graph.model.InMemoryWeightedPath;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class DijkstraTestCase
 {
@@ -98,7 +99,7 @@ public final class DijkstraTestCase
         assertEquals( expected, actual );
     }
 
-    @Test( expected = PathNotFoundException.class )
+    @Test
     public void testNotConnectGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
@@ -110,25 +111,22 @@ public final class DijkstraTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        findShortestPath( graph )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( a )
-            .to( b )
-            .applyingDijkstra( new DoubleWeightBaseOperations() );
+        ShortestPathAlgorithmSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> selector = findShortestPath(graph)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>())
+                .from(a)
+                .to(b);
+        DoubleWeightBaseOperations operations = new DoubleWeightBaseOperations();
+
+        assertThrows(PathNotFoundException.class, () -> selector.applyingDijkstra(operations));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        // the actual weighted path
-        findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( null )
-            .to( null )
-            .applyingDijkstra( new DoubleWeightBaseOperations() );
+        assertThrows(NullPointerException.class, () -> findShortestPath( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullMonoid()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
@@ -140,25 +138,27 @@ public final class DijkstraTestCase
         graph.addVertex( b );
 
         // the actual weighted path
-        findShortestPath( graph )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( a )
-            .to( b )
-            .applyingDijkstra( null );
+        ShortestPathAlgorithmSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> selector = findShortestPath(graph)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>())
+                .from(a)
+                .to(b);
+
+        assertThrows(NullPointerException.class, () -> selector.applyingDijkstra( null ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullVertices()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> graph =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
         // the actual weighted path
-        findShortestPath( graph )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .from( null )
-            .to( null )
-            .applyingDijkstra( new DoubleWeightBaseOperations() );
+        PathSourceSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> selector = findShortestPath(graph)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+        assertThrows(NullPointerException.class, () -> selector.from( null ));
+
+        TargetSourceSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> labeledSelector = selector.from(new BaseLabeledVertex("label"));
+        assertThrows(NullPointerException.class, () -> labeledSelector.to( null ));
     }
 
 }
