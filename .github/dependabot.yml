@@ -18,8 +18,7 @@ updates:
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "friday"
+      interval: "quarterly"
     ignore:
         # Version 2.3.x requires Java 11
       - dependency-name: "com.h2database:h2"
@@ -28,5 +27,4 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "friday"
+      interval: "quarterly"
