@@ -21,7 +21,8 @@ package org.apache.commons.graph.visit;
 
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
 import static org.apache.commons.graph.CommonsGraph.visit;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +32,12 @@ import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class VisitTestCase
 {
 
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void testNotExistVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> input =
@@ -46,11 +47,14 @@ public final class VisitTestCase
                 @Override
                 public void connect()
                 {
+                    // noop
                 }
 
             } );
+        final BaseLabeledVertex notExistVertex = new BaseLabeledVertex("NOT EXIST");
+        final VisitSourceSelector<BaseLabeledVertex, BaseLabeledEdge, UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>> selector = visit(input);
 
-        visit( input ).from( new BaseLabeledVertex( "NOT EXIST" ) );
+        assertThrows(IllegalStateException.class, () -> selector.from(notExistVertex));
     }
 
     /**

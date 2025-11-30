@@ -26,16 +26,15 @@ import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ExportTestCase {
 
     private UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> actual;
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         actual =
@@ -58,7 +57,7 @@ public class ExportTestCase {
         } );
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         actual = null;
