@@ -3,3 +3,7 @@
 .project
 .settings/
 site-content*
+
+# NetBeans files
+nb-configuration.xml
+nbactions.xml
