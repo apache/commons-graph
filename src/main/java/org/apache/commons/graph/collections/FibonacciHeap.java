@@ -203,7 +203,7 @@ public final class FibonacciHeap<E>
     }
 
     /**
-     * Compare the given objects according to to the specified comparator if not null,
+     * Compare the given objects according to the specified comparator if not null,
      * according to their natural ordering otherwise.
      *
      * @param o1 the first {@link FibonacciHeap} node to be compared
@@ -445,7 +445,7 @@ public final class FibonacciHeap<E>
      * 3  mark[y]  FALSE</pre>
      *
      * @param y the node has to be removed from the root list
-     * @param x the node has to to become fater of {@code y}
+     * @param x the node has to become fater of {@code y}
      */
     private void link( FibonacciHeapNode<E> y, FibonacciHeapNode<E> x )
     {
