@@ -36,6 +36,7 @@ public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
      *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
      *   <li>{@link VisitState.ABORT} terminates the visit.</li>
      * </ul>
+     *
      * @return the state of the visit after operations on the edge
      */
     VisitState discoverEdge( V head, E edge, V tail );
@@ -53,6 +54,7 @@ public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
      *   <li>{@link VisitState.SKIP} continues the visit skipping the input vertex;</li>
      *   <li>{@link VisitState.ABORT} terminates the visit.</li>
      * </ul>
+     *
      * @return the state of the visit after operations on the vertex
      */
     VisitState discoverVertex( V vertex );
@@ -60,6 +62,7 @@ public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
      * visiting the input edge.
+     *
      * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input edge, {@link VisitState.CONTINUE} otherwise
      */
     VisitState finishEdge( V head, E edge, V tail );
@@ -72,6 +75,7 @@ public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
     /**
      * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
      * visiting the input vertex.
+     *
      * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input vertex, {@link VisitState.CONTINUE} otherwise
      */
     VisitState finishVertex( V vertex );

@@ -36,6 +36,7 @@ class SynchronizedGraph<V, E>
 
     /**
      * Creates a new thread-safe instence of {@link SynchronizedGraph}.
+     *
      * @param g The {@link Graph} that has to be synchronized
      */
     public SynchronizedGraph( Graph<V, E> g )

@@ -33,6 +33,7 @@ final class SynchronizedMutableGraph<V, E>
 
     /**
      * Creates a new thread-safe instence of {@link SynchronizedMutableGraph}.
+     *
      * @param g The {@link Graph} that has to be synchronized
      */
     public SynchronizedMutableGraph( MutableGraph<V, E> g )

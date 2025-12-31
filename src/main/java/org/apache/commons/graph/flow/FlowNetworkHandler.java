@@ -135,6 +135,7 @@ final class FlowNetworkHandler<V, E, W>
     /**
      * Checks whether there is an augmenting path in the flow network,
      * given the current residual capacities.
+     *
      * @return true if there is an augmenting path, false otherwise
      */
     boolean hasAugmentingPath()

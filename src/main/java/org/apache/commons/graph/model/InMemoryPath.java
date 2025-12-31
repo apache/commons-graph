@@ -64,6 +64,7 @@ public class InMemoryPath<V, E>
 
     /**
      * Creates a new instance of {@link InMemoryPath} from {@code start} vertex to {@code taget} vertex
+     *
      * @param start the start vertex.
      * @param target the target vertex.
      */

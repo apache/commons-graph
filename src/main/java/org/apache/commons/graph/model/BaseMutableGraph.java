@@ -73,6 +73,7 @@ public abstract class BaseMutableGraph<V, E>
 
     /**
      * Executes additional actions to edge that will be added  
+     *
      * @param head the head vertex
      * @param e the edge
      * @param tail the tail vertex
@@ -81,18 +82,21 @@ public abstract class BaseMutableGraph<V, E>
 
     /**
      * Executes additional actions to vertex that will be added  
+     *
      * @param v the vertex
      */
     protected abstract void decorateAddVertex( V v );
 
     /**
      * Executes additional actions to edge that will be removed  
+     *
      * @param e the edge
      */
     protected abstract void decorateRemoveEdge( E e );
 
     /**
      * Executes additional actions to vertex that will be removed  
+     *
      * @param v the vertex
      */
     protected abstract void decorateRemoveVertex( V v );

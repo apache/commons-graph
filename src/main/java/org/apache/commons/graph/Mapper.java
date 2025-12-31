@@ -33,6 +33,7 @@ public interface Mapper<I, O>
 
     /**
      * TODO Fill the java doc
+     *
      * @param input
      * @return
      */

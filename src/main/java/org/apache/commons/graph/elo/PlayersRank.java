@@ -29,6 +29,7 @@ public interface PlayersRank<P>
 
     /**
      * Returns the ranking for the player
+     *
      * @param player the player
      * @return Returns the ranking for the player
      */
@@ -36,6 +37,7 @@ public interface PlayersRank<P>
 
     /**
      * Update the ranking for the player
+     *
      * @param player the player 
      * @param ranking the ranking value
      */

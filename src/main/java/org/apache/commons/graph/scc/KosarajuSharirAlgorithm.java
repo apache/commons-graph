@@ -166,6 +166,7 @@ final class KosarajuSharirAlgorithm<V, E>
      * <p><b>Implementation Note:</b> in the first step we look for vertices that have not
      * been visited yet, while in the second step we search for vertices that have already
      * been visited.</p>
+     *
      * @param g the graph to be search
      * @param source the start vertex
      * @param coll the recursive collection of visited vertices

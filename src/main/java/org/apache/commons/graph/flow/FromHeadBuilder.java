@@ -31,6 +31,7 @@ public interface FromHeadBuilder<V, WE, W>
 
     /**
      * TODO Fill me !!!
+     *
      * @param head
      * @return
      */

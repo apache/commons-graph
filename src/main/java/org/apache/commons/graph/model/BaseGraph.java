@@ -131,6 +131,7 @@ public abstract class BaseGraph<V, E>
 
     /**
      * Return the edge {@link Set}
+     *
      * @return the edge {@link Set}
      */
     protected Set<E> getAllEdges()

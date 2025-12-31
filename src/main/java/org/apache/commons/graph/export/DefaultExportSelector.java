@@ -39,6 +39,7 @@ public final class DefaultExportSelector<V, E>
 
     /**
      * Creates a new instance of export selector for the given graph
+     *
      * @param graph the graph
      */
     public DefaultExportSelector( Graph<V, E> graph )

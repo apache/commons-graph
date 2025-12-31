@@ -38,6 +38,7 @@ public class NotEnoughColorsException
 
     /**
      * Creates new instance of {@link NotEnoughColorsException}. 
+     *
      * @param colors the set of color.
      */
     public NotEnoughColorsException( Set<?> colors )

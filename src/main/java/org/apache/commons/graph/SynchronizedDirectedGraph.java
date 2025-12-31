@@ -33,6 +33,7 @@ final class SynchronizedDirectedGraph<V, E>
 
     /**
      * Creates a new thread-safe instence of {@link SynchronizedDirectedGraph}.
+     *
      * @param g The {@link Graph} that has to be synchronized
      */
     public SynchronizedDirectedGraph( DirectedGraph<V, E> g )

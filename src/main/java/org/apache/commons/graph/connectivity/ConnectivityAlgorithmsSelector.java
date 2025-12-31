@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * Builder for selecting the connectivity algorithm to perform.
+ *
  * @param <V> the Graph vertices type
  * @param <E> the Graph edges type
  */
