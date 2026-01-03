@@ -21,8 +21,10 @@ package org.apache.commons.graph.scc;
 
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +35,7 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for Tarjan's algorithm implementation,
@@ -48,14 +50,15 @@ public final class CheriyanMehlhornGabowTestCase
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
-        findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        SccAlgorithmSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> selector = assertDoesNotThrow(() -> findStronglyConnectedComponent(graph));
+        assertDoesNotThrow(selector::applyingCheriyanMehlhornGabow);
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
-        findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
+        assertThrows(NullPointerException.class, () -> findStronglyConnectedComponent( graph ));
     }
 
     @Test
@@ -83,7 +86,7 @@ public final class CheriyanMehlhornGabowTestCase
         // actual strong components
         Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
 
-        assertEquals( actual.size(), expected );
+        assertEquals(expected, actual.size());
     }
 
     @Test

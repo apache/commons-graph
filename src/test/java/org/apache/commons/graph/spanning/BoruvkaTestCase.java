@@ -19,8 +19,8 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 
 import org.apache.commons.graph.Graph;
@@ -31,75 +31,65 @@ import org.apache.commons.graph.model.BaseWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class BoruvkaTestCase
 {
 
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void testEmptyGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
-            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+
+        assertThrows(IllegalStateException.class, selector::fromArbitrarySource);
     }
 
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void testNotExistVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( new BaseLabeledVertex( "NOT EXIST" ) );
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+        BaseLabeledVertex notExist = new BaseLabeledVertex("NOT EXIST");
+
+        assertThrows(IllegalStateException.class, () -> selector.fromSource(notExist));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
-            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        assertThrows(NullPointerException.class, () -> minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullMonoid()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input = null;
-        BaseLabeledVertex a = null;
-        try
-        {
-            input = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-            a = new BaseLabeledVertex( "A" );
-            input.addVertex( a );
-        }
-        catch ( NullPointerException e )
-        {
-            //try..catch need to avoid a possible test success even if a NPE is thorw during graph population
-            fail( e.getMessage() );
-        }
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input = new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+        BaseLabeledVertex a = new BaseLabeledVertex( "A" );
+        input.addVertex( a );
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( a )
-            .applyingBoruvkaAlgorithm( null );
+        SpanningTreeAlgorithmSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>())
+                .fromSource(a);
+
+        assertThrows(NullPointerException.class, () -> selector.applyingBoruvkaAlgorithm( null ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullVertex()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromSource( null )
-            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
+
+        assertThrows(NullPointerException.class, () -> selector.fromSource(null));
     }
 
     /**
@@ -174,7 +164,7 @@ public final class BoruvkaTestCase
     /**
      * Test Boruvka's solution on a not-connected graph.
      */
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void verifySparseGraphMinimumSpanningTree()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
@@ -188,10 +178,12 @@ public final class BoruvkaTestCase
         input.addVertex( new BaseLabeledVertex( "F" ) );
         input.addVertex( new BaseLabeledVertex( "G" ) );
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .fromArbitrarySource()
-            .applyingBoruvkaAlgorithm( new DoubleWeightBaseOperations() );
+        SpanningTreeAlgorithmSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>())
+                .fromArbitrarySource();
+        DoubleWeightBaseOperations operations = new DoubleWeightBaseOperations();
+
+        assertThrows(IllegalStateException.class, () -> selector.applyingBoruvkaAlgorithm(operations));
     }
 
 }

@@ -142,6 +142,7 @@
     <!-- generate report even if there are binary incompatible changes -->
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>false</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
     <japicmp.skip>false</japicmp.skip>
+    <jmh.version>1.37</jmh.version>
 
   </properties>
 
@@ -150,6 +151,23 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${jmh.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -285,6 +303,7 @@
           <headerLocation>config/maven-header.txt</headerLocation>
           <suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>
           <suppressionsFileExpression>${basedir}/checkstyle-suppressions.xml</suppressionsFileExpression>
+          <excludes>**/generated/**.java,**/jmh_generated/**.java</excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -316,90 +335,39 @@
     </profile>
 
     <profile>
-      <id>benchmarks</id>
-      <activation>
-        <property>
-          <name>skipBenchmarks</name>
-          <value>!true</value>
-        </property>
-      </activation>
-
-      <dependencies>
-        <dependency>
-          <groupId>com.carrotsearch</groupId>
-          <artifactId>junit-benchmarks</artifactId>
-          <classifier>jdk15</classifier>
-          <version>0.7.2</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-          <version>2.0.17</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>com.h2database</groupId>
-          <artifactId>h2</artifactId>
-          <version>2.2.224</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-
+      <id>benchmark</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <benchmark>org.apache</benchmark>
+      </properties>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
+            <artifactId>exec-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
+                <id>benchmark</id>
+                <phase>test</phase>
                 <goals>
-                  <goal>add-test-source</goal>
+                  <goal>exec</goal>
                 </goals>
                 <configuration>
-                  <sources>
-                    <source>${basedir}/src/benchmarks/java</source>
-                  </sources>
+                  <classpathScope>test</classpathScope>
+                  <executable>java</executable>
+                  <arguments>
+                    <argument>-classpath</argument>
+                    <classpath/>
+                    <argument>org.openjdk.jmh.Main</argument>
+                    <argument>-rf</argument>
+                    <argument>json</argument>
+                    <argument>-rff</argument>
+                    <argument>target/jmh-result.${benchmark}.json</argument>
+                    <argument>${benchmark}</argument>
+                  </arguments>
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-
-          <!--
-            ~ Make sure Maven plugins have explicit versions.
-            ~ These versions can be either inherited (preferably) or explicit in this file.
-            -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>enforce-plugin-versions</id>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <requirePluginVersions/>
-                  </rules>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <systemPropertyVariables>
-                <jub.consumers>CONSOLE,XML,H2</jub.consumers>
-                <jub.db.file>${project.build.directory}/benchmarks/database</jub.db.file>
-                <jub.xml.file>${project.build.directory}/benchmarks.xml</jub.xml.file>
-                <jub.charts.dir>${project.build.directory}/site</jub.charts.dir>
-              </systemPropertyVariables>
-              <argLine>-Xmx512m -Xms512m</argLine>
-            </configuration>
           </plugin>
         </plugins>
       </build>
