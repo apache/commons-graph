@@ -49,6 +49,7 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 final class DefaultSpanningTreeAlgorithmSelector<V, W, WE>
     implements SpanningTreeAlgorithmSelector<V, W, WE>
 {
+
     /** The graph. */
     private final Graph<V, WE> graph;
 

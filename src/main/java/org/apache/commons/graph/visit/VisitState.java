@@ -24,6 +24,7 @@ package org.apache.commons.graph.visit;
  */
 public enum VisitState
 {
+
     /**
      * ABORT state
      */

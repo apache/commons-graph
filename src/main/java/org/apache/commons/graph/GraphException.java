@@ -27,6 +27,7 @@ import static java.lang.String.format;
 public class GraphException
     extends RuntimeException
 {
+
     /** The serial version UID. */
     private static final long serialVersionUID = 6356965258279945475L;
 

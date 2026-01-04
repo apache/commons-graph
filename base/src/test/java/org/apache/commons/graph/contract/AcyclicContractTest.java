@@ -28,6 +28,7 @@ import org.apache.commons.graph.exception.*;
 public class AcyclicContractTest
      extends GraphTest
 {
+
     /**
      * Constructor for the AcyclicContractTest object
      *

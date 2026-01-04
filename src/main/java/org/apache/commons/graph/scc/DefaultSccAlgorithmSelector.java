@@ -32,6 +32,7 @@ import org.apache.commons.graph.DirectedGraph;
 public final class DefaultSccAlgorithmSelector<V, E>
     implements SccAlgorithmSelector<V, E>
 {
+
     /** The graph. */
     private final DirectedGraph<V, E> graph;
 

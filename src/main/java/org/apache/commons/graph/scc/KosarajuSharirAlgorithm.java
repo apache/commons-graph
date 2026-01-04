@@ -43,6 +43,7 @@ import org.apache.commons.graph.model.RevertedGraph;
 final class KosarajuSharirAlgorithm<V, E>
     implements SccAlgorithm<V>
 {
+
     /** The graph. */
     private final DirectedGraph<V, E> graph;
 

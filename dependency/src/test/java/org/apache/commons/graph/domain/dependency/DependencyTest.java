@@ -82,18 +82,22 @@ public class DependencyTest
      * Description of the Field
      */
     public Task T1 = new Task("T1");
+
     /**
      * Description of the Field
      */
     public Task T2 = new Task("T2");
+
     /**
      * Description of the Field
      */
     public Task T3 = new Task("T3");
+
     /**
      * Description of the Field
      */
     public Task T4 = new Task("T4");
+
     /**
      * Description of the Field
      */

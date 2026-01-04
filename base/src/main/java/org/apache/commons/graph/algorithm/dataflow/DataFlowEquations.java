@@ -24,6 +24,7 @@ import java.util.BitSet;
 import org.apache.commons.graph.*;
 
 public interface DataFlowEquations {
+
     /**
      * This method shows when a definition is defined.
      */
