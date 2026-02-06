@@ -30,6 +30,7 @@ jobs:
     timeout-minutes: 7
     continue-on-error: ${{ matrix.experimental }}
     strategy:
+      max-parallel: 20
       matrix:
         java: [ 8, 11, 17, 21 ]
         os: [ubuntu-latest]
