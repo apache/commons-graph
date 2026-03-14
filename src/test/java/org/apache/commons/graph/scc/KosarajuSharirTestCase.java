@@ -21,8 +21,9 @@ package org.apache.commons.graph.scc;
 
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for Kosaraju's algorithm implementation,
@@ -42,31 +43,35 @@ import org.junit.Test;
 public final class KosarajuSharirTestCase
 {
 
-    @Test( expected = IllegalStateException.class )
+    @Test
     public void testNotExistVertex()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
 
-        findStronglyConnectedComponent( graph ).applyingKosarajuSharir( new BaseLabeledVertex( "NOT EXISTS" ) );
+        SccAlgorithmSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> stronglyConnectedComponent = findStronglyConnectedComponent(graph);
+        BaseLabeledVertex notExists = new BaseLabeledVertex("NOT EXISTS");
+
+        assertThrows(IllegalStateException.class, () -> stronglyConnectedComponent.applyingKosarajuSharir(notExists));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph = null;
-        findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
+        assertThrows(NullPointerException.class, () -> findStronglyConnectedComponent( graph ));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullVertices()
     {
 
         final BaseLabeledVertex a = null;
         DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> graph =
             new DirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>>();
+        SccAlgorithmSelector<BaseLabeledVertex, BaseLabeledWeightedEdge<Integer>> stronglyConnectedComponent = findStronglyConnectedComponent(graph);
 
-        findStronglyConnectedComponent( graph ).applyingKosarajuSharir( a );
+        assertThrows(NullPointerException.class, () -> stronglyConnectedComponent.applyingKosarajuSharir( a ));
     }
 
     @Test

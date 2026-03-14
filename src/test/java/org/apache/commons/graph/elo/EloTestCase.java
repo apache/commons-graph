@@ -23,10 +23,12 @@ import static org.apache.commons.graph.elo.GameResult.WIN;
 
 import static org.apache.commons.graph.CommonsGraph.eloRate;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.apache.commons.graph.DirectedGraph;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Sample taken from <a href="http://www.teamliquid.net/forum/viewmessage.php?topic_id=253017">teamliquid</a>
@@ -83,7 +85,9 @@ public final class EloTestCase
 
         PlayersRank<String> playersRank = new SimplePlayersRank();
 
-        eloRate( tournament ).wherePlayersAreRankedIn( playersRank ).withKFactor( 80 );
+        RankingSelector<String> stringRankingSelector = assertDoesNotThrow(() -> eloRate(tournament));
+        KFactorBuilder<String> stringKFactorBuilder = assertDoesNotThrow(() -> stringRankingSelector.wherePlayersAreRankedIn(playersRank));
+        assertDoesNotThrow(() -> stringKFactorBuilder.withKFactor( 80 ));
 
         System.out.println( playersRank );
     }

@@ -20,9 +20,11 @@ package org.apache.commons.graph.collections;
  */
 
 import static java.util.Collections.sort;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,9 +33,9 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Random;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * The {@link FibonacciHeap} test case taking inspiration from
@@ -44,19 +46,19 @@ public final class FibonacciHeapTestCase
 
     private Queue<Integer> queue;
 
-    @Test( expected = NoSuchElementException.class )
+    @Test
     public void elementThrowsException()
     {
-        queue.element();
+        assertThrows(NoSuchElementException.class, () -> queue.element());
     }
 
-    @Before
+    @BeforeEach
     public void setUp()
     {
         queue = new FibonacciHeap<Integer>();
     }
 
-    @After
+    @AfterEach
     public void tearDown()
     {
         queue = null;
@@ -74,13 +76,13 @@ public final class FibonacciHeapTestCase
 
         queue.addAll( c );
             
-        assertThat( queue.isEmpty(), is( false ) );
-        assertThat( queue.containsAll( c ), is( true ) );
+        assertFalse(queue.isEmpty());
+        assertTrue(queue.containsAll(c));
         
-        assertThat( queue.contains( 100 ), is( true ) );
-        assertThat( queue.contains( 21 ), is( true ) );
-        assertThat( queue.contains( 50 ), is( true ) );
-        assertThat( queue.contains( 20 ), is( true ) );
+        assertTrue(queue.contains(100));
+        assertTrue(queue.contains(21));
+        assertTrue(queue.contains(50));
+        assertTrue(queue.contains(20));
     }
 
     @Test
@@ -93,16 +95,16 @@ public final class FibonacciHeapTestCase
             queue.add( number );
         }
 
-        assertThat( queue.isEmpty(), is( false ) );
+        assertFalse( queue.isEmpty() );
         queue.clear();
-        assertThat( queue.isEmpty(), is( true ) );
+        assertTrue( queue.isEmpty() );
     }
 
     @Test
     public void testEmptyWhenCreated()
     {
-        assertThat( queue.isEmpty(), is( true ) );
-        assertThat( queue.poll(), nullValue() );
+        assertTrue( queue.isEmpty() );
+        assertNull( queue.poll() );
     }
 
     @Test
@@ -112,10 +114,10 @@ public final class FibonacciHeapTestCase
         queue.add( 100 );
         queue.add( 50 );
 
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.poll(), is( 100 ) );
-        assertThat( queue.isEmpty(), is( true ) );
+        assertEquals(50, queue.poll());
+        assertEquals(50, queue.poll());
+        assertEquals(100, queue.poll());
+        assertTrue(queue.isEmpty());
     }
 
     @Test
@@ -123,8 +125,8 @@ public final class FibonacciHeapTestCase
     {
         queue.add( 50 );
 
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.isEmpty(), is( true ) );
+        assertEquals(50, queue.poll());
+        assertEquals(true, queue.isEmpty());
     }
 
     @Test
@@ -133,7 +135,7 @@ public final class FibonacciHeapTestCase
         queue.add( 50 );
         queue.poll();
 
-        assertThat( queue.isEmpty(), is( true ) );
+        assertTrue(queue.isEmpty());
     }
 
     @Test
@@ -141,7 +143,7 @@ public final class FibonacciHeapTestCase
     {
         queue.add( 50 );
 
-        assertThat( queue.isEmpty(), is( false ) );
+        assertFalse(queue.isEmpty());
     }
 
     @Test
@@ -152,10 +154,10 @@ public final class FibonacciHeapTestCase
         queue.offer( 20 );
         queue.offer( 21 );
 
-        assertThat( queue.isEmpty(), is( false ) );
-        assertThat( queue.peek(), is( 20 ) );
-        assertThat( queue.element(), is( 20 ) );
-        assertThat( queue.size(), is( 4 ) );
+        assertEquals(false, queue.isEmpty());
+        assertEquals(20, queue.peek());
+        assertEquals(20, queue.element());
+        assertEquals(4, queue.size());
     }
 
     @Test
@@ -164,9 +166,9 @@ public final class FibonacciHeapTestCase
         queue.add( 100 );
         queue.add( 50 );
 
-        assertThat( queue.poll(), is( 50 ) );
-        assertThat( queue.poll(), is( 100 ) );
-        assertThat( queue.isEmpty(), is( true ) );
+        assertEquals(50, queue.poll());
+        assertEquals(100, queue.poll());
+        assertTrue(queue.isEmpty());
     }
 
     @Test
@@ -187,10 +189,10 @@ public final class FibonacciHeapTestCase
         for ( Integer integer : expected )
         {
             Integer i = queue.poll();
-            assertThat( i, is( integer ) );
+            assertEquals(integer, i);
         }
         
-        assertThat( queue.isEmpty(), is( true ) );
+        assertTrue(queue.isEmpty());
     }
     
     @Test
@@ -198,6 +200,6 @@ public final class FibonacciHeapTestCase
     {
         queue.add( 50 );
 
-        assertThat( queue.poll(), is( 50 ) );
+        assertEquals(50, queue.poll());
     }
 }
