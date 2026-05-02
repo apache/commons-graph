@@ -1,4 +1,4 @@
-package org.apache.commons.graph.scc;
+package org.apache.commons.graph.jmh;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,36 +23,39 @@ import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.findStronglyConnectedComponent;
 import static org.apache.commons.graph.CommonsGraph.newDirectedMutableGraph;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.builder.AbstractGraphConnection;
 import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.DirectedMutableGraph;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
 
-import com.carrotsearch.junitbenchmarks.BenchmarkRule;
-import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
-import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
 
-@AxisRange( min = 0, max = 2 )
-@BenchmarkMethodChart( filePrefix = "strongly-connected-components" )
-public final class SCCAlgorithmBenchmarkTestCase
+@BenchmarkMode(Mode.Throughput)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@State(Scope.Benchmark)
+public class SCCAlgorithmBenchmarkTestCase
 {
     private static final int NODES = 5000;
     private static final int EDGES = 5000;
 
     private static DirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> graph;
 
-    @BeforeClass
+    @Setup(Level.Trial)
     public static void setUp()
     {
         graph = newDirectedMutableGraph( new AbstractGraphConnection<BaseLabeledVertex, BaseLabeledEdge>()
@@ -82,28 +85,22 @@ public final class SCCAlgorithmBenchmarkTestCase
         } );
     }
 
-    @Rule
-    public BenchmarkRule benchmarkRun = new BenchmarkRule();
-
-    @Test
-    public void testPerformCheriyanMehlhornGabow()
+    @Benchmark
+    public void testPerformCheriyanMehlhornGabow(final Blackhole blackhole)
     {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow();
-        assertTrue( actual.size() > 0 );
+        blackhole.consume(findStronglyConnectedComponent( graph ).applyingCheriyanMehlhornGabow());
     }
 
-    @Test
-    public void testPerformKosaraju()
+    @Benchmark
+    public void testPerformKosaraju(final Blackhole blackhole)
     {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingKosarajuSharir();
-        assertTrue( actual.size() > 0 );
+        blackhole.consume(findStronglyConnectedComponent( graph ).applyingKosarajuSharir());
     }
 
-    @Test
-    public void testPerformTarjan()
+    @Benchmark
+    public void testPerformTarjan(final Blackhole blackhole)
     {
-        Set<Set<BaseLabeledVertex>> actual = findStronglyConnectedComponent( graph ).applyingTarjan();
-        assertTrue( actual.size() > 0 );
+        blackhole.consume(findStronglyConnectedComponent( graph ).applyingTarjan());
     }
 
 }
