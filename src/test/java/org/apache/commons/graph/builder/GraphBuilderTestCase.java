@@ -20,12 +20,12 @@ package org.apache.commons.graph.builder;
  */
 
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class GraphBuilderTestCase
 {

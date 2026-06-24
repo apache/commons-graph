@@ -25,8 +25,9 @@ import static org.apache.commons.graph.utils.GraphUtils.buildBipartedGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCompleteGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildCrownGraph;
 import static org.apache.commons.graph.utils.GraphUtils.buildSudokuGraph;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -38,7 +39,7 @@ import org.apache.commons.graph.model.BaseLabeledEdge;
 import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -158,7 +159,7 @@ public class GraphColoringBackTrackingTestCase
         assertEquals( 0, coloredVertices.getRequiredColors() );
     }
 
-    @Test(expected=NotEnoughColorsException.class)
+    @Test
     public void testNotEnoughtColorGraph()
         throws NotEnoughColorsException
     {
@@ -181,21 +182,24 @@ public class GraphColoringBackTrackingTestCase
                     }
 
             } );
-        coloring( g ).withColors( createColorsList( 1 ) ).applyingBackTrackingAlgorithm();
+        ColoringAlgorithmsSelector<BaseLabeledVertex, BaseLabeledEdge, Integer> selector = coloring(g).withColors(createColorsList(1));
+
+        assertThrows(NotEnoughColorsException.class, selector::applyingBackTrackingAlgorithm);
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullColorGraph()
     {
         UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge> g =
             new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledEdge>();
-        coloring( g ).withColors( null ).applyingBackTrackingAlgorithm();
+        ColorsBuilder<BaseLabeledVertex, BaseLabeledEdge> coloring = coloring(g);
+        assertThrows(NullPointerException.class, () -> coloring.withColors(null));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        coloring( (UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null ).withColors( null ).applyingBackTrackingAlgorithm();
+        assertThrows(NullPointerException.class, () -> coloring((UndirectedGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null));
     }
 
     @Test

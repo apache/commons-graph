@@ -1,4 +1,4 @@
-package org.apache.commons.graph.spanning;
+package org.apache.commons.graph.jmh;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,11 +23,12 @@ import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
 import static org.apache.commons.graph.CommonsGraph.newUndirectedMutableGraph;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.graph.GraphException;
 import org.apache.commons.graph.Mapper;
@@ -37,17 +38,20 @@ import org.apache.commons.graph.model.BaseLabeledVertex;
 import org.apache.commons.graph.model.BaseLabeledWeightedEdge;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
 
-import com.carrotsearch.junitbenchmarks.BenchmarkRule;
-import com.carrotsearch.junitbenchmarks.annotation.AxisRange;
-import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Level;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
 
-@AxisRange( min = 0, max = 2 )
-@BenchmarkMethodChart( filePrefix = "minimum-spanning-tree" )
-public final class MinimumSpanningTreeBenchmarkTestCase
+@BenchmarkMode(Mode.Throughput)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@State(Scope.Benchmark)
+public class MinimumSpanningTreeBenchmarkTestCase
 {
     private static final int NODES = 1000;
     private static final int EDGES = 6000;
@@ -56,7 +60,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
 
     private static Mapper<BaseLabeledWeightedEdge<Double>, Double> weightedEdges;
 
-    @BeforeClass
+    @Setup(Level.Trial)
     public static void setUp()
     {
         weightedEdges = new Mapper<BaseLabeledWeightedEdge<Double>, Double>()
@@ -114,10 +118,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
         } );
     }
 
-    @Rule
-    public BenchmarkRule benchmarkRun = new BenchmarkRule();
-
-    @Test
+    @Benchmark
     public void testPerformBoruvka()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
@@ -129,7 +130,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
         assertTrue( actual.getSize() > 0 );
     }
 
-    @Test
+    @Benchmark
     public void testPerformKruskal()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =
@@ -141,7 +142,7 @@ public final class MinimumSpanningTreeBenchmarkTestCase
         assertTrue( actual.getSize() > 0 );
     }
 
-    @Test
+    @Benchmark
     public void testPerformPrim()
     {
         SpanningTree<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>, Double> actual =

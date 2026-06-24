@@ -19,8 +19,9 @@ package org.apache.commons.graph.spanning;
  * under the License.
  */
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.apache.commons.graph.CommonsGraph.minimumSpanningTree;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.SpanningTree;
@@ -30,7 +31,7 @@ import org.apache.commons.graph.model.BaseWeightedEdge;
 import org.apache.commons.graph.model.MutableSpanningTree;
 import org.apache.commons.graph.model.UndirectedMutableGraph;
 import org.apache.commons.graph.weight.primitive.DoubleWeightBaseOperations;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -54,22 +55,21 @@ public class ReverseDeleteTestCase
 
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullGraph()
     {
-        minimumSpanningTree( (Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .applyingReverseDeleteAlgorithm( new DoubleWeightBaseOperations() );
+        assertThrows(NullPointerException.class, () -> minimumSpanningTree((Graph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>) null));
     }
 
-    @Test( expected = NullPointerException.class )
+    @Test
     public void testNullMonoid()
     {
-        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input = null;
+        UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>> input =
+                new UndirectedMutableGraph<BaseLabeledVertex, BaseLabeledWeightedEdge<Double>>();
+        SpanningTreeSourceSelector<BaseLabeledVertex, Double, BaseLabeledWeightedEdge<Double>> selector = minimumSpanningTree(input)
+                .whereEdgesHaveWeights(new BaseWeightedEdge<Double>());
 
-        minimumSpanningTree( input )
-            .whereEdgesHaveWeights( new BaseWeightedEdge<Double>() )
-            .applyingReverseDeleteAlgorithm( null );
+        assertThrows(NullPointerException.class, () -> selector.applyingReverseDeleteAlgorithm( null ));
     }
 
     /**
