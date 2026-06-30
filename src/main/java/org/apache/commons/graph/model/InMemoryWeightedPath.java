@@ -30,9 +30,9 @@ import org.apache.commons.graph.weight.Monoid;
  * Support {@link WeightedPath} implementation, optimized for algorithms (such Dijkstra's) that need to rebuild the path
  * traversing the predecessor list bottom-up.
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph weighted edges type
- * @param <W> the weight type
+ * @param <W> The weight type
  */
 public final class InMemoryWeightedPath<V, WE, W>
     extends InMemoryPath<V, WE>

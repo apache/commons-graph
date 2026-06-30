@@ -55,9 +55,9 @@ public final class CommonsGraph
     /**
      * Create a color builder.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param <G> the Graph type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
+     * @param <G> The Graph type
      * @param graph the input graph
      * @return an instance of {@link ColorsBuilder}
      */
@@ -71,7 +71,7 @@ public final class CommonsGraph
      * Ranks the players (vertices) that took part in a tournament (graph) depending on the game results (edges),
      * applying the <a href="https://en.wikipedia.org/wiki/Elo_rating_system.">Elo Rating System</a>.
      *
-     * @param <P> the players involved in the tournament
+     * @param <P> The players involved in the tournament
      * @param <TG> the Tournament Graph type
      * @param tournamentGraph the graph representing the tournament
      * @return the builder for the functor which returns/update the players ranking
@@ -85,9 +85,9 @@ public final class CommonsGraph
     /**
      * Export the graph in DOT or GraphML format.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param <G> the Graph type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
+     * @param <G> The Graph type
      * @param graph the input graph
      * @return an instance of {@link NamedExportSelector}
      */
@@ -100,9 +100,9 @@ public final class CommonsGraph
     /**
      * Calculates the input graph Connected Component.
      *
-     * @param <V> the Graph vertices type.
-     * @param <E> the Graph edges type.
-     * @param <G> the directed graph type
+     * @param <V> The Graph vertices type.
+     * @param <E> The Graph edges type.
+     * @param <G> The directed graph type
      * @param graph the Graph which connected component has to be verified.
      * @return the Connectivity algorithm builder
      */
@@ -115,9 +115,9 @@ public final class CommonsGraph
     /**
      * Find the maximum flow on the input {@link Graph}.
      *
-     * @param <V> the Graph vertices type
+     * @param <V> The Graph vertices type
      * @param <WE> the Graph edges type
-     * @param <G> the Graph type
+     * @param <G> The Graph type
      * @param graph the input edge-weighted graph
      * @return an instance of {@link FlowWeightedEdgesBuilder}
      */
@@ -130,9 +130,9 @@ public final class CommonsGraph
     /**
      * Find the sortest on the input {@link Graph}
      *
-     * @param <V> the Graph vertices type
+     * @param <V> The Graph vertices type
      * @param <WE> the Graph edges type
-     * @param <G> the Graph type
+     * @param <G> The Graph type
      * @param graph the input edge-weighted graph
      * @return the caluculated the sortest
      */
@@ -145,9 +145,9 @@ public final class CommonsGraph
     /**
      * Calculates the input graph Strongly Connected Component.
      *
-     * @param <V> the Graph vertices type.
-     * @param <E> the Graph edges type.
-     * @param <G> the directed graph type
+     * @param <V> The Graph vertices type.
+     * @param <E> The Graph edges type.
+     * @param <G> The directed graph type
      * @param graph the Graph which strongly connected component has to be verified.
      * @return the SCC algoritm selector
      */
@@ -160,9 +160,9 @@ public final class CommonsGraph
     /**
      * Find the minimum spanning tree on the input {@link Graph}
      *
-     * @param <V> the Graph vertices type
+     * @param <V> The Graph vertices type
      * @param <WE> the Graph edges type
-     * @param <G> the Graph type
+     * @param <G> The Graph type
      * @param graph the input edge-weighted graph
      * @return the caluculated minimun spanning tree
      */
@@ -176,8 +176,8 @@ public final class CommonsGraph
      * Creates a new {@link DirectedMutableGraph} instance where vertices
      * are connected as described in the input {@link GraphConnection} instance.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link DirectedMutableGraph} instance
      */
@@ -190,8 +190,8 @@ public final class CommonsGraph
      * Creates a new {@link UndirectedMutableGraph} instance where vertices
      * are connected as described in the input {@link GraphConnection} instance.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
      * @param graphConnection the {@link GraphConnection} instance that describes vertices
      * @return a new {@link UndirectedMutableGraph} instance
      */
@@ -203,9 +203,9 @@ public final class CommonsGraph
     /**
      * Allows populate the given {@link MutableGraph}.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param <G> the Graph type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
+     * @param <G> The Graph type
      * @param graph the graph has to be populated
      * @return the builder to configure vertices connection
      */
@@ -233,8 +233,8 @@ public final class CommonsGraph
      *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
@@ -262,8 +262,8 @@ public final class CommonsGraph
      *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
@@ -291,8 +291,8 @@ public final class CommonsGraph
      *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
      * @param graph the input {@link Graph}
      * @return the synchronized graph
      */
@@ -320,8 +320,8 @@ public final class CommonsGraph
      *
      * The returned {@link Graph} will be serializable if the specified {@link Graph} is serializable.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
      * @param graph the input {@link Graph}
      * @return the syncronyzed graph
      */
@@ -333,9 +333,9 @@ public final class CommonsGraph
     /**
      * Allows select a series of algorithms to apply on input graph.
      *
-     * @param <V> the Graph vertices type
-     * @param <E> the Graph edges type
-     * @param <G> the Graph type
+     * @param <V> The Graph vertices type
+     * @param <E> The Graph edges type
+     * @param <G> The Graph type
      * @param graph the Graph instance to apply graph algorithms
      * @return the graph algorithms selector
      */

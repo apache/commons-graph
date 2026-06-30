@@ -28,8 +28,8 @@ import org.apache.commons.graph.model.UndirectedMutableGraph;
 /**
  * Internal Visitor helper that produces the search tree.
  *
- * @param <V> the Graph vertices type.
- * @param <E> the Graph edges type.
+ * @param <V> The Graph vertices type.
+ * @param <E> The Graph edges type.
  */
 final class VisitGraphBuilder<V, E, G extends Graph<V, E>>
     extends BaseGraphVisitHandler<V, E, G, Graph<V, E>>

@@ -26,8 +26,8 @@ package org.apache.commons.graph;
  * {@code E} a set of ordered pairs of vertices, called arcs, directed edges, or arrows.
  * </ul>
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface DirectedGraph<V, E>
     extends Graph<V, E>

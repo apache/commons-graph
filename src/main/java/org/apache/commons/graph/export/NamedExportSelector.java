@@ -22,8 +22,8 @@ package org.apache.commons.graph.export;
 /**
  * TODO Fill me!
  *
- * @param <V> the Graph vertices type.
- * @param <E> the Graph edges type.
+ * @param <V> The Graph vertices type.
+ * @param <E> The Graph edges type.
  */
 public interface NamedExportSelector<V, E>
     extends ExportSelector<V, E>

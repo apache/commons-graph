@@ -29,7 +29,7 @@ import java.io.Serializable;
 /**
  * Indicates a vertex pair.
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  */
 public final class VertexPair<V>
     implements Serializable

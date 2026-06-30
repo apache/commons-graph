@@ -26,8 +26,8 @@ import java.io.Serializable;
  * arcs, of certain entities called vertex or node. As in mathematics, an edge {@code (x,y)} is said to
  * point or go from {@code x} to {@code y}.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface Graph<V, E>
     extends Serializable

@@ -32,9 +32,9 @@ import org.apache.commons.graph.DirectedGraph;
 /**
  * Applies the classical Cheriyan/Mehlhorn/Gabow's algorithm to find the strongly connected components, if exist.
  *
- * @param <V> the Graph vertices type.
- * @param <E> the Graph edges type.
- * @param <G> the directed graph type
+ * @param <V> The Graph vertices type.
+ * @param <E> The Graph edges type.
+ * @param <G> The directed graph type
  */
 final class CheriyanMehlhornGabowAlgorithm<V, E>
     implements SccAlgorithm<V>

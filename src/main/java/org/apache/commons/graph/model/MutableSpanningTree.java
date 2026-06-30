@@ -28,9 +28,9 @@ import org.apache.commons.graph.weight.Monoid;
  *
  * This class is NOT thread safe!
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph weighted edges type
- * @param <W> the weight type
+ * @param <W> The weight type
  */
 public final class MutableSpanningTree<V, WE, W>
     extends UndirectedMutableGraph<V, WE>

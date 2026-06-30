@@ -23,7 +23,7 @@ package org.apache.commons.graph;
  * A Weighted object has a property called weight, which usually denotes
  * its relative importance within the domain of interest.
  *
- * @param <W> the type of weight
+ * @param <W> The type of weight
  */
 public interface Weighted<W>
 {

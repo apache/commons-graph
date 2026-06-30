@@ -45,7 +45,7 @@ import java.util.Stack;
  *
  * <p><b>Note 2</b>: this class doesn't support {@code null} values</p>
  *
- * @param <E> the type of elements held in this collection.
+ * @param <E> The type of elements held in this collection.
  */
 public final class FibonacciHeap<E>
     implements Queue<E>

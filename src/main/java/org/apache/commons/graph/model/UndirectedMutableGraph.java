@@ -26,8 +26,8 @@ import org.apache.commons.graph.UndirectedGraph;
  *
  * This class is NOT thread safe!
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public class UndirectedMutableGraph<V, E>
     extends BaseMutableGraph<V, E>

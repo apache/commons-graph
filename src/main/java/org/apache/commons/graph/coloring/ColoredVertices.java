@@ -29,8 +29,8 @@ import java.util.Map;
 /**
  * Maintains the color for each vertex and the required number of colors for {@link org.apache.commons.graph.Graph} coloring.
  *
- * @param <V> the Graph vertices type.
- * @param <C> the Color type.
+ * @param <V> The Graph vertices type.
+ * @param <C> The Color type.
  */
 public final class ColoredVertices<V, C>
 {

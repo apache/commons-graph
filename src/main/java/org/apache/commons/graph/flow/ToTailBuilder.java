@@ -22,9 +22,9 @@ package org.apache.commons.graph.flow;
 /**
  * TODO Fill me!!!
  * 
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph edges type
- * @param <W> the Graph weight type
+ * @param <W> The Graph weight type
  */
 public interface ToTailBuilder<V, WE, W>
 {

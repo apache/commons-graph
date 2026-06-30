@@ -24,9 +24,9 @@ import org.apache.commons.graph.Graph;
 /**
  * Applies different implementations of Graph visitor algorithms.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
- * @param <G> the Graph type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
+ * @param <G> The Graph type
  */
 public interface VisitAlgorithmsSelector<V, E, G extends Graph<V, E>>
 {

@@ -33,9 +33,9 @@ import org.apache.commons.graph.DirectedGraph;
  * Implements Tarjan's algorithm is a variation (slightly faster) on KosarajuSharir's algorithm for finding
  * strongly-connected components in a directed graph.
  *
- * @param <V> the Graph vertices type.
- * @param <E> the Graph edges type.
- * @param <G> the directed graph type
+ * @param <V> The Graph vertices type.
+ * @param <E> The Graph edges type.
+ * @param <G> The directed graph type
  */
 final class TarjanAlgorithm<V, E>
     implements SccAlgorithm<V>

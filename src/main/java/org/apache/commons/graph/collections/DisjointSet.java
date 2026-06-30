@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * Simple <a href="https://en.wikipedia.org/wiki/Disjoint-set_data_structure">Disjoint-set</a> implementation.
  *
- * @param <E> the type of elements held in this collection.
+ * @param <E> The type of elements held in this collection.
  */
 public final class DisjointSet<E>
 {

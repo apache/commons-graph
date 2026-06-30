@@ -23,9 +23,9 @@ import org.apache.commons.graph.WeightedPath;
 
 /**
  * 
- * @param <V> the Graph vertices type.
+ * @param <V> The Graph vertices type.
  * @param <WE> the Graph weighted edges type
- * @param <W> the weight type
+ * @param <W> The weight type
  */
 public interface HeuristicBuilder<V, WE, W>
 {

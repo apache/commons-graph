@@ -24,9 +24,9 @@ import org.apache.commons.graph.MutableGraph;
 /**
  * TODO Fillme!!!
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
- * @param <G> the Graph type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
+ * @param <G> The Graph type
  */
 public interface LinkedConnectionBuilder<V, E, G extends MutableGraph<V, E>>
 {

@@ -22,7 +22,7 @@ package org.apache.commons.graph.collections;
 /**
  * The {@link DisjointSet} internal node representation.
  *
- * @param <E> the type of elements held in this node
+ * @param <E> The type of elements held in this node
  */
 final class DisjointSetNode<E>
     implements Comparable<DisjointSetNode<E>>

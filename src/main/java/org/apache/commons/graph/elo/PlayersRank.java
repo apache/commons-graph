@@ -22,7 +22,7 @@ package org.apache.commons.graph.elo;
 /**
  * The player rank
  * 
- * @param <P> the player's type
+ * @param <P> The player's type
  */
 public interface PlayersRank<P>
 {

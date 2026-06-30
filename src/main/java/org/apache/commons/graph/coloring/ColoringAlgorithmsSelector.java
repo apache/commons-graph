@@ -23,9 +23,9 @@ package org.apache.commons.graph.coloring;
 /**
  * Builder for selecting the coloring algorithm to perform.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
- * @param <C> the Color vertices type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
+ * @param <C> The Color vertices type
  */
 public interface ColoringAlgorithmsSelector<V, E, C>
 {

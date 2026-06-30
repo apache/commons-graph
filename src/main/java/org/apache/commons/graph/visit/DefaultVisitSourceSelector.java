@@ -27,9 +27,9 @@ import org.apache.commons.graph.Graph;
 /**
  * {@link VisitSourceSelector} implementation.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
- * @param <G> the Graph type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
+ * @param <G> The Graph type
  */
 public final class DefaultVisitSourceSelector<V, E, G extends Graph<V, E>>
     implements VisitSourceSelector<V, E, G>

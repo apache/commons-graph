@@ -23,8 +23,8 @@ package org.apache.commons.graph;
  * A {@code Path} in a {@link Graph} is a sequence of vertex such that from each of its vertices there is an
  * edge to the next vertex in the sequence.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface Path<V, E>
     extends Graph<V, E>

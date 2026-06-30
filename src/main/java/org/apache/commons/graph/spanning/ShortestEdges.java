@@ -35,9 +35,9 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * The predecessor list is a list of vertex of a {@link org.apache.commons.graph.Graph}.
  * Each vertex' entry contains the index of its predecessor in a path through the graph.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
- * @param <W> the weight type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
+ * @param <W> The weight type
  */
 final class ShortestEdges<V, WE, W>
     implements Comparator<V>

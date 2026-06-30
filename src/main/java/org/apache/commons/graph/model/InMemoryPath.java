@@ -39,8 +39,8 @@ import org.apache.commons.graph.VertexPair;
  * Support {@link Path} implementation, optimized for algorithms (such Dijkstra's) that need to rebuild the path
  * traversing the predecessor list bottom-up.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public class InMemoryPath<V, E>
     implements Path<V, E>

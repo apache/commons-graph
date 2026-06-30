@@ -23,8 +23,8 @@ package org.apache.commons.graph;
  * An {@code UndirectedGraph} is a graph in which edges have no orientation, i.e., they are not ordered pairs,
  * but sets <code>{u, v}</code> (or 2-multisets) of vertices.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface UndirectedGraph<V, E>
     extends Graph<V, E>

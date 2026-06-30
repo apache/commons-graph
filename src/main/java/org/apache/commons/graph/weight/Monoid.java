@@ -24,7 +24,7 @@ import java.io.Serializable;
 /**
  * A {@link Monoid} is a {@link Semigroup} with an identity value.
  *
- * @param <E> the type of the elements in the {@link Monoid}
+ * @param <E> The type of the elements in the {@link Monoid}
  */
 public interface Monoid<E>
     extends Serializable

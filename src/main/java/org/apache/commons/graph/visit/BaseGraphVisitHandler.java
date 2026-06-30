@@ -26,8 +26,8 @@ import org.apache.commons.graph.Graph;
 /**
  * Base NOOP {@link GraphVisitHandler} implementation.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public class BaseGraphVisitHandler<V, E, G extends Graph<V, E>, O>
     implements GraphVisitHandler<V, E, G, O>

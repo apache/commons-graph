@@ -30,8 +30,8 @@ import org.apache.commons.graph.VertexPair;
  *
  * It is useful for algorithms such as Kosaraju-Sharir for strongly connected components search.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public final class RevertedGraph<V, E>
     implements DirectedGraph<V, E>

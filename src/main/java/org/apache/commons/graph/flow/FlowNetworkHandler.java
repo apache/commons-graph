@@ -39,8 +39,8 @@ import org.apache.commons.graph.weight.OrderedMonoid;
  * Provides standard operations for max-flow algorithms,
  * like Ford-Fulkerson or Edmonds-Karp.
  *
- * @param <V> the vertex type
- * @param <W> the weight type
+ * @param <V> The vertex type
+ * @param <W> The weight type
  */
 final class FlowNetworkHandler<V, E, W>
     extends BaseGraphVisitHandler<V, E, DirectedGraph<V, E>, W>

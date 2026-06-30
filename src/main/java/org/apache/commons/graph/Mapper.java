@@ -24,8 +24,8 @@ import java.io.Serializable;
 /**
  * TODO Fill the java doc
  * 
- * @param <I> the input type
- * @param <O> the output type
+ * @param <I> The input type
+ * @param <O> The output type
  */
 public interface Mapper<I, O>
     extends Serializable

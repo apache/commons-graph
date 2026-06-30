@@ -31,9 +31,9 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 /**
  * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph weighted edges type
- * @param <W> the weight type
+ * @param <W> The weight type
  */
 public final class AllVertexPairsShortestPath<V, WE, W>
 {

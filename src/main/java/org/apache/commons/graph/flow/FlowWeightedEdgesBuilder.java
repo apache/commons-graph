@@ -24,7 +24,7 @@ import org.apache.commons.graph.Mapper;
 /**
  * TODO Fill Me! 
  * 
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph edges type
  */
 public interface FlowWeightedEdgesBuilder<V, WE>

@@ -24,8 +24,8 @@ import static org.apache.commons.graph.utils.Assertions.checkState;
 /**
  * TODO fill me!!
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public abstract class AbstractGraphConnection<V, E>
     implements GraphConnection<V, E>
@@ -36,7 +36,7 @@ public abstract class AbstractGraphConnection<V, E>
     /**
      * Adds a new edge to graph connector.
      *
-     * @param <A> the Graph edges type
+     * @param <A> The Graph edges type
      * @param arc the edge to add.
      * @return the {@link HeadVertexConnector}
      */
@@ -48,7 +48,7 @@ public abstract class AbstractGraphConnection<V, E>
     /**
      * Adds a new vertex to graph connector.
      *
-     * @param <N> the Graph vertex type
+     * @param <N> The Graph vertex type
      * @param node the vertex to add
      * @return the vertex added
      */

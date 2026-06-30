@@ -32,9 +32,9 @@ import org.apache.commons.graph.weight.Monoid;
  * The predecessor list is a list of vertex of a {@link org.apache.commons.graph.Graph}.
  * Each vertex' entry contains the index of its predecessor in a path through the graph.
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph weighted edges type
- * @param <W> the weight type
+ * @param <W> The weight type
  */
 public final class PredecessorsList<V, WE, W>
 {

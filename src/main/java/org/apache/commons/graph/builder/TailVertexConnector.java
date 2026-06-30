@@ -22,8 +22,8 @@ package org.apache.commons.graph.builder;
 /**
  * TODO Fillme!!!
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface TailVertexConnector<V, E>
 {
@@ -31,7 +31,7 @@ public interface TailVertexConnector<V, E>
     /**
      * Specifies the tail vertex for the edge
      *
-     * @param <T> the Graph vertex type
+     * @param <T> The Graph vertex type
      * @param tail the tail vertex
      */
     <T extends V> void to( T tail );

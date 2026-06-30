@@ -23,9 +23,9 @@ package org.apache.commons.graph;
  * A {@link SpanningTree} of a connected, undirected graph is a tree
  * composed of all the vertices and some (or perhaps all) of the edges of the Graph.
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph weighted edges type
- * @param <W> the weight type
+ * @param <W> The weight type
  */
 public interface SpanningTree<V, WE, W>
     extends UndirectedGraph<V, WE>, Weighted<W>

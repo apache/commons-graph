@@ -28,8 +28,8 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 /**
  * Stores and compares Graph Vertices weights.
  *
- * @param <V> the Graph vertices type
- * @param <W> the weight type
+ * @param <V> The Graph vertices type
+ * @param <W> The weight type
  */
 final class ShortestDistances<V, W>
     implements Comparator<V>

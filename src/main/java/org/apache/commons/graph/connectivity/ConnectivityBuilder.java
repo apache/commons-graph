@@ -22,8 +22,8 @@ package org.apache.commons.graph.connectivity;
 /**
  * Builder to specify the set of vertices included into a connected component.
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface ConnectivityBuilder<V, E>
 {

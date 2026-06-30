@@ -22,8 +22,8 @@ package org.apache.commons.graph.builder;
 /**
  * TODO Fillme!!!
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface GraphConnection<V, E>
 {

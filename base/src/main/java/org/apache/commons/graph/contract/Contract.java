@@ -27,8 +27,8 @@ import org.apache.commons.graph.Vertex;
 /**
  * Description of the Interface
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface Contract<V extends Vertex, E extends Edge>
 {

@@ -22,8 +22,8 @@ package org.apache.commons.graph.builder;
 /**
  * TODO Fillme!!!
  *
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 public interface HeadVertexConnector<V, E>
 {
@@ -31,7 +31,7 @@ public interface HeadVertexConnector<V, E>
     /**
      * Specifies the head vertex for the edge
      *
-     * @param <H> the Graph vertex type
+     * @param <H> The Graph vertex type
      * @param head the head vertex
      * @return {@link TailVertexConnector} builded from the head
      */

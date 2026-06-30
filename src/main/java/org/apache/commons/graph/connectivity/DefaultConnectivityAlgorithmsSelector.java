@@ -32,8 +32,8 @@ import org.apache.commons.graph.Graph;
 /**
  * TODO Fill me!!
  * 
- * @param <V> the Graph vertices type
- * @param <E> the Graph edges type
+ * @param <V> The Graph vertices type
+ * @param <E> The Graph edges type
  */
 final class DefaultConnectivityAlgorithmsSelector<V, E>
     implements ConnectivityAlgorithmsSelector<V, E>

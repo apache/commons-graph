@@ -36,9 +36,9 @@ import org.apache.commons.graph.model.RevertedGraph;
 /**
  * Implements the classical Kosaraju's algorithm to find the strongly connected components
  *
- * @param <V> the Graph vertices type.
- * @param <E> the Graph edges type.
- * @param <G> the directed graph type
+ * @param <V> The Graph vertices type.
+ * @param <E> The Graph edges type.
+ * @param <G> The directed graph type
  */
 final class KosarajuSharirAlgorithm<V, E>
     implements SccAlgorithm<V>

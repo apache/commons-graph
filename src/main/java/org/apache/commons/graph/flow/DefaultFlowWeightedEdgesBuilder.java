@@ -27,7 +27,7 @@ import org.apache.commons.graph.Mapper;
 /**
  * {@link FlowWeightedEdgesBuilder} implementation
  * 
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph edges type
  */
 public final class DefaultFlowWeightedEdgesBuilder<V, WE>

@@ -23,8 +23,8 @@ package org.apache.commons.graph.shortestpath;
  * An {@link Heuristic} instance is an admissible "heuristic estimate" of the distance to the goal
  * (usually denoted <i>h(x)</i>).
  *
- * @param <V> the Graph vertices type
- * @param <W> the weight type
+ * @param <V> The Graph vertices type
+ * @param <W> The weight type
  */
 public interface Heuristic<V, W>
 {

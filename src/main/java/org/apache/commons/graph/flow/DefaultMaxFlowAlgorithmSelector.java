@@ -32,9 +32,9 @@ import org.apache.commons.graph.weight.OrderedMonoid;
 /**
  * {@link MaxFlowAlgorithmSelector} implementation.
  *
- * @param <V> the Graph vertices type
+ * @param <V> The Graph vertices type
  * @param <WE> the Graph edges type
- * @param <W> the Graph weight type
+ * @param <W> The Graph weight type
  */
 final class DefaultMaxFlowAlgorithmSelector<V, WE, W>
     implements MaxFlowAlgorithmSelector<V, WE, W>
