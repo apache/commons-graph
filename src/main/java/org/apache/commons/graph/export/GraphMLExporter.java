@@ -21,20 +21,20 @@ package org.apache.commons.graph.export;
 
 import java.util.Map;
 
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.graph.Graph;
 import org.apache.commons.graph.Mapper;
+import org.apache.commons.xml.secure.SecureTransformerFactory;
 import org.xml.sax.helpers.AttributesImpl;
 
 final class GraphMLExporter<V, E>
     extends AbstractExporter<V, E, GraphMLExporter<V, E>>
 {
 
-    private static final SAXTransformerFactory SAX_TRANSFORMER_FACTORY = (SAXTransformerFactory) TransformerFactory.newInstance();
+    private static final SAXTransformerFactory SAX_TRANSFORMER_FACTORY = (SAXTransformerFactory) SecureTransformerFactory.newInstance();
 
     private static final String GRAPHML = "graphml";
 
