@@ -23,7 +23,7 @@
   </properties>
   <body>
   <release version="0.1" date="201?-??-??" description="First release.">
-    <action dev="pkarwasz" type="fix">
+    <action dev="pkarwasz" type="fix" due-to="Piotr P. Karwasz, Gary Gregory">
       Create XML transformers through org.apache.commons:commons-secure-xml, so GraphML export runs with XML secure processing enabled
     </action>
     <action issue="SANDBOX-510" dev="kinow" due-to="Amey Jadiye" type="fix">
