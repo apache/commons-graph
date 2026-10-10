@@ -16,6 +16,8 @@
 github:
   description: "Apache Commons Graph (Sandbox)"
   homepage: https://commons.apache.org/sandbox/commons-graph/
+  autolink_jira:
+    - GRAPH
   
   pull_requests:
     # allow auto-merge
